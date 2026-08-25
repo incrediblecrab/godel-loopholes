@@ -2,19 +2,23 @@
 
 Every file in this corpus is a transcription. None is a document. The distinction matters because this project reads punctuation, and punctuation is the first thing a transcriber changes, quietly and usually while trying to help. A missing comma on the 1789 parchment is a finding. A missing comma introduced by a volunteer proofreader in 2007 is noise. Telling the two apart requires knowing who set each text and from what, so that is what the entries below record.
 
-Everything here was retrieved on August 24, 2026. Sources are ranked by transmission lineage rather than by the standing of the institution hosting them, which is not the obvious ordering and is defended under rejected sources.
+Material was retrieved on August 24 and August 25, 2026. Sources are ranked by transmission lineage rather than by the standing of the institution hosting them, which is not the obvious ordering and is defended under rejected sources.
 
 ## Snapshots
 
 A folder is a snapshot: every document in force at the end of that year, gathered so the folder can be read on its own. It is named for the year the analysis stands in, not the year any document in it was published.
 
-Publication dates are the wrong key for two reasons. The former `united-states-1787/` held texts published in 1776, 1787, 1789, 1794 and 2007, so no publication date described it, which is how a modern typeset edition sat in a founding-era folder without anyone noticing. And publication dates are ambiguous in a way vantage years are not. The Eleventh Amendment passed Congress on March 4, 1794, was ratified on February 7, 1795, and was declared ratified on January 8, 1798. One document, three defensible dates. The question a vantage year asks instead is what was in force on that date and what could lawfully be done with it, which is the question this project exists to ask, and the one Gödel asked of a Constitution with 21 amendments.
+The corpus currently holds five snapshots: `austria-1920`, `germany-1919`, `italy-1848`, `united-states-1947` and `united-states-2026`. That is 11 distinct documents across 15 files.
 
-A snapshot has to be complete, which means documents repeat across folders. An earlier revision split the founding documents so each lived in exactly one folder, and produced four directories none of which was a snapshot of anything: one held the Constitution without the Bill of Rights, another held nothing but the Eleventh Amendment. Neither could answer what was in force in its own year. A folder covering 1795 has to contain the Constitution again and the Bill of Rights again. Duplication is what a self-contained folder costs, and for plain text it is a rounding error: the corpus holds 11 distinct documents across 15 files, and every repeated copy is byte-identical to its siblings.
+Publication dates are the wrong key for two reasons. An earlier revision keyed folders to publication and produced a `united-states-1787/` holding texts published in 1776, 1787, 1789, 1794 and 2007, so no publication date described it, which is how a modern typeset edition sat in a founding-era folder without anyone noticing. And publication dates are ambiguous in a way vantage years are not. The Eleventh Amendment passed Congress on March 4, 1794, was ratified on February 7, 1795, and was declared ratified on January 8, 1798. One document, three defensible dates. The question a vantage year asks instead is what was in force on that date and what could lawfully be done with it, which is the question this project exists to ask, and the one Gödel asked of a Constitution with 21 amendments.
+
+A snapshot has to be complete, which means documents repeat across folders. An earlier revision split the founding documents so each lived in exactly one folder, and produced four directories none of which was a snapshot of anything: one held the Constitution without the Bill of Rights, another held nothing but the Eleventh Amendment. Neither could answer what was in force in its own year. Duplication is what a self-contained folder costs, and for plain text it is a rounding error.
+
+Three documents repeat verbatim across the two United States snapshots and every repeated copy is byte-identical to its sibling: the Declaration, the Constitution parchment and the Bill of Rights parchment. The amendment files are the exception and are not siblings in that sense. Both are drawn from the same National Archives page, but the 1947 file stops at the Twenty-first and the 2026 file runs to the Twenty-seventh, so they differ by design.
 
 Folders stay at year granularity even where a year is too coarse. Germany passed through at least three constitutional orders between January and March 1933, and those dates are recorded in prose here rather than in a directory name.
 
-The European folders needed no renaming, which is coincidence rather than confirmation. Each of those constitutions took effect within months of its promulgation, so publication year and first vantage year agree: the Statuto Albertino governed from the day it was granted in 1848, the Weimar Constitution took effect on August 14, 1919, and the Austrian B-VG on November 10, 1920. Had any of the three sat unratified for eighteen months, as the United States Constitution did, its folder would have been wrong in the same way.
+The European folders are keyed to promulgation because for those three constitutions promulgation and first vantage year agree: the Statuto Albertino governed from the day it was granted in 1848, the Weimar Constitution took effect on August 14, 1919, and the Austrian B-VG on November 10, 1920. Had any of the three sat unratified for eighteen months, as the United States Constitution did, its folder would have been wrong in the same way. The agreement is coincidence, not confirmation of the scheme.
 
 ## United States
 
@@ -25,24 +29,31 @@ The National Archives sets its transcriptions from the engrossed parchments it h
 | `07-04-1776-declaration-of-independence-nara-transcription.txt` | the 1823 Stone engraving, not the parchment | https://www.archives.gov/founding-docs/declaration-transcript |
 | `09-17-1787-constitution-parchment-nara-transcription.txt` | the parchment engrossed by Jacob Shallus, spelling and punctuation retained | https://www.archives.gov/founding-docs/constitution-transcript |
 | `09-25-1789-bill-of-rights-parchment-nara-transcription.txt` | the enrolled Joint Resolution, all twelve proposed articles | https://www.archives.gov/founding-docs/bill-of-rights-transcript |
-| `03-04-1794-amendment-11-nara-transcription.txt` | operative text only, no ratification apparatus | https://www.archives.gov/founding-docs/amendments-11-27 |
-| `09-17-1787-constitution-as-amended-hdoc110-50-typeset.txt` | House Document 110-50, 2007, through Article XXVII | https://www.govinfo.gov/content/pkg/CDOC-110hdoc50/pdf/CDOC-110hdoc50.pdf |
+| `02-07-1795-amendments-11-21-nara-transcription.txt` | operative text of Amendments XI through XXI, no ratification apparatus | https://www.archives.gov/founding-docs/amendments-11-27 |
+| `02-07-1795-amendments-11-27-nara-transcription.txt` | operative text of Amendments XI through XXVII, no ratification apparatus | https://www.archives.gov/founding-docs/amendments-11-27 |
+| `09-17-1787-constitution-as-amended-hdoc110-50-typeset.txt` | House Document 110-50, 2007, through Amendment XXVII | https://www.govinfo.gov/content/pkg/CDOC-110hdoc50/pdf/CDOC-110hdoc50.pdf |
 
-Those five documents are distributed across three snapshots.
+The two amendment files each hold every amendment from a single source page in a single file, because that page is one document. An earlier revision split them into 28 separate files, one per amendment, which invented a structure the source does not have. The rule the corpus follows is one file per source document.
 
-`united-states-1791` is the founding order once the Bill of Rights was ratified on December 15, 1791. It holds the Constitution, in force since March 4, 1789, and the Bill of Rights. There is no 1787 snapshot, because in 1787 the Constitution was a signed proposal that governed nothing.
+`united-states-1947` is the order Gödel was reading: the Constitution, the Bill of Rights, and Amendments XI through XXI. It stops at the Twenty-first, ratified December 5, 1933, because the Twenty-second was not ratified until February 27, 1951, more than three years after his hearing.
 
-`united-states-1795` is the same order plus the Eleventh Amendment, ratified February 7, 1795. It repeats all three of the 1791 documents, which is the model working rather than waste.
+`united-states-2026` is the order in force now, a Constitution with 27 amendments, unchanged since the Twenty-seventh was ratified on May 7, 1992.
 
-`united-states-2026` is the order in force now, a Constitution with 27 amendments, unchanged since the Twenty-seventh was ratified in 1992. It carries that whole order in one typeset file rather than a Constitution plus separate amendment texts, so it is convenient to read and not comparable line for line with the parchment transcriptions.
+Ratification dates for the amendments in these two files, which previously survived only in the split filenames: XI, February 7, 1795. XII, June 15, 1804. XIII, December 6, 1865. XIV, July 9, 1868. XV, February 3, 1870. XVI, February 3, 1913. XVII, April 8, 1913. XVIII, January 16, 1919. XIX, August 18, 1920. XX, January 23, 1933. XXI, December 5, 1933. XXII, February 27, 1951. XXIII, March 29, 1961. XXIV, January 23, 1964. XXV, February 10, 1967. XXVI, July 1, 1971. XXVII, May 7, 1992.
 
-The Declaration appears in all three snapshots and is not constitutional text in any of them. It is kept as founding context because United States constitutional argument cites it constantly, not because it is operative law. The instrument that did govern before 1789, the Articles of Confederation of 1781, is absent from the corpus, so the pre-1789 order cannot be examined here at all.
+The Declaration appears in both snapshots and is not constitutional text in either. It is kept as founding context because United States constitutional argument cites it constantly, not because it is operative law. The instrument that did govern before 1789, the Articles of Confederation of 1781, is absent from the corpus, so the pre-1789 order cannot be examined here at all.
 
-The Bill of Rights file carries twelve articles because twelve were proposed. Articles the third through the twelfth became Amendments I through X; Article the second was ratified in 1992 as Amendment XXVII, and Article the first has never been ratified. Reading the file as a list of the ten will mis-number every citation drawn from it, and it is also why the 1791 snapshot is not strictly correct: by December 1791 ten articles were law and two were not, while the file shows all twelve as proposed.
+The GPO file was produced by running `pdftotext -layout` over the source PDF and removing 170 printer lines, which were running heads, page numbers and rule characters. That cleanup was incomplete: 80 form-feed characters remain in the file as page separators. It is filed under 2026 because its text is the order still in force, though the document itself was printed in 2007.
 
-The GPO file was produced by running `pdftotext -layout` over the source PDF and removing 170 printer lines, which were running heads, page numbers and rule characters. It is filed under 2026 because its text is the order still in force, though the document itself was printed in 2007.
+### Three defects in `united-states-1947`, recorded rather than repaired
 
-The GPO file was produced by running `pdftotext -layout` over the source PDF and removing 170 printer lines, which were running heads, page numbers and rule characters. It is filed under 2026 because its text is the order still in force, though the document itself was printed in 2007.
+The Bill of Rights file carries twelve articles because twelve were proposed. `Article the third` through `Article the twelfth` became Amendments I through X, so the mapping is offset by two and reading the file as a list of the ten will mis-number every citation drawn from it. `Article the first` has never been ratified. `Article the second` was still pending in 1947 and was ratified in 1992 as Amendment XXVII, which means a 1992 amendment sits inside a 1947 snapshot.
+
+That is a defect in this record, not in the file. The file is a faithful transcription of a real 1789 document and nothing in it is wrong. Correcting it by renumbering would mean editing a source text to make a folder tidier, which is the one thing this corpus does not do.
+
+The amendment file carries two orphan `*` characters, on file lines 5 and 17, inside Amendment XII and Amendment XIV respectively, whose footnote text was dropped during extraction. They point at nothing. Amendment XII also carries a bracketed passage, `[And if the House of Representatives...--]*`, marking text superseded by the Twentieth. This is the National Archives' editorial apparatus living inside what the corpus otherwise treats as source text.
+
+Amendment XVIII appears without any note that it was repealed by the Twenty-first on December 5, 1933, fourteen years before Gödel read it. It should be labelled rather than removed: what he had in front of him was a document containing a dead amendment, and that is a fact about the document.
 
 ## Germany
 
@@ -75,11 +86,41 @@ The optical character recognition has visible failures. Against 207 correct inst
 
 The February proclama is not an early draft of the Statuto and should not be quoted as one. It is the fourteen-article basis Carlo Alberto announced four weeks before the Statuto was granted, and the two texts differ in substance, not only in length.
 
-## Where federal sources disagree
+## Where the sources disagree
 
-Two United States government transcriptions print the First Amendment differently. The National Archives has `or the right of the people peaceably to assemble`. House Document 110-50 has `of the right`. The difference was confirmed against a fresh download of the PDF and reproduced under two extraction modes, so it is in GPO's text rather than in the tooling. Where the two conflict, the parchment transcription is the better authority for textual work, because the 2007 document is a typeset edition several removes from any original.
+Amendments I through X were collated across six independent witnesses on August 25, 2026: the National Archives parchment transcription and GPO House Document 110-50, both held in this corpus; the Senate, Cornell's Legal Information Institute and Yale's Avalon Project, all fetched; and the Statutes at Large, read from the Library of Congress page scans.
 
-The Second Amendment goes the other way and is worth recording because the popular claim is wrong. Every text in this corpus gives three commas, National Archives and GPO alike: `A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed.` The widely circulated two-comma version is not in either.
+**On wording the six agree completely.** Across all ten amendments there is not one divergence in word choice. Every difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.
+
+The witnesses fall into two families. The National Archives, the Senate and GPO preserve eighteenth-century orthography, with capitalized substantives, British spellings and hyphenated `re-examined`. Cornell and Avalon silently modernize all three. The Senate reproduces the parchment text verbatim for nine of ten amendments, diverging only by capitalizing `Suits` in the Seventh, which makes it an independent confirmation of the parchment rather than a separate recension, and it supplies the operative numbering the parchment lacks.
+
+**GPO corrupts the First Amendment.** House Document 110-50 reads `of the right of the people peaceably to assemble` where the other five read `or the right`. The difference was confirmed against a fresh download of the PDF, reproduced under two extraction modes, and located in the body text rather than the index, so it is in GPO's text and not in the tooling. It is not trivial: `or` makes assembly a fourth coordinate object of `abridging`, while `of` subordinates it to `the press`. Where the two federal sources conflict, the parchment transcription is the better authority, because the 2007 document is a typeset edition several removes from any original.
+
+**Avalon deletes two commas.** The Fifth Amendment loses the comma before `without just compensation` and the Seventh loses the comma after `tried by a jury`. Cornell, which modernizes as aggressively in every other respect, keeps both. Avalon is alone among the six. This is worth stating plainly: a Yale-hosted transcription of the Bill of Rights silently drops the comma that hinges the Seventh Amendment's re-examination clause, in a project whose premise is that such commas carry legal weight.
+
+### The Second Amendment, corrected
+
+An earlier version of this file claimed that the widely circulated two-comma Second Amendment appears in no source, on the strength of the National Archives and GPO both giving three commas. That claim overreached. It was true about this corpus and false as a statement about the record, because the corpus did not then contain the recension where the count differs.
+
+The Statutes at Large was checked directly. It prints the Second Amendment **twice, and not identically**.
+
+At 1 Stat. 21, in the volume's front matter, it reads `A well regulated militia being necessary to the security of a free State, the right of the people to keep and bear arms shall not be infringed.` At 1 Stat. 97, in the Joint Resolution itself, it reads the same but with `state` in lower case.
+
+Both give **one comma**, not the parchment's three and not the two of the popular version. Both were read from the page images rather than from the optical character recognition layer, because commas are the first thing OCR loses and a comma count taken from OCR is not evidence.
+
+The right conclusion is that at least three punctuations of the Second Amendment are in circulation across authoritative printings, and the corpus holds only one of them.
+
+### One volume, two Seventh Amendments
+
+The same check turned up something sharper. The Statutes at Large prints the Seventh Amendment twice and the two printings are punctuated differently.
+
+At 1 Stat. 21: `and no fact tried by a jury shall be otherwise re-examined in any court of the United States than according to the rules of the common law.`
+
+At 1 Stat. 98: `and no fact, tried by a jury, shall be otherwise re-examined in any court of the United States, than according to the rules of the common law.`
+
+Zero internal commas in one printing, two in the other, inside one book, published by authority. The parchment gives a third reading again, with a single comma after `jury`. The paired commas at 1 Stat. 98 set `tried by a jury` off as parenthetical, which is a different grammatical claim about what the clause restricts than either of the others makes.
+
+No argument in this project should rest on the punctuation of the Seventh Amendment without saying which printing it follows and why.
 
 ## Translation is not evidence
 
@@ -97,18 +138,30 @@ The Quirinale hosts a Statuto Albertino PDF that states no exemplar. Highest pos
 
 Kelsen's 1922 edition on archive.org was fetched and discarded. Its Fraktur optical character recognition is unreadable, rendering the title as `3ur (£nt[tef)ung ber 93nnbc§t)er[Q[fung`, and returning nothing for `Artikel` across 1.2 megabytes.
 
+Avalon and Cornell are rejected as base texts for Amendments I through X, on the evidence set out above. Both are useful as witnesses and both are cited here as such. Neither can serve as a text this project reasons over, because both modernize orthography silently and one of them drops commas.
+
 Wikisource won for Germany and Italy on a specific and checkable ground: both texts were proofread against gazette scans by two independent editors, and both carry page markers in the body, so any passage can be verified against the image that produced it. Neither claim rests on the site's reputation.
 
 Agreement between sources proves nothing by itself. Three sites that copied one another are one source counted three times, and the only reliable test is whether they share an error, which is why the `Bauwesen` and `zu erneuen` checks above are recorded rather than merely performed.
 
+## Retrieval notes
+
+Several holders of these texts block automated retrieval, and the working routes are recorded so they need not be rediscovered.
+
+`loc.gov/law/help/statutes-at-large/` returns 403. The scans themselves are served without challenge from `https://tile.loc.gov/storage-services/service/ll/llsl/llsl-c1/llsl-c1.pdf`, which is volume 1, 31 MB. Page images must be rendered and read; the OCR layer in that file doubles every line and is not reliable for punctuation.
+
+`constitution.congress.gov` and `loc.gov/resource` return 403. `verfassungen.at` returns 403 without a browser user agent and rate-limits under rapid sequential requests. The Senate's `civics/constitution_item/constitution.htm` is a 120-byte meta-redirect stub; the real page is at `about/origins-foundations/senate-and-constitution/constitution.htm`. GPO's CONAN pages and `ourdocuments.gov` are JavaScript-rendered and cannot be plaintexted from a fetch.
+
+Web search returned confidently wrong URLs on several occasions during this work, including URLs that resolved to entirely different articles than the citation claimed. Every link in this file was verified by fetching it and checking the returned title.
+
 ## Gaps
 
-The vantage this project was built to examine is missing. There is no `united-states-1947`, because the corpus has no text of the Constitution as Gödel read it: Articles I through VII with 21 amendments, the Twenty-second not arriving until 1951. The 1795 snapshot stops ten amendments short of him and the 2026 snapshot runs six past. Neither is the document he was looking at, so no claim about what he found can be checked against either.
-
-Building that snapshot needs two things and one decision. The amendments through the Twenty-first can be taken from the National Archives page covering 11 through 27 and stopped at the right place. Amendments I through X are the harder part, because the corpus holds them only as the twelve articles Congress proposed, not as the ten that were ratified, and the two sources that carry them as operative text disagree: the National Archives and House Document 110-50 differ on the First Amendment, as recorded above. Choosing between them, or renumbering the proposed articles by hand, is an editorial act on exactly the punctuation this project claims to analyze. It should be decided deliberately rather than settled by whichever page was easier to fetch.
+The statutory recension is missing. The corpus holds the Bill of Rights only as the National Archives parchment transcription, and the collation above shows that the Statutes at Large printings differ from it at many points and from each other at some. Adding 1 Stat. 97 to 98 would give the corpus a second lineage rather than a second copy of one lineage. It has not been added because doing so means transcribing from page images by hand, and a hand transcription made to settle punctuation questions is exactly the kind of artifact this file exists to be suspicious of. It should be done deliberately, proofread twice, and labelled as ours.
 
 No English translation of the Austrian 1920 constitution is available. The one that exists appears in *British and Foreign State Papers*, volume 113, 1923, which is print only.
 
-Austria's StGBl. 451/1920, the transitional law that Article 150 depends on, is not in the corpus. Article 150 cannot be read without it.
+Austria's StGBl. 451/1920, the transitional law that Article 150 depends on, is not in the corpus. Article 150 cannot be read without it. This is the highest-value missing document in the corpus.
 
-The corpus holds founding texts only. It cannot yet show how any of these systems fell, because constitutional text is the wrong place to look for that: the Statuto Albertino declared itself `perpetua ed irrevocabile` and its 84 articles were never amended, so an 1848 snapshot and a 1925 snapshot would be identical files while Mussolini dismantled the state through ordinary legislation. Closing this gap means adding statutes in force to each snapshot, starting with the Acerbo Law of 1923 and Law 2263 of 1925 for Italy, the Reichstag Fire Decree and the Enabling Act for Germany, and the 1929 Novelle for Austria, which is the text Dollfuss actually operated under and which makes `austria-1920` the wrong file for Austria's own collapse.
+The corpus holds founding texts only. It cannot yet show how any of these systems fell, because constitutional text is the wrong place to look for that: the Statuto Albertino declared itself `perpetua ed irrevocabile` and its 84 articles were never amended, so an 1848 snapshot and a 1925 snapshot would be identical files while Mussolini dismantled the state through ordinary legislation. Closing this gap means adding statutes in force to each snapshot, starting with the Acerbo Law of 1923 and Law 2263 of 1925 for Italy, the Reichstag Fire Decree and the Enabling Act for Germany, and the 1929 Novelle for Austria, which is the text Dollfuß actually operated under and which makes `austria-1920` the wrong file for Austria's own collapse.
+
+There are no patch snapshots. The constitutions written specifically to prevent recurrence, the Italian Constitution in force January 1, 1948 and the German Basic Law of May 23, 1949, are the natural counterparts to the collapse snapshots and neither is here. The Italian one is worth adding for a reason beyond symmetry: the Constituent Assembly approved it on December 22, 1947, seventeen days after Gödel's hearing.
