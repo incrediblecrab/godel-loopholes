@@ -16,6 +16,8 @@ sources/
 *.docx
 *.tif
 *.tiff
+*.jpg
+*.jpeg
 
 # Saved web pages. A browser "complete page" save drops a sibling folder
 # holding every asset on the page, which is how one article becomes 40MB.
