@@ -30,7 +30,7 @@ The Hungarian vulnerability she identifies is worth stating precisely, because i
 
 The most directly Gödel-adjacent modern paper. Hemel treats the autogolpe as a category of constitutional design rather than of political history, and asks what in a constitution's structure resists it. He separates a Hamiltonian defense, which relies on elite control of executive selection, from a Madisonian one, which relies on separation of powers, and tests both against Fujimori in 1992 and against January 6.
 
-**Mark Tushnet, "Constitutional Hardball,"** 37 John Marshall Law Review 523 (2004). Free: https://dash.harvard.edu/bitstreams/7312037d-3854-6bd4-e053-0100007fdf3b/download
+**Mark Tushnet, "Constitutional Hardball,"** 37 John Marshall Law Review 523 (2004). Free: https://repository.law.uic.edu/lawreview/vol37/iss2/7/
 
 Names the class of moves that are legal but violate settled understandings of how the system is played. Tushnet's condition for hardball appearing is that actors perceive a chance at permanent transformation of the constitutional order, which is the same trigger the backsliding literature identifies. Joseph Fishkin & David Pozen, "Asymmetric Constitutional Hardball," 118 Columbia Law Review 915 (2018), free at https://scholarship.law.columbia.edu/faculty_scholarship/2452/, adds that hardball is not evenly distributed between parties and that the asymmetry tracks whether a party's constitutional narrative frames norm-breaking as recovery.
 
