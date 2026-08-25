@@ -1,24 +1,40 @@
-# Corpus sources
+# Corpus
 
-Every file in this corpus is a transcription. None is a document. The distinction matters because this project reads punctuation, and punctuation is the first thing a transcriber changes, quietly and usually while trying to help. A missing comma on the 1789 parchment is a finding. A missing comma introduced by a volunteer proofreader in 2007 is noise. Telling the two apart requires knowing who set each text and from what, so that is what the entries below record.
+This folder holds the primary documents and nothing said about them. Constitutions, the statutes that ran beside them, and the founding texts that get cited in argument. Every claim this project makes has to land on a specific mark in one of these files.
+
+Every file here is a transcription. None is a document. The distinction matters because this project reads punctuation, and punctuation is the first thing a transcriber changes, quietly and usually while trying to help. A missing comma on the 1789 parchment is a finding. A missing comma introduced by a volunteer proofreader in 2007 is noise. Telling the two apart requires knowing who set each text and from what, so that is what the entries below record.
 
 Material was retrieved on August 24 and August 25, 2026. Sources are ranked by transmission lineage rather than by the standing of the institution hosting them, which is not the obvious ordering and is defended under rejected sources.
+
+## How the corpus is kept
+
+**One file per source document.** If a page publishes twenty-seven amendments as one document, they are held as one file, and the corpus does not impose a structure the source does not have.
+
+**Texts are kept as they came.** Defects are recorded in this file and never repaired in the text. The Austrian file has optical character recognition errors, the GPO file corrupts a word of the First Amendment, and both are still on disk exactly as retrieved, because a corpus that has been quietly improved cannot be used to settle an argument about wording.
+
+**Nothing we write goes inside a corpus file.** No headers, no labels, no editorial notes, not even to flag a known error. The files carry only the transcribed text, and every word of provenance and judgment lives here.
+
+**Fix by addition, not by edit.** Where a snapshot needs something it lacks, the missing text is added beside the existing file rather than the existing file being altered to suit.
+
+**Translations cannot carry an argument about wording** and are named for their translator so that stays visible.
+
+**Every link here was verified by fetching it** and checking that the returned page serves the work it claims to. Retrieval routes that took work to find are recorded so no one has to find them twice.
 
 ## Snapshots
 
 A folder is a snapshot: every document in force at the end of that year, gathered so the folder can be read on its own. It is named for the year the analysis stands in, not the year any document in it was published.
 
-The corpus currently holds five snapshots: `austria-1920`, `germany-1919`, `italy-1848`, `united-states-1947` and `united-states-2026`. That is 12 distinct documents across 17 files.
+The corpus currently holds six snapshots: `austria-1920`, `germany-1919`, `germany-1933`, `italy-1848`, `united-states-1947` and `united-states-2026`. That is 16 distinct texts across 22 files, six of which appear in two snapshots each.
 
 Publication dates are the wrong key for two reasons. An earlier revision keyed folders to publication and produced a `united-states-1787/` holding texts published in 1776, 1787, 1789, 1794 and 2007, so no publication date described it, which is how a modern typeset edition sat in a founding-era folder without anyone noticing. And publication dates are ambiguous in a way vantage years are not. The Eleventh Amendment passed Congress on March 4, 1794, was ratified on February 7, 1795, and was declared ratified on January 8, 1798. One document, three defensible dates. The question a vantage year asks instead is what was in force on that date and what could lawfully be done with it, which is the question this project exists to ask, and the one Gödel asked of a Constitution with 21 amendments.
 
 A snapshot has to be complete, which means documents repeat across folders. An earlier revision split the founding documents so each lived in exactly one folder, and produced four directories none of which was a snapshot of anything: one held the Constitution without the Bill of Rights, another held nothing but the Eleventh Amendment. Neither could answer what was in force in its own year. Duplication is what a self-contained folder costs, and for plain text it is a rounding error.
 
-Three documents repeat verbatim across the two United States snapshots and every repeated copy is byte-identical to its sibling: the Declaration, the Constitution parchment and the Bill of Rights parchment. The amendment files are the exception and are not siblings in that sense. Both are drawn from the same National Archives page, but the 1947 file stops at the Twenty-first and the 2026 file runs to the Twenty-seventh, so they differ by design.
+Four documents repeat verbatim across the two United States snapshots, and both German files repeat across the two German ones. Every repeated copy was compared against its sibling and is byte-identical: the Declaration, the Constitution parchment, the Bill of Rights parchment, the Senate rendering of Amendments I through X, the Weimar gazette transcription and its translation. The United States amendment files are the exception and are not siblings in that sense. Both are drawn from the same National Archives page, but the 1947 file stops at the Twenty-first and the 2026 file runs to the Twenty-seventh, so they differ by design.
 
 Folders stay at year granularity even where a year is too coarse. Germany passed through at least three constitutional orders between January and March 1933, and those dates are recorded in prose here rather than in a directory name.
 
-The European folders are keyed to promulgation because for those three constitutions promulgation and first vantage year agree: the Statuto Albertino governed from the day it was granted in 1848, the Weimar Constitution took effect on August 14, 1919, and the Austrian B-VG on November 10, 1920. Had any of the three sat unratified for eighteen months, as the United States Constitution did, its folder would have been wrong in the same way. The agreement is coincidence, not confirmation of the scheme.
+The European folders are keyed to promulgation because for those three constitutions promulgation and first vantage year agree: the Statuto Albertino governed from the day it was granted in 1848, the Weimar Constitution took effect on August 14, 1919, and the Austrian B-VG on November 10, 1920. Had any of the three sat unratified for eighteen months, as the United States Constitution did, its folder would have been wrong in the same way. The agreement is coincidence, not confirmation of the scheme, and `germany-1933` shows it plainly: nothing was promulgated in 1933 that gives the folder its name, and the year is a vantage like any other.
 
 ## United States
 
@@ -71,6 +87,16 @@ The 1947 file keeps only the first. The Twentieth Amendment was ratified in 1933
 | --- | --- | --- |
 | `08-11-1919-rgbl-1383-reichsverfassung-wikisource-transcription.txt` | RGBl. 1919 page 1383 scans, proofread by two editors, through Artikel 181 | https://de.wikisource.org/wiki/Verfassung_des_Deutschen_Reichs_%281919%29 |
 | `08-11-1919-reichsverfassung-mcbain-rogers-1922-english.txt` | translated by Howard Lee McBain and Lindsay Rogers | https://en.wikisource.org/wiki/Weimar_constitution |
+| `02-28-1933-rgbl-i-83-reichstagsbrandverordnung-wikisource-transcription.txt` | RGBl. 1933 I, Nr. 17, page 83, from a gazette scan on Commons | https://de.wikisource.org/wiki/Reichstagsbrandverordnung |
+| `03-24-1933-rgbl-i-141-ermaechtigungsgesetz-wikisource-transcription.txt` | RGBl. 1933 I, Nr. 25, page 141, from a gazette scan on Commons | https://de.wikisource.org/wiki/Ermächtigungsgesetz |
+
+`germany-1933` holds the two statutes together with both Weimar files, because the Weimar Constitution was never repealed and was still nominally in force at the end of 1933. That is the whole point of the snapshot: the constitution is present and intact, and the order it established is gone.
+
+Both 1933 texts come from the same Wikisource project as the 1919 transcription and follow its edition guidelines, so they share a lineage the corpus has already accepted. Each carries `BEARBEITUNGSSTAND=fertig`, names its Commons gazette scan as its exemplar, and sits entirely on one gazette page, which is why each opens with a page marker and carries no others.
+
+They were checked against the modernizing copy at `documentarchiv.de` and do not descend from it. That copy reads `verfassungsändernder` where the gazette form is `verfassungändernder` without the Fugen-s, prints `Reiches` for `Reichs`, and contains a plain typo, `beteligten`. Our file has the gazette forms and the correct spelling. This is the same kind of shared-error test as the `Bankwesen` check on the 1919 file, and it is recorded here rather than merely performed.
+
+A third decree of the period, the Verordnung des Reichspräsidenten zum Schutze des Deutschen Volkes of February 4, 1933, RGBl. 1933 I page 35, is not in the corpus. No proofread transcription of it exists. The available copies state no exemplar, and one of them silently omits two of its five sections.
 
 The German transcription keeps the gazette's page markers in the body, so any passage can be carried back to the scan it came from. It also keeps the gazette's spelling rather than modernizing it, which is checkable in the Preamble: the text reads `zu erneuen`, not the modern `erneuern`.
 
@@ -81,6 +107,11 @@ One caution on the translation. Wikisource names McBain and Rogers as the transl
 | file | set from | retrieved from |
 | --- | --- | --- |
 | `10-01-1920-stgbl-450-b-vg-oeaw-machine-transcription.txt` | StGBl. 450/1920, machine transcription, through Artikel 152 | https://bundesverfassung-oesterreich.github.io/bv-static/bv_doc_id__62.html |
+| `07-24-1917-rgbl-307-kriegswirtschaftliches-ermaechtigungsgesetz-wikisource-transcription.txt` | RGBl. 1917 Nr. 307, pages 739 to 740, from gazette scans | https://de.wikisource.org/wiki/Kriegswirtschaftliches_Ermächtigungsgesetz |
+
+The wartime enabling act of 1917 is in the 1920 snapshot because it was in force in 1920 and was never repealed until 1946. It is an ordinary economic statute, it is not mentioned anywhere in the constitution, and it is the instrument the 1933 and 1934 seizure ran through. A snapshot holding only the constitution would not show it, which is the reason snapshots hold statutes in force and not constitutional text alone.
+
+Its transcription is the strongest Austrian file in the corpus by some distance: proofread status `fertig`, a named gazette scan as exemplar, and inline page markers at 739 and 740. It carries one known defect, kept as found. The signature block reads `Bauhaus m.p.` where the minister's name was Banhans. The error is in the source and is recorded rather than corrected.
 
 This is the weakest file in the corpus and the only one its own publisher disclaims. The page carries a warning that the transcription was produced by machine to make the document broadly searchable, and that because it is purely provisional it should under no circumstances be used as a citation source: `Sie sollte – ob ihres rein provisorischen Charakters – keinesfalls als Zitationsquelle verwendet werden.` It is here anyway, because no clean transcription of the 1920 Stammfassung appears to exist online at all. The official Austrian legal information system stores only the amended modern text, split article by article across separate documents, so the founding version cannot be reassembled from it.
 
@@ -160,7 +191,15 @@ Several holders of these texts block automated retrieval, and the working routes
 
 `loc.gov/law/help/statutes-at-large/` returns 403. The scans themselves are served without challenge from `https://tile.loc.gov/storage-services/service/ll/llsl/llsl-c1/llsl-c1.pdf`, which is volume 1, 31 MB. Page images must be rendered and read; the OCR layer in that file doubles every line and is not reliable for punctuation.
 
+The `llsl` identifiers are keyed to Congress, not to volume, and the resemblance is a trap. `llsl-c1` is volume 1 because the First Congress produced it, but `llsl-c54` returns volume 29, covering December 1895 to March 1897, at 103 MB and HTTP 200. The volume was downloaded and its title page read before the mismatch was noticed, which is the whole lesson: the request succeeded, the file was a genuine Statutes at Large volume, and it was the wrong one. `llsl-c76`, which would hold the Nationality Act of 1940 at 54 Stat. 1137, returns 404, and the `loc.gov` collection search API returns 403 to scripted requests, so that volume has no established route yet.
+
+United States Reports are a different and reliable service. The pattern is `https://tile.loc.gov/storage-services/service/ll/usrep/usrep<volume>/usrep<volume><first page>/usrep<volume><first page>.pdf`, and it serves official page images. Three other routes to the same opinions failed: Justia returns a Cloudflare 403, CourtListener's cluster endpoint now requires authentication and its HTML pages return an empty HTTP 202, and Wikisource has no page for many older cases even where its own volume index links to them.
+
+`ias.edu` returns 403 for its library landing pages regardless of user agent, but files under `ias.edu/sites/default/files/` download normally, so material there is reachable if the direct path is known. `albert.ias.edu` returns 403. `papers.ssrn.com` returns 403. `hal.science` returns 500 on unversioned document URLs and 200 when the version suffix is included.
+
 `constitution.congress.gov` and `loc.gov/resource` return 403. `verfassungen.at` returns 403 without a browser user agent and rate-limits under rapid sequential requests. The Senate's `civics/constitution_item/constitution.htm` is a 120-byte meta-redirect stub; the real page is at `about/origins-foundations/senate-and-constitution/constitution.htm`. GPO's CONAN pages and `ourdocuments.gov` are JavaScript-rendered and cannot be plaintexted from a fetch.
+
+ALEX, the Austrian National Library's gazette portal at `alex.onb.ac.at`, holds the scans for the German Reichsgesetzblatt and the Austrian Reichs-, Staats- and Bundesgesetzblatt. It cannot be fetched. Every ALEX address tested, across all three gazettes, returns HTTP 200 carrying a `Sicherheitsüberprüfung` challenge page rather than the scan. The status code is the trap: a check that records only the response code will log these as successful retrievals. They were opened and read before being recorded here.
 
 Web search returned confidently wrong URLs on several occasions during this work, including URLs that resolved to entirely different articles than the citation claimed. Every link in this file was verified by fetching it and checking the returned title.
 
@@ -170,8 +209,14 @@ The statutory recension is missing, and adding the Senate rendering did not clos
 
 No English translation of the Austrian 1920 constitution is available. The one that exists appears in *British and Foreign State Papers*, volume 113, 1923, which is print only.
 
-Austria's StGBl. 451/1920, the transitional law that Article 150 depends on, is not in the corpus. Article 150 cannot be read without it. This is the highest-value missing document in the corpus.
+Austria's StGBl. 451/1920, the transitional law, is still not in the corpus, and the reason is now known and is worse than a simple absence. Article 150 of the B-VG defers the whole transition to it, and Article 151 makes the B-VG's own entry into force conditional on the exceptions it sets, so the constitution cannot be read without it. Two full transcriptions exist and neither is the 1920 text. The one at `verfassungen.at` states in its own header that it gives the law `in der Fassung des B.G.Bl. Nr. 368 vom Jahre 1925` as a `konsolidierte Fassung zum 28.9.2012`. The official RIS copy reports the same governing instrument, BGBl. 368/1925, in force from October 1, 1925. The 1925 republication has displaced the 1920 text in every digital source, and the gazette scan that would settle it is behind the ALEX challenge page. Filing either copy under `austria-1920` would repeat exactly the defect resolved in `united-states-1947`, a later text sitting inside an earlier snapshot, so neither was added.
 
-The corpus holds founding texts only. It cannot yet show how any of these systems fell, because constitutional text is the wrong place to look for that: the Statuto Albertino declared itself `perpetua ed irrevocabile` and its 84 articles were never amended, so an 1848 snapshot and a 1925 snapshot would be identical files while Mussolini dismantled the state through ordinary legislation. Closing this gap means adding statutes in force to each snapshot, starting with the Acerbo Law of 1923 and Law 2263 of 1925 for Italy, the Reichstag Fire Decree and the Enabling Act for Germany, and the 1929 Novelle for Austria, which is the text Dollfuß actually operated under and which makes `austria-1920` the wrong file for Austria's own collapse.
+On the substance the news is better than on the text. The amendment apparatus at `verfassungen.at` records no change to § 7 in 1925, only a 2008 declaration that it had ceased to apply, so § 7 (2) is very likely 1920 wording carried forward. That is a claim about substance and not about punctuation, and this project distinguishes the two.
+
+No Italian statute of the fascist period is in the corpus, and no transcription of one exists at the standard the corpus requires. Italian Wikisource, which supplied the Statuto, has none of them: its 1923, 1925 and 1926 categories hold only boundary and railway decrees. Normattiva, the official database of the Italian state, does serve the original text but states no exemplar, claims no proofreading, carries no page markers, and renders its articles through JavaScript so that a fetch returns only the first one. Its lineage is unknown in exactly the way the Quirinale's Statuto was, and the corpus rejected that. Authoritative gazette scans of every relevant issue are on archive.org in the `gazzetta-ufficiale` collection, as image-only PDFs. So Italy can be settled, but only by transcribing from scans, which the corpus treats as work to be done deliberately, proofread twice, and labelled as ours.
+
+Germany's collapse can now be read from the corpus and Austria's cannot yet. `germany-1933` holds the decree and the enabling act beside the constitution they ran through. Austria still needs the 1929 Novelle, which is the text Dollfuß actually operated under, and the May 1934 constitution, promulgated under the 1917 economic enabling act. Italy needs the Acerbo Law of 1923 and Law 2263 of 1925 before an `italy-1926` snapshot would say anything an `italy-1848` snapshot does not, since the Statuto declared itself `perpetua ed irrevocabile` and its 84 articles were never amended.
+
+A whole category of document is missing, and the analysis of Austria is what surfaced it. The step that ended Austrian parliamentary government was a gap in the Nationalrat's rules of procedure, which had no provision for all three presidents resigning in succession, and the neutralization of the Constitutional Court two months later worked through a rule about how many of its members had to be present. Neither document is a constitution and neither is a statute, and the corpus holds only constitutions and statutes. A constitution's most important check is usually a body, a body's capacity to act is governed by its own procedural and composition rules, and those rules are therefore part of the constitutional machinery whatever their formal rank. Chamber standing orders and court composition rules should be acquired for every snapshot. This is the first gap in this file that was found by doing analysis rather than by cataloguing sources, which is an argument for doing more of it before acquiring more texts.
 
 There are no patch snapshots. The constitutions written specifically to prevent recurrence, the Italian Constitution in force January 1, 1948 and the German Basic Law of May 23, 1949, are the natural counterparts to the collapse snapshots and neither is here. The Italian one is worth adding for a reason beyond symmetry: the Constituent Assembly approved it on December 22, 1947, seventeen days after Gödel's hearing.
