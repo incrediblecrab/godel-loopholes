@@ -34,4 +34,4 @@ The routes are not rivals and a candidate may use both. What neither is allowed 
 
 No results. A procedure demonstrated on a text produces an analysis, and analyses live in `analysis/` under the name of the snapshot they examine, including the ones written to validate a procedure.
 
-No tooling, for now. Nothing here assumes a program exists to run it, and every procedure is written so a person could execute it by hand on one document. If that changes it will be a deliberate decision, not a drift.
+No tooling. Nothing here assumes a program exists to run it, and every procedure is written so a person could execute it by hand on one document. That constraint holds for this folder and is not an artifact of our not having tools: provers and solvers are installed, and `TOOLING.md` records them. Where they have been used, the result is an analysis and sits in `analysis/` under the snapshot it examines, which is the same rule that governs everything else produced by applying a procedure to a text. When a procedure here does acquire a mechanical implementation, the procedure and the implementation stay separate, so the first remains checkable by hand.

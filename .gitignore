@@ -49,3 +49,9 @@ sources/
 #     git add -f path/to/file.pdf
 # Check any surprise with `git check-ignore -v <path>`, which names the
 # exact line responsible.
+
+# Python virtualenv (tooling, not source)
+.venv/
+venv/
+__pycache__/
+*.pyc

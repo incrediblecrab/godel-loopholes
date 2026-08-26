@@ -42,6 +42,12 @@ Someone has already run this argument through a proof assistant. They encode the
 
 Their own limits are stated plainly and should be quoted rather than paraphrased when this project describes its position relative to theirs. They call the work "a mere case example," and note that general reasoning about the Constitution would require representing "more of its contents, rather than just one small part." The remark worth building on is about method: the hard steps were deciding which parts of the text matter and how to represent them, and "a large part of the benefit" of those steps "is finding out what does not work for the text at hand" — which they did not publish, for space. The failed encodings are where the knowledge is, and they are missing from the record.
 
+We have replicated it, and the record is `analysis/united-states-1947/formal-model-replication.md`. The theory compiles against Isabelle2025-2 and discharges all three targets, with countermodels establishing that the axiom set is consistent and the results therefore carry information. Two things surfaced in the process that bear on the candidates below, and neither is visible from the paper alone.
+
+The amendment of Article V is not performed in their model. It is implemented by omitting an axiom, so the step from the pre-amendment state to the post-amendment state is assumed rather than derived; they concede this and call it unavoidable in their framework. What their formalization establishes is that *if* Article V can be amended in the way Guerra-Pujol describes, the rest follows. Whether it can is the part left outside, and `analysis/united-states-1947/threshold-arithmetic.md` is about the quantity — ratification by 36 of 48 states — that their model does not represent.
+
+They also report that neither of their two candidate formalizations of the amendment is adequate, one demanding a witness into existence and the other collapsing into a tautology, concluding that "there is no optimal solution for the presented framework." That is a negative result about representing self-amendment in classical higher-order logic, and it is the closest thing in the literature to a measurement of how hard the first candidate below is to state formally at all.
+
 ## What Gödel might have found
 
 Four candidates are in circulation. None is verified, and the differences between them matter, because they imply different searches.

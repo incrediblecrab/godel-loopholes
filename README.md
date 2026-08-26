@@ -17,3 +17,5 @@ Austria comes up in the memo too. The examiner asked what sort of government Gö
 The Constitution contains at least one path where people follow its rules and arrive somewhere the ratifiers would have called its destruction. We think we can find that path by reading the text. Working out what Gödel actually had in mind is a separate job, and we do not need to finish it first.
 
 If we can find it here, the same method should work on any founding document that has a written text and an amendment procedure. We want a public record of these holes across countries, with the reasoning laid out step by step so anyone can check it or knock it down.
+
+New here, or want the version without the jargon? Start with `eli5.md`.
