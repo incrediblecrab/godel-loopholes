@@ -1,0 +1,152 @@
+# Build the site, check that it is telling the truth, and publish it.
+#
+# No secrets. The only credential is the GITHUB_TOKEN Actions mints for this
+# run, scoped to `pages: write` and `id-token: write` and nothing else. The
+# site fetches no third-party origin at build time or in the browser, so there
+# is nothing to authenticate to.
+#
+# What this workflow can and cannot check, stated plainly:
+#
+#   It CAN check that every load-bearing value on the site resolves to
+#   data/facts.json, that facts.json agrees with the research files that own
+#   each value, that the palette meets WCAG AA, that the axiom inventory the
+#   site renders still matches the Isabelle theory files, that no page requests
+#   a third-party origin, and that every artifact works in a real browser and
+#   still works with scripting off.
+#
+#   It CANNOT run the full ./verify.sh, which needs Isabelle, Z3, SWI-Prolog
+#   and Lean. Provisioning a proof assistant on every push would turn a
+#   two-minute deploy into a thirty-minute one for a result that does not
+#   change between commits. The full harness is the reader's to run, and the
+#   README says so. What runs here is the subset that needs no prover, which is
+#   exactly the subset that polices the website.
+
+name: Build and publish the site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'data/**'
+      - 'eli5.md'
+      - 'README.md'
+      - 'analysis/**'
+      - 'corpus/README.md'
+      - 'verify.sh'
+      - 'tools/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Queued rather than cancelled: a half-finished Pages
+# deployment is worse than a slightly stale one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Is it telling the truth?
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # These three need no proof assistant and no network. They are the checks
+      # that stand between a palette change and an illegible page, and between
+      # a research note being edited and the website quietly disagreeing with it.
+      - name: Every fact matches the file that owns it
+        run: python3 tools/facts.py --check
+
+      - name: The palette meets WCAG AA in both schemes
+        run: python3 tools/contrast.py --check
+
+      - name: The site's axiom data matches the Isabelle theory files
+        run: |
+          cd analysis/united-states-1947/search
+          python3 axiom_sweep.py inventory > /tmp/regen.json
+          if ! diff -u /tmp/regen.json "$GITHUB_WORKSPACE/data/ablation.json"; then
+            echo "::error::data/ablation.json is stale. Regenerate it:"
+            echo "  cd analysis/united-states-1947/search"
+            echo "  python3 axiom_sweep.py inventory > ../../../data/ablation.json"
+            exit 1
+          fi
+
+      # A probe matching nothing is indistinguishable from a fact that is no
+      # longer duplicated, so a stale probe makes the audit silently
+      # under-report. This mirrors verify.sh section 6c.
+      - name: No probe in the duplication audit has gone stale
+        run: |
+          stale=$(python3 tools/ssot_audit.py --json \
+            | python3 -c 'import json,sys; d=json.load(sys.stdin); print(" ".join(p["id"] for p in d["probes"] if p["file_count"]==0))')
+          if [ -n "$stale" ]; then
+            echo "::error::Stale probes match nothing: $stale"
+            exit 1
+          fi
+          echo "Every probe still matches a tracked file." 
+
+  build:
+    name: Build
+    needs: check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      # Fails on a hardcoded load-bearing value, then builds, then pins the CSP
+      # to the SHA-256 of every inline script that actually shipped, then
+      # verifies the pinning. All four are `npm run build`.
+      - name: Build
+        run: npm run build
+
+      - name: Install Chromium for the browser checks
+        run: npx playwright install --with-deps chromium
+
+      # Serves dist/ over HTTP and drives it. This is the only check that sees
+      # what a reader sees: CSP enforcement, third-party requests, the keyboard
+      # contract on every artifact, and the whole site with scripting disabled.
+      - name: Browser checks
+        run: npm run verify:browser
+
+      - name: Fail if anything reached a third-party origin
+        run: |
+          if grep -rIlE 'https?://(fonts\.googleapis|fonts\.gstatic|cdn\.|unpkg|jsdelivr|googletagmanager|google-analytics)' dist/; then
+            echo "::error::A third-party origin appears in the built output."
+            exit 1
+          fi
+          echo "No third-party origin in dist/."
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    name: Publish
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
