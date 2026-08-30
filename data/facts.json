@@ -354,7 +354,8 @@
       "label": "Axioms in the repaired formalization",
       "statement": "Thirty-nine in the shared core and five step-one stipulations. The ablation removes exactly those five and nothing else. All five are preconditions -- attempted, is_amd, sup_prop, maint_suf and sup_rat for the repealing amendment -- and none of them asserts that the amendment was proposed. The proposal is derived.",
       "canonical": "analysis/united-states-1947/step-one-repair.md",
-      "status": "verified"
+      "status": "verified",
+      "checked_by": "verify.sh section 4h"
     },
     {
       "id": "netadd.step_one_necessary",
@@ -362,7 +363,8 @@
       "label": "What Goedel's step one does once the proposal is derived",
       "statement": "The published model asserts that the dictatorship amendment was proposed, which is the thing step one exists to bring about; with it assumed, step one is inert. Derive it instead and the behaviour reverses. Deleting the five step-one axioms leaves Dictatorship_t3 independent: Nitpick returns countermodels to the theorem and to its negation, in a theory it also finds consistent, with the entrenchment clause still in force at t2 so the amendment cannot be validly proposed. The independence is a model-finder diagnostic, not a proof, and it is a claim about this formalization rather than about Article V.",
       "canonical": "analysis/united-states-1947/step-one-repair.md",
-      "status": "verified"
+      "status": "verified",
+      "checked_by": "verify.sh section 4h, the three-probe ablation (Nitpick, diagnostic)"
     },
     {
       "id": "netadd.pvr_forced",
@@ -370,7 +372,8 @@
       "label": "Why the repaired proposal rule is not reverse-engineered",
       "statement": "The strongest objection to the repair is that the proposal rule was written so that step one would have to matter. It was not. A rule making attempt, amendment status and legislative support sufficient for a valid proposal contradicts the conditional entrenchment clause whenever that clause is in force and the amendment does not maintain equal suffrage, so any sufficient condition consistent with that necessary condition must carry the entrenchment check. The check is forced by Article V's proviso rather than chosen. Kernel-proved in GodelNetAddRivalRule.thy; the proof is short, and its weight is in what it rules out.",
       "canonical": "analysis/united-states-1947/step-one-repair.md",
-      "status": "verified"
+      "status": "verified",
+      "checked_by": "verify.sh section 4h, theorem rival_pvr_inconsistency"
     },
     {
       "id": "recension.witnesses",
@@ -516,7 +519,7 @@
     },
     {
       "id": "verify.checks",
-      "value": 94,
+      "value": 102,
       "label": "Checks in the verification harness",
       "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
       "canonical": "README.md",

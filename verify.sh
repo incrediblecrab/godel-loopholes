@@ -515,6 +515,58 @@ else
          "Section 4g checks the website's axiom data against the theory files."
 fi
 
+hdr "4h. THE NET ADD: the repaired model, where step one is load-bearing"
+note "The published model ASSERTS that the second amendment was proposed. This"
+note "one DERIVES it, through a proposal-validity rule that must consult the"
+note "entrenchment clause. See analysis/united-states-1947/step-one-repair.md."
+note "The reversal to watch: in the published model, deleting Goedel's step one"
+note "costs nothing. In this one it costs the theorem. The theorems below are"
+note "kernel-certified; the three ablation probes are Nitpick, and diagnostic."
+ISO_DIR="$REPO/analysis/united-states-1947/isabelle"
+if [[ -d "$ISO_DIR" ]] && command -v isabelle >/dev/null 2>&1; then
+  # Every imported theory needs its own -f: process_theories copies only the
+  # files named on the command line into its temporary directory.
+  full_out=$(cd "$ISO_DIR" && isabelle process_theories -O -U \
+    -f GodelNetAddCore.thy -f GodelNetAddFull.thy GodelNetAddFull 2>&1)
+  grep -q 'theorem amd2_proposed_t2' <<<"$full_out" \
+    && ok "amd2 is PROVED proposed at t2, not assumed -- the defect is repaired" \
+    || bad "amd2_proposed_t2 did not prove; the repair does not hold together"
+  grep -q 'theorem Dictatorship_t3' <<<"$full_out" \
+    && ok "and Dictatorship_t3 still follows, so the repair did not break the result" \
+    || bad "Dictatorship_t3 was lost in the repaired model"
+  if grep -q 'Nitpick found a counterexample' <<<"$full_out"; then
+    ok "and the repaired theory is consistent, so neither proof above is vacuous"
+  else
+    inconc "no countermodel for False in the repaired theory this run" \
+           "Consistency here is a Nitpick search and can flake under load. Re-run alone."
+  fi
+
+  ns1_out=$(cd "$ISO_DIR" && isabelle process_theories -O -U \
+    -f GodelNetAddCore.thy -f GodelNetAddNoStep1.thy GodelNetAddNoStep1 2>&1)
+  n_cex=$(grep -c 'Nitpick found a counterexample' <<<"$ns1_out" || true)
+  if [[ "$n_cex" -eq 3 ]]; then
+    ok "delete the 5 step-one axioms and Dictatorship_t3 goes INDEPENDENT (3 of 3)"
+  elif [[ "$n_cex" -gt 0 ]]; then
+    inconc "only $n_cex of 3 ablation probes returned a countermodel" \
+           "Nitpick flake, not a refutation. A timeout is not a negative. Re-run alone."
+  else
+    bad "the ablation found no countermodel at all; step one may not be necessary"
+  fi
+
+  riv_out=$(cd "$ISO_DIR" && isabelle process_theories -O -U \
+    -f GodelNetAddCore.thy -f GodelNetAddFull.thy -f GodelNetAddRivalRule.thy \
+    GodelNetAddRivalRule 2>&1)
+  grep -q 'theorem rival_pvr_inconsistency' <<<"$riv_out" \
+    && ok "and a proposal rule WITHOUT the entrenchment check contradicts comsp" \
+    || bad "the rival rule is consistent; the entrenchment check was a choice, not forced"
+  note "That last check answers the obvious objection, which is that the repair"
+  note "was built to make step one matter. The rule was not chosen: dropping the"
+  note "entrenchment check contradicts the entrenchment clause itself."
+else
+  inconc "Isabelle or the NetAdd theories unavailable" \
+         "Section 4h needs Isabelle on PATH and analysis/united-states-1947/isabelle."
+fi
+
 hdr "5. Source artifacts, with checksums you can re-derive"
 note "Fetched on demand if absent, so a clean checkout reproduces this section."
 declare -a PDF_NAME=(zb-thesis.pdf zb-paper.pdf)
@@ -547,9 +599,12 @@ for i in 0 1; do
   fi
 done
 
-hdr "5b. Single source of truth: the model is stored exactly once"
+hdr "5b. Single source of truth: each model is stored exactly once"
 note "The transcription was once copied verbatim into three files that could drift"
-note "apart silently. These checks exist so that cannot happen again."
+note "apart silently. These checks exist so that cannot happen again. There are"
+note "now two models on purpose -- the published one and the repaired one -- so the"
+note "invariant is that each is written once and that everything they share is"
+note "character-identical apart from a declared list of deliberate differences."
 dup_fail=0
 for d in ConsistencyCheck Countermodel; do
   grep -q '^ *imports GodelConstitution' "$THY/$d.thy" \
@@ -562,15 +617,34 @@ grep -q '^ *imports GodelCore' "$THY/GodelConstitution.thy" \
 [[ "$dup_fail" -eq 0 ]] && ok "every derived theory imports rather than duplicates"
 
 # Proxies for "the model is defined once": its type of government bodies and its
-# definition of the target predicate must each appear in exactly one file.
+# definition of the target predicate must each appear exactly once PER MODEL.
+# There are two models here on purpose. GodelCore is the transcription of the
+# published thesis; GodelNetAddCore is the repaired model, and it is a separate
+# theory rather than an import because importing would drag in the very axioms
+# the repair exists to replace. Within each family the model is still written once.
 for marker in '^datatype g = Congress' '^definition Dictatorship'; do
-  n=$(grep -l "$marker" "$THY"/*.thy 2>/dev/null | wc -l | tr -d ' ')
-  if [[ "$n" -eq 1 ]]; then
-    ok "'$marker' appears in exactly 1 theory file"
+  n_pub=$(grep -l "$marker" "$THY"/*.thy 2>/dev/null | grep -vc 'NetAdd' || true)
+  n_rep=$(grep -l "$marker" "$THY"/*.thy 2>/dev/null | grep -c 'NetAdd' || true)
+  if [[ "$n_pub" -eq 1 && "$n_rep" -eq 1 ]]; then
+    ok "'$marker' appears once in the published model and once in the repaired one"
   else
-    bad "'$marker' appears in $n theory files, expected 1 -- the model was copied"
+    bad "'$marker': $n_pub in the published model, $n_rep in the repaired, expected 1 each"
   fi
 done
+
+# Two models means the shared scaffolding is written out twice and can drift
+# apart silently, which is the failure this whole section exists to prevent. So
+# the invariant is not "written once" but "every shared definition is character
+# for character identical, except for a declared list". tools/theory_drift.py
+# holds that list, and an undeclared difference fails here.
+drift_out=$(python3 "$REPO/tools/theory_drift.py" 2>&1)
+if grep -q '^RESULT: the two cores share' <<<"$drift_out"; then
+  n_shared=$(grep -oE '^shared definitions: [0-9]+' <<<"$drift_out" | grep -oE '[0-9]+')
+  n_ident=$(grep -oE '^character-identical: [0-9]+' <<<"$drift_out" | grep -oE '[0-9]+')
+  ok "the two models share $n_shared definitions, $n_ident identical, every difference declared"
+else
+  bad "published and repaired models drifted: $(grep -m1 '^DRIFT:' <<<"$drift_out")"
+fi
 
 # STRONGER: the split must have preserved every labelled formula character for
 # character, not merely the set of labels. Names matching proves nothing about
