@@ -83,6 +83,21 @@ for (const f of file.facts) {
 }
 
 export const vantage = file.vantage;
+
+/**
+ * The vantage as prose. The data file stores ISO 8601 because that is what a
+ * data file should store and what `<time datetime>` needs, but no reader wants
+ * to be told a constitution said something on 1947-12-05.
+ */
+export const vantageLong = ((iso: string): string => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) throw new Error(`vantage "${iso}" is not an ISO date`);
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  return `${months[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}`;
+})(file.vantage);
 export const vantageNote = file.vantage_note;
 export const statusMeaning = file.status_values;
 export const allFacts: readonly Fact[] = file.facts;

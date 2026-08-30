@@ -150,6 +150,15 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   });
   record(skips.length === 0, `${path} heading outline skips no level`, skips[0] ?? '');
 
+  // A \u00b7 written in a markup text position is not an escape -- it is six
+  // literal characters, and it renders as six literal characters. Three
+  // shipped before this check existed.
+  const strays = await page.evaluate(() => {
+    const text = document.body.innerText;
+    return [...text.matchAll(/\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}/g)].map((m) => m[0]);
+  });
+  record(strays.length === 0, `${path} renders no stray escape sequence`, strays.join(' '));
+
   // Every in-repo link on the page must resolve. A 404 on a research site is
   // not a cosmetic problem; it is a citation that does not go anywhere.
   const hrefs = await page.evaluate(() =>

@@ -17,7 +17,7 @@ import Base from '../layouts/Base.astro';
 import MarginNote from '../components/MarginNote.astro';
 import Value from '../components/Value.astro';
 import Scoreboard from '../components/Scoreboard.astro';
-import { fact, vantage } from '../lib/facts';
+import { fact, vantage, vantageLong } from '../lib/facts';
 import { orderedListUnder, negativeControls, inline, blobUrl } from '../lib/content';
 
 const claims = orderedListUnder('README.md', 'Claims made here and later disproved');
@@ -167,7 +167,7 @@ cd godel-loopholes
     <section aria-labelledby="vantage">
       <h2 id="vantage">Everything is fixed to one date</h2>
       <p>
-        Every number on this site is the number as it stood on <strong>{vantage}</strong>,
+        Every number on this site is the number as it stood on <strong><time datetime={vantage}>{vantageLong}</time></strong>,
         the day Gödel took his citizenship examination in Trenton. That is not
         decoration. A reader who does not see the vantage will read every figure as a
         claim about today, and most of them are not.

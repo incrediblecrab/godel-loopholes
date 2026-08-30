@@ -4,7 +4,7 @@
  * bury: the vantage date every number on the site is keyed to, and the command
  * that reproduces the whole thing.
  */
-import { fact, vantage, vantageNote } from '../lib/facts';
+import { fact, vantage, vantageLong, vantageNote } from '../lib/facts';
 
 const checks = fact('verify.checks');
 const controls = fact('verify.negative_controls');
@@ -17,7 +17,7 @@ const repo = 'https://github.com/incrediblecrab/godel-loopholes';
       <h2>The vantage</h2>
       <p>
         Every number on this site describes the law as it stood on
-        <strong class="tabular">{vantage}</strong>. {vantageNote}
+        <strong><time datetime={vantage}>{vantageLong}</time></strong>. {vantageNote}
       </p>
     </section>
 

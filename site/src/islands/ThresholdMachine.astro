@@ -55,7 +55,8 @@ const chambers = [
   },
 ];
 
-const holding = fact('articlev.base.origin');
+const holdingCase = fact('articlev.base.holding');
+const origin = fact('articlev.base.origin');
 ---
 
 <figure
@@ -155,9 +156,12 @@ const holding = fact('articlev.base.origin');
 
   <p class="holding">
     The lower number is not a hypothetical. It is the holding of the
-    <cite>National Prohibition Cases</cite>, {holding.value}, decided
+    <cite>National Prohibition Cases</cite>, {holdingCase.value}, decided
     twenty&#8209;seven years before G&#246;del sat his examination, resolving the silence
-    against the reading that would have made Article&nbsp;V harder to use.
+    against the reading that would have made Article&nbsp;V harder to use. That
+    holding rests in turn on an earlier and narrower case about the veto clause,
+    <cite>{origin.value}</cite> &mdash; so the base of Article&nbsp;V&#8217;s fraction
+    was never litigated on its own terms.
   </p>
 </figure>
 

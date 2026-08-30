@@ -2,7 +2,7 @@
   "schema": 1,
   "purpose": "Single source of truth for every load-bearing number, date and quotation in this project. Prose is authored per audience and may legitimately differ between a research note and a general-audience page. Values may not. Anything that renders a value reads it from here, and verify.sh section 6 asserts that each value still appears in the file named as its owner. If this file and the canonical file disagree, the harness fails and nothing ships.",
   "vantage": "1947-12-05",
-  "vantage_note": "Unless a fact says otherwise, it is asserted as of December 5, 1947, the date of Goedel's citizenship hearing. Powell v. McCormack (1969), the Twenty-fifth Amendment (1967) and modern state counts are out of bounds and must not be used to support any fact here.",
+  "vantage_note": "Unless a fact says otherwise, it is asserted as of December 5, 1947, the date of Gödel's citizenship hearing. Powell v. McCormack (1969), the Twenty-fifth Amendment (1967) and modern state counts are out of bounds and must not be used to support any fact here.",
   "status_values": {
     "verified": "Checked against a primary source, and the check is reproducible.",
     "unverified": "Asserted from a secondary source or not yet checked. Renders with an explicit label.",
@@ -191,6 +191,18 @@
       "statement": "Two thirds of the membership and two thirds of those voting are different numbers, and the text does not choose between them. Weimar Article 76 states its base explicitly; the same fraction appears in both documents and only one says what it divides.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified"
+    },
+    {
+      "id": "articlev.base.holding",
+      "value": "253 U.S. 350 (1920)",
+      "label": "The case that fixed Article V's base",
+      "statement": "National Prohibition Cases, decided June 7, 1920, announced no conventional opinion but numbered conclusions. Conclusion 2 holds that the two-thirds vote Article V requires is two thirds of the members present, assuming a quorum, and not two thirds of the entire membership.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "source": {
+        "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep253/usrep253350/usrep253350.pdf",
+        "read_from": "page image"
+      }
     },
     {
       "id": "articlev.base.origin",
@@ -401,7 +413,7 @@
       "id": "collapse.germany.threshold",
       "value": "four ninths",
       "label": "Weimar Article 76's two thirds composed to about 44 per cent",
-      "statement": "Article 76 required a two-thirds quorum and two thirds of those present. Those fractions compose. Two thirds of two thirds is four ninths, so the clause universally described as a two-thirds rule could be satisfied by about forty-four per cent of the statutory membership -- less than half the chamber. It needs no source beyond the clause and multiplication.",
+      "statement": "Article 76 required a two-thirds quorum and two thirds of those present. Those fractions compose. Two thirds of two thirds is four ninths, so the clause universally described as a two-thirds rule could be satisfied by about forty-four per cent of the statutory membership — less than half the chamber. It needs no source beyond the clause and multiplication.",
       "canonical": "analysis/germany-1933/path-enabling-act.md",
       "status": "verified",
       "checked_by": "arithmetic on the clause; no external authority required",
@@ -411,7 +423,7 @@
       "id": "collapse.germany.votes",
       "value": 444,
       "label": "Votes for the Enabling Act, against 94",
-      "statement": "The usual telling is that excluding the 81 Communist deputies is what made the Act pass. The Bundestag's own account says the opposite: the majority would have sufficed for a constitutional amendment even had those deputies taken part. The exclusion was insurance, not the load-bearing element. An analysis resting on it rests on the wrong thing.",
+      "statement": "The usual telling is that excluding the 81 Communist deputies is what made the Act pass. The German Bundestag's later published account says the opposite: the majority would have sufficed for a constitutional amendment even had those deputies taken part. The exclusion was insurance, not the load-bearing element. An analysis resting on it rests on the wrong thing.",
       "canonical": "analysis/germany-1933/path-enabling-act.md",
       "status": "verified",
       "vantage_exempt": true,

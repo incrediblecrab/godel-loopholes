@@ -163,7 +163,11 @@ const filter = fact('collapse.filter');
           {c.extras.map((e) => (
             <>
               <dt>{e.label}</dt>
-              <dd>{e.statement}</dd>
+              <dd>
+                {typeof e.value === 'number' && (
+                  <><b class="figure tabular">{e.value.toLocaleString('en-US')}</b>{' '}</>
+                )}{e.statement}
+              </dd>
             </>
           ))}
 
@@ -359,6 +363,11 @@ const filter = fact('collapse.filter');
     color: var(--ink-faint);
     font-size: var(--text-sm);
     margin-top: var(--space-xs);
+  }
+
+  .detail dd .figure {
+    font-weight: var(--weight-bold);
+    margin-inline-end: var(--space-2xs);
   }
 
   .detail dd {

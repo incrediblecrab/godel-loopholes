@@ -17,7 +17,7 @@
  * scrolling.
  */
 import { readSections, pick, firstTable, inline } from '../lib/content';
-import { fact, vantage } from '../lib/facts';
+import { fact, vantage, vantageLong } from '../lib/facts';
 
 const SRC = 'analysis/united-states-1947/silence-inventory.md';
 const [inventory] = pick(readSections(SRC), 'the-inventory');
@@ -105,7 +105,7 @@ const unfilledFact = fact('silence.unfilled');
 
   <table>
     <caption class="visually-hidden">
-      Constitutional silences at the {vantage} vantage
+      Constitutional silences at the {vantageLong} vantage
     </caption>
     <thead>
       <tr>
