@@ -221,7 +221,7 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
 /* --- the two new artifacts ------------------------------------------------
  *
  * The expected numbers below -- 3 cases, 51 axioms, 6 sufficient, 4 step-one,
- * 8 disproved claims, 6 negative controls -- are written out on purpose, and
+ * 8 disproved claims, 7 negative controls -- are written out on purpose, and
  * this is NOT the hardcoding that lint-facts.mjs exists to stop.
  *
  * The site reads those numbers from data/facts.json and the theory files. A
@@ -281,7 +281,7 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   record(claims === 8, 'the method page lists all eight disproved claims', `${claims} claims`);
 
   const controls = await page.locator('.controls li').count();
-  record(controls === 6, 'and all six negative controls', `${controls} controls`);
+  record(controls === 7, 'and all seven negative controls', `${controls} controls`);
 
   await context.close();
 }

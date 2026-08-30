@@ -28,7 +28,7 @@ Three files concern Zahoransky and Benzmüller's Isabelle/HOL formalization of t
 
 `ratification-price.md` is the earlier and weaker version of the same finding, kept because it records four overstatements and how each was caught.
 
-`search/axiom_sweep.py` generates every theory those files rely on from `isabelle/GodelCore.thy` and `isabelle/GodelConstitution.thy`, so the model is never transcribed twice. `search/quorum_cascade.py` is separate and concerns the congressional proposing stage in 1947.
+`search/axiom_sweep.py` generates every theory those files rely on from `isabelle/GodelCore.thy` and `isabelle/GodelConstitution.thy`, so the model is never transcribed twice. `search/quorum_cascade.py` is separate and concerns the congressional proposing stage in 1947; it is closed as a null result in `quorum-cascade-null.md`, with the refutation machine-checked in `search/cascade_domination.py` and the premise it rested on verified in `quorum-base.md`.
 
 ## What is not here yet
 

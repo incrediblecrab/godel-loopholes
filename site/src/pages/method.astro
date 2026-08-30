@@ -196,27 +196,41 @@ cd godel-loopholes
     </section>
 
     <section aria-labelledby="open" class="caveat">
-      <h2 id="open">What is still open, stated plainly</h2>
+      <h2 id="open">The one live question, and how it came out</h2>
       <p>
-        There is one live research question and it is not settled. Three rows of the
-        silence inventory, chained together, suggest the denominator of Article&nbsp;V
-        is set by the body the fraction is meant to constrain. The numbers are
-        computed and committed.
+        Three rows of the silence inventory, chained together, suggested that the
+        denominator of Article&nbsp;V is set by the body the fraction is meant to
+        constrain. A chamber refuses to seat its own members-elect; the chamber gets
+        smaller; a quorum of a smaller chamber is a smaller number; two thirds of that
+        quorum is smaller still. Run to exhaustion it takes the congressional price of
+        an amendment from <Value id="cascade.propose_price" bare /> people to four.
       </p>
       <p>
-        They are labelled <strong>{cascade.value}</strong>, because the chain rests on
-        one premise we have not verified: that the quorum base is members chosen and
-        sworn rather than the statutory size of the chamber. If it is the statutory
-        size, the chain collapses at step one and this becomes a null result — which
-        our own standard requires be written up in the same detail as a win.
+        The premise it rested on — that a quorum counts members actually chosen and
+        sworn, not the statutory size of the chamber — held. Both chambers had said so
+        in terms decades before the vantage, and we read it off the page images rather
+        than take anyone's word for it.
       </p>
       <p>
-        Until that is settled, it is not a finding, and it is not presented as one
-        anywhere on this site.
+        It fails anyway, and it fails on arithmetic that needed none of that research.
+        Removing members is business of the chamber, so it needs a quorum present, and
+        the bloc driving it has to supply that quorum itself — the members it is
+        removing will not stay to help make one. So the manoeuvre costs
+        <Value id="cascade.entry_price" bare /> people before it has achieved anything.
+        Proposing the amendment outright costs <Value id="cascade.propose_price" bare />.
+        Anyone able to start it could already have finished,
+        <Value id="cascade.extra_cost" bare /> members ago.
+      </p>
+      <p>
+        It is recorded as <strong>{cascade.value}</strong>: a null result, written up in
+        the same detail our own standard demands of a win, with the theorem proved for
+        every chamber size at once and a negative control that makes the proof capable
+        of failing. The two numbers that killed it had been sitting in our own committed
+        output, unread, the whole time.
       </p>
     </section>
 
-    <MarginNote head="The open question" facts={['cascade.status', 'silence.single_chamber']} />
+    <MarginNote head="The question, resolved" facts={['cascade.status', 'silence.single_chamber']} />
   </div>
 </Base>
 

@@ -111,7 +111,7 @@ Neither advances the search for a loophole. Both make the standing of the existi
 
 ## The minimum coalition
 
-Thirty-six of forty-eight states, by whichever mode Congress directs, plus the congressional proposing stage. The congressional stage is separately shown to be soft: `search/quorum_cascade.py` drives it from 179 individuals to 4 and reports its own disqualification, since nothing in that cascade touches the thirty-six. The count of individual legislators or convention delegates behind those thirty-six states has not been computed and is the next measurement. It is mode-dependent, since Congress selects between legislatures and conventions.
+Thirty-six of forty-eight states, by whichever mode Congress directs, plus the congressional proposing stage. The congressional stage looks soft at first: `search/quorum_cascade.py` drives it from 179 individuals to 4. It is not reachable, for two independent reasons written up in `quorum-cascade-null.md` — nothing in the cascade touches the thirty-six, and the cascade costs more to run than the 179 it was meant to undercut. The count of individual legislators or convention delegates behind those thirty-six states has not been computed and is the next measurement. It is mode-dependent, since Congress selects between legislatures and conventions.
 
 ## Falsifiers
 

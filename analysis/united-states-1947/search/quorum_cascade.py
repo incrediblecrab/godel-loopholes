@@ -1,21 +1,34 @@
 """Exhaustive search over the Article I Section 5 quorum cascade, 1947 vantage.
 
-STATUS: NOT A FINDING. The output of this script is not cited anywhere in the
-    analysis and must not be, because its load-bearing premise is UNVERIFIED.
-    That premise is the one stated under THE MECHANISM UNDER TEST below: that
-    the base of the quorum majority is members chosen and sworn rather than the
-    statutory size of the chamber. Research to confirm it against pre-1947 House
-    and Senate precedent was started and never completed. If the base turns out
-    to be the statutory 435, every number this script prints collapses and the
-    correct write-up is a null result. Treat quorum_cascade.json as the output
-    of a hypothesis, not as a measurement.
+STATUS: RESOLVED, and the answer is a null result. The write-up is
+    ../quorum-cascade-null.md and the refutation is ../search/cascade_domination.py.
+    The numbers below are correct and may be cited as what a cascade would do.
+    They may NOT be cited as a threshold anyone can reach, for the reason below.
 
-    One thing that does now bear on it, and helps rather than hurts: Barry v.
-    United States ex rel. Cunningham, 279 U.S. 597, 615-616 (1929), says in
-    dictum that a vote of expulsion does not deprive a state of its equal
-    suffrage in the constitutional sense. See academia/article-v-entrenchment.md.
-    That removes one Article V objection to the cascade. It does not establish
-    the quorum base, which is the premise that actually matters here.
+    The premise this file waited on turned out to be TRUE. The quorum base
+    really is members chosen and sworn, not the statutory size of the chamber:
+    Hinds' Precedents vol. 4 sections 2889 and 2891, verified from the page
+    images in ../quorum-base.md. So a vacancy really does lower the denominator.
+
+    The cascade fails anyway, on arithmetic that needed none of that research
+    and that was sitting in this script's own output the whole time. Compare
+    the two numbers main() already prints:
+
+        two thirds of a quorum, settled 1920            : 179
+        peak coalition required to get there            : 267
+
+    Beginning the cascade costs a quorum of the undiminished chamber, because
+    the bloc must supply that quorum itself; the members it is removing will not
+    stay to help make one. And two thirds of a quorum is strictly fewer people
+    than a quorum, for every chamber of four or more. So any bloc able to start
+    this could already have proposed the amendment outright, 88 members ago.
+    Strictly dominated at step 0. cascade_domination.py proves the general
+    statement with Z3 and carries a negative control.
+
+    One thing that bears on it and helps rather than hurts, kept for the record:
+    Barry v. United States ex rel. Cunningham, 279 U.S. 597, 615-616 (1929),
+    says in dictum that a vote of expulsion does not deprive a state of its
+    equal suffrage in the constitutional sense. See academia/article-v-entrenchment.md.
 
 Runs the row 4 -> row 5 linkage recorded in silence-inventory.md as an open
 question, and turns it into a number.
@@ -176,10 +189,12 @@ def cascade(start: int, label: str):
 
 def main():
     out = {"vantage": "United States, December 5, 1947",
-           "status": "NOT A FINDING -- unverified premise, see module docstring",
-           "unverified_premise": ("the quorum base is members chosen and sworn, "
-                                  "not the statutory chamber size; if it is the "
-                                  "statutory size these numbers collapse"),
+           "status": "NULL RESULT -- strictly dominated, see quorum-cascade-null.md",
+           "premise_now_verified": ("the quorum base IS members chosen and sworn, per Hinds' "
+                                    "Precedents vol. 4 ss. 2889 and 2891; see quorum-base.md"),
+           "why_it_fails": ("beginning the cascade costs a quorum of the undiminished "
+                            "chamber, and two thirds of a quorum is fewer people than a "
+                            "quorum, so the manoeuvre is dominated at step 0"),
            "chambers": []}
 
     for start, label in ((HOUSE_1947, "House"), (SENATE_1947, "Senate")):
@@ -223,6 +238,8 @@ def main():
     print("  NOTHING IN THIS CASCADE TOUCHES THAT NUMBER.")
     print("  The cascade is confined to the proposing stage. It is not a path to")
     print("  amendment and therefore not a candidate. Recorded as a bounded result.")
+    print(f"  AND IT IS DOMINATED: beginning it costs {s['peak_coalition_total']}, while proposing")
+    print(f"  outright costs {s['settled_1920_total']}. See search/cascade_domination.py.")
 
     p = Path(__file__).with_name("quorum_cascade.json")
     p.write_text(json.dumps(out, indent=2))

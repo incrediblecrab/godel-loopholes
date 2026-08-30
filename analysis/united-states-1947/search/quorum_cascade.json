@@ -1,7 +1,8 @@
 {
   "vantage": "United States, December 5, 1947",
-  "status": "NOT A FINDING -- unverified premise, see module docstring",
-  "unverified_premise": "the quorum base is members chosen and sworn, not the statutory chamber size; if it is the statutory size these numbers collapse",
+  "status": "NULL RESULT -- strictly dominated, see quorum-cascade-null.md",
+  "premise_now_verified": "the quorum base IS members chosen and sworn, per Hinds' Precedents vol. 4 ss. 2889 and 2891; see quorum-base.md",
+  "why_it_fails": "beginning the cascade costs a quorum of the undiminished chamber, and two thirds of a quorum is fewer people than a quorum, so the manoeuvre is dominated at step 0",
   "chambers": [
     {
       "chamber": "House",

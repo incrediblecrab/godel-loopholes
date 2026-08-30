@@ -4,7 +4,7 @@
 # Every claim made about tooling and replication is re-run here from scratch.
 # Each check prints the command, the expected result, and the observed result.
 #
-# Six checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
+# Seven checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
 # harness reports PASS only when they do fail. A verification script that can
 # only ever print PASS is worthless, because it cannot distinguish a working
 # toolchain from a broken assertion. If a negative control reports
@@ -120,6 +120,35 @@ if grep -qE 'states_still_required_to_ratify.*36|Article V still requires ratifi
 else
   bad "CONTROL BROKEN: the 36-state requirement is no longer being reported"
 fi
+
+hdr "2e. The cascade is strictly dominated -- the null result, machine-checked"
+note "Claim: for every chamber of 4 or more, two thirds of a quorum is strictly fewer"
+note "people than a quorum, so any manoeuvre that must begin by carrying a vote in the"
+note "undiminished chamber costs more than proposing the amendment outright."
+note "Source of truth: analysis/united-states-1947/quorum-cascade-null.md"
+DOM=$("$REPO/.venv/bin/python" "$REPO/analysis/united-states-1947/search/cascade_domination.py" 2>&1)
+grep -q 'Z3, for all n >= 4              : PROVED' <<<"$DOM" \
+  && ok "Z3 proves the domination theorem for all chamber sizes at once" \
+  || bad "Z3 did not prove the domination theorem"
+grep -q 'sizes where the theorem fails : \[1, 2, 3\]' <<<"$DOM" \
+  && ok "exhaustive check to 200,000 finds only n = 1, 2, 3 as exceptions" \
+  || bad "exhaustive check disagrees with the recorded exceptions"
+grep -q 'cheapest bloc that can carry an Article V proposal outright : 179' <<<"$DOM" \
+  && ok "agrees with threshold-arithmetic.md on the price of proposing (179)" \
+  || bad "domination proof disagrees with threshold-arithmetic.md"
+grep -q 'cheapest bloc that can even BEGIN the cascade               : 267' <<<"$DOM" \
+  && ok "entry price of the cascade is a quorum of each chamber (267)" \
+  || bad "domination proof no longer reports the 267 entry price"
+grep -q 'THE CASCADE IS STRICTLY DOMINATED AT STEP ZERO' <<<"$DOM" \
+  && ok "reports the null result in its own output" \
+  || bad "the null result is no longer being reported"
+
+hdr "2f. NEGATIVE CONTROL: the domination proof must find the real exceptions"
+note "n = 1, 2 and 3 genuinely violate the theorem. If dropping the n >= 4 guard still"
+note "returns unsat, the encoding is vacuous and the PROVED above means nothing."
+grep -qE 'Z3 negative control, n >= 1     : counterexample n=[123]$' <<<"$DOM" \
+  && ok "solver finds a counterexample once the guard is dropped" \
+  || bad "CONTROL BROKEN: no counterexample found without the n >= 4 guard"
 
 hdr "3. Yadamsuren et al. IRC 121 replication (Artificial Intelligence and Law, 2026)"
 note "Claim: the published Prolog model reproduces on local SWI-Prolog, detects the"

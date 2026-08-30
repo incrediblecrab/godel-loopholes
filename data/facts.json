@@ -465,15 +465,15 @@
     },
     {
       "id": "cascade.status",
-      "value": "NOT A FINDING",
-      "label": "The quorum cascade is unverified",
-      "statement": "The cascade rests on the premise that the quorum base is 'members chosen and sworn' rather than the statutory chamber size. That premise has never been verified against pre-1947 authority. If the base is the statutory 435, the cascade collapses at step one.",
-      "canonical": "analysis/united-states-1947/search/quorum_cascade.py",
-      "status": "unverified"
+      "value": "strictly dominated",
+      "label": "The quorum cascade, resolved",
+      "statement": "The cascade's premise held: the quorum base really is members chosen and sworn, verified in quorum-base.md. It fails anyway, on arithmetic. Beginning it costs a quorum of the undiminished chamber, and two thirds of a quorum is fewer people than a quorum, so any bloc able to start it could already have proposed the amendment outright. Machine-checked in search/cascade_domination.py.",
+      "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
+      "status": "verified"
     },
     {
       "id": "verify.checks",
-      "value": 88,
+      "value": 94,
       "label": "Checks in the verification harness",
       "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
       "canonical": "README.md",
@@ -482,10 +482,10 @@
     },
     {
       "id": "verify.negative_controls",
-      "value": 6,
+      "value": 7,
       "label": "Negative controls, designed to fail",
-      "statement": "Six checks assert something deliberately false that the tool must reject. A verification script that can only ever print PASS cannot distinguish a working toolchain from a broken assertion. Sections 2b, 2d, 3b, 4b, 4d and 6b.",
-      "canonical": "eli5.md",
+      "statement": "Checks built to fail. If one of them passes, the harness is not testing anything. The count is declared in verify.sh's own header and section 6d counts the actual NEGATIVE CONTROL sections and compares, so the number cannot drift unnoticed. It previously named eli5.md as its owner and was passing by matching the unrelated word 'six' in 'six independent witnesses'.",
+      "canonical": "verify.sh",
       "status": "verified",
       "checked_by": "verify.sh section 6d, which counts its own NEGATIVE CONTROL headers and compares them against the count stated in its header comment",
       "history": "verify.sh's header comment said 'three' while five existed. The drift was found by tools/ssot_audit.py, not by the harness, because nothing was counting. Section 6d now counts."
@@ -528,6 +528,83 @@
       "label": "A shipped experiment was vacuous",
       "statement": "An ablation emitted axioms before the definition they mentioned, Isabelle generalized the free variable, and the reduced theory went inconsistent. An inconsistent theory proves every theorem you were hoping to see. Adversarial review caught it, not the harness. Every ablation now carries a mandatory consistency probe.",
       "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "quorum.base.house",
+      "value": "chosen, sworn, and living",
+      "label": "What the House counts when it counts a quorum",
+      "statement": "Hinds' Precedents vol. 4 section 2889, at printed page 62: after the House is once organized the quorum consists of a majority of those Members chosen, sworn, and living, whose membership has not been terminated by resignation or by the action of the House. Speaker Cannon, March 16, 1906. A vacancy lowers the denominator and so does an unsworn member-elect.",
+      "canonical": "analysis/united-states-1947/quorum-base.md",
+      "status": "verified",
+      "source": {
+        "title": "Hinds' Precedents of the House of Representatives, vol. 4",
+        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
+        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
+        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
+        "cite": "vol. 4, sec. 2889, p. 62"
+      }
+    },
+    {
+      "id": "quorum.base.senate",
+      "value": "duly chosen and sworn",
+      "label": "What the Senate counts when it counts a quorum",
+      "statement": "Hinds' Precedents vol. 4 section 2891, at printed page 64: after long discussion the Senate finally decided that a quorum consisted of a majority of Senators duly chosen and sworn. Adopted by resolution May 4, 1864 (yeas 26, nays 11), amended to add the oath March 26, 1868, re-adopted January 17, 1877, sustained October 11, 1893 (yeas 38, nays 5).",
+      "canonical": "analysis/united-states-1947/quorum-base.md",
+      "status": "verified",
+      "source": {
+        "title": "Hinds' Precedents of the House of Representatives, vol. 4",
+        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
+        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
+        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
+        "cite": "vol. 4, sec. 2891, p. 64"
+      }
+    },
+    {
+      "id": "quorum.base.contested",
+      "value": "nineteen votes to eighteen",
+      "label": "How close the Senate came to the other reading",
+      "statement": "On June 30 and July 9, 1862 the Senate considered declaring a majority of Senators duly elected and entitled to seats to be a quorum, which is the statutory-size reading, and laid the proposition on the table by nineteen votes to eighteen. President pro tempore Solomon Foot argued for it. A rule settled by one vote is settled, but a write-up that omits the margin describes more certainty than the record carries.",
+      "canonical": "analysis/united-states-1947/quorum-base.md",
+      "status": "verified",
+      "source": {
+        "title": "Hinds' Precedents of the House of Representatives, vol. 4",
+        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
+        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
+        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
+        "cite": "vol. 4, sec. 2891, p. 64"
+      }
+    },
+    {
+      "id": "cascade.propose_price",
+      "value": 179,
+      "label": "Members needed to propose an amendment outright, 1947",
+      "statement": "Two thirds of a quorum in each chamber under the 1920 reading: 146 in the House and 33 in the Senate. This is the price the cascade was trying to undercut.",
+      "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
+      "status": "verified"
+    },
+    {
+      "id": "cascade.entry_price",
+      "value": 267,
+      "label": "Members needed merely to begin the cascade, 1947",
+      "statement": "A quorum of each undiminished chamber: 218 in the House and 49 in the Senate. The bloc must supply that quorum itself, because the members it is removing will not stay to help make one.",
+      "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
+      "status": "verified"
+    },
+    {
+      "id": "cascade.extra_cost",
+      "value": 88,
+      "label": "What the cascade costs over not running it",
+      "statement": "267 minus 179. The manoeuvre is strictly dominated at step zero, and no later saving refunds it, because the coalition has already been paid.",
+      "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
+      "status": "verified"
+    },
+    {
+      "id": "cascade.langer",
+      "value": "30 to 52",
+      "label": "The Senate declined to exclude by simple majority, five years before the vantage",
+      "statement": "On March 27, 1942 the Senate rejected the part of the committee resolution asserting that William Langer could be denied his seat by simple majority, held the case an expulsion needing two thirds, then refused to remove him 30 to 52. This makes step 0 of the cascade contested rather than settled. Source is the Senate Historical Office, not the Congressional Record; see the sourcing note in the canonical file.",
+      "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
       "status": "verified"
     }
   ]
