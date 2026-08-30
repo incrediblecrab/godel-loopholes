@@ -71,6 +71,19 @@ const SPELLED_COUNT = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'][div
       <ThresholdMachine />
     </div>
 
+    <p>
+      One number in that machine is worth stopping on. The House&#8217;s <Value id="house.size" bare />
+      is the figure every threshold above is computed from, and no statute states it. The Act of
+      August&nbsp;8, 1911 fixed the House at <Value id="house.size.1911" bare />. Arizona and
+      New Mexico each added one on admission the following year, and every apportionment act since
+      &#8212; 1929 and 1941 alike &#8212; has carried the total forward as &#8220;the then existing
+      number of Representatives,&#8221; without ever naming it. The figure is correct. Its
+      provenance is a chain rather than a citation, which is the same shape as the unstated base
+      above, one layer further down.
+    </p>
+
+    <MarginNote head="The number nobody enacted" facts={['house.size', 'house.size.1911']} />
+
     <p class="aside">
       The Z3 solver re&#8209;derives these figures independently in section&nbsp;2 of the
       harness, from the fractions rather than from our arithmetic. It is also where this

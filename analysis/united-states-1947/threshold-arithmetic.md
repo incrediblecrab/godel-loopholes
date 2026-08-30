@@ -36,7 +36,7 @@ This is admissible at the 1947 vantage, and so is *Schneiderman v. United States
 
 Combining the holding with the quorum clause: the base is a quorum, a quorum is a majority of the chamber, and the requirement is two thirds of that.
 
-At the 1947 vantage there were forty-eight states, ninety-six senators, and four hundred thirty-five representatives, the House having been fixed at that number by the apportionment legislation of 1929.
+At the 1947 vantage there were forty-eight states, ninety-six senators, and four hundred thirty-five representatives. That last number is worth a sentence, because no statute states it. The Act of August 8, 1911 fixed the House at four hundred thirty-three and gave Arizona and New Mexico one Representative each on admission "in addition to" that number; both were admitted in 1912. The apportionment legislation of 1929 and 1941 then carried the figure forward by referring to "the then existing number of Representatives" without ever naming it. The arithmetic below is unaffected — 435 was the correct figure on December 5, 1947 — but the provenance is a chain rather than a citation, and it is set out in `silence-inventory.md`.
 
 | | Members | Quorum | Two thirds of quorum | Share of chamber |
 |---|---|---|---|---|
@@ -85,7 +85,7 @@ A rule that a constitution does not state, which is then filled in by the practi
 
 The claim is that Article V does not state the base of its fraction, that the Supreme Court fixed the base as a quorum in 1920, and that the resulting 1947 congressional threshold is 146 representatives and 33 senators.
 
-It would be wrong if a quorum for the purpose of a constitutional amendment vote were something other than the Article I, Section 5 majority, which is the first thing an opponent should attack; *Missouri Pacific* expressly equates the two, so this now requires displacing a 1919 holding as well as a 1920 one. It would be wrong if the House was not 435 members in 1947, which is checkable and which this project has taken from the apportionment legislation rather than from a count.
+It would be wrong if a quorum for the purpose of a constitutional amendment vote were something other than the Article I, Section 5 majority, which is the first thing an opponent should attack; *Missouri Pacific* expressly equates the two, so this now requires displacing a 1919 holding as well as a 1920 one. It would be wrong if the House was not 435 members in 1947, which is checkable and which this project has taken from the apportionment legislation rather than from a count. That legislation has now been read from the page images, and it reaches 435 by addition rather than by stating it, which `silence-inventory.md` sets out; the figure survives the check, but anyone attacking it should attack the 1911 act and the two 1912 admissions, not the 1929 one.
 
 The reading of *Missouri Pacific* offered above is the remaining soft point. It is taken from the reported syllabus and from the argument pages rather than from a close reading of the full opinion, and a careful reader of the whole case might find the reliance on amendment practice to be narrower than the syllabus makes it sound.
 

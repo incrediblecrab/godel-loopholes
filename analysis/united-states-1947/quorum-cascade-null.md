@@ -20,7 +20,7 @@ Article I, Section 5 and Article V, from `corpus/united-states-1947/09-17-1787-c
 
 ## The legal status of each step
 
-**The premise under all of it — that the quorum base is members chosen and sworn rather than the statutory size of the chamber — is SETTLED, and settled in the cascade's favour.** This was the open question the whole exercise waited on, and it resolved the way the cascade needed. Hinds' *Precedents* volume 4, section 2889 (House, Speaker Cannon, March 16, 1906) and section 2891 (Senate) both hold that vacancies and unsworn members-elect come out of the denominator. Verified from page images and written up in `quorum-base.md`, with a caveat there about the quality of the available scan.
+**The premise under all of it — that the quorum base is members chosen and sworn rather than the statutory size of the chamber — is SETTLED, and settled in the cascade's favour.** This was the open question the whole exercise waited on, and it resolved the way the cascade needed. Hinds' *Precedents* volume 4, sections 2889 and 2890 (House, Speaker Cannon, April 16, 1906) and section 2891 (Senate) both hold that vacancies and unsworn members-elect come out of the denominator. Verified from a photographic scan of the printing and written up in `quorum-base.md`.
 
 **Step 0 is CONTESTED, and the strongest published argument on the other side is five years before the vantage.** Both chambers had in fact excluded members-elect by simple majority on grounds found nowhere in Article I, Section 2 — Roberts in the House in 1900 for polygamy, Smith in the Senate in 1928 and Vare in 1929 for campaign expenditure. But on March 27, 1942 the Senate, confronted with a committee report recommending that William Langer of North Dakota "be excluded by a majority vote" for moral unfitness while conceding he met every constitutional qualification, **rejected the part of the resolution asserting that a simple majority sufficed**, held that the case was therefore an expulsion requiring two thirds, and then declined to remove him 30 to 52. The Senate Historical Office's account records that the minority's argument — "new qualifications for a Senate seat could not be added to those set by the Constitution" — "won out."
 
@@ -46,7 +46,7 @@ And two thirds of a quorum is less than a quorum.
 
 `search/cascade_domination.py` proves this with Z3 for all `n` at once, checks it exhaustively for every chamber size to 200,000, and carries a negative control: dropping the `n >= 4` guard, the solver must and does return a counterexample, because 1, 2 and 3 genuinely are exceptions. A proof whose check cannot fail is not a check.
 
-At the 1947 vantage:
+At the 1947 vantage, with the thresholds as `threshold-arithmetic.md` derives them:
 
 | | House | Senate | total |
 |---|---|---|---|

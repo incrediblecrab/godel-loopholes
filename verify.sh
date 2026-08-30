@@ -4,7 +4,7 @@
 # Every claim made about tooling and replication is re-run here from scratch.
 # Each check prints the command, the expected result, and the observed result.
 #
-# Seven checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
+# Eight checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
 # harness reports PASS only when they do fail. A verification script that can
 # only ever print PASS is worthless, because it cannot distinguish a working
 # toolchain from a broken assertion. If a negative control reports
@@ -951,6 +951,42 @@ if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>
   fi
 else
   inconc "site/node_modules/playwright or npm not present; run npm ci in site/"
+fi
+
+# ---- 6g. Pointers are now structure, not courtesy.
+# Deduplicating the prose replaced several retold incidents with a pointer to
+# the file that tells them once. That is the right shape, but it means a
+# renamed file no longer merely breaks a convenience link -- it deletes the
+# only telling a reader can reach. The duplication at least stayed readable.
+hdr "6g. Every file this repository points at exists"
+if command -v python3 >/dev/null 2>&1; then
+  if out=$(python3 "$REPO/tools/links.py" --check 2>&1); then
+    ok "$(echo "$out" | tail -1)"
+  else
+    bad "$(echo "$out" | tail -1)"
+    echo "$out" | sed 's/^/      /'
+  fi
+else
+  inconc "python3 not on PATH" "Cannot check cross-file references."
+fi
+
+# 6h. The reference checker resolves a name three ways on purpose, so it is
+# permissive by design, and a permissive checker is exactly the kind that
+# quietly stops finding anything. Feed it a file that points at nothing and
+# require it to say so.
+hdr "6h. NEGATIVE CONTROL: a pointer to a missing file must be caught"
+if command -v python3 >/dev/null 2>&1; then
+  dangle="$WORK/dangling-pointer.md"
+  mkdir -p "$WORK"
+  printf 'This sentence points at `analysis/no-such-directory/no-such-file.md`.\n' > "$dangle"
+  if python3 "$REPO/tools/links.py" --check --extra "$dangle" >/dev/null 2>&1; then
+    bad "CONTROL BROKEN: the checker accepted a reference to a file that does not exist"
+  else
+    ok "the checker rejects a pointer to a missing file, so its passes mean something"
+  fi
+  rm -f "$dangle"
+else
+  inconc "python3 not on PATH" "Cannot run the reference-checker negative control."
 fi
 
 # --------------------------------------------------------------------- what is NOT done

@@ -23,6 +23,14 @@ interface Props {
 const { facts = [], head } = Astro.props;
 const entries: Fact[] = facts.map(fact);
 
+/**
+ * Split a compound citation into its atomic references. Each reference is set
+ * unbreakable; the joins between them become the break opportunities.
+ */
+function citeParts(s: string): string[] {
+  return s.split(/;\s+/).filter(Boolean);
+}
+
 function readingLabel(f: Fact): string | undefined {
   const r = f.source?.read_from;
   if (!r) return undefined;
@@ -46,7 +54,14 @@ function readingLabel(f: Fact): string | undefined {
           ) : (
             f.source.title
           )}
-          {f.source.cite && <span class="cite"> {f.source.cite}</span>}
+          {f.source.cite && (
+            <span class="cite">
+              {' '}
+              {citeParts(f.source.cite).map((part, i) => (
+                <>{i > 0 && '; '}<span class="cite-part">{part}</span></>
+              ))}
+            </span>
+          )}
           {f.source.page && <span class="cite"> at {f.source.page}</span>}
         </p>
       )}
@@ -99,7 +114,11 @@ function readingLabel(f: Fact): string | undefined {
     margin-top: 0.2em;
   }
 
-  .cite {
+  /* A single reference must never break mid-citation. A compound citation --
+     several references joined by semicolons -- has to be able to break between
+     them, or it runs out of the margin column. The page locator is a sentence
+     and wraps freely. */
+  .cite-part {
     white-space: nowrap;
   }
 

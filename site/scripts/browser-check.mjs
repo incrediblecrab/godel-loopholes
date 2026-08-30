@@ -221,7 +221,7 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
 /* --- the two new artifacts ------------------------------------------------
  *
  * The expected numbers below -- 3 cases, 51 axioms, 6 sufficient, 4 step-one,
- * 8 disproved claims, 7 negative controls -- are written out on purpose, and
+ * 8 disproved claims, 8 negative controls -- are written out on purpose, and
  * this is NOT the hardcoding that lint-facts.mjs exists to stop.
  *
  * The site reads those numbers from data/facts.json and the theory files. A
@@ -281,7 +281,7 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   record(claims === 8, 'the method page lists all eight disproved claims', `${claims} claims`);
 
   const controls = await page.locator('.controls li').count();
-  record(controls === 7, 'and all seven negative controls', `${controls} controls`);
+  record(controls === 8, 'and all eight negative controls', `${controls} controls`);
 
   await context.close();
 }
@@ -458,6 +458,71 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   );
 
   await context.close();
+}
+
+/* --- the margin apparatus stays inside its column ------------------------ */
+
+// Two real defects motivated this check and neither was visible to any
+// assertion the harness already had. A long page locator overflowed the margin
+// column because `.cite` was set `white-space: nowrap`, and then the modifier
+// class `page` collided with the global page-grid primitive in base.css and
+// turned the span into a grid, laddering its text one word to a line. Both
+// rendered a fully green harness. Layout is therefore measured, not assumed.
+
+for (const [label, viewport] of [
+  ['desktop', { width: 1440, height: 900 }],
+  ['narrow', { width: 390, height: 844 }],
+]) {
+  const overflowing = [];
+  const laddered = [];
+
+  for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
+    const { context, page } = await open(path, { viewport });
+
+    const found = await page.$$eval('aside.margin-note', (notes) =>
+      notes.flatMap((note) => {
+        const edge = note.getBoundingClientRect().right;
+        const out = [];
+        for (const el of note.querySelectorAll('*')) {
+          const r = el.getBoundingClientRect();
+          const text = (el.textContent ?? '').trim();
+          if (r.right > edge + 0.5) {
+            out.push({ kind: 'overflow', text: text.slice(0, 40) });
+          }
+          // Only leaves, so a container is not blamed for its children.
+          if (el.children.length === 0 && r.height > 0 && text) {
+            const style = getComputedStyle(el);
+            let lineHeight = parseFloat(style.lineHeight);
+            if (!Number.isFinite(lineHeight)) {
+              lineHeight = parseFloat(style.fontSize) * 1.4;
+            }
+            const lines = Math.round(r.height / lineHeight);
+            const words = text.split(/\s+/).length;
+            if (words >= 4 && lines >= words) {
+              out.push({ kind: 'ladder', text: text.slice(0, 40) });
+            }
+          }
+        }
+        return out;
+      }),
+    );
+
+    for (const f of found) {
+      (f.kind === 'overflow' ? overflowing : laddered).push(`${path} ${f.text}`);
+    }
+    await context.close();
+  }
+
+  record(
+    overflowing.length === 0,
+    `at ${label}, no margin note overflows its column`,
+    overflowing.length ? `${overflowing.length}, first: ${overflowing[0]}` : '',
+  );
+  record(
+    laddered.length === 0,
+    `at ${label}, no margin note text ladders one word to a line`,
+    laddered.length ? `${laddered.length}, first: ${laddered[0]}` : '',
+  );
 }
 
 /* ------------------------------------------------------------------ done */

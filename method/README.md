@@ -18,7 +18,7 @@ Germany 1933 was carried out through the amendment procedure itself, which carri
 
 Austria 1933 and 1934 ran through an instrument the constitution never mentions: a wartime economic enabling act from 1917 that had never been repealed. It tests whether a method looks outside the constitutional text at the statutes still standing beside it. A method reading only the constitution cannot see this one at all.
 
-Italy 1925 and 1926 happened through ordinary legislation while the Statuto sat untouched, its eighty-four articles never amended. It tests whether a method can register that constitutional text is sometimes simply not where the action is. The legal mechanics of all three are set out once, in `attack-surfaces.md`; what matters here is only the role each one plays in validation.
+Italy 1925 and 1926 happened through ordinary legislation while the Statuto sat untouched, its eighty-four articles never amended. It tests whether a method can register that constitutional text is sometimes simply not where the action is. The step-by-step paths are in `analysis/germany-1933/`, `analysis/austria-1920/` and `analysis/italy-1848/`; the classification that makes them a test set is in `attack-surfaces.md`. What matters here is only the role each one plays in validation.
 
 A procedure that cannot recover all three is not ready. Reporting which of the three a procedure catches, and which it misses, is part of proposing it.
 
@@ -29,6 +29,10 @@ The semantic route reads for defects in the text as written: contradictions betw
 The formal route treats the document as a system with rewrite rules and asks what is reachable. Article V is the obvious object: an amendment procedure that can amend the amendment procedure, carrying exactly two entrenchments, one of them expired. The relevant literature on self-amendment is already shelved in `academia/`.
 
 The routes are not rivals and a candidate may use both. What neither is allowed to do is produce a conclusion that cannot be stated as a sequence of legal operations with citations.
+
+## Two standards
+
+A procedure produces one of two kinds of claim, and each has its own gate. `what-counts-as-a-finding.md` governs candidate paths through a constitution: numbered steps, an authorizing clause for each, the legal status of every step, a minimum coalition, and a falsifier. `what-counts-as-an-instrument-result.md` governs claims about what a formal tool establishes — the reproduction criterion, ablation controls, the mandatory consistency probe, and the line between a kernel proof and a model-finder diagnostic. The second exists because `audit-inert-manoeuvre.md` checked this project's only substantive result against the first, clause by clause, and found that ten of the first standard's twelve substantive clauses cannot apply to a result about an instrument. An uncovered class of result is how a project starts grading its own homework.
 
 ## What this folder does not hold
 

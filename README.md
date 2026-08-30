@@ -52,3 +52,5 @@ Kept visible on purpose, because a repo that only records its wins is not eviden
 8. That *none of the six axioms is an Article V axiom* — two of them are the generic amendment procedure. That was classification by symbol name.
 
 One shipped experiment was also **vacuous** for a period: the ablation emitted axioms before the definition they mentioned, Isabelle generalized the free variable, and the reduced theory silently became inconsistent while still printing every theorem as proved. Adversarial review caught it, not the harness. Every ablation now carries a mandatory consistency probe.
+
+Corrections at the level of a citation or a quotation are recorded in the file that owns the claim rather than repeated here. The longest of them is in `analysis/united-states-1947/quorum-base.md`, which got the same ruling wrong twice in opposite directions before a photographic scan of the printing settled it.

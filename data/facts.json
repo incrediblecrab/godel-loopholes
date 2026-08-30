@@ -59,14 +59,32 @@
       "id": "house.size",
       "value": 435,
       "label": "Members of the House, 1947",
-      "statement": "The House of Representatives was fixed at 435 members by the Permanent Apportionment Act of 1929.",
+      "statement": "The House stood at 435 members in 1947, a figure no statute states: the Act of 1911 fixed the House at 433 and gave Arizona and New Mexico one Representative each in addition to that number, and the Acts of 1929 and 1941 carry forward \"the then existing number of Representatives\" without ever naming it.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
       "source": {
-        "title": "Permanent Apportionment Act of 1929",
-        "cite": "46 Stat. 21",
-        "note": "The statutory citation is recorded as ordinarily reported and has NOT been verified against Statutes at Large; the llsl retrieval problem in corpus/README.md is unsolved. The number 435 is not in doubt.",
-        "read_from": "unverified"
+        "title": "Apportionment Act of August 8, 1911; Permanent Apportionment Act of June 18, 1929",
+        "cite": "37 Stat. 13, 14; 46 Stat. 21, at 26",
+        "url": "https://tile.loc.gov/storage-services/service/ll/llsl/llsl-c62/llsl-c62.pdf",
+        "page": "PDF pages 36 and 37",
+        "note": "No statute states 435. The Act of 1911 fixed the House at 433 and gave Arizona and New Mexico one Representative each on admission in addition to it; the Acts of 1929 and 1941 carry forward \"the then existing number\" without naming it. Set out in silence-inventory.md.",
+        "read_from": "page image"
+      }
+    },
+    {
+      "id": "house.size.1911",
+      "value": 433,
+      "label": "Members of the House as fixed in 1911",
+      "statement": "The Apportionment Act of August 8, 1911 fixed the House of Representatives at 433 members, and provided that Arizona and New Mexico, on admission, should each have one Representative in addition to that number.",
+      "canonical": "analysis/united-states-1947/silence-inventory.md",
+      "status": "verified",
+      "source": {
+        "title": "Apportionment Act of August 8, 1911",
+        "cite": "37 Stat. 13, 14",
+        "url": "https://tile.loc.gov/storage-services/service/ll/llsl/llsl-c62/llsl-c62.pdf",
+        "page": "PDF pages 36 and 37",
+        "quotation": "shall be composed of four hundred and thirty-three Members",
+        "read_from": "page image"
       }
     },
     {
@@ -331,6 +349,30 @@
       "status": "verified"
     },
     {
+      "id": "netadd.axioms.total",
+      "value": 44,
+      "label": "Axioms in the repaired formalization",
+      "statement": "Thirty-nine in the shared core and five step-one stipulations. The ablation removes exactly those five and nothing else. All five are preconditions -- attempted, is_amd, sup_prop, maint_suf and sup_rat for the repealing amendment -- and none of them asserts that the amendment was proposed. The proposal is derived.",
+      "canonical": "analysis/united-states-1947/step-one-repair.md",
+      "status": "verified"
+    },
+    {
+      "id": "netadd.step_one_necessary",
+      "value": "independent without the five step-one axioms",
+      "label": "What Goedel's step one does once the proposal is derived",
+      "statement": "The published model asserts that the dictatorship amendment was proposed, which is the thing step one exists to bring about; with it assumed, step one is inert. Derive it instead and the behaviour reverses. Deleting the five step-one axioms leaves Dictatorship_t3 independent: Nitpick returns countermodels to the theorem and to its negation, in a theory it also finds consistent, with the entrenchment clause still in force at t2 so the amendment cannot be validly proposed. The independence is a model-finder diagnostic, not a proof, and it is a claim about this formalization rather than about Article V.",
+      "canonical": "analysis/united-states-1947/step-one-repair.md",
+      "status": "verified"
+    },
+    {
+      "id": "netadd.pvr_forced",
+      "value": "dropping the entrenchment check contradicts the entrenchment clause",
+      "label": "Why the repaired proposal rule is not reverse-engineered",
+      "statement": "The strongest objection to the repair is that the proposal rule was written so that step one would have to matter. It was not. A rule making attempt, amendment status and legislative support sufficient for a valid proposal contradicts the conditional entrenchment clause whenever that clause is in force and the amendment does not maintain equal suffrage, so any sufficient condition consistent with that necessary condition must carry the entrenchment check. The check is forced by Article V's proviso rather than chosen. Kernel-proved in GodelNetAddRivalRule.thy; the proof is short, and its weight is in what it rules out.",
+      "canonical": "analysis/united-states-1947/step-one-repair.md",
+      "status": "verified"
+    },
+    {
       "id": "recension.witnesses",
       "value": 6,
       "label": "Independent witnesses collated for the Bill of Rights",
@@ -429,8 +471,9 @@
       "vantage_exempt": true,
       "source": {
         "title": "Deutscher Bundestag, on the Enabling Act of March 24, 1933",
-        "cite": "recorded in academia/interwar-collapse.md",
-        "quotation": "there would have been a sufficient majority for a constitutional amendment even if the Communist deputies had been able to take part in the vote"
+        "note": "The Bundestag's published account, quoted from the transcription in academia/interwar-collapse.md rather than from the original page.",
+        "quotation": "there would have been a sufficient majority for a constitutional amendment even if the Communist deputies had been able to take part in the vote",
+        "read_from": "transcription"
       }
     },
     {
@@ -482,7 +525,7 @@
     },
     {
       "id": "verify.negative_controls",
-      "value": 7,
+      "value": 8,
       "label": "Negative controls, designed to fail",
       "statement": "Checks built to fail. If one of them passes, the harness is not testing anything. The count is declared in verify.sh's own header and section 6d counts the actual NEGATIVE CONTROL sections and compares, so the number cannot drift unnoticed. It previously named eli5.md as its owner and was passing by matching the unrelated word 'six' in 'six independent witnesses'.",
       "canonical": "verify.sh",
@@ -534,15 +577,15 @@
       "id": "quorum.base.house",
       "value": "chosen, sworn, and living",
       "label": "What the House counts when it counts a quorum",
-      "statement": "Hinds' Precedents vol. 4 section 2889, at printed page 62: after the House is once organized the quorum consists of a majority of those Members chosen, sworn, and living, whose membership has not been terminated by resignation or by the action of the House. Speaker Cannon, March 16, 1906. A vacancy lowers the denominator and so does an unsworn member-elect.",
+      "statement": "Hinds' Precedents vol. 4 sections 2889 and 2890, at printed pages 62 to 64: after the House is once organized the quorum consists of a majority of those Members chosen, sworn, and living, whose membership has not been terminated by resignation or by the action of the House. Speaker Joseph G. Cannon so held on April 16, 1906. The ruling decided the day: of his two candidate numbers, 192 and 191, only the reading he adopted gave a quorum on the 191 Members then voting. A vacancy lowers the denominator and so does an unsworn member-elect.",
       "canonical": "analysis/united-states-1947/quorum-base.md",
       "status": "verified",
       "source": {
         "title": "Hinds' Precedents of the House of Representatives, vol. 4",
-        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
-        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
-        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
-        "cite": "vol. 4, sec. 2889, p. 62"
+        "cite": "vol. 4, secs. 2889-2890, pp. 62-64",
+        "url": "https://archive.org/details/hindsprecedentso04hind",
+        "note": "Scanned by UC Libraries at 300 PPI; printed pages 62-64 are JP2 files _0080 to _0082.",
+        "read_from": "photographic page scan"
       }
     },
     {
@@ -554,10 +597,10 @@
       "status": "verified",
       "source": {
         "title": "Hinds' Precedents of the House of Representatives, vol. 4",
-        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
-        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
-        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
-        "cite": "vol. 4, sec. 2891, p. 64"
+        "cite": "vol. 4, sec. 2891, p. 64",
+        "url": "https://archive.org/details/hindsprecedentso04hind",
+        "note": "Scanned by UC Libraries at 300 PPI; printed page 64 is JP2 file _0082.",
+        "read_from": "photographic page scan"
       }
     },
     {
@@ -569,10 +612,10 @@
       "status": "verified",
       "source": {
         "title": "Hinds' Precedents of the House of Representatives, vol. 4",
-        "url": "https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf",
-        "sha256": "945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193",
-        "read_from": "page image, but of an OCR-derived re-typesetting; see quorum-base.md",
-        "cite": "vol. 4, sec. 2891, p. 64"
+        "cite": "vol. 4, sec. 2891, p. 64",
+        "url": "https://archive.org/details/hindsprecedentso04hind",
+        "note": "Scanned by UC Libraries at 300 PPI; printed page 64 is JP2 file _0082.",
+        "read_from": "photographic page scan"
       }
     },
     {

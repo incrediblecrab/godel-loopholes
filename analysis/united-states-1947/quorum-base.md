@@ -8,23 +8,55 @@ This file settles that one premise. It settles nothing else.
 
 The base is the members chosen, sworn and living. A vacancy lowers the denominator, and so does a member-elect who has not been sworn.
 
-Both chambers had said so in terms, decades before the vantage, and neither had changed its position by December 5, 1947.
+Both chambers had settled on that reading decades before the vantage, and neither had changed its position by December 5, 1947. In the House it is a Speaker's ruling of April 16, 1906, which was outcome-determinative on the day it was given. In the Senate it is a standing rule, adopted in 1864, amended in 1868 and sustained twice after that.
 
 ## The House
 
-Hinds' *Precedents of the House of Representatives*, volume 4, section 2889, at printed page 62. The section heading is the holding:
+Hinds' *Precedents of the House of Representatives*, volume 4, sections 2889 and 2890, at printed pages 62 to 64. The heading at section 2889 states the rule:
 
 > **2889. After the House is once organized the quorum consists of a majority of those Members chosen, sworn, and living, whose membership has not been terminated by resignation or by the action of the House.**
 
-Speaker Cannon delivered it on March 16, 1906, on a point of order raised by Marlin E. Olmsted of Pennsylvania during a vote on H.R. 15744. Olmsted's argument is on the same page and carries the arithmetic that matters here:
+That heading covers two episodes a month apart. They have to be kept apart, because only the second one decides anything.
 
-> Mr. Speaker, the statute fixing the number of Members provides for the election of 386, and I understand that 386 were chosen. Two of those Members, one from Pennsylvania, Mr. Castor, and one from Virginia, Mr. Swanson, are not now Members of Congress, The gentleman from Pennsylvania is dead and the gentleman from Virginia, who was sworn in, has resigned. They are clearly no longer Members of this House. Two persons who were chosen to be Members have never been sworn. They have never qualified. They have not become Members of this House. That, therefore, leaves the membership of this House at 382, of which number 192 constitute a quorum.
+### March 16, 1906: the question raised, and not reached
 
-Four deductions from a statutory 386: one death, one resignation, two unsworn. The chair accepted the reasoning and the resulting quorum.
+The House voted on consideration of the bill (H. R. 15744) to abolish the office of Lieutenant-General of the Army of the United States, and there appeared yeas 139, nays 32, answering present 21, a total of 192. Marlin E. Olmsted of Pennsylvania made the point of order that 192 constituted a quorum:
 
-The footnote on the same page gives an earlier instance of the same rule producing a smaller number:
+> Mr. Speaker, the statute fixing the number of Members provides for the election of 386, and I understand that 386 were chosen. Two of those Members, one from Pennsylvania, Mr. Castor, and one from Virginia, Mr. Swanson, are not now Members of Congress. The gentleman from Pennsylvania is dead and the gentleman from Virginia, who was sworn in, has resigned. They are clearly no longer Members of this House. Two persons who were chosen to be Members have never been sworn. They have never qualified. They have not become Members of this House. That, therefore, leaves the membership of this House at 382, of which number 192 constitute a quorum.
+
+Four deductions from a statutory 386: one death, one resignation, two unsworn. The point of order was then overtaken by events:
+
+> As the Speaker was about to rule, Mr. Adam M. Byrd, of Mississippi, appeared and was recorded. This increased the number to 193, which was a quorum of 384, the number in the House after the deduction of the names of Messrs. Castor, who had died, and Swanson, who had resigned.
+>
+> Therefore the Speaker did not rule on the question.
+
+So this episode decides nothing by itself, and the operative number in it, 384, deducts the death and the resignation but not the two never-sworn. Read alone it would suggest the never-sworn limb was unsupported. It is not, and the reason is on the next page.
+
+### April 16, 1906: the ruling
+
+Section 2890, at Congressional Record page 5354. Sereno E. Payne of New York moved that the House take a recess; on a division there were ayes 125, noes 9; Jack Beall of Texas made the point of order that no quorum was present. Speaker pro tempore Charles Curtis directed the doors closed and the roll called, and there were yeas 165, nays 19, answering present 7 — a total of 191.
+
+Speaker Joseph G. Cannon, who had resumed the Chair, worked through the precedents, Grow in 1861, Randall in 1879, Carlisle in 1886 and Reed in 1890, and then set out the arithmetic and the choice it forced:
+
+> The apportionment gives this House 386 Members, of whom 194 are a quorum. But two Members have died, and two—Messrs. Patterson, of Tennessee, and Williamson, of Oregon—have not yet been sworn, and Mr. Swanson has resigned. If the rule be that those 'chosen and living' constitute a quorum, without regard to the qualification by taking the oath, then the quorum is 192; but if Members not qualified are not to be counted as part of the House, then the total membership is reduced to 381, and the quorum is 191.
+
+He was candid that the House had never decided the question, and that he was taking the Senate's answer:
+
+> While the question has never been passed on in the House, it has been the subject of most careful consideration in the Senate, and the result is embodied in a permanent form in Rule III, section 2: 'A quorum shall consist of a majority of the Senators duly chosen and sworn.'
+
+Then he held, at printed page 64:
+
+> But in view of the learning of the committee who made the report of 1868, and of the reasons which seem to sustain that report, the Chair feels constrained to hold that after the House is once organized a quorum consists of a majority of those Members chosen, sworn, and living, whose membership has not been terminated by resignation or by the action of the House.
+>
+> A quorum being present, the House stands in recess until to-morrow, at 11.30 o'clock.
+
+That is a holding and not a remark in passing. Cannon's two candidate numbers were 192 and 191, and the number actually voting was 191. Only the reading he adopted produced a quorum, so the ruling decided whether the House could act at all that afternoon. It then acted.
+
+The footnote at section 2889 records the vacancy limb producing a smaller number a decade earlier:
 
 > On April 3, 1896 (first session Fifty-fourth Congress, Journal, p. 366), Mr. Speaker Reed ruled that 178 Members were a quorum, although, had there been no vacancies in representation, the quorum would have been 179.
+
+Both limbs therefore rest on House rulings: vacancies on Reed in 1896 and on Cannon in 1906, the never-sworn on Cannon.
 
 ## The Senate
 
@@ -40,28 +72,31 @@ The section is candid that the Senate went further than the House and with less 
 
 ## What was read, and how
 
-Read from page images rendered at 200 dpi from the GovInfo PDF, not from the text layer.
+Read from a photographic scan of the printing: the Internet Archive's copy of volume 4, digitised by the University of California Libraries on November 25, 2008 on a Canon 5D at 300 PPI.
 
-- URL: `https://www.govinfo.gov/content/pkg/GPO-HPREC-HINDS-V4/pdf/GPO-HPREC-HINDS-V4-4.pdf`
-- SHA-256: `945d83fcd1ddc95ea90c8b48c204b298d333b3a646a4d33eea272225e01d2193`
-- Printed page 62 is PDF page 4; printed page 64 is PDF page 6.
+- Item: `hindsprecedentso04hind`
+- Printed page 62 is JP2 file `hindsprecedentso04hind_0080`, page 63 is `_0081`, page 64 is `_0082`.
+- A page renders at 2100 x 3021 from `https://ia801605.us.archive.org/BookReader/BookReaderImages.php?zip=/11/items/hindsprecedentso04hind/hindsprecedentso04hind_jp2.zip&file=hindsprecedentso04hind_jp2/hindsprecedentso04hind_0080.jp2&id=hindsprecedentso04hind&scale=1&rotate=0`
 
-**A caveat that matters, and that this project's own rule did not anticipate.** Reading the page image is normally enough, because the page image is a photograph of the printing. This document is not that. GovInfo's Hinds is a modern re-typesetting derived from optical character recognition, and the corruption is visible in the rendered page: page 62 prints "If the first moaning was to be taken" for *meaning*, "he does not thin that" for *think*, "as there axe two vacancies" for *are*, and "Air. Vallandigham concurred" for *Mr.* The errors are baked into the document, so rendering it at any resolution reproduces them faithfully.
+This replaces an earlier reading taken from GovInfo, and the replacement was necessary rather than tidy. GovInfo's Hinds is a modern re-typesetting derived from optical character recognition. Its page 62 prints "If the first moaning was to be taken" for *meaning*, "he does not thin that" for *think*, "as there axe two vacancies" for *are*, and "Air. Vallandigham concurred" for *Mr.* Rendering that PDF at any resolution reproduces the errors faithfully, because they are in the document rather than in the reading of it. That is the case this project's "read the page image" rule did not anticipate: the image was a photograph of a corrupted typesetting rather than of the printing.
 
-The three passages quoted above are clean and unambiguous in the image, and the four corruptions listed are all in surrounding narrative rather than in a holding. But "read from the page image" is a weaker guarantee here than it is for the Library of Congress *Statutes at Large* scans, and it should not be recorded as though it were the same thing. Verifying against a scan of the 1907 printing remains open.
+All four are absent from the photograph, which prints *meaning*, *think*, *are* and *Mr.* The GovInfo text also put an error into a passage this file quotes: it gives "are not now Members of Congress**,** The gentleman from Pennsylvania" where the original prints a period. A comma followed by a capital letter is the signature of the defect, and on a project whose premise is that commas carry meaning, publishing one is not a small thing. It is corrected above.
 
 ## Corrections to the research that produced this
 
-A research agent was asked this question and returned a report that reached the right answer on the strength of the text layer. Two of its citations are wrong, and both were caught by reading the image:
+This file has been wrong twice, in opposite directions. Both are worth keeping on the record, because they came from two different failures of reading and the second was caused by the fix for the first.
 
-- It dated Cannon's ruling **April 16, 1906** and placed it at Congressional Record page **5354**. The section is dated **March 16, 1906** and its footnote reads "First session Fifty-ninth Congress, Record, p. 3932."
-- It reported the ruling as synthesising a chain ending in a decision it called definitive, without recording that the Senate's contrary reading lost by a single vote in 1862. A rule settled 19 to 18 is settled, but a write-up that omits the margin is describing a different degree of certainty than the record supports.
+**The first pass mislocated the ruling.** It said Speaker Cannon delivered the holding on March 16, 1906 on Olmsted's point of order. Cannon did deliver it, but on April 16, 1906, on Jack Beall's point of order, in the following section. The first pass also reported the rule as a settled synthesis without recording that the Senate's contrary reading had lost by a single vote in 1862. A rule settled 19 to 18 is settled, but a write-up that omits the margin describes more certainty than the record carries. Its other counts — 1864 at 26 to 11, 1893 at 38 to 5, and the 1868 insertion of "and sworn" — are all confirmed against the photograph.
 
-The vote counts it gave for 1864 (26 to 11), for 1893 (38 to 5), and the 1868 insertion of "and sworn" are confirmed.
+**The second pass over-corrected.** Working from a photographic scan of page 62, it found that the Speaker did not rule, and concluded that the citation to April 16, 1906 at Congressional Record page 5354 was wrong, that there had been no ruling by Cannon at all, and that the never-sworn limb rested on nothing but Hinds' digest. All three conclusions were false, for one reason: the section continues onto the next page and the reader stopped at the page boundary.
+
+The record is that section 2890 is dated April 16, 1906, that its first footnote reads "First session Fifty-ninth Congress, Record, p. 5354," and that its third identifies the Speaker as "Joseph G. Cannon, of Illinois." Cannon ruled, in the words the heading digests, and the ruling reached the never-sworn.
+
+The lesson is not the one the second pass drew. A section that begins on the page you fetched does not necessarily end there, and a negative finding drawn from a partial fetch is not a finding — it is the absence of the rest of the fetch. Retrieving one page cost one request; the error it produced took a re-reading of three pages to undo.
 
 ## What this does and does not establish
 
-Established: the denominator of "a Majority of each" tracks the membership as it actually stands. The premise under `search/quorum_cascade.py` step one holds.
+Established: the denominator of "a Majority of each" tracks the membership as it actually stands rather than the statutory size of the chamber. The premise under `search/quorum_cascade.py` step one holds. Both limbs are ruled, not merely digested. Vacancies lower the base on Reed in 1896 and on Cannon in 1906, and the Senate had its own quorum reduced to 38 on the death of Senator Miller of California, March 24, 1886. The never-sworn lower it on Cannon in 1906, in a ruling that determined whether the House had a quorum that afternoon, and in the Senate on a standing rule.
 
 It did not save the cascade. `quorum-cascade-null.md` closes that as a null result on arithmetic the premise has no bearing on: beginning the manoeuvre costs a quorum, and two thirds of a quorum is fewer people than a quorum. This file remains worth having — the holding is a real feature of the 1947 Congress, and it is the thing anyone re-examining the silence inventory will need — but it did not turn out to be load-bearing.
 

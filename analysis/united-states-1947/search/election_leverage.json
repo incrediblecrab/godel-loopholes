@@ -1,0 +1,28 @@
+{
+  "vantage": "United States, December 5, 1947",
+  "status": "PARTIAL RESULT -- congressional stage not dominated; route stalls at ratification",
+  "identity": "veto override threshold == Art. V proposing threshold (same formula, same case law)",
+  "identity_holds_to": 100000,
+  "identity_failures": [],
+  "thresholds_1947": {
+    "statute_with_president": 135,
+    "statute_without_president_veto_override": 179,
+    "art_v_proposing": 179,
+    "cascade_entry": 267
+  },
+  "advantage_with_president": 44,
+  "advantage_without_president": 0,
+  "leverage_failures": [
+    1,
+    2,
+    3,
+    4,
+    6
+  ],
+  "negative_control_found": true,
+  "negative_control_count": 5,
+  "route_dominated_with_president": false,
+  "route_dominated_without_president": true,
+  "cascade_dominated": true,
+  "all_checks_passed": true
+}

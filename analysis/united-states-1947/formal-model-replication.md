@@ -42,4 +42,4 @@ While confirming the thresholds in `threshold-arithmetic.md`, Z3 printed a House
 
 The solver was right and the label was wrong. The encoding minimized `yes` rather than `present`, so 219 was an arbitrary witness among the models achieving 146 yes votes; minimizing `present` gives 218. Nothing was unsound at any point. The formula answered exactly what had been written, and the English sentence attached to the output claimed something the formula did not say.
 
-This is the failure mode that formal tools invite rather than prevent, and it belongs in the same file as a successful machine-checked replication. A verified result is only as good as the correspondence between the formula and the sentence, and that correspondence is the one link in the chain no prover checks.
+This is the failure mode that formal tools invite rather than prevent, and it belongs in the same file as a successful machine-checked replication. The general rule it illustrates — that every tool in the stack is exposed to this failure and none of them checks for it — and the harness's own instance of the same error are in `TOOLING.md` under "The correspondence problem."
