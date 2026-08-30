@@ -337,4 +337,19 @@ const agree = fact('recension.wording_agrees');
     font-style: italic;
     color: var(--ink);
   }
+
+  /* With scripting off every panel is shown, stacked, and the tabs are removed
+     rather than left as dead controls. Without this the reader reaches the
+     First Amendment divergence and neither of the other two -- which is what
+     shipped, because the browser check only asserted that some panel existed. */
+  @media (scripting: none) {
+    .controls {
+      display: none;
+    }
+
+    .panel[hidden] {
+      display: revert;
+    }
+  }
+
 </style>

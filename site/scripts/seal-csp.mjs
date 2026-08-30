@@ -96,20 +96,38 @@ for (const page of pages) {
     if (/script-src[^;]*'unsafe-inline'/.test(policy)) {
       problems.push(`${rel}: script-src contains 'unsafe-inline'`);
     }
+    // A hash source suppresses 'unsafe-inline' but NOT 'self'. Leaving 'self'
+    // beside the hashes means any same-origin script URL still executes, so
+    // the policy would be exactly as strong as 'self' and no stronger --
+    // which is not what this script or the layout comment claim.
+    if (/script-src[^;]*'self'/.test(policy)) {
+      problems.push(
+        `${rel}: script-src still contains 'self', so the hashes buy nothing`,
+      );
+    }
+    if (hashes.length === 0 && !/script-src\s+'none'/.test(policy)) {
+      problems.push(
+        `${rel}: has no inline script but does not say script-src 'none'`,
+      );
+    }
     if (/script-src[^;]*'unsafe-eval'/.test(policy)) {
       problems.push(`${rel}: script-src contains 'unsafe-eval'`);
     }
-    if (hashes.length > 0) sealed += 1;
+    sealed += 1;
     continue;
   }
 
-  if (hashes.length === 0) continue;
-
-  // Insert the hashes into script-src, leaving every other directive alone.
+  // Replace script-src outright rather than appending to it. 'self' must go:
+  // a hash source suppresses 'unsafe-inline' but not 'self', so appending
+  // leaves a policy exactly as strong as 'self' while reading like a pinned
+  // one. The build emits no external <script src> at all, so nothing is lost.
   const next = policy.replace(/(script-src)([^;]*)/, (_all, key, rest) => {
-    const existing = rest.trim();
-    const missing = hashes.filter((h) => !existing.includes(h));
-    return missing.length === 0 ? `${key}${rest}` : `${key} ${existing} ${missing.join(' ')}`.replace(/\s+/g, ' ');
+    const keep = rest
+      .trim()
+      .split(/\s+/)
+      .filter((t) => t && t !== "'self'" && !t.startsWith("'sha256-"));
+    const sources = hashes.length > 0 ? [...keep, ...hashes] : [...keep, "'none'"];
+    return `${key} ${sources.join(' ')}`.replace(/\s+/g, ' ');
   });
 
   if (next !== policy) {

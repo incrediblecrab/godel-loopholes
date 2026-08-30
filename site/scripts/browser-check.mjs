@@ -73,8 +73,11 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 
 const browser = await chromium.launch();
 
-async function open(path, { js = true } = {}) {
-  const context = await browser.newContext({ javaScriptEnabled: js });
+async function open(path, { js = true, viewport } = {}) {
+  const context = await browser.newContext({
+    javaScriptEnabled: js,
+    ...(viewport ? { viewport } : {}),
+  });
   const page = await context.newPage();
   const violations = [];
   const errors = [];
@@ -158,6 +161,45 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
     return [...text.matchAll(/\\u[0-9a-fA-F]{4}|\\x[0-9a-fA-F]{2}/g)].map((m) => m[0]);
   });
   record(strays.length === 0, `${path} renders no stray escape sequence`, strays.join(' '));
+
+  // Keyboard path. Negative-controlled by suppressing outline and box-shadow
+  // site-wide, which flags 31 of 31 controls on /text/ -- so a green result
+  // here is a fact about the CSS, not about the check.
+  const controls = await page.$$('a[href], button, input, select, [tabindex]:not([tabindex="-1"])');
+  const unreachable = [];
+  const ringless = [];
+  for (const el of controls) {
+    if (!(await el.isVisible().catch(() => false))) continue;
+    await el.focus().catch(() => {});
+    if (!(await el.evaluate((n) => n === document.activeElement))) {
+      unreachable.push(await el.evaluate((n) => n.outerHTML.slice(0, 60)));
+      continue;
+    }
+    const lit = await el.evaluate((n) => {
+      const f = getComputedStyle(n);
+      return (f.outlineStyle !== 'none' && parseFloat(f.outlineWidth) > 0) || f.boxShadow !== 'none';
+    });
+    if (!lit) ringless.push(await el.evaluate((n) => n.outerHTML.slice(0, 60)));
+  }
+  record(unreachable.length === 0, `${path} every visible control takes focus`, unreachable[0] ?? '');
+  record(ringless.length === 0, `${path} every focused control shows a ring`, ringless[0] ?? '');
+
+  // Tab order must walk the page downward. A control that sends focus back up
+  // the document is how a keyboard reader gets trapped in a loop.
+  await page.evaluate(() => document.body.focus());
+  const tops = [];
+  for (let i = 0; i < 40; i += 1) {
+    await page.keyboard.press('Tab');
+    const top = await page.evaluate(() => {
+      const a = document.activeElement;
+      if (!a || a === document.body) return null;
+      return Math.round(a.getBoundingClientRect().top + window.scrollY);
+    });
+    if (top === null) break;
+    tops.push(top);
+  }
+  const backJumps = tops.filter((y, i) => i > 0 && y < tops[i - 1] - 40).length;
+  record(backJumps === 0, `${path} tab order follows the page downward`, `${backJumps} back-jumps`);
 
   // Every in-repo link on the page must resolve. A 404 on a research site is
   // not a cosmetic problem; it is a citation that does not go anywhere.
@@ -284,15 +326,46 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   const all = await page.locator(inv).count();
   record(all === 12, 'the inventory carries every row', `${all} rows`);
 
+  // Count what a reader can actually see, not what carries an attribute. The
+  // mobile layout sets `tr { display: block }` in author origin, which beats
+  // the UA stylesheet's `[hidden] { display: none }` -- so for a while the
+  // filter set the attribute, changed nothing on a phone, and this check
+  // passed anyway because it never entered the mobile layout or measured
+  // layout at all.
+  const countVisible = async (p) => {
+    const rows = await p.$$('[data-silence-inventory] tbody tr');
+    let n = 0;
+    for (const r of rows) if (await r.isVisible()) n += 1;
+    return n;
+  };
+
   await page.locator('input[name="holder"][value="single-chamber"]').check();
   await page.waitForTimeout(50);
-  const visible = await page.locator(`${inv}:not([hidden])`).count();
+  const visible = await countVisible(page);
   record(visible === 3, 'filtering to one chamber leaves the three-row cluster', `${visible} rows`);
 
   await page.locator('input[name="holder"][value="nobody"]').check();
   await page.waitForTimeout(50);
-  const unfilled = await page.locator(`${inv}:not([hidden])`).count();
+  const unfilled = await countVisible(page);
   record(unfilled === 1, 'exactly one silence has no filler at all', `${unfilled} row`);
+
+  await context.close();
+}
+
+/* --- and the same filter has to work on a phone -------------------------- */
+
+{
+  const { context, page } = await open('/text/', { viewport: { width: 390, height: 800 } });
+  const rows = await page.$$('[data-silence-inventory] tbody tr');
+  let n = 0;
+  for (const r of rows) if (await r.isVisible()) n += 1;
+  record(n === 12, 'at 390px every row starts visible', `${n} rows`);
+
+  await page.locator('input[name="holder"][value="single-chamber"]').check();
+  await page.waitForTimeout(80);
+  let m = 0;
+  for (const r of rows) if (await r.isVisible()) m += 1;
+  record(m === 3, 'at 390px filtering still leaves the three-row cluster', `${m} rows`);
 
   await context.close();
 }
@@ -336,8 +409,16 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   const rows = await page.locator('[data-silence-inventory] tbody tr').count();
   record(rows === 12, 'with JS off, every silence row is still present', `${rows} rows`);
 
-  const panels = await page.locator('[role="tabpanel"]:not([hidden])').count();
-  record(panels >= 1, 'with JS off, at least one divergence is readable', `${panels} panels`);
+  // `>= 1` is what let two of the three divergences ship unreachable. Every
+  // panel of every tabbed island must be readable with scripting off, because
+  // the tabs are the only other way to reach them.
+  const panels = await page.locator('[role="tabpanel"]').count();
+  const openPanels = await page.locator('[role="tabpanel"]:not([hidden])').count();
+  const laidOut = await page.$$eval('[role="tabpanel"]', (ns) =>
+    ns.filter((n) => getComputedStyle(n).display !== 'none').length);
+  record(panels === 3, 'with JS off, /text/ still carries all three divergences', `${panels}`);
+  record(laidOut === panels, 'with JS off, every divergence panel is laid out',
+    `${laidOut} of ${panels} (hidden attr on ${panels - openPanels})`);
 
   const fallback = await page.locator('table.no-js-only').first().isVisible();
   record(fallback, 'with JS off, the threshold table replaces the toggle');

@@ -114,7 +114,18 @@ def value_present(value, haystack: str) -> bool:
     if isinstance(value, int):
         if re.search(rf"(?<![\d,]){value}(?![\d])", haystack):
             return True
-        return any(w in haystack.lower() for w in NUMBER_WORDS.get(value, []))
+        # Word boundaries matter more here than anywhere else in this file.
+        # A bare substring test makes "no" match inside not, nothing, known
+        # and cannot, so the value 0 -- which is the project's headline claim
+        # -- was reported present in any English prose at all. Likewise
+        # "eight" matches inside "forty-eight" and "three" inside
+        # "thirty-three", so a hyphenated compound must not satisfy the
+        # simple word.
+        low = haystack.lower()
+        return any(
+            re.search(rf"(?<![a-z-]){re.escape(w)}(?![a-z-])", low)
+            for w in NUMBER_WORDS.get(value, [])
+        )
     needle = normalize(str(value))
     if not needle:
         return False

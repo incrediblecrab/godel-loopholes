@@ -44,7 +44,7 @@ This sounds like a stretch until you see it happen. In 2017 a Maine dairy lost a
 
 So: commas move money and change what a law means. And this isn't only a problem for obscure state statutes — we found the same thing in the Bill of Rights, without looking for it.
 
-We compared Amendments I through X across six official sources, expecting them to be identical. Two weren't. The Government Publishing Office prints the First Amendment as "**of** the right of the people peaceably to assemble" where every other source reads "**or** the right." One letter. But "or" makes assembly its own protected thing, while "of" quietly tucks it under freedom of the press. Separately, Yale's Avalon Project silently drops two commas, including the one that hinges the Seventh Amendment.
+We compared Amendments I through X across six independent witnesses, expecting them to be identical. On wording they agree completely, and three differences turned up anyway — every one of them a comma or a letter. The Government Publishing Office prints the First Amendment as "**of** the right of the people peaceably to assemble" where every other source reads "**or** the right." One letter. But "or" makes assembly its own protected thing, while "of" quietly tucks it under freedom of the press. Yale's Avalon Project silently drops two commas, including the one that hinges the Seventh Amendment. And the Statutes at Large prints the Second Amendment twice, not identically, with one comma where the parchment has three.
 
 Nobody planted those for us to find. We were just checking that our copies matched.
 

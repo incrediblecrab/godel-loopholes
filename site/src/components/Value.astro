@@ -20,18 +20,40 @@ interface Props {
   bare?: boolean;
   /** Override the rendered text. The fact is still looked up and still checked. */
   as?: string;
+  /**
+   * Spell the number out. Editorial prose spells small numbers, and this repo
+   * already assumes it -- tools/facts.py carries a NUMBER_WORDS table for
+   * exactly that reason. Derived from the value rather than typed, so the word
+   * cannot drift from the number the way a literal `as="six"` could.
+   */
+  words?: boolean;
 }
 
-const { id, bare = false, as } = Astro.props;
+const SPELLED = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen', 'nineteen', 'twenty',
+];
+
+function spell(value: Fact['value']): string {
+  if (typeof value !== 'number' || !Number.isInteger(value) || value < 0 || value > 20) {
+    throw new Error(
+      `Value words: ${JSON.stringify(value)} is not an integer 0-20 and cannot be spelled out`,
+    );
+  }
+  return SPELLED[value];
+}
+
+const { id, bare = false, as, words = false } = Astro.props;
 const f: Fact = fact(id);
-const shown = as ?? String(f.value);
+const shown = as ?? (words ? spell(f.value) : String(f.value));
 const statusLabel =
   f.status === 'verified' ? 'Verified' : f.status === 'disproved' ? 'Disproved' : 'Unverified';
 ---
 
 {
   bare ? (
-    <span class="value tabular" data-fact={f.id}>{shown}</span>
+    <span class={`value ${words ? '' : 'tabular'}`} data-fact={f.id}>{shown}</span>
   ) : (
     <span class="fact" data-fact={f.id}>
       <span class={`value tabular ${f.status !== 'verified' ? 'value--flagged' : ''}`}>{shown}</span>

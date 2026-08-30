@@ -71,9 +71,12 @@ for (const f of facts.facts) {
         // not be adjacent to other digits or to a decimal point, and not be
         // followed by a CSS unit -- `32ch` is a measure, not the thirty-two
         // states needed for a convention, and flagging it teaches people to
-        // ignore this script.
+        // ignore this script. The unit must be immediately adjacent: a real
+        // CSS length never has a space before its unit, and allowing one
+        // exempted "435 in the House of Representatives" -- exactly the
+        // hardcoded value this script exists to catch.
         re: new RegExp(
-          `(?<![\\d.])${f.value}(?![\\d.])(?!\\s*(?:ch|r?em|px|%|vw|vh|vmin|vmax|fr|deg|m?s|pt|cm|mm|in|q|ex|cap|lh|rlh|dvh|svh|lvh)\\b)`,
+          `(?<![\\d.])${f.value}(?![\\d.])(?!(?:ch|r?em|px|%|vw|vh|vmin|vmax|fr|deg|m?s|pt|cm|mm|in|q|ex|cap|lh|rlh|dvh|svh|lvh)\\b)`,
           'g',
         ),
         kind: 'number',

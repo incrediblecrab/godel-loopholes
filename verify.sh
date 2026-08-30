@@ -893,8 +893,8 @@ fi
 # same reason page images are read rather than OCR: the eye is the instrument
 # most likely to report what it expects.
 hdr "6e. The site palette meets WCAG AA, measured"
-if [[ -f site/src/styles/tokens.css ]]; then
-  if out=$(python3 tools/contrast.py --check 2>&1); then
+if [[ -f "$REPO/site/src/styles/tokens.css" ]]; then
+  if out=$(python3 "$REPO/tools/contrast.py" --check 2>&1); then
     ok "$(echo "$out" | tail -1)"
   else
     bad "$(echo "$out" | tail -1)"

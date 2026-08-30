@@ -189,6 +189,14 @@ export function firstTable(markdown: string): Table {
     if (!/^\s*\|/.test(lines[i])) break;
     rows.push(cells(lines[i]));
   }
+  const ragged = rows.findIndex((r) => r.length !== headers.length);
+  if (ragged >= 0) {
+    throw new Error(
+      `Table row ${ragged + 1} has ${rows[ragged].length} cells but the header has ` +
+        `${headers.length}. A stray | shifts every later cell and drops one off the end. ` +
+        `Row: ${rows[ragged].join(' | ')}`,
+    );
+  }
   return { headers, rows };
 }
 

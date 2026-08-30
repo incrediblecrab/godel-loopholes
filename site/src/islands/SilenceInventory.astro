@@ -37,11 +37,39 @@ function holder(who: string): Holder {
   if (w.startsWith('nobody')) return 'nobody';
   if (w.includes('each house alone')) return 'single-chamber';
   if (w.startsWith('congress')) return 'congress';
-  return 'states';
+  if (w.startsWith('state legislatures')) return 'states';
+  // Falling through to a default would rebucket a reworded row in silence,
+  // and the whole artifact is an argument about which bucket a row is in.
+  throw new Error(
+    `Unrecognised "who can change it": ${JSON.stringify(who)}. ` +
+      `Expected one of: nobody / each house alone / congress / state legislatures.`,
+  );
+}
+
+const SPELLED = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
+  'nine', 'ten', 'eleven', 'twelve',
+];
+
+const rows = table.rows.map((cells) => {
+  const [n, clause, notFixed, filled, who] = cells;
+  return { n, clause, notFixed, filled, who, holder: holder(who) };
+});
+
+const rowsFact = fact('silence.rows');
+
+// The count in the caption comes from facts.json and the rows come from the
+// markdown table. Nothing tied them together, so the caption could say twelve
+// over any number of rows at all. It says what is on screen or the build stops.
+if (rows.length !== rowsFact.value) {
+  throw new Error(
+    `silence.rows is ${rowsFact.value} but the table parsed ${rows.length} rows. ` +
+      `One of them is stale.`,
+  );
 }
 
 const HOLDERS: { id: Holder | 'all'; label: string; gloss: string }[] = [
-  { id: 'all', label: 'All twelve', gloss: '' },
+  { id: 'all', label: `All ${SPELLED[rows.length] ?? rows.length}`, gloss: '' },
   {
     id: 'single-chamber',
     label: 'One chamber alone',
@@ -52,18 +80,6 @@ const HOLDERS: { id: Holder | 'all'; label: string; gloss: string }[] = [
   { id: 'states', label: 'State legislatures', gloss: '' },
 ];
 
-const rows = table.rows.map((cells) => {
-  const [n, clause, notFixed, filled, who] = cells;
-  return {
-    n,
-    clause,
-    notFixed,
-    filled,
-    who,
-    holder: holder(who),
-  };
-});
-
 const counts = Object.fromEntries(
   HOLDERS.map((h) => [
     h.id,
@@ -71,7 +87,6 @@ const counts = Object.fromEntries(
   ]),
 ) as Record<string, number>;
 
-const rowsFact = fact('silence.rows');
 const clusterFact = fact('silence.single_chamber');
 const unfilledFact = fact('silence.unfilled');
 ---
@@ -374,6 +389,14 @@ const unfilledFact = fact('silence.unfilled');
     }
 
     thead {
+      display: none;
+    }
+
+    /* `tr { display: block }` above is author-origin and so outranks the UA
+       stylesheet's `[hidden] { display: none }`, whatever the specificity.
+       Without this the filter sets the attribute and the row stays on screen,
+       which is the entire artifact failing silently on a phone. */
+    tbody tr[hidden] {
       display: none;
     }
 

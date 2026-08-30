@@ -163,14 +163,6 @@ export function assertCurrent(): void {
   }
 }
 
-/** The Bill of Rights as the corpus holds it, split by amendment. */
-export function amendmentText(roman: string): string {
-  const text = repoFile(CORPUS);
-  const re = new RegExp(`^AMENDMENT ${roman}\\s*$([\\s\\S]*?)(?=^AMENDMENT |\\s*$)`, 'm');
-  const m = re.exec(text);
-  if (!m) throw new Error(`No AMENDMENT ${roman} in ${CORPUS}`);
-  return m[1].trim();
-}
 
 /** Split a frame on its {{ }} markers into alternating plain and disputed spans. */
 export function frameParts(frame: string): { text: string; disputed: boolean }[] {

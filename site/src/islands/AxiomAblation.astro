@@ -215,13 +215,22 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
       if (tab?.dataset.state) select(tab.dataset.state, false);
     });
 
-    root.addEventListener('keydown', (e) => {
-      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!step) return;
-      e.preventDefault();
-      const i = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-      const next = tabs[(i + step + tabs.length) % tabs.length];
-      if (next.dataset.state) select(next.dataset.state, true);
+    // Scoped to the tabs, not the figure. Bound to `root` this fired while
+    // focus was on a source link inside a panel, switching the tab out from
+    // under the reader and stealing focus onto a button.
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('keydown', (e) => {
+        const last = tabs.length - 1;
+        let next = -1;
+        if (e.key === 'ArrowRight') next = i === last ? 0 : i + 1;
+        else if (e.key === 'ArrowLeft') next = i === 0 ? last : i - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = last;
+        if (next < 0) return;
+        e.preventDefault();
+        const target = tabs[next].dataset.state;
+        if (target) select(target, true);
+      });
     });
 
     select(tabs[0].dataset.state!, false);
