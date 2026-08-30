@@ -84,7 +84,7 @@ So the rules here are deliberately annoying:
 - We don't trust a tool until it has reproduced a result somebody else already published.
 - Anything we haven't verified gets labeled as unverified, even when that's less impressive.
 
-There's a script, `verify.sh`, that re-runs every single computational claim in this repository from scratch. Five of its checks are **designed to fail** — a deliberately false statement the computer must reject. If those ever start "passing," the whole harness is lying and everything else it says is worthless.
+There's a script, `verify.sh`, that re-runs every single computational claim in this repository from scratch. Six of its checks are **designed to fail** — a deliberately false statement the computer must reject. If those ever start "passing," the whole harness is lying and everything else it says is worthless.
 
 ## What's in here
 

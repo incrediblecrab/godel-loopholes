@@ -55,3 +55,12 @@ sources/
 venv/
 __pycache__/
 *.pyc
+
+# Site build artefacts. The site is built on GitHub Actions from site/ and
+# published as a Pages artefact, so no build output is committed. Fonts are
+# self-hosted but come from npm packages under node_modules, which is why
+# nothing here needs a woff2 exception.
+node_modules/
+site/dist/
+site/.astro/
+.astro/

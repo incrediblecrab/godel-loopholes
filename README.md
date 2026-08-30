@@ -34,7 +34,9 @@ What does exist is one machine-checked result about the only published formaliza
 
 The authors disclose the underlying design choice in both the thesis and the peer-reviewed paper. What is new here is the measurement of what it costs, which turns out to be nothing, and the diagnosis of why.
 
-`analysis/united-states-1947/inert-manoeuvre.md` is the write-up. `./verify.sh` re-runs everything from scratch, including the slow lower-bound experiment: **80 checks, all passing**, on a clean checkout with Isabelle on PATH.
+`analysis/united-states-1947/inert-manoeuvre.md` is the write-up. `./verify.sh` re-runs everything from scratch, including the slow lower-bound experiment: **85 checks, all passing**, on a clean checkout with Isabelle on PATH.
+
+Every load-bearing number, date and quotation in this repository is owned by exactly one file, and `data/facts.json` records which. `tools/facts.py` asserts each value is actually present in the file named as its owner and that every derived number follows from the numbers it derives from; `tools/ssot_audit.py` reports facts told in more than one place so the canonical telling can be distinguished from a pointer to it. Section 6 of the harness runs both. The rule is that prose is authored per audience and may differ between a research note and a general-audience page, but values may not.
 
 ### Claims made here and later disproved
 

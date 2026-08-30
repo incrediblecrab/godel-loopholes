@@ -1,0 +1,202 @@
+/* ============================================================================
+   Design tokens.
+   ============================================================================
+
+   The whole visual system lives here. No component defines a colour, a size or
+   a font; they read from these custom properties. That is the same discipline
+   data/facts.json applies to values, applied to appearance.
+
+   Two rules govern the palette, and both are unusual enough to be worth stating.
+
+   ONE. Colour carries the epistemics and nothing else. There are exactly three
+   accent hues and they mean verified, disproved, and inconclusive -- the same
+   three outcomes verify.sh reports. Nothing is coloured to be attractive, to
+   indicate a link, or to separate a section. If a thing has no truth-status it
+   is ink on paper. This is why the site looks the way it does, and it is a
+   direct expression of the project's central distinction, which is that a tool
+   giving no answer has not given a negative answer.
+
+   TWO. The register is archival, not aerospace. The material is a 1787
+   parchment, a 1947 hearing in Trenton and a proof assistant. The visual
+   vocabulary of the generated-startup-page -- indigo-to-violet gradients,
+   glassmorphism, Inter, a glowing orb, everything fading up on scroll -- would
+   be a lie about what this is. Warm paper, iron-gall ink, a marginal apparatus
+   of citations, and motion used only where movement means something.
+
+   Colour values below are measured, not eyeballed. tools/contrast.py prints
+   the ratio for every foreground/background pair and verify.sh runs it.
+   ========================================================================= */
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------------------------------------------------------------- colour */
+
+  /* Ground and ink. Neither is pure. Pure white glares under a serif at
+     reading size and pure black is a colour no ink has ever been. */
+  --paper:            #fbf9f4;   /* aged laid paper */
+  --paper-sunk:       #f3efe6;   /* recessed panels, table stripes */
+  --paper-raised:     #fffdf9;   /* the one lifted surface, used sparingly */
+  --ink:              #1b1a17;   /* iron gall, warm black */
+  --ink-muted:        #55504a;   /* apparatus, captions, margin notes */
+  --ink-faint:        #857e74;   /* the quietest legible tier */
+  --rule:             #d8d2c4;   /* hairlines, table borders, dividers */
+  --rule-strong:      #b5ad9c;
+  /* Lines and shapes that carry meaning rather than structure -- an axis, a
+     bar, the outline of a state a reader has to distinguish. WCAG 1.4.11 wants
+     3:1 for those and does not want it for a decorative table border, so the
+     two are separate tokens. Darkening --rule until a checker stopped
+     complaining would have been the wrong fix: it would have made the
+     apparatus louder than the prose to satisfy a rule that does not apply. */
+  --graphic:          #6f6757;
+  --graphic-strong:   #4a443a;
+
+  /* The three-value semantic scale. These are the only accents in the system.
+     They are pigments, not screen colours: verdigris, iron oxide, yellow ochre.
+     Each is paired with a tint for backgrounds at the same hue. */
+  --verified:         #2f5d50;   /* PASS -- checked against a primary source */
+  --verified-tint:    #e4ede9;
+  --disproved:        #9e2b20;   /* FAIL -- refuted, or a null result */
+  --disproved-tint:   #f6e5e2;
+  --inconclusive:     #7a5f14;   /* INCONCLUSIVE -- the tool gave no answer */
+  --inconclusive-tint:#f4ecd8;
+
+  /* Selection and focus reuse the ink, because neither is a truth-status. */
+  --selection:        #e6dfcb;
+  --focus:            #1b1a17;
+
+  /* ------------------------------------------------------------------ type */
+
+  /* Source Serif 4 for prose: an editorial serif with a genuine text design,
+     not a display face pressed into service. EB Garamond for constitutional
+     quotation, so that the documents read visually as documents rather than as
+     our own voice in italics. IBM Plex Mono for machine output, identifiers and
+     citations, where a proportional face would misrepresent what it is showing.
+     All three are SIL Open Font Licence and served from this origin. */
+  --font-prose: 'Source Serif 4 Variable', 'Source Serif 4', 'Iowan Old Style',
+                'Palatino Linotype', Palatino, Georgia, serif;
+  --font-document: 'EB Garamond', 'Source Serif 4 Variable', Garamond,
+                'Palatino Linotype', Georgia, serif;
+  --font-machine: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas,
+                monospace;
+
+  /* A modular scale at 1.2, which is tight enough that a heading sits in the
+     text rather than shouting over it. Sizes are rem so a reader's own setting
+     is respected; nothing here is px. */
+  --text-xs:   0.7813rem;
+  --text-sm:   0.9375rem;
+  --text-base: 1.125rem;   /* 18px at default -- a serif needs the size */
+  --text-md:   1.35rem;
+  --text-lg:   1.62rem;
+  --text-xl:   1.944rem;
+  --text-2xl:  2.333rem;
+  --text-3xl:  2.8rem;
+
+  --leading-tight: 1.2;
+  --leading-snug:  1.35;
+  --leading-body:  1.6;
+  --leading-loose: 1.75;
+
+  --weight-normal: 400;
+  --weight-medium: 550;
+  --weight-bold:   680;
+
+  /* --------------------------------------------------------------- measure */
+
+  /* 66 characters. Not a round number of pixels -- a measure, which is what
+     governs whether a line of prose can be read without losing the return. */
+  --measure: 66ch;
+  --measure-narrow: 54ch;
+  --margin-col: 15rem;      /* the apparatus column on wide screens */
+  --gutter: 2.5rem;
+
+  /* -------------------------------------------------------------- rhythm */
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.25rem;
+  --space-xl:  3.5rem;
+  --space-2xl: 5.5rem;
+  --space-3xl: 8rem;
+
+  /* --------------------------------------------------------------- other */
+
+  /* One radius, small. Paper does not have rounded corners; cards do, and this
+     site has no cards. The radius exists for inline chips and nothing else. */
+  --radius: 2px;
+  --radius-pill: 100px;
+
+  --border-hair: 1px solid var(--rule);
+  --border-strong: 1px solid var(--rule-strong);
+
+  /* Motion. Everything is fast and nothing eases in from below. The only
+     transitions in the system are state changes a reader caused. */
+  --ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --duration-fast: 120ms;
+  --duration: 240ms;
+  --duration-slow: 520ms;
+}
+
+/* Dark mode is a warm near-black, not the blue-black every generated site
+   defaults to. The accents lighten because a dark ground needs more luminance
+   from a pigment to reach the same contrast, and the ratios are re-measured
+   rather than assumed. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:            #171512;
+    --paper-sunk:       #100f0d;
+    --paper-raised:     #201d19;
+    --ink:              #ece7dd;
+    --ink-muted:        #a8a196;
+    --ink-faint:        #7d766c;
+    --rule:             #363128;
+    --rule-strong:      #4e473b;
+    --graphic:          #8d8574;
+    --graphic-strong:   #b3aa96;
+
+    --verified:         #7fbaa8;
+    --verified-tint:    #1c2e27;
+    --disproved:        #e08a7e;
+    --disproved-tint:   #2a1a17;
+    --inconclusive:     #d9b95e;
+    --inconclusive-tint:#251f10;
+
+    --selection:        #3a3428;
+    --focus:            #ece7dd;
+  }
+}
+
+/* A reader who has asked for less motion gets none. Not reduced -- none. The
+   animations here exist to show an argument, and the argument is also in the
+   text, so removing them costs nothing. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration: 0ms;
+    --duration-slow: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Forced-colours mode replaces the palette entirely. The three-value scale is
+   the one thing that must survive, so it maps onto system semantic colours
+   rather than being flattened to the default text colour. */
+@media (forced-colors: active) {
+  :root {
+    --verified: LinkText;
+    --disproved: Mark;
+    --inconclusive: GrayText;
+    --rule: CanvasText;
+  }
+}

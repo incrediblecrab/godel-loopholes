@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "purpose": "Single source of truth for every load-bearing number, date and quotation in this project. Prose is authored per audience and may legitimately differ between a research note and a general-audience page. Values may not. Anything that renders a value reads it from here, and verify.sh section 6 asserts that each value still appears in the file named as its owner. If this file and the canonical file disagree, the harness fails and nothing ships.",
+  "vantage": "1947-12-05",
+  "vantage_note": "Unless a fact says otherwise, it is asserted as of December 5, 1947, the date of Goedel's citizenship hearing. Powell v. McCormack (1969), the Twenty-fifth Amendment (1967) and modern state counts are out of bounds and must not be used to support any fact here.",
+  "status_values": {
+    "verified": "Checked against a primary source, and the check is reproducible.",
+    "unverified": "Asserted from a secondary source or not yet checked. Renders with an explicit label.",
+    "disproved": "This project claimed it and later refuted it. Kept visible on purpose."
+  },
+  "facts": [
+    {
+      "id": "godel.exam.date",
+      "value": "December 5, 1947",
+      "label": "Goedel's citizenship hearing",
+      "statement": "Kurt Goedel took his United States citizenship examination in Trenton, New Jersey, on December 5, 1947, with Einstein and Oskar Morgenstern as his witnesses.",
+      "canonical": "README.md",
+      "status": "verified",
+      "source": {
+        "title": "Morgenstern memorandum, 'History of the Naturalization of Kurt Goedel'",
+        "note": "Dictated September 13, 1971, twenty-four years after the events it describes.",
+        "read_from": "transcription"
+      }
+    },
+    {
+      "id": "godel.oath.date",
+      "value": "April 2, 1948",
+      "label": "Goedel swore the oath",
+      "statement": "Goedel was admitted to citizenship and swore the oath on April 2, 1948.",
+      "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "godel.memo.date",
+      "value": "September 13, 1971",
+      "label": "Date of the Morgenstern memo",
+      "statement": "The only surviving account of Goedel's claim is a memorandum Morgenstern dictated on September 13, 1971, opening with the admission that he was working from memory and had not checked his diaries.",
+      "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "godel.memo.quote",
+      "value": "He rather excitedly told me that in looking at the Constitution, to his distress he had found some inner contradictions and that he could show how in a perfectly legal manner it would be possible for somebody to become a dictator and set up a Fascist regime, never intended by those who drew up the Constitution.",
+      "label": "The Morgenstern memo, on the claim",
+      "statement": "The sole first-hand description of what Goedel said he had found.",
+      "canonical": "README.md",
+      "status": "verified",
+      "kind": "quotation"
+    },
+    {
+      "id": "godel.memo.doubt",
+      "value": "he doubted G\u00f6del was right",
+      "label": "The witness doubted the claim",
+      "statement": "The one witness to the claim recorded his own scepticism about it in the same document, and never says which part of the Constitution G\u00f6del meant.",
+      "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "house.size",
+      "value": 435,
+      "label": "Members of the House, 1947",
+      "statement": "The House of Representatives was fixed at 435 members by the Permanent Apportionment Act of 1929.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "source": {
+        "title": "Permanent Apportionment Act of 1929",
+        "cite": "46 Stat. 21",
+        "note": "The statutory citation is recorded as ordinarily reported and has NOT been verified against Statutes at Large; the llsl retrieval problem in corpus/README.md is unsolved. The number 435 is not in doubt.",
+        "read_from": "unverified"
+      }
+    },
+    {
+      "id": "senate.size",
+      "value": 96,
+      "label": "Members of the Senate, 1947",
+      "statement": "Forty-eight states returned ninety-six senators.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified"
+    },
+    {
+      "id": "states.count",
+      "value": 48,
+      "label": "States in the Union, 1947",
+      "statement": "There were forty-eight states at the vantage date. Alaska and Hawaii were admitted in 1959 and are out of bounds.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified"
+    },
+    {
+      "id": "house.quorum",
+      "value": 218,
+      "label": "House quorum, 1947",
+      "statement": "A majority of the House, under Article I, Section 5, Clause 1.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["house.size"]
+    },
+    {
+      "id": "senate.quorum",
+      "value": 49,
+      "label": "Senate quorum, 1947",
+      "statement": "A majority of the Senate, under Article I, Section 5, Clause 1.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["senate.size"]
+    },
+    {
+      "id": "threshold.house.propose",
+      "value": 146,
+      "label": "Representatives needed to propose an amendment",
+      "statement": "Two thirds of a House quorum, which is 33.6 per cent of the chamber, not the two thirds the text appears to require.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["house.quorum"],
+      "checked_by": "verify.sh section 2, where Z3 re-derives the figure by an independent route",
+      "source": {
+        "title": "National Prohibition Cases, 253 U.S. 350 (1920)",
+        "cite": "253 U.S. 350, conclusion 2",
+        "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep253/usrep253350/usrep253350.pdf",
+        "quotation": "The two-thirds vote in each house which is required in proposing an amendment is a vote of two-thirds of the members present\u2014assuming the presence of a quorum\u2014and not a vote of two-thirds of the entire membership, present and absent.",
+        "read_from": "page image",
+        "read_from_note": "Read from the page image rather than the OCR layer, which rendered both em dashes as hyphens."
+      }
+    },
+    {
+      "id": "threshold.senate.propose",
+      "value": 33,
+      "label": "Senators needed to propose an amendment",
+      "statement": "Two thirds of a Senate quorum, which is 34.4 per cent of the chamber.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["senate.quorum"],
+      "checked_by": "verify.sh section 2"
+    },
+    {
+      "id": "threshold.house.full",
+      "value": 290,
+      "label": "Representatives, had the base been full membership",
+      "statement": "The figure the phrase 'two thirds of both Houses' is ordinarily taken to mean, and which the Supreme Court rejected in 1920.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["house.size"]
+    },
+    {
+      "id": "threshold.senate.full",
+      "value": 64,
+      "label": "Senators, had the base been full membership",
+      "statement": "The counterfactual Senate figure on the rejected reading.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["senate.size"]
+    },
+    {
+      "id": "threshold.states.ratify",
+      "value": 36,
+      "label": "States needed to ratify",
+      "statement": "Three fourths of forty-eight. This is where Article V's protection actually sits; the congressional gate is far weaker than the text suggests.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["states.count"],
+      "checked_by": "verify.sh section 2"
+    },
+    {
+      "id": "threshold.states.convention",
+      "value": 32,
+      "label": "State legislatures needed to compel a convention",
+      "statement": "Two thirds of forty-eight.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "derived_from": ["states.count"]
+    },
+    {
+      "id": "articlev.base.unstated",
+      "value": "Article V says two thirds of both Houses. It does not say two thirds of what.",
+      "label": "Article V does not state the base of its own fraction",
+      "statement": "Two thirds of the membership and two thirds of those voting are different numbers, and the text does not choose between them. Weimar Article 76 states its base explicitly; the same fraction appears in both documents and only one says what it divides.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified"
+    },
+    {
+      "id": "articlev.base.origin",
+      "value": "Missouri Pacific Ry. Co. v. Kansas, 248 U.S. 276 (1919)",
+      "label": "Where Article V's base actually came from",
+      "statement": "The 1920 holding on Article V rests on a 1919 veto-clause case, which was itself justified in part by pointing at how Congress had long behaved under Article V. The base of Article V's fraction was never litigated on its own terms; it was ratified once by reference to what Congress had already been doing, and the doing came first.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "source": {
+        "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep248/usrep248276/usrep248276.pdf",
+        "read_from": "page image"
+      }
+    },
+    {
+      "id": "silence.rows",
+      "value": 12,
+      "label": "Rows in the 1947 silence inventory",
+      "statement": "Fields the Constitution does not reserve to itself, where ordinary legislation governs and no constitutional provision constrains what that legislation may say.",
+      "canonical": "analysis/united-states-1947/silence-inventory.md",
+      "status": "verified"
+    },
+    {
+      "id": "silence.single_chamber",
+      "value": "Rows 4, 5 and 6 are the only entries a single chamber can alter with no concurrence from anyone",
+      "label": "Silences a single chamber can alter alone",
+      "statement": "No other chamber, no President, and on the 1947 law no court. These are the rows the quorum cascade chains together.",
+      "canonical": "analysis/united-states-1947/silence-inventory.md",
+      "status": "verified"
+    },
+    {
+      "id": "silence.unfilled",
+      "value": "Row 11 is the only entry where the silence has no filler at all",
+      "label": "The one silence with no filler at all",
+      "statement": "What 'Inability' means in Article II, Section 1, and who determines that it exists, was in 1947 settled by nothing: no statute, no rule, no decision. The Twenty-fifth Amendment was twenty years away.",
+      "canonical": "analysis/united-states-1947/silence-inventory.md",
+      "status": "verified"
+    },
+    {
+      "id": "silence.priority",
+      "value": "328 U.S. 549, decided June 10, 1946, eighteen months",
+      "label": "The silence cluster is not ours",
+      "statement": "In Colegrove v. Green, decided eighteen months before the vantage date, Justice Rutledge concurring in the result named Article I sections 4, 2 and 5 as a group. The cluster was in the U.S. Reports before G\u00f6del's hearing.",
+      "canonical": "analysis/united-states-1947/silence-inventory.md",
+      "status": "verified",
+      "source": {
+        "title": "Colegrove v. Green, 328 U.S. 549 (1946)",
+        "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep328/usrep328549/usrep328549.pdf",
+        "read_from": "page image"
+      }
+    },
+    {
+      "id": "model.axioms.total",
+      "value": 51,
+      "label": "Non-definitional axioms in the published model",
+      "statement": "Zahoransky and Benzmueller's Isabelle/HOL formalization of Goedel's claim carries fifty-one non-definitional axioms.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified",
+      "checked_by": "verify.sh section 4f"
+    },
+    {
+      "id": "model.axioms.sufficient",
+      "value": 6,
+      "label": "Axioms that suffice for the dictatorship theorem",
+      "statement": "Dictatorship_t3 is provable from six of the fifty-one, and those six are consistent. Two are generic amendment-procedure rules, two are bare temporal-successor facts, and two stipulate that the dictatorship amendment is proposed and supported.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified",
+      "checked_by": "verify.sh section 4f"
+    },
+    {
+      "id": "model.axioms.necessary",
+      "value": 4,
+      "label": "Axioms necessary to every possible proof",
+      "statement": "Four of the six are necessary to every sufficient support, established by countermodels to the full theory minus each one. Six is irredundant but not proved minimum; the honest bound is 4 <= minimum <= 6.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified",
+      "checked_by": "verify.sh section 4f"
+    },
+    {
+      "id": "model.stepone.cost",
+      "value": "\u230ais_rat amd1a\u230bt2",
+      "label": "What deleting Goedel's step one costs",
+      "statement": "Delete the four axioms proposing and supporting the amendment that strips Article V's entrenchment clause, and every published theorem and every intermediate lemma still proves, in a theory Nitpick confirms is still consistent. Two proof scripts break; both propositions are re-proved. What is lost is exactly one proposition: the ratification of the repeal itself, which the full theory entails and the reduced theory leaves independent.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified",
+      "checked_by": "verify.sh section 4f, experiment 'repeal'"
+    },
+    {
+      "id": "model.stepone.reason",
+      "value": "amd1a = (\u2759\u00acomsp)",
+      "label": "Why step one costs so little",
+      "statement": "The repealing amendment is extensionally equal to the negation of the entrenchment clause, provable without any of the model's non-definitional axioms. Its content is therefore already forced by the separate stipulation that the dictatorship amendment was proposed. The repeal's postcondition is available without the repeal. It is extensional equality, not a term identity: 'by (rule refl)' fails on this goal.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified"
+    },
+    {
+      "id": "model.theorems",
+      "value": 3,
+      "label": "Published theorems that survive the ablation",
+      "statement": "noDictatorship_t1, noDictatorship_t2 and Dictatorship_t3.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified"
+    },
+    {
+      "id": "model.lemmas",
+      "value": 5,
+      "label": "Intermediate lemmas that survive the ablation",
+      "statement": "Three cite no amd1 axiom at all; the other two have proof scripts that name deleted axioms, and both propositions are re-proved without them.",
+      "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
+      "status": "verified"
+    },
+    {
+      "id": "recension.witnesses",
+      "value": 6,
+      "label": "Independent witnesses collated for the Bill of Rights",
+      "statement": "The National Archives parchment transcription, the Senate rendering, GPO House Document 110-50, Cornell's Legal Information Institute, Yale's Avalon Project, and the Statutes at Large read from Library of Congress page scans.",
+      "canonical": "corpus/README.md",
+      "status": "verified"
+    },
+    {
+      "id": "recension.wording_agrees",
+      "value": "On wording the six agree completely.",
+      "label": "No divergence in word choice",
+      "statement": "Across all ten amendments there is not one divergence in word choice. Every difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.",
+      "canonical": "corpus/README.md",
+      "status": "verified"
+    },
+    {
+      "id": "recension.gpo",
+      "value": "of the right of the people peaceably to assemble",
+      "label": "GPO corrupts the First Amendment",
+      "statement": "House Document 110-50 reads 'of the right' where the other five read 'or the right'. It is not trivial: 'or' makes assembly a fourth coordinate object of 'abridging', while 'of' subordinates it to 'the press'. Confirmed against a fresh download under two extraction modes, and located in body text rather than the index.",
+      "canonical": "corpus/README.md",
+      "status": "verified"
+    },
+    {
+      "id": "recension.avalon",
+      "value": "Avalon deletes two commas",
+      "label": "Yale's Avalon Project drops two commas",
+      "statement": "The Fifth Amendment loses the comma before 'without just compensation' and the Seventh loses the comma after 'tried by a jury'. Cornell, which modernizes as aggressively in every other respect, keeps both. Avalon is alone among the six.",
+      "canonical": "corpus/README.md",
+      "status": "verified"
+    },
+    {
+      "id": "recension.senate_fidelity",
+      "value": "byte for byte in nine of ten amendments",
+      "label": "The Senate rendering reproduces the parchment",
+      "statement": "It diverges only by capitalizing 'Suits' in the Seventh, where GPO agrees with the Senate against the parchment. That makes it an independent confirmation of the parchment rather than a separate recension.",
+      "canonical": "corpus/README.md",
+      "status": "verified"
+    },
+    {
+      "id": "maine.comma",
+      "value": "For want of a comma, we have this case.",
+      "label": "O'Connor v. Oakhurst Dairy",
+      "statement": "A Maine dairy lost an overtime case in 2017 because of a missing comma, and settled the following year for five million dollars across 127 drivers. The opinion opens with this sentence.",
+      "canonical": "academia/formal-methods.md",
+      "status": "verified",
+      "kind": "quotation",
+      "vantage_exempt": true,
+      "vantage_note": "Modern, and cited as an illustration that punctuation carries legal weight. It is not evidence about 1947 and must not be presented as such."
+    },
+    {
+      "id": "collapse.germany",
+      "value": "Every box was ticked. The rule was fine on its own terms and still authorized its own destruction.",
+      "label": "Germany, 1933 \u2014 collapse through the amendment clause",
+      "statement": "The Weimar constitution allowed amendment by a two-thirds vote. That vote was taken, and it changed the constitution into something that let one man make law.",
+      "canonical": "eli5.md",
+      "analysis": "analysis/germany-1933/path-enabling-act.md",
+      "status": "verified",
+      "layer": "the constitution's own amendment procedure",
+      "vantage_exempt": true
+    },
+    {
+      "id": "collapse.austria",
+      "value": "a forgotten emergency economic law from 1917 that nobody had ever bothered to repeal",
+      "label": "Austria, 1933 \u2014 collapse through a statute outside the constitution",
+      "statement": "The government did not use the constitution at all. It reached outside it and governed through the 1917 act. If you were only reading the constitution, you would have seen nothing wrong. This is the case G\u00f6del lived through.",
+      "canonical": "eli5.md",
+      "analysis": "analysis/austria-1920/path-kweg-bridge.md",
+      "status": "verified",
+      "layer": "a statute outside the constitution",
+      "vantage_exempt": true
+    },
+    {
+      "id": "collapse.italy",
+      "value": "Not one of its eighty-four articles was amended.",
+      "label": "Italy, 1925 \u2014 collapse through ordinary law, text untouched",
+      "statement": "The constitution was never touched. Ordinary laws hollowed the state out around it, and a photograph of the document in 1848 and a photograph in 1925 look identical while everything real changed.",
+      "canonical": "eli5.md",
+      "analysis": "analysis/italy-1848/null-result-formal-route.md",
+      "status": "verified",
+      "layer": "ordinary legislation",
+      "vantage_exempt": true
+    },
+    {
+      "id": "collapse.filter",
+      "value": "A method that only reads constitutional text catches Germany and is blind to Austria and Italy.",
+      "label": "Why all three are kept",
+      "statement": "The three cases are a filter on this project's own methods, not a result. Any technique invented here has to rediscover all three before it is pointed at an open question.",
+      "canonical": "eli5.md",
+      "status": "verified"
+    },
+    {
+      "id": "cascade.status",
+      "value": "NOT A FINDING",
+      "label": "The quorum cascade is unverified",
+      "statement": "The cascade rests on the premise that the quorum base is 'members chosen and sworn' rather than the statutory chamber size. That premise has never been verified against pre-1947 authority. If the base is the statutory 435, the cascade collapses at step one.",
+      "canonical": "analysis/united-states-1947/search/quorum_cascade.py",
+      "status": "unverified"
+    },
+    {
+      "id": "verify.checks",
+      "value": 85,
+      "label": "Checks in the verification harness",
+      "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
+      "canonical": "README.md",
+      "status": "verified",
+      "checked_by": "verify.sh's own summary block, which fails if README.md advertises a different number"
+    },
+    {
+      "id": "verify.negative_controls",
+      "value": 6,
+      "label": "Negative controls, designed to fail",
+      "statement": "Six checks assert something deliberately false that the tool must reject. A verification script that can only ever print PASS cannot distinguish a working toolchain from a broken assertion. Sections 2b, 2d, 3b, 4b, 4d and 6b.",
+      "canonical": "eli5.md",
+      "status": "verified",
+      "checked_by": "verify.sh section 6d, which counts its own NEGATIVE CONTROL headers and compares them against the count stated in its header comment",
+      "history": "verify.sh's header comment said 'three' while five existed. The drift was found by tools/ssot_audit.py, not by the harness, because nothing was counting. Section 6d now counts."
+    },
+    {
+      "id": "scoreboard.loopholes",
+      "value": 0,
+      "label": "Loopholes found",
+      "statement": "No loophole has been found. The hypothesis is unproved and the search has not produced a candidate path through the Constitution. Everything in this repository that reads like progress is progress on the instruments.",
+      "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "scoreboard.disproved",
+      "value": 8,
+      "label": "Claims made here and later disproved",
+      "statement": "Kept visible on purpose, because a repository that only records its wins is not evidence of anything.",
+      "canonical": "README.md",
+      "status": "verified"
+    },
+    {
+      "id": "incident.219",
+      "value": "219 where the hand derivation gives 218",
+      "label": "The solver answered a different question than the label claimed",
+      "statement": "A solver was asked for the minimum Representatives needed to pass an amendment and returned 219 where the hand derivation gives 218. The solver was right and the English label was wrong: it had been asked a subtly different question than the sentence written beside the answer. Nothing was broken, the output was correct, and no computer will ever catch that for you.",
+      "canonical": "analysis/united-states-1947/formal-model-replication.md",
+      "status": "verified"
+    },
+    {
+      "id": "incident.timeout",
+      "value": "three outcomes rather than two",
+      "label": "A timeout was reported as a refutation",
+      "statement": "The harness had a bug where a tool that ran out of time was reported as a tool that said no, producing a false inconsistency warning on about one run in six. The fix is a third outcome: PASS, FAIL, and INCONCLUSIVE for when a tool returns no answer at all. A search procedure that does not terminate is the normal case, and reporting it as a refutation manufactures findings.",
+      "canonical": "TOOLING.md",
+      "status": "verified"
+    },
+    {
+      "id": "incident.vacuous_ablation",
+      "value": "silently became inconsistent while still printing every theorem as proved",
+      "label": "A shipped experiment was vacuous",
+      "statement": "An ablation emitted axioms before the definition they mentioned, Isabelle generalized the free variable, and the reduced theory went inconsistent. An inconsistent theory proves every theorem you were hoping to see. Adversarial review caught it, not the harness. Every ablation now carries a mandatory consistency probe.",
+      "canonical": "README.md",
+      "status": "verified"
+    }
+  ]
+}

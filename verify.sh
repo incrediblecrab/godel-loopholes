@@ -4,11 +4,15 @@
 # Every claim made about tooling and replication is re-run here from scratch.
 # Each check prints the command, the expected result, and the observed result.
 #
-# Three checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
+# Six checks are NEGATIVE CONTROLS. They are expected to FAIL, and the
 # harness reports PASS only when they do fail. A verification script that can
 # only ever print PASS is worthless, because it cannot distinguish a working
 # toolchain from a broken assertion. If a negative control reports
 # "CONTROL BROKEN", disbelieve every other line in this output.
+#
+# The count above is checked against reality in section 6. It said "three" for
+# a period while five existed, which is exactly the drift this harness is
+# supposed to catch and did not, because nothing was counting.
 
 set -uo pipefail
 
@@ -784,9 +788,101 @@ else
          "Barry and Siddons are PDF scans. Install poppler to check those four quotations."
 fi
 
+# --------------------------------------------------- claim 6: facts have one owner
+
+hdr "6. Single source of truth: every load-bearing value has exactly one owner"
+note "Claim: data/facts.json owns every load-bearing number, date and quotation,"
+note "each names one canonical file, and the value is actually in that file."
+note "Prose may legitimately differ between a research note and a general-audience"
+note "page. Values may not. Source of truth: data/facts.json"
+
+if [[ -x "$(command -v python3)" ]]; then
+  facts_out=$(python3 "$REPO/tools/facts.py" --check 2>&1)
+  facts_rc=$?
+  facts_n=$(grep -oE '[0-9]+/[0-9]+ facts' <<<"$facts_out" | head -1)
+  if [[ $facts_rc -eq 0 ]]; then
+    ok "every fact was found in the file named as its owner ($facts_n)"
+  else
+    bad "facts.json disagrees with its canonical files"
+    while IFS= read -r line; do note "$line"; done <<<"$facts_out"
+  fi
+
+  # 6b. If the checker cannot be made to fail, its passes mean nothing. Break a
+  # copy in the two independent ways the checker is supposed to catch -- a value
+  # absent from its canonical file, and a derived number that does not follow
+  # from the numbers it derives from -- and require rejection.
+  hdr "6b. NEGATIVE CONTROL: a broken facts.json must be rejected"
+  note "Rewriting the House proposal threshold from 146 to 147 in a scratch copy."
+  note "That is absent from threshold-arithmetic.md AND is not two thirds of 218."
+  broken="$WORK/facts-broken.json"
+  mkdir -p "$WORK"
+  sed 's/"value": 146,/"value": 147,/' "$REPO/data/facts.json" >"$broken"
+  if ! diff -q "$broken" "$REPO/data/facts.json" >/dev/null 2>&1; then
+    if GL_FACTS="$broken" python3 "$REPO/tools/facts.py" --check >/dev/null 2>&1; then
+      bad "CONTROL BROKEN: tools/facts.py accepted a facts file it should reject"
+    else
+      ok "tools/facts.py rejects a value that is neither in its file nor arithmetically right"
+    fi
+  else
+    bad "CONTROL BROKEN: the scratch copy is identical to the real one, so nothing was tested"
+  fi
+  rm -f "$broken"
+
+  # 6c. The duplication audit is only useful while its probes still match. A
+  # probe that matches nothing is indistinguishable from a fact that is no
+  # longer duplicated, and the first run of that tool reported two live facts as
+  # absent because markdown emphasis sat inside the pattern.
+  hdr "6c. The duplication audit's probes are all still live"
+  stale=$(python3 "$REPO/tools/ssot_audit.py" --json 2>/dev/null \
+          | python3 -c 'import json,sys; d=json.load(sys.stdin); print(" ".join(p["id"] for p in d["probes"] if p["file_count"]==0))')
+  if [[ -z "$stale" ]]; then
+    ok "every probe in tools/ssot_audit.py matches at least one tracked file"
+  else
+    bad "stale probes match nothing, so the audit is silently under-reporting: $stale"
+  fi
+else
+  inconc "python3 not on PATH" "Cannot check data/facts.json against its canonical files."
+  inconc "python3 not on PATH" "Cannot run the facts-checker negative control."
+  inconc "python3 not on PATH" "Cannot check the duplication audit's probes."
+fi
+
+# 6d. This script's own header states how many negative controls it carries.
+# That number said "three" while five existed. Nothing was counting, which is
+# the same defect class the script exists to catch, so now something counts.
+hdr "6d. The header's negative-control count matches reality"
+declared=$(grep -oE '^# (Three|Four|Five|Six|Seven|Eight) checks are NEGATIVE CONTROLS' "$0" \
+           | grep -oE 'Three|Four|Five|Six|Seven|Eight' | head -1)
+actual=$(grep -cE '^ *hdr "[0-9a-z]+\. NEGATIVE CONTROL' "$0")
+case "$declared" in
+  Three) declared_n=3 ;; Four) declared_n=4 ;; Five) declared_n=5 ;;
+  Six) declared_n=6 ;; Seven) declared_n=7 ;; Eight) declared_n=8 ;;
+  *) declared_n=-1 ;;
+esac
+if [[ "$declared_n" -eq "$actual" ]]; then
+  ok "header declares $declared_n negative controls and $actual are present"
+else
+  bad "header declares $declared_n negative controls but $actual are present"
+fi
+
+# The published artifact renders these numbers to readers, and a number nobody
+# can read is not published. Contrast is measured rather than eyeballed for the
+# same reason page images are read rather than OCR: the eye is the instrument
+# most likely to report what it expects.
+hdr "6e. The site palette meets WCAG AA, measured"
+if [[ -f site/src/styles/tokens.css ]]; then
+  if out=$(python3 tools/contrast.py --check 2>&1); then
+    ok "$(echo "$out" | tail -1)"
+  else
+    bad "$(echo "$out" | tail -1)"
+    echo "$out" | sed 's/^/      /'
+  fi
+else
+  inconc "site/src/styles/tokens.css not present"
+fi
+
 # --------------------------------------------------------------------- what is NOT done
 
-hdr "6. Explicitly NOT verified"
+hdr "7. Explicitly NOT verified"
 note "Lean 4       : version string only. No Lean code has been written or run."
 note "Z&B numbers  : the thesis reports no runtimes or benchmark table, so only the"
 note "               proofs themselves are comparable, not performance claims."
