@@ -205,6 +205,23 @@
       }
     },
     {
+      "id": "articlev.rigidity",
+      "value": "Taken end to end the American procedure is markedly more rigid, and the honest statement of this finding is narrow.",
+      "label": "The low congressional threshold does not make Article V weaker than Article 76",
+      "statement": "Weimar Article 76 was single-stage: four ninths of the Reichstag, with the Reichsrat, amended the constitution outright. Article V's congressional stage is lower, at about a third of each chamber, but it only proposes. Ratification by thirty-six of forty-eight state legislatures then had to follow, and Article 76 has no analogue to that. The comparison comes out the other way.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified",
+      "guards_against": "reading 146 as evidence that the United States was as exposed as Weimar"
+    },
+    {
+      "id": "articlev.protection",
+      "value": "Whatever protection Article V affords is carried almost entirely by the ratification stage, not by the supermajority in Congress.",
+      "label": "Where Article V's protection actually sits",
+      "statement": "This is the load-bearing sentence for later work, because it says where to look. A path that neutralises or bypasses state ratification faces a far weaker congressional threshold than the text implies.",
+      "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
+      "status": "verified"
+    },
+    {
       "id": "silence.rows",
       "value": 12,
       "label": "Rows in the 1947 silence inventory",
@@ -381,6 +398,30 @@
       "vantage_exempt": true
     },
     {
+      "id": "collapse.germany.threshold",
+      "value": "four ninths",
+      "label": "Weimar Article 76's two thirds composed to about 44 per cent",
+      "statement": "Article 76 required a two-thirds quorum and two thirds of those present. Those fractions compose. Two thirds of two thirds is four ninths, so the clause universally described as a two-thirds rule could be satisfied by about forty-four per cent of the statutory membership -- less than half the chamber. It needs no source beyond the clause and multiplication.",
+      "canonical": "analysis/germany-1933/path-enabling-act.md",
+      "status": "verified",
+      "checked_by": "arithmetic on the clause; no external authority required",
+      "vantage_exempt": true
+    },
+    {
+      "id": "collapse.germany.votes",
+      "value": 444,
+      "label": "Votes for the Enabling Act, against 94",
+      "statement": "The usual telling is that excluding the 81 Communist deputies is what made the Act pass. The Bundestag's own account says the opposite: the majority would have sufficed for a constitutional amendment even had those deputies taken part. The exclusion was insurance, not the load-bearing element. An analysis resting on it rests on the wrong thing.",
+      "canonical": "analysis/germany-1933/path-enabling-act.md",
+      "status": "verified",
+      "vantage_exempt": true,
+      "source": {
+        "title": "Deutscher Bundestag, on the Enabling Act of March 24, 1933",
+        "cite": "recorded in academia/interwar-collapse.md",
+        "quotation": "there would have been a sufficient majority for a constitutional amendment even if the Communist deputies had been able to take part in the vote"
+      }
+    },
+    {
       "id": "collapse.austria",
       "value": "a forgotten emergency economic law from 1917 that nobody had ever bothered to repeal",
       "label": "Austria, 1933 — collapse through a statute outside the constitution",
@@ -420,7 +461,7 @@
     },
     {
       "id": "verify.checks",
-      "value": 85,
+      "value": 87,
       "label": "Checks in the verification harness",
       "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
       "canonical": "README.md",

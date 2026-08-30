@@ -1,0 +1,457 @@
+{
+  "generated_by": "analysis/united-states-1947/search/axiom_sweep.py inventory",
+  "generated_from": [
+    "analysis/united-states-1947/isabelle/GodelCore.thy",
+    "analysis/united-states-1947/isabelle/GodelConstitution.thy"
+  ],
+  "note": "Parsed, not transcribed. Verdicts are deliberately absent: verify.sh section 4 re-runs the experiments in Isabelle. Run `python3 axiom_sweep.py inventory` to regenerate.",
+  "axioms": [
+    {
+      "label": "t1_s_t2",
+      "formula": "succ t1 t2",
+      "raw": "succ t1 t2",
+      "sufficient": true,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "t2_s_t3",
+      "formula": "succ t2 t3",
+      "raw": "succ t2 t3",
+      "sufficient": true,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "t3_s_te",
+      "formula": "succ t3 te",
+      "raw": "succ t3 te",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "te_s_te",
+      "formula": "succ te te",
+      "raw": "succ te te",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt1_s_t1",
+      "formula": "¬(succ t1 t1)",
+      "raw": "\\<not>(succ t1 t1)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt1_s_t3",
+      "formula": "¬(succ t1 t3)",
+      "raw": "\\<not>(succ t1 t3)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt1_s_te",
+      "formula": "¬(succ t1 te)",
+      "raw": "\\<not>(succ t1 te)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt2_s_t1",
+      "formula": "¬(succ t2 t1)",
+      "raw": "\\<not>(succ t2 t1)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt2_s_t2",
+      "formula": "¬(succ t2 t2)",
+      "raw": "\\<not>(succ t2 t2)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt2_s_te",
+      "formula": "¬(succ t2 te)",
+      "raw": "\\<not>(succ t2 te)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt3_s_t1",
+      "formula": "¬(succ t3 t1)",
+      "raw": "\\<not>(succ t3 t1)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt3_s_t2",
+      "formula": "¬(succ t3 t2)",
+      "raw": "\\<not>(succ t3 t2)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nt3_s_t3",
+      "formula": "¬(succ t3 t3)",
+      "raw": "\\<not>(succ t3 t3)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nte_s_t1",
+      "formula": "¬(succ te t1)",
+      "raw": "\\<not>(succ te t1)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nte_s_t2",
+      "formula": "¬(succ te t2)",
+      "raw": "\\<not>(succ te t2)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Nte_s_t3",
+      "formula": "¬(succ te t3)",
+      "raw": "\\<not>(succ te t3)",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "unique_is_leg",
+      "formula": "⌊∀g g1. ∀g g2. (((is_leg g1)∧(is_leg g2))⟶(g1 = g2))⌋",
+      "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_leg g1)\\<^bold>\\<and>(is_leg g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "unique_is_exe",
+      "formula": "⌊∀g g1. ∀g g2. (((is_exe g1)∧(is_exe g2))⟶(g1 = g2))⌋",
+      "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_exe g1)\\<^bold>\\<and>(is_exe g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "unique_is_jud",
+      "formula": "⌊∀g g1. ∀g g2. (((is_jud g1)∧(is_jud g2))⟶(g1 = g2))⌋",
+      "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_jud g1)\\<^bold>\\<and>(is_jud g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Con_Leg_t1",
+      "formula": "⌊is_leg Congress⌋t1",
+      "raw": "\\<lfloor>is_leg Congress\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "P_Exe_t1",
+      "formula": "⌊is_exe P⌋t1",
+      "raw": "\\<lfloor>is_exe P\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Cou_Jud_t1",
+      "formula": "⌊is_jud Courts⌋t1",
+      "raw": "\\<lfloor>is_jud Courts\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "oap_t1",
+      "formula": "⌊oap⌋t1",
+      "raw": "\\<lfloor>oap\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "osp_t1",
+      "formula": "⌊osp⌋t1",
+      "raw": "\\<lfloor>osp\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "omsp_t1",
+      "formula": "⌊omsp⌋t1",
+      "raw": "\\<lfloor>omsp\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "opr_t1",
+      "formula": "⌊opr⌋t1",
+      "raw": "\\<lfloor>opr\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "rv_t1",
+      "formula": "⌊rv⌋t1",
+      "raw": "\\<lfloor>rv\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "osr_t1",
+      "formula": "⌊osr⌋t1",
+      "raw": "\\<lfloor>osr\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "psr_t1",
+      "formula": "⌊psr⌋t1",
+      "raw": "\\<lfloor>psr\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "amd1a_prop_t1",
+      "formula": "⌊is_prop amd1a⌋t1",
+      "raw": "\\<lfloor>is_prop amd1a\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": true
+    },
+    {
+      "label": "amd1b_prop_t1",
+      "formula": "⌊is_prop amd1b⌋t1",
+      "raw": "\\<lfloor>is_prop amd1b\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": true
+    },
+    {
+      "label": "XCon_Leg_t1",
+      "formula": "⌊X(is_leg Congress)⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X(is_leg Congress)\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "XP_Exe_t1",
+      "formula": "⌊X(is_exe P)⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X(is_exe P)\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "XCou_Jud_t1",
+      "formula": "⌊X(is_jud Courts)⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X(is_jud Courts)\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xoap_t1",
+      "formula": "⌊X oap⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X oap\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xosp_t1",
+      "formula": "⌊X osp⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X osp\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xopr_t1",
+      "formula": "⌊X opr⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X opr\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xrv_t1",
+      "formula": "⌊X rv⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X rv\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xosr_t1",
+      "formula": "⌊X osr⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X osr\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xpsr_t1",
+      "formula": "⌊X psr⌋t1",
+      "raw": "\\<lfloor>\\<^bold>X psr\\<rfloor>t1",
+      "sufficient": true,
+      "necessary": true,
+      "step_one": false
+    },
+    {
+      "label": "amd2_prop_t2",
+      "formula": "⌊is_prop amd2⌋t2",
+      "raw": "\\<lfloor>is_prop amd2\\<rfloor>t2",
+      "sufficient": true,
+      "necessary": true,
+      "step_one": false
+    },
+    {
+      "label": "amd2_not_maint_suf_t2",
+      "formula": "⌊¬(maint_suf amd2)⌋t2",
+      "raw": "\\<lfloor>\\<^bold>\\<not>(maint_suf amd2)\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xoap_t2",
+      "formula": "⌊X oap⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X oap\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xosp_t2",
+      "formula": "⌊X osp⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X osp\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xopr_t2",
+      "formula": "⌊X opr⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X opr\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xrv_t2",
+      "formula": "⌊X rv⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X rv\\<rfloor>t2",
+      "sufficient": true,
+      "necessary": true,
+      "step_one": false
+    },
+    {
+      "label": "Xosr_t2",
+      "formula": "⌊X osr⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X osr\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "Xpsr_t2",
+      "formula": "⌊X psr⌋t2",
+      "raw": "\\<lfloor>\\<^bold>X psr\\<rfloor>t2",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": false
+    },
+    {
+      "label": "amd1a_sup_rat_t1",
+      "formula": "⌊sup_rat amd1a⌋t1",
+      "raw": "\\<lfloor>sup_rat amd1a\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": true
+    },
+    {
+      "label": "amd1b_sup_rat_t1",
+      "formula": "⌊sup_rat amd1b⌋t1",
+      "raw": "\\<lfloor>sup_rat amd1b\\<rfloor>t1",
+      "sufficient": false,
+      "necessary": false,
+      "step_one": true
+    },
+    {
+      "label": "amd2_sup_rat_t2",
+      "formula": "⌊sup_rat amd2⌋t2",
+      "raw": "\\<lfloor>sup_rat amd2\\<rfloor>t2",
+      "sufficient": true,
+      "necessary": true,
+      "step_one": false
+    }
+  ],
+  "sufficient": [
+    "t1_s_t2",
+    "t2_s_t3",
+    "Xpsr_t1",
+    "Xrv_t2",
+    "amd2_prop_t2",
+    "amd2_sup_rat_t2"
+  ],
+  "necessary": [
+    "Xpsr_t1",
+    "Xrv_t2",
+    "amd2_prop_t2",
+    "amd2_sup_rat_t2"
+  ],
+  "step_one": [
+    "amd1a_prop_t1",
+    "amd1b_prop_t1",
+    "amd1a_sup_rat_t1",
+    "amd1b_sup_rat_t1"
+  ],
+  "step_one_broken_scripts": [
+    "amd1a_val_t2",
+    "amd1b_val_t2_2"
+  ],
+  "results": {
+    "theorems": [
+      "noDictatorship_t1",
+      "noDictatorship_t2",
+      "Dictatorship_t3"
+    ],
+    "amd1_lemmas": [
+      "amd1b_val_t2",
+      "amd1b_val_t1",
+      "amd1b_val",
+      "amd1a_val_t2",
+      "amd1b_val_t2_2"
+    ]
+  }
+}
+

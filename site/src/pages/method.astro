@@ -1,0 +1,287 @@
+---
+/**
+ * The method.
+ *
+ * Answers one question: why should you believe any of this?
+ *
+ * This is the payload of the whole site. The thesis is not "Gödel was right".
+ * It is that a search which has found nothing, and which says so, and which
+ * ships the script that would catch it lying, is worth more than a search that
+ * announces a discovery.
+ *
+ * The eight disproved claims are parsed out of README.md and the negative
+ * controls out of verify.sh. Neither list is retyped here, so neither can
+ * quietly shrink.
+ */
+import Base from '../layouts/Base.astro';
+import MarginNote from '../components/MarginNote.astro';
+import Value from '../components/Value.astro';
+import Scoreboard from '../components/Scoreboard.astro';
+import { fact, vantage } from '../lib/facts';
+import { orderedListUnder, negativeControls, inline, blobUrl } from '../lib/content';
+
+const claims = orderedListUnder('README.md', 'Claims made here and later disproved');
+const controls = negativeControls();
+const vacuous = fact('incident.vacuous_ablation');
+const i219 = fact('incident.219');
+const timeout = fact('incident.timeout');
+const cascade = fact('cascade.status');
+---
+
+<Base
+  title="The method"
+  description="Eight claims this project made and later disproved, six checks built to fail on purpose, and one command that re-runs everything. A search that has found nothing and says so."
+  section="method"
+>
+  <div class="page">
+    <header class="wide lede">
+      <p class="kicker smallcaps">Why believe any of this</p>
+      <h1>The most persuasive thing here is the list of times we were wrong.</h1>
+      <p class="standfirst">
+        A repository that records only its wins is not evidence of anything. This
+        page is the part that makes the rest checkable, and it is deliberately the
+        least flattering page on the site.
+      </p>
+    </header>
+
+    <div class="wide">
+      <Scoreboard />
+    </div>
+
+    <section aria-labelledby="disproved">
+      <h2 id="disproved">
+        <Value id="scoreboard.disproved" bare /> claims made here and later disproved
+      </h2>
+      <p>
+        Every one of these was believed, written down, and then refuted — in most
+        cases by an experiment we had already run, or by a reviewer reading more
+        carefully than the author. They are kept in <code>README.md</code> and this
+        page reads them from there, so the list cannot quietly get shorter.
+      </p>
+
+      <ol class="claims">
+        {claims.map((c) => <li set:html={inline(c)} />)}
+      </ol>
+
+      <p class="also">
+        One shipped experiment was also <strong>vacuous</strong> for a period: the
+        ablation {vacuous.value}. Adversarial review caught it, not the harness, which
+        is the wrong way round. Every ablation now carries a mandatory consistency
+        probe and the harness fails if one is missing.
+      </p>
+    </section>
+
+    <MarginNote head="Source">
+      <p>
+        Parsed from <a href={blobUrl('README.md')}>README.md</a> at build time. If a
+        ninth claim is disproved tomorrow, this page grows a ninth entry with no edit
+        to the site.
+      </p>
+    </MarginNote>
+
+    <section aria-labelledby="harness">
+      <h2 id="harness">One command re-runs all of it</h2>
+      <p>
+        Everything on this site is checked by a single script. It takes a few minutes,
+        it needs no credentials, and it will tell you if we are lying.
+      </p>
+
+      <pre class="cmd"><code>git clone https://github.com/incrediblecrab/godel-loopholes
+cd godel-loopholes
+./verify.sh</code></pre>
+
+      <p>
+        It runs <Value id="verify.checks" bare /> checks. It re-derives the
+        Article&nbsp;V thresholds in Z3 by an independent route, re-compiles the
+        Isabelle model and its ablations, checksums every source scan against the
+        copy it was read from, and asserts that every load-bearing value in
+        <code>data/facts.json</code> still appears in the file that owns it.
+      </p>
+      <p>
+        It also checks its own advertising. The check count quoted in
+        <code>README.md</code> is compared against the number of checks that actually
+        ran, so this page cannot claim a number the harness does not produce.
+      </p>
+    </section>
+
+    <MarginNote head="The harness" facts={['verify.checks', 'verify.negative_controls']} />
+
+    <section aria-labelledby="controls">
+      <h2 id="controls">
+        <Value id="verify.negative_controls" bare /> of those checks are built to fail
+      </h2>
+      <p>
+        A test suite that has never been observed to fail is not evidence that anything
+        passed. So some checks feed the tools something false and fail if the tool
+        accepts it. These are read out of <code>verify.sh</code>&#8217;s own section
+        headers rather than counted by hand.
+      </p>
+
+      <ul class="controls">
+        {
+          controls.map((c) => (
+            <li>
+              <span class="ctl-id tabular">§{c.id}</span>
+              <span class="ctl-title">{c.title}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p>
+        The last is the one that matters most for this site: a deliberately corrupted
+        <code>facts.json</code> is fed to the checker, and the harness fails if the
+        checker accepts it. Without that, every fact on every page would be resting on
+        a validator nobody had ever seen reject anything.
+      </p>
+    </section>
+
+    <section aria-labelledby="the-219">
+      <h2 id="the-219">The incident that taught us the most</h2>
+      <p>
+        While confirming the thresholds, Z3 printed {i219.value}.
+      </p>
+      <p>
+        The solver was right and the label was wrong. The encoding minimised
+        <code>yes</code> rather than <code>present</code>, so the larger number was an
+        arbitrary witness among the models achieving the same count of yes votes.
+        Nothing was unsound at any point. The formula answered exactly what had been
+        written, and the English sentence attached to it claimed something the formula
+        did not say.
+      </p>
+      <p class="lesson">
+        A verified result is only as good as the correspondence between the formula and
+        the sentence in English beside it, and that correspondence is the one link in
+        the chain no prover checks.
+      </p>
+      <p>
+        A second incident is worth the same attention. A timeout was reported as though
+        it were a refutation, giving {timeout.value} where the harness had been written
+        to expect two. Machine output has three states, and treating the third as the
+        second is how a tool that cannot lie gets used to tell one.
+      </p>
+    </section>
+
+    <MarginNote head="On the record" facts={['incident.219', 'incident.timeout', 'incident.vacuous_ablation']} />
+
+    <section aria-labelledby="vantage">
+      <h2 id="vantage">Everything is fixed to one date</h2>
+      <p>
+        Every number on this site is the number as it stood on <strong>{vantage}</strong>,
+        the day Gödel took his citizenship examination in Trenton. That is not
+        decoration. A reader who does not see the vantage will read every figure as a
+        claim about today, and most of them are not.
+      </p>
+      <p>
+        So <em>Powell v. McCormack</em> (1969) is out of bounds, and so is the
+        Twenty-fifth Amendment (1967), and so is any state count after 1912. Authority
+        decided after the vantage cannot be used to settle a question asked at it, even
+        when we know how it came out.
+      </p>
+    </section>
+
+    <section aria-labelledby="open" class="caveat">
+      <h2 id="open">What is still open, stated plainly</h2>
+      <p>
+        There is one live research question and it is not settled. Three rows of the
+        silence inventory, chained together, suggest the denominator of Article&nbsp;V
+        is set by the body the fraction is meant to constrain. The numbers are
+        computed and committed.
+      </p>
+      <p>
+        They are labelled <strong>{cascade.value}</strong>, because the chain rests on
+        one premise we have not verified: that the quorum base is members chosen and
+        sworn rather than the statutory size of the chamber. If it is the statutory
+        size, the chain collapses at step one and this becomes a null result — which
+        our own standard requires be written up in the same detail as a win.
+      </p>
+      <p>
+        Until that is settled, it is not a finding, and it is not presented as one
+        anywhere on this site.
+      </p>
+    </section>
+
+    <MarginNote head="The open question" facts={['cascade.status', 'silence.single_chamber']} />
+  </div>
+</Base>
+
+<style>
+  .claims {
+    max-width: var(--measure);
+    margin-top: var(--space-sm);
+    padding-left: 1.4em;
+  }
+
+  /* The retractions are set in the disproved colour and are not shrunk,
+     tucked into a disclosure, or apologised for. They are the argument. */
+  .claims li {
+    margin-top: var(--space-xs);
+  }
+
+  .claims li::marker {
+    color: var(--disproved);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  .also {
+    margin-top: var(--space-md);
+    padding-left: var(--space-sm);
+    border-left: 3px solid var(--disproved);
+    max-width: var(--measure);
+    color: var(--ink-dim);
+  }
+
+  .cmd {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--paper-sunk);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .controls {
+    list-style: none;
+    margin: var(--space-sm) 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+
+  .controls li {
+    display: grid;
+    grid-template-columns: 3.2rem 1fr;
+    gap: var(--space-xs);
+    padding: 0.3em 0;
+    border-top: 1px dotted var(--rule);
+  }
+
+  .controls li:last-child {
+    border-bottom: 1px dotted var(--rule);
+  }
+
+  .ctl-id {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  .lesson {
+    margin-top: var(--space-md);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.35;
+    padding-left: var(--space-sm);
+    border-left: 3px solid var(--graphic-strong);
+    max-width: var(--measure);
+  }
+
+  .caveat {
+    margin-top: var(--space-lg);
+    padding: var(--space-md) 0 var(--space-sm);
+    border-top: 2px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule);
+  }
+</style>

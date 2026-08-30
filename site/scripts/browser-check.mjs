@@ -95,7 +95,7 @@ console.log('\n== browser checks ==\n');
 
 /* --- every page loads, executes its scripts, and violates nothing --------- */
 
-for (const path of ['/', '/text/']) {
+for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   const { context, page, violations, errors, requests } = await open(path);
 
   record(
@@ -135,6 +135,102 @@ for (const path of ['/', '/text/']) {
     return bad;
   });
   record(unnamed.length === 0, `${path} every control has an accessible name`, unnamed[0] ?? '');
+
+  // A heading that jumps h2 -> h4 is a broken outline for anyone navigating by
+  // structure, and it is invisible to everyone else, so nothing else catches it.
+  const skips = await page.evaluate(() => {
+    const levels = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) =>
+      Number(h.tagName[1]),
+    );
+    const bad = [];
+    for (let i = 1; i < levels.length; i++) {
+      if (levels[i] > levels[i - 1] + 1) bad.push(`h${levels[i - 1]} -> h${levels[i]}`);
+    }
+    return bad;
+  });
+  record(skips.length === 0, `${path} heading outline skips no level`, skips[0] ?? '');
+
+  // Every in-repo link on the page must resolve. A 404 on a research site is
+  // not a cosmetic problem; it is a citation that does not go anywhere.
+  const hrefs = await page.evaluate(() =>
+    [...document.querySelectorAll('a[href]')]
+      .map((a) => a.getAttribute('href'))
+      .filter((h) => h && h.startsWith('/')),
+  );
+  const broken = [];
+  for (const href of [...new Set(hrefs)]) {
+    const r = await page.request.get(`${origin}${href}`);
+    if (!r.ok()) broken.push(`${href} -> ${r.status()}`);
+  }
+  record(broken.length === 0, `${path} every internal link resolves`, broken.join(', ') || `${hrefs.length} links`);
+
+  await context.close();
+}
+
+/* --- the two new artifacts ------------------------------------------------
+ *
+ * The expected numbers below -- 3 cases, 51 axioms, 6 sufficient, 4 step-one,
+ * 8 disproved claims, 6 negative controls -- are written out on purpose, and
+ * this is NOT the hardcoding that lint-facts.mjs exists to stop.
+ *
+ * The site reads those numbers from data/facts.json and the theory files. A
+ * test that read its expectation from the same place would agree with the page
+ * no matter what either said, which is not a test. These are independent
+ * assertions, and if one of them ever legitimately changes it should cost a
+ * deliberate edit here.
+ * ------------------------------------------------------------------------- */
+
+{
+  const { context, page } = await open('/precedents/');
+  const tabs = page.locator('[data-collapse] [role="tab"]');
+  record((await tabs.count()) === 3, 'collapse figure offers all three cases', `${await tabs.count()} tabs`);
+
+  await tabs.nth(1).click();
+  const lit = page.locator('[data-collapse] .band--lit');
+  const litBand = await lit.getAttribute('data-band');
+  record(litBand === '1', 'selecting Austria lights the layer outside the constitution', `band ${litBand}`);
+
+  const blind = await page.locator('[data-collapse] [data-panel="austria"] .blind').isVisible();
+  record(blind, 'and says a text-only method would have missed it');
+
+  await tabs.nth(0).click();
+  const g = await page.locator('[data-collapse] .band--lit').getAttribute('data-band');
+  const seen = await page.locator('[data-collapse] [data-panel="germany"] .seen').isVisible();
+  record(g === '0' && seen, 'Germany lights the constitution layer and is the one we would catch');
+
+  await context.close();
+}
+
+{
+  const { context, page } = await open('/machine/');
+  const chips = page.locator('[data-ablation] [data-ax]');
+  const total = await chips.count();
+  record(total === 51, 'the ablation grid carries every axiom', `${total} axioms`);
+
+  const dropped0 = await page.locator('[data-ablation] .ax--dropped').count();
+  record(dropped0 === 0, 'the published model drops nothing', `${dropped0} dropped`);
+
+  await page.locator('[data-ablation] [data-state="six"]').click();
+  const kept = total - (await page.locator('[data-ablation] .ax--dropped').count());
+  record(kept === 6, 'the six-axiom state keeps exactly six', `${kept} kept`);
+
+  await page.locator('[data-ablation] [data-state="nostepone"]').click();
+  const droppedStep = await page.locator('[data-ablation] .ax--dropped').count();
+  record(droppedStep === 4, "deleting Godel's step one drops exactly four axioms", `${droppedStep} dropped`);
+
+  const lost = await page.locator('[data-ablation] [data-panel="nostepone"] .lost li').count();
+  record(lost === 1, 'and costs exactly one proposition', `${lost} lost`);
+
+  await context.close();
+}
+
+{
+  const { context, page } = await open('/method/');
+  const claims = await page.locator('.claims li').count();
+  record(claims === 8, 'the method page lists all eight disproved claims', `${claims} claims`);
+
+  const controls = await page.locator('.controls li').count();
+  record(controls === 6, 'and all six negative controls', `${controls} controls`);
 
   await context.close();
 }

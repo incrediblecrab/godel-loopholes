@@ -329,6 +329,91 @@ def verdict(out, lemma_line_marker="PROBE"):
     return "no verdict"
 
 
+# Isabelle writes its symbols as ASCII escapes in the theory file. The write-up
+# and the website show them as the characters they denote. This table is the
+# only place that translation happens, and anything not in it is left as the
+# raw escape rather than guessed at, so an unrecognised symbol is visible as
+# one instead of being silently dropped.
+SYMBOLS = {
+    "lfloor": "\u230a", "rfloor": "\u230b", "bold": "", "sub": "",
+    "not": "\u00ac", "and": "\u2227", "or": "\u2228", "longrightarrow": "\u27f6",
+    "longleftrightarrow": "\u27f7", "forall": "\u2200", "exists": "\u2203",
+    "noteq": "\u2260", "circ": "\u2218", "lambda": "\u03bb", "Rightarrow": "\u21d2",
+    "equiv": "\u2261", "in": "\u2208", "times": "\u00d7", "Longrightarrow": "\u27f9",
+}
+
+_ESC = re.compile(r"\\<(\^?)([A-Za-z]+)>")
+
+
+def unescape_isabelle(text):
+    """Render Isabelle ASCII escapes as characters, leaving unknowns visible."""
+    def sub(m):
+        name = m.group(2)
+        if name in SYMBOLS:
+            return SYMBOLS[name]
+        return m.group(0)
+    return _ESC.sub(sub, text)
+
+
+def exp_inventory():
+    """Emit the model's axiom inventory as JSON. Requires no Isabelle.
+
+    The website renders the ablation result, and the one thing it must not do
+    is retype fifty-one axiom names. This mode parses them out of the same two
+    theory files every experiment is generated from, so the site and the proof
+    cannot disagree. The VERDICTS are not recorded here on purpose: they are
+    measured by verify.sh section 4, which re-runs Isabelle. A verdict cached
+    in a file is a verdict nobody is checking.
+    """
+    import json
+
+    _, axioms = dissect()
+    thm = collect_results()
+    out = {
+        "generated_by": "analysis/united-states-1947/search/axiom_sweep.py inventory",
+        "generated_from": [
+            "analysis/united-states-1947/isabelle/GodelCore.thy",
+            "analysis/united-states-1947/isabelle/GodelConstitution.thy",
+        ],
+        "note": ("Parsed, not transcribed. Verdicts are deliberately absent: "
+                 "verify.sh section 4 re-runs the experiments in Isabelle. Run "
+                 "`python3 axiom_sweep.py inventory` to regenerate."),
+        "axioms": [
+            {
+                "label": label,
+                "formula": unescape_isabelle(formula),
+                "raw": formula,
+                "sufficient": label in SIX,
+                "necessary": label in EXPECTED_NECESSARY,
+                "step_one": label in AMD1,
+            }
+            for label, formula in axioms
+        ],
+        "sufficient": list(SIX),
+        "necessary": sorted(EXPECTED_NECESSARY),
+        "step_one": list(AMD1),
+        "step_one_broken_scripts": list(AMD1_LEMMAS),
+        "results": thm,
+    }
+    print(json.dumps(out, indent=2, ensure_ascii=False))
+    return True
+
+
+def collect_results():
+    """Theorem and lemma names, parsed from the theory files."""
+    named = {"theorems": [], "amd1_lemmas": []}
+    for src in ("GodelCore.thy", "GodelConstitution.thy"):
+        text = strip_comments(open(os.path.join(THY, src), encoding="utf-8").read())
+        for kw, label in re.findall(
+            r"^(theorem|lemma)\s+([A-Za-z][A-Za-z0-9_']*)\s*:", text, re.M
+        ):
+            if kw == "theorem":
+                named["theorems"].append(label)
+            elif re.match(r"amd1[ab]_val", label):
+                named["amd1_lemmas"].append(label)
+    return named
+
+
 def exp_minimal():
     print("== minimal: prove Dictatorship_t3 from %d of 51 axioms ==" % len(SIX))
     build("MinimalSupport", SIX, PROVE_DICTATORSHIP)
@@ -584,7 +669,8 @@ def exp_blocking():
 
 EXPERIMENTS = {"minimal": exp_minimal, "tight": exp_tight, "noamd1": exp_noamd1,
                "omsp": exp_omsp, "lapsed": exp_lapsed, "blocking": exp_blocking,
-               "repeal": exp_repeal, "sweep": exp_sweep}
+               "repeal": exp_repeal, "sweep": exp_sweep,
+               "inventory": exp_inventory}
 
 if __name__ == "__main__":
     which = sys.argv[1] if len(sys.argv) > 1 else "all"

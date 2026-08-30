@@ -1,0 +1,454 @@
+---
+/**
+ * The axiom ablation explorer.
+ *
+ * This is the one artifact on the site showing a result that exists nowhere
+ * else. Zahoransky and Benzmüller published an Isabelle/HOL model in which
+ * Gödel's dictatorship follows from the 1947 Constitution. It reproduces. This
+ * asks a question their paper does not: which of the fifty-one axioms is the
+ * proof actually using?
+ *
+ * The answer is uncomfortable for the published route. Six suffice. And the
+ * four axioms encoding Gödel's step one -- the amendment that strips Article
+ * V's entrenchment clause, which is the whole idea -- can be deleted, and
+ * every published theorem and lemma still proves in a theory that is still
+ * consistent.
+ *
+ * The fifty-one axioms are parsed from the theory files, not transcribed.
+ * Every verdict shown here is re-run by verify.sh section 4.
+ */
+import { axioms, STATES, kept, ablation } from '../lib/ablation';
+import { fact } from '../lib/facts';
+import { blobUrl } from '../lib/content';
+import Value from '../components/Value.astro';
+
+const cost = fact('model.stepone.cost');
+const reason = fact('model.stepone.reason');
+
+const states = STATES.map((s) => ({ ...s, count: kept(s) }));
+
+/**
+ * What each state establishes. Prose, because a verdict is a sentence and not
+ * a number, but every number inside it comes through <Value>.
+ */
+const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }> = {
+  full: {
+    holds: [
+      ...ablation.results.theorems,
+      `\u230ais_rat amd1a\u230b t2 \u2014 the repeal actually happens`,
+    ],
+    lost: [],
+    note: 'The model represents the repeal as a real event, not a gesture. is_rat is a predicate distinct from truth, and the theory entails that amd1a is ratified at t2.',
+  },
+  six: {
+    holds: ['Dictatorship_t3'],
+    lost: ['noDictatorship_t1', 'noDictatorship_t2'],
+    note: 'Sufficiency is a kernel-certified theorem, and Nitpick finds a model of the six, so this is not the vacuous survival of an inconsistent theory. None of the six is an equal-suffrage axiom, an entrenchment axiom, a Senate axiom, or a step-one axiom.',
+  },
+  nostepone: {
+    holds: [...ablation.results.theorems, ...ablation.results.amd1_lemmas],
+    lost: [`\u230ais_rat amd1a\u230b t2 \u2014 becomes independent, not false`],
+    note: 'Nitpick finds a model of the reduced theory, so nothing here is the artefact of an inconsistency. Two proof scripts name deleted axioms and break; both propositions are re-proved without them.',
+  },
+};
+---
+
+<figure class="ablation" data-ablation>
+  <figcaption class="fig-head">
+    <span class="smallcaps">Figure</span> Which axioms is the proof actually using?
+  </figcaption>
+
+  <div class="controls" role="tablist" aria-label="Ablation states">
+    {
+      states.map((s, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`abl-tab-${s.id}`}
+          aria-controls={`abl-panel-${s.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          data-state={s.id}
+          class="state-tab"
+        >
+          <span class="state-short">{s.short}</span>
+          <span class="state-count tabular">{s.count} axioms</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- The grid. Presentational: the axiom names are repeated in the lists
+       below, so nothing here is the only place a fact appears. -->
+  <ol class="grid" aria-hidden="true">
+    {
+      axioms.map((a) => (
+        <li
+          class="ax"
+          data-ax={a.label}
+          data-sufficient={String(a.sufficient)}
+          data-necessary={String(a.necessary)}
+          data-stepone={String(a.step_one)}
+          title={`${a.label} : ${a.formula}`}
+        >
+          {a.label}
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="legend">
+    <span class="key key--kept">kept</span>
+    <span class="key key--dropped">dropped</span>
+    <span class="key key--nec">necessary to every proof</span>
+  </p>
+
+  {
+    states.map((s, i) => (
+      <div
+        class="panel"
+        id={`abl-panel-${s.id}`}
+        role="tabpanel"
+        aria-labelledby={`abl-tab-${s.id}`}
+        data-panel={s.id}
+        hidden={i !== 0}
+      >
+        <h3 class="panel-title">{s.title}</h3>
+
+        <div class="cols">
+          <div>
+            <p class="col-head smallcaps">Still proves</p>
+            <ul class="mono-list holds">
+              {FINDINGS[s.id].holds.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p class="col-head smallcaps">
+              {s.id === 'six' ? 'Out of scope of this subset' : 'No longer entailed'}
+            </p>
+            {FINDINGS[s.id].lost.length === 0 ? (
+              <p class="nothing">Nothing.</p>
+            ) : (
+              <ul class="mono-list lost">
+                {FINDINGS[s.id].lost.map((l) => (
+                  <li>{l}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <p class="panel-note">{FINDINGS[s.id].note}</p>
+
+        <p class="rerun">
+          Re-run by <code>verify.sh</code> section 4 \u00b7 <code>{s.checkedBy}</code>
+        </p>
+      </div>
+    ))
+  }
+
+  <div class="payload">
+    <p class="payload-head smallcaps">What this costs Gödel's route</p>
+    <p>
+      Deleting step one is not free, and an earlier version of this write-up wrongly
+      said it was. It costs exactly one proposition: <code>{cost.value}</code>. That
+      proposition is the repeal itself, and no published result uses it.
+    </p>
+    <p>
+      The reason is that <code>{reason.value}</code> — the amendment is
+      extensionally the negation of the entrenchment clause, and that negation is
+      separately forced by the stipulation that the dictatorship amendment was
+      proposed. The repeal&#8217;s postcondition is available without the repeal.
+    </p>
+    <p class="payload-numbers">
+      <Value id="model.axioms.total" bare /> axioms ·
+      <Value id="model.axioms.sufficient" bare /> suffice ·
+      <Value id="model.axioms.necessary" bare /> necessary to every proof ·
+      <Value id="model.theorems" bare /> theorems and
+      <Value id="model.lemmas" bare /> lemmas survive
+    </p>
+  </div>
+
+  <p class="src">
+    Parsed from
+    {
+      ablation.generated_from.map((f, i) => (
+        <>
+          {i > 0 && ' and '}
+          <a href={blobUrl(f)}>{f.split('/').pop()}</a>
+        </>
+      ))
+    }
+    by <code>axiom_sweep.py inventory</code>.
+  </p>
+</figure>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-ablation]');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+
+    const select = (id: string, focus: boolean) => {
+      for (const t of tabs) {
+        const on = t.dataset.state === id;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      }
+      for (const p of root.querySelectorAll<HTMLElement>('[data-panel]')) {
+        p.hidden = p.dataset.panel !== id;
+      }
+      for (const ax of root.querySelectorAll<HTMLElement>('[data-ax]')) {
+        const sufficient = ax.dataset.sufficient === 'true';
+        const stepOne = ax.dataset.stepone === 'true';
+        const dropped =
+          id === 'six' ? !sufficient : id === 'nostepone' ? stepOne : false;
+        ax.classList.toggle('ax--dropped', dropped);
+      }
+    };
+
+    root.addEventListener('click', (e) => {
+      const tab = (e.target as HTMLElement).closest<HTMLElement>('[role="tab"]');
+      if (tab?.dataset.state) select(tab.dataset.state, false);
+    });
+
+    root.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const i = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      if (next.dataset.state) select(next.dataset.state, true);
+    });
+
+    select(tabs[0].dataset.state!, false);
+  }
+</script>
+
+<style>
+  .ablation {
+    margin: var(--space-lg) 0;
+  }
+
+  .fig-head {
+    color: var(--ink-faint);
+    margin-bottom: var(--space-sm);
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .state-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    padding: 0.5em 0.9em;
+    border: 1px solid var(--graphic);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink-dim);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .state-tab[aria-selected='true'] {
+    border-color: var(--ink);
+    background: var(--paper-sunk);
+    color: var(--ink);
+  }
+
+  .state-count {
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    color: var(--ink-faint);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  /* Fifty-one small labels. The grid is the point: you can see at a glance how
+     much of the model the proof is not touching. */
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    list-style: none;
+    margin: 0 0 var(--space-xs);
+    padding: 0;
+  }
+
+  .ax {
+    padding: 0.15em 0.4em;
+    border: 1px solid var(--graphic);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    background: var(--paper);
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  /* A dropped axiom is struck through as well as faded, so the state survives
+     greyscale printing and forced-colors mode, where opacity is all there is. */
+  .ax--dropped {
+    opacity: 0.42;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .ax[data-necessary='true'] {
+    border-color: var(--graphic-strong);
+    border-width: 2px;
+    color: var(--ink);
+    padding: calc(0.15em - 1px) calc(0.4em - 1px);
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    margin-bottom: var(--space-md);
+  }
+
+  .key::before {
+    content: '';
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-right: 0.35em;
+    vertical-align: -0.05em;
+    border: 1px solid var(--graphic);
+    border-radius: 1px;
+  }
+
+  .key--dropped::before {
+    opacity: 0.42;
+  }
+
+  .key--nec::before {
+    border: 2px solid var(--graphic-strong);
+  }
+
+  .panel-title {
+    font-size: var(--step-0);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cols {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 34rem) {
+    .cols {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .col-head {
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .mono-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  .mono-list li + li {
+    margin-top: 0.2em;
+  }
+
+  /* The one colour decision here, and it carries the epistemic scale rather
+     than a mood: what survives, and what stops being entailed. */
+  .holds li {
+    color: var(--verified);
+  }
+
+  .lost li {
+    color: var(--disproved);
+  }
+
+  .nothing {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .panel-note {
+    margin-top: var(--space-sm);
+    max-width: var(--measure);
+    color: var(--ink-dim);
+  }
+
+  .rerun {
+    margin-top: var(--space-xs);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .payload {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--rule-strong);
+    max-width: var(--measure);
+  }
+
+  .payload-head {
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .payload p + p {
+    margin-top: var(--space-sm);
+  }
+
+  .payload-numbers {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .src {
+    margin-top: var(--space-md);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ax {
+      transition: none;
+    }
+  }
+
+  /* Scripting off: show every state stacked, drop the tabs rather than leave
+     dead controls, and drop the grid, whose only meaning is the interaction. */
+  @media (scripting: none) {
+    .controls,
+    .grid,
+    .legend {
+      display: none;
+    }
+
+    .panel[hidden] {
+      display: revert;
+    }
+
+    .panel + .panel {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px dotted var(--rule);
+    }
+  }
+</style>

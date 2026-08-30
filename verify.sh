@@ -462,6 +462,30 @@ fi
 note "The textual fact this result depends on -- that the thesis never propagates"
 note "omsp past t1 -- is checked in section 5c, once the PDFs are present."
 
+hdr "4g. The published axiom inventory is not stale"
+note "data/ablation.json is what the website renders. It is GENERATED from the"
+note "two theory files, so the only way it can lie is by being out of date."
+note "Regenerating it needs no Isabelle, so this check runs everywhere."
+if [ -f "$SWEEP" ] && [ -f "$REPO/data/ablation.json" ]; then
+  regen=$(cd "$(dirname "$SWEEP")" && python3 axiom_sweep.py inventory 2>/dev/null)
+  if [ -z "$regen" ]; then
+    bad "axiom_sweep.py inventory produced nothing"
+  elif diff -q <(printf '%s\n' "$regen") \
+              <(printf '%s\n' "$(cat "$REPO/data/ablation.json")") >/dev/null; then
+    ok "data/ablation.json matches the theory files it is generated from"
+  else
+    bad "data/ablation.json is stale; regenerate with: python3 axiom_sweep.py inventory > data/ablation.json"
+  fi
+  n_ax=$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["axioms"]))' "$REPO/data/ablation.json" 2>/dev/null)
+  want_ax=$(python3 "$REPO/tools/facts.py" --value model.axioms.total 2>/dev/null)
+  [ -n "$n_ax" ] && [ "$n_ax" = "$want_ax" ] \
+    && ok "and it carries $n_ax axioms, the number facts.json advertises" \
+    || bad "ablation.json has $n_ax axioms; facts.json says $want_ax"
+else
+  inconc "axiom_sweep.py or data/ablation.json missing" \
+         "Section 4g checks the website's axiom data against the theory files."
+fi
+
 hdr "5. Source artifacts, with checksums you can re-derive"
 note "Fetched on demand if absent, so a clean checkout reproduces this section."
 declare -a PDF_NAME=(zb-thesis.pdf zb-paper.pdf)

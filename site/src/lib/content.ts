@@ -200,3 +200,61 @@ export function inline(markdown: string): string {
 export function blobUrl(relPath: string): string {
   return REPO_BLOB + relPath;
 }
+
+/**
+ * Pull the ordered list that follows a heading, at any heading level.
+ *
+ * The eight disproved claims live in README.md as a numbered list. They are
+ * the most persuasive object on this site and there must be exactly one copy
+ * of them, so the site parses them out rather than restating them. If someone
+ * disproves a ninth, the site grows a ninth with no edit here.
+ */
+export function orderedListUnder(relPath: string, heading: string): string[] {
+  const text = repoFile(relPath);
+  const lines = text.split('\n');
+  const at = lines.findIndex(
+    (l) => /^#{1,6}\s/.test(l) && l.replace(/^#{1,6}\s*/, '').trim() === heading,
+  );
+  if (at === -1) {
+    const found = lines
+      .filter((l) => /^#{1,6}\s/.test(l))
+      .map((l) => l.replace(/^#{1,6}\s*/, '').trim());
+    throw new Error(`No heading "${heading}" in ${relPath}. Have: ${found.join(' | ')}`);
+  }
+
+  const items: string[] = [];
+  for (let i = at + 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^#{1,6}\s/.test(line)) break;
+    const m = /^\s*\d+\.\s+(.*)$/.exec(line);
+    if (m) {
+      items.push(m[1].trim());
+    } else if (items.length && /^\s+\S/.test(line)) {
+      items[items.length - 1] += ' ' + line.trim();
+    }
+  }
+  if (!items.length) {
+    throw new Error(`Heading "${heading}" in ${relPath} is not followed by a numbered list`);
+  }
+  return items;
+}
+
+/**
+ * The negative controls, read out of verify.sh's own section headers.
+ *
+ * A harness that has never been seen to fail is not evidence that anything
+ * passed, so some of its checks are built to fail if the thing they test is
+ * broken in the opposite direction. Those sections label themselves, and this
+ * reads the labels rather than trusting a count typed on a web page.
+ */
+export function negativeControls(): { id: string; title: string }[] {
+  const text = repoFile('verify.sh');
+  const out: { id: string; title: string }[] = [];
+  const re = /^\s*hdr\s+"([0-9a-z]+)\.\s+NEGATIVE CONTROL[:\u2014-]*\s*(.*?)"\s*$/gim;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    out.push({ id: m[1], title: m[2].trim() });
+  }
+  if (!out.length) throw new Error('No negative-control headers found in verify.sh');
+  return out;
+}

@@ -1,0 +1,418 @@
+---
+/**
+ * The three-layer collapse diagram.
+ *
+ * Three constitutions died between the wars and each died at a different
+ * depth. Germany's path ran through the constitution's own amendment clause.
+ * Austria's ran through a statute outside the constitution entirely. Italy's
+ * ran through ordinary legislation while the constitutional text sat
+ * untouched.
+ *
+ * The figure exists to make one uncomfortable point visible, and it is a point
+ * against this project rather than for it: a method that reads only
+ * constitutional text catches one of these three. That is why all three are
+ * kept as a filter on our own procedures rather than as history.
+ *
+ * The `layer` on each fact in data/facts.json is the diagram's data. Nothing
+ * here is typed.
+ */
+import { fact } from '../lib/facts';
+import { blobUrl } from '../lib/content';
+
+const CASES = [
+  {
+    id: 'germany',
+    year: '1933',
+    place: 'Germany',
+    factId: 'collapse.germany',
+    band: 0,
+    instrument: 'Enabling Act of March 24, 1933',
+    instrumentNote: 'drafted as a constitutional amendment, invoking Article 76 explicitly',
+    textAfter: 'Never repealed. Nominally in force throughout.',
+    seen: true,
+    extra: ['collapse.germany.threshold', 'collapse.germany.votes'],
+  },
+  {
+    id: 'austria',
+    year: '1933',
+    place: 'Austria',
+    factId: 'collapse.austria',
+    band: 1,
+    instrument: 'Kriegswirtschaftliches Erm\u00e4chtigungsgesetz, RGBl. 307/1917',
+    instrumentNote:
+      'an economic emergency law of the Habsburg monarchy, never repealed by the republic that replaced it',
+    textAfter: 'Bypassed. The government did not amend it; it went around it.',
+    seen: false,
+    extra: [],
+  },
+  {
+    id: 'italy',
+    year: '1925',
+    place: 'Italy',
+    factId: 'collapse.italy',
+    band: 2,
+    instrument: 'Law 2263 of December 24, 1925, on the powers of the head of government',
+    instrumentNote: 'an ordinary statute, passed by an assembly seated under the 1923 electoral law',
+    textAfter: 'Untouched.',
+    // The rest of this sentence is the fact itself; it is not retyped.
+    textAfterFact: 'collapse.italy',
+    seen: false,
+    extra: [],
+  },
+] as const;
+
+const BANDS = [
+  {
+    name: 'The constitution itself',
+    gloss: 'Its own amendment procedure, used as written.',
+  },
+  {
+    name: 'Statutes outside the constitution',
+    gloss: 'Law that outranks nothing and was never read as constitutional.',
+  },
+  {
+    name: 'Ordinary legislation',
+    gloss: 'The layer no constitutional analysis looks at.',
+  },
+];
+
+const cases = CASES.map((c) => ({ ...c, f: fact(c.factId), extras: c.extra.map(fact) }));
+const filter = fact('collapse.filter');
+---
+
+<figure class="collapse" data-collapse>
+  <figcaption class="fig-head">
+    <span class="smallcaps">Figure</span> Three collapses, three depths
+  </figcaption>
+
+  <div class="controls" role="tablist" aria-label="Interwar constitutional collapses">
+    {
+      cases.map((c, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`collapse-tab-${c.id}`}
+          aria-controls={`collapse-panel-${c.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          data-case={c.id}
+          data-band={c.band}
+          class="case-tab"
+        >
+          <span class="case-place">{c.place}</span>
+          <span class="case-year tabular">{c.year}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- The strata. Presentational: every fact in it is repeated in the panel
+       below, so a screen reader is not asked to interpret a diagram. -->
+  <div class="strata" aria-hidden="true">
+    {
+      BANDS.map((b, i) => (
+        <div class="band" data-band={i}>
+          <div class="band-rule" />
+          <div class="band-text">
+            <p class="band-name">{b.name}</p>
+            <p class="band-gloss">{b.gloss}</p>
+          </div>
+          <div class="band-marks">
+            {cases
+              .filter((c) => c.band === i)
+              .map((c) => (
+                <span class="mark" data-mark={c.id}>
+                  {c.place} {c.year}
+                </span>
+              ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    cases.map((c, i) => (
+      <div
+        class="panel"
+        id={`collapse-panel-${c.id}`}
+        role="tabpanel"
+        aria-labelledby={`collapse-tab-${c.id}`}
+        data-panel={c.id}
+        hidden={i !== 0}
+      >
+        <p class="layer">
+          <span class="smallcaps">Ran through</span> {c.f.layer}
+        </p>
+
+        <p class="statement">{c.f.statement}</p>
+
+        <dl class="detail">
+          <dt>Instrument</dt>
+          <dd>
+            {c.instrument}
+            <span class="gloss"> — {c.instrumentNote}</span>
+          </dd>
+
+          <dt>The constitutional text afterwards</dt>
+          <dd>
+            {c.textAfter}
+            {'textAfterFact' in c && ` ${fact(c.textAfterFact as string).value}`}
+          </dd>
+
+          {c.extras.map((e) => (
+            <>
+              <dt>{e.label}</dt>
+              <dd>{e.statement}</dd>
+            </>
+          ))}
+
+          <dt>Would reading the constitution have found it?</dt>
+          <dd class={c.seen ? 'seen' : 'blind'}>
+            {c.seen
+              ? 'Yes. The decisive step is visible in the text of two documents read together.'
+              : 'No. Every word of the constitution was consistent with what happened.'}
+          </dd>
+        </dl>
+
+        <p class="src">
+          <a href={blobUrl(c.f.analysis!)}>{c.f.analysis}</a>
+        </p>
+      </div>
+    ))
+  }
+
+  <p class="filter">
+    <span class="smallcaps">Why all three are kept</span>
+    {filter.value} {filter.statement}
+  </p>
+</figure>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-collapse]');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+
+    const select = (id: string, focus: boolean) => {
+      for (const t of tabs) {
+        const on = t.dataset.case === id;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      }
+      for (const p of root.querySelectorAll<HTMLElement>('[data-panel]')) {
+        p.hidden = p.dataset.panel !== id;
+      }
+      const band = tabs.find((t) => t.dataset.case === id)?.dataset.band;
+      for (const b of root.querySelectorAll<HTMLElement>('.band')) {
+        b.classList.toggle('band--lit', b.dataset.band === band);
+      }
+      for (const m of root.querySelectorAll<HTMLElement>('[data-mark]')) {
+        m.classList.toggle('mark--lit', m.dataset.mark === id);
+      }
+    };
+
+    root.addEventListener('click', (e) => {
+      const tab = (e.target as HTMLElement).closest<HTMLElement>('[role="tab"]');
+      if (tab?.dataset.case) select(tab.dataset.case, false);
+    });
+
+    root.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const i = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      if (next.dataset.case) select(next.dataset.case, true);
+    });
+
+    select(tabs[0].dataset.case!, false);
+  }
+</script>
+
+<style>
+  .collapse {
+    margin: var(--space-lg) 0;
+  }
+
+  .fig-head {
+    color: var(--ink-faint);
+    margin-bottom: var(--space-sm);
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .case-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    padding: 0.5em 0.9em;
+    border: 1px solid var(--graphic);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink-dim);
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .case-tab[aria-selected='true'] {
+    border-color: var(--ink);
+    background: var(--paper-sunk);
+    color: var(--ink);
+  }
+
+  .case-place {
+    font-weight: var(--weight-medium);
+  }
+
+  .case-year {
+    font-size: 0.85em;
+    color: var(--ink-faint);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  /* The strata read top to bottom as increasing distance from the
+     constitution, which is the axis the whole figure is about. */
+  .band {
+    display: grid;
+    grid-template-columns: 0.6rem 1fr auto;
+    gap: var(--space-sm);
+    align-items: start;
+    padding: var(--space-xs) 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .band:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .band-rule {
+    height: 100%;
+    min-height: 2.4rem;
+    border-left: 3px solid var(--rule-strong);
+  }
+
+  .band--lit .band-rule {
+    border-left-color: var(--ink);
+  }
+
+  .band-name {
+    color: var(--ink-faint);
+  }
+
+  .band--lit .band-name {
+    color: var(--ink);
+    font-weight: var(--weight-medium);
+  }
+
+  .band-gloss {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .mark {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border: 1px solid var(--graphic);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  /* The lit mark is bolder and boxed, not merely recoloured, so the figure
+     survives a monochrome print and forced-colors mode. */
+  .mark--lit {
+    border-color: var(--ink);
+    border-width: 2px;
+    color: var(--ink);
+  }
+
+  .panel {
+    margin-top: var(--space-md);
+  }
+
+  .layer {
+    color: var(--ink-dim);
+  }
+
+  .statement {
+    margin-top: var(--space-2xs);
+    max-width: var(--measure);
+  }
+
+  .detail {
+    margin-top: var(--space-sm);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.15em;
+  }
+
+  .detail dt {
+    color: var(--ink-faint);
+    font-size: var(--step--1);
+    margin-top: var(--space-xs);
+  }
+
+  .detail dd {
+    margin: 0;
+    max-width: var(--measure);
+  }
+
+  .gloss {
+    color: var(--ink-faint);
+  }
+
+  /* The one place colour is load-bearing here, and it carries the epistemic
+     scale, not a mood: whether our own method would have caught the case. */
+  .seen {
+    color: var(--verified);
+  }
+
+  .blind {
+    color: var(--disproved);
+  }
+
+  .src {
+    margin-top: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .filter {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--rule);
+    max-width: var(--measure);
+    color: var(--ink-dim);
+  }
+
+  .filter .smallcaps {
+    color: var(--ink-faint);
+    margin-right: 0.5em;
+  }
+
+  /* With scripting off every panel is shown, stacked, and the tabs are
+     removed rather than left as dead controls. */
+  @media (scripting: none) {
+    .controls {
+      display: none;
+    }
+
+    .panel[hidden] {
+      display: revert;
+    }
+
+    .panel + .panel {
+      border-top: 1px dotted var(--rule);
+      padding-top: var(--space-sm);
+    }
+  }
+</style>

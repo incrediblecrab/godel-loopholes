@@ -217,7 +217,21 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true", help="terse; exit 1 on failure")
     ap.add_argument("--ids", action="store_true", help="list fact ids")
+    ap.add_argument(
+        "--value",
+        metavar="ID",
+        help="print one fact's value and exit; unknown id exits 1",
+    )
     args = ap.parse_args()
+
+    if args.value:
+        data = json.loads(FACTS.read_text(encoding="utf-8"))
+        for fact in data["facts"]:
+            if fact["id"] == args.value:
+                print(fact["value"])
+                return 0
+        print(f"no fact {args.value!r}", file=sys.stderr)
+        return 1
 
     if args.ids:
         data = json.loads(FACTS.read_text(encoding="utf-8"))

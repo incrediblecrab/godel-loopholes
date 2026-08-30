@@ -1,0 +1,262 @@
+---
+/**
+ * The machine.
+ *
+ * Answers one question: what did formalizing it find?
+ *
+ * The order of this page is the order of the honesty. Somebody else published
+ * a machine-checked proof that Gödel was right. It reproduces. Then: what is
+ * that proof actually made of, and what happens if you take Gödel's own idea
+ * out of it? That is the ablation, and it is the one result on this site that
+ * exists nowhere else.
+ *
+ * The page ends where the research ends, which is with the reasons this route
+ * cannot deliver what it looks like it delivers.
+ */
+import Base from '../layouts/Base.astro';
+import MarginNote from '../components/MarginNote.astro';
+import Value from '../components/Value.astro';
+import AxiomAblation from '../islands/AxiomAblation.astro';
+import { fact } from '../lib/facts';
+import { blobUrl } from '../lib/content';
+
+const cost = fact('model.stepone.cost');
+const i219 = fact('incident.219');
+const vacuous = fact('incident.vacuous_ablation');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const REPLICATION = 'analysis/united-states-1947/formal-model-replication.md';
+const INERT = 'analysis/united-states-1947/inert-manoeuvre.md';
+---
+
+<Base
+  title="The machine"
+  description="Somebody already published a machine-checked proof that Gödel was right. It reproduces. This is what happens when you ask which of its fifty-one axioms the proof is actually using, and what breaks when Gödel's own step one is deleted."
+  section="machine"
+>
+  <div class="page">
+    <header class="wide lede">
+      <p class="kicker smallcaps">Route two</p>
+      <h1>Treat the document as a machine, and ask what states it can reach.</h1>
+      <p class="standfirst">
+        Somebody has already done this and published a proof. The interesting part
+        is not that it works. It is what the proof turns out to be made of.
+      </p>
+    </header>
+
+    <section aria-labelledby="reproduces">
+      <h2 id="reproduces">It reproduces</h2>
+      <p>
+        Zahoransky and Benzmüller built a model of Gödel&#8217;s argument in
+        Isabelle/HOL, a proof assistant whose kernel checks every step. It compiles
+        clean against Isabelle 2025 and discharges thirty theorems, including the
+        three that carry the argument: no dictatorship under the Constitution as it
+        stood, none after Article&nbsp;V is amended, and dictatorship reached at the
+        third step with no rule broken.
+      </p>
+      <p>
+        Compiling is not reproducing, and the distance between them is the whole
+        discipline. An inconsistent axiom set proves every formula, so a theory can
+        discharge the dictatorship theorem while carrying no information at all. The
+        thesis itself ships a deliberately inconsistent smoke-test theory that proves
+        <code>False</code> on purpose, and our harness confirms it still does.
+      </p>
+      <p>
+        So the result was tested three further ways. Nitpick was asked to satisfy the
+        axioms, and found a model. It was asked to refute <code>False</code>, and
+        found a countermodel, so the axioms do not entail everything. Then it was
+        asked for countermodels to the duals of all three targets, and found all
+        three. Countermodels are semantic rather than tactical: they show no proof
+        can exist, which is stronger than observing that a proof attempt failed.
+      </p>
+    </section>
+
+    <MarginNote head="Replication">
+      <p>
+        All 110 identifiers in our transcription appear in the thesis. Of 67 labelled
+        formulas in the source, 65 appear in ours; the two that do not are an integer
+        time representation the thesis introduces only to reject, and a false positive
+        on the English word <em>proposition</em>. No axiom was omitted.
+      </p>
+      <p>
+        One deviation is deliberate: the bold-face connectives were renamed to avoid
+        colliding with HOL built-ins. That is notation only, and it is the most likely
+        site of a silent divergence, so it is flagged rather than buried.
+      </p>
+      <p><a href={blobUrl(REPLICATION)}>{REPLICATION}</a></p>
+    </MarginNote>
+
+    <section aria-labelledby="ablation">
+      <h2 id="ablation">Now take it apart</h2>
+      <p>
+        A proof that checks tells you the conclusion follows. It does not tell you
+        what it follows <em>from</em>. The model has <Value id="model.axioms.total" bare
+        /> axioms, and the natural question — which ones is the proof using? — is not
+        one the paper asks.
+      </p>
+      <p>
+        Ablation answers it by deletion. Remove an axiom, ask the machine whether the
+        theorem still holds, and ask a model finder whether the reduced theory is still
+        consistent. That second question is not optional. An inconsistent theory
+        obligingly proves every theorem you were hoping to see.
+      </p>
+    </section>
+
+    <div class="wide">
+      <AxiomAblation />
+    </div>
+
+    <MarginNote
+      head="The ablation"
+      facts={['model.axioms.total', 'model.axioms.sufficient', 'model.axioms.necessary', 'model.stepone.cost']}
+    />
+
+    <section aria-labelledby="what-it-means">
+      <h2 id="what-it-means">What that actually means</h2>
+      <p>
+        Gödel&#8217;s route has two steps. First amend Article&nbsp;V to remove the
+        clause protecting equal Senate suffrage. Then use the unentrenched procedure
+        to install a dictator. Step one is the idea. It is the part people repeat.
+      </p>
+      <p>
+        Delete the four axioms that carry out step one, and every published theorem
+        and every intermediate lemma still proves, in a theory that is still
+        consistent. What is lost is exactly one proposition:
+        <code>{cost.value}</code> — the ratification event itself — which stops being
+        entailed and becomes <em>independent</em>. It does not become false. It becomes
+        undetermined, which is what happens when the axioms that forced it are withdrawn.
+      </p>
+      <p>
+        So step one is not free, and it is not load-bearing either. It costs one
+        proposition, and no published result uses it.
+      </p>
+      <p class="correction">
+        This is a narrower claim than earlier drafts of this work made. One said the
+        model <em>cannot represent</em> repeal at all. Another said deleting step one
+        costs <em>nothing</em>. Both were false, adversarial review said so, and the
+        machine agreed with the reviewer both times. The corrections are on the record
+        in <a href={blobUrl(INERT)}>{INERT.split('/').pop()}</a> rather than quietly
+        absorbed.
+      </p>
+    </section>
+
+    <section aria-labelledby="cannot" class="caveat">
+      <h2 id="cannot">Why this route cannot find what we are looking for</h2>
+      <p>
+        The limitation is structural, not a matter of effort. The model contains
+        constitutional text and nothing else.
+      </p>
+      <p>
+        That means it cannot see Austria, which left the constitution entirely and
+        governed through an unrepealed 1917 wartime statute, and it cannot see Italy,
+        whose Statuto was never amended while the state was dismantled around it.
+        <strong>Two of the three collapses on
+        <a href={`${base}/precedents/`}>the precedents page</a> are invisible to it in
+        principle.</strong>
+      </p>
+      <p>
+        There is a second gap and it is larger. The <em>effect</em> of amending
+        Article&nbsp;V is not derived anywhere in the model; it is implemented by
+        omitting an axiom. And the model has no representation of ratification by the
+        states at all — the quantity <a href={`${base}/text/`}>the text page</a> is
+        entirely about. At <Value id="states.count" bare /> states the requirement is
+        <Value id="threshold.states.ratify" bare />. A model that omits the constraint
+        cannot report that the constraint is what stops you.
+      </p>
+      <p>
+        Read precisely, the formalization proves a conditional: <em>if</em>
+        Article&nbsp;V can be amended in the way described, the rest follows by lawful
+        steps. The antecedent is the contested part, and it sits outside the model.
+      </p>
+    </section>
+
+    <MarginNote head="Scope">
+      <p>
+        This is not a criticism of the paper, which scopes itself to a case example
+        and says so. It is a specification for what a successor has to do: the node
+        set has to extend past constitutional text to the statutes standing beside it
+        and the chamber rules operating inside it.
+      </p>
+    </MarginNote>
+
+    <section aria-labelledby="tools">
+      <h2 id="tools">Two things the tools got right and we got wrong</h2>
+      <p>
+        A verified result is only as good as the correspondence between the formula and
+        the sentence in English attached to it, and that correspondence is the one link
+        in the chain no prover checks.
+      </p>
+      <dl class="incidents">
+        <dt>The solver was right and the label was wrong</dt>
+        <dd>
+          While confirming the thresholds, Z3 printed {i219.value}. The encoding
+          minimised <code>yes</code> rather than <code>present</code>, so the larger
+          figure was an arbitrary witness among the models achieving the same number of
+          yes votes. Nothing was unsound. The formula answered exactly what had been
+          written; the English sentence beside it claimed something the formula did not
+          say.
+        </dd>
+
+        <dt>An ablation that {vacuous.value}</dt>
+        <dd>
+          Caught by adversarial review rather than by the harness, which is the wrong
+          way round. Every ablation on this page now carries a consistency probe, and
+          <code>verify.sh</code> fails if one is missing.
+        </dd>
+      </dl>
+    </section>
+
+    <MarginNote head="On the record" facts={['incident.219', 'incident.vacuous_ablation']} />
+
+    <nav class="wide next" aria-label="Continue">
+      <p class="smallcaps">Next</p>
+      <p>
+        None of this is worth anything if you cannot check it.
+        <a href={`${base}/method/`}>Here is how to break it</a>.
+      </p>
+    </nav>
+  </div>
+</Base>
+
+<style>
+  /* A belief this project held and abandoned. Set in the disproved colour and
+     ruled off, because the retractions are the most persuasive thing here and
+     hiding them would be the one unforgivable move. */
+  .correction {
+    margin-top: var(--space-md);
+    padding-left: var(--space-sm);
+    border-left: 3px solid var(--disproved);
+    color: var(--ink-dim);
+    max-width: var(--measure);
+  }
+
+  .caveat {
+    margin-top: var(--space-lg);
+    padding: var(--space-md) 0 var(--space-sm);
+    border-top: 2px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .incidents {
+    margin-top: var(--space-sm);
+  }
+
+  .incidents dt {
+    margin-top: var(--space-md);
+    font-weight: var(--weight-medium);
+  }
+
+  .incidents dd {
+    margin: 0.2em 0 0;
+    max-width: var(--measure);
+  }
+
+  .next {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--rule);
+  }
+
+  .next .smallcaps {
+    color: var(--ink-faint);
+  }
+</style>
