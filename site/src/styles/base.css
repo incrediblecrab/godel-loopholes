@@ -328,7 +328,7 @@ tr:last-child td {
 
    It is never `display: none` at any width. The lawyer needs it on a phone. */
 .margin-note {
-  font-family: var(--font-machine);
+  font-family: var(--font-ui);
   font-size: var(--text-xs);
   line-height: var(--leading-snug);
   color: var(--ink-muted);
@@ -374,7 +374,7 @@ tr:last-child td {
    colour. No pills, no badges, no emoji: a badge is a decoration and this is a
    claim about evidence. */
 .status {
-  font-family: var(--font-machine);
+  font-family: var(--font-ui);
   font-size: var(--text-xs);
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -436,7 +436,7 @@ tr:last-child td {
   border: var(--border-strong);
   border-radius: var(--radius);
   padding: var(--space-2xs) var(--space-sm);
-  font-family: var(--font-machine);
+  font-family: var(--font-ui);
   font-size: var(--text-sm);
   text-decoration: none;
   transform: translateY(-200%);

@@ -305,13 +305,22 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
     `${before} \u2192 ${after}`,
   );
 
-  const width = await page
-    .locator('[data-chamber="house"] [data-fill]')
-    .evaluate((el) => el.style.width);
+  // The bar is SVG whose geometry is computed at build time by src/lib/chart.ts,
+  // so the fill is a rect width in user space rather than a CSS percentage. The
+  // ratio is derived from the track rather than compared against the chart's
+  // internal coordinate width, so changing that coordinate system cannot make
+  // this check silently vacuous.
+  const geom = await page
+    .locator('[data-chamber="house"] .bar-svg')
+    .evaluate((svg) => ({
+      fill: Number(svg.querySelector('[data-fill]')?.getAttribute('width')),
+      track: Number(svg.querySelector('.svg-track')?.getAttribute('width')),
+    }));
+  const ratio = geom.fill / geom.track;
   record(
-    width.startsWith('66.6'),
+    Math.abs(ratio - 2 / 3) < 0.005,
     'the bar redraws to two thirds of the chamber',
-    `width ${width}`,
+    `fill ${geom.fill} of ${geom.track} = ${(ratio * 100).toFixed(1)}%`,
   );
 
   await context.close();

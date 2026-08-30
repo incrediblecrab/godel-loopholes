@@ -32,53 +32,83 @@
 
   /* ---------------------------------------------------------------- colour */
 
-  /* Ground and ink. Neither is pure. Pure white glares under a serif at
-     reading size and pure black is a colour no ink has ever been. */
-  --paper:            #fbf9f4;   /* aged laid paper */
-  --paper-sunk:       #f3efe6;   /* recessed panels, table stripes */
-  --paper-raised:     #fffdf9;   /* the one lifted surface, used sparingly */
-  --ink:              #1b1a17;   /* iron gall, warm black */
-  --ink-muted:        #55504a;   /* apparatus, captions, margin notes */
-  --ink-faint:        #857e74;   /* the quietest legible tier */
-  --rule:             #d8d2c4;   /* hairlines, table borders, dividers */
-  --rule-strong:      #b5ad9c;
+  /* Ground and ink. White, and a neutral near-black.
+
+     An earlier version of this file used aged-paper cream (#fbf9f4) and a warm
+     iron-gall black, on the theory that a project about 1787 should look like
+     1787. It read as sepia. Sepia is the visual signature of a themed template
+     rather than of a publication, and the theme was doing the work the graphics
+     should have been doing. The reference points are The Pudding and the NYT
+     Upshot; both sit on white with a neutral black and spend all of their
+     colour on the charts. */
+  --paper:            #ffffff;
+  --paper-sunk:       #f2f2f1;   /* recessed panels, table stripes */
+  --paper-raised:     #ffffff;
+  --ink:              #121212;   /* neutral near-black */
+  --ink-muted:        #575757;   /* apparatus, captions, margin notes */
+  --ink-faint:        #767676;   /* the quietest tier that still clears 4.5:1 */
+  --rule:             #e3e3e1;   /* hairlines, table borders, dividers */
+  --rule-strong:      #b6b6b3;
   /* Lines and shapes that carry meaning rather than structure -- an axis, a
      bar, the outline of a state a reader has to distinguish. WCAG 1.4.11 wants
      3:1 for those and does not want it for a decorative table border, so the
      two are separate tokens. Darkening --rule until a checker stopped
      complaining would have been the wrong fix: it would have made the
      apparatus louder than the prose to satisfy a rule that does not apply. */
-  --graphic:          #6f6757;
-  --graphic-strong:   #4a443a;
+  --graphic:          #6e6e6e;
+  --graphic-strong:   #3d3d3d;
 
-  /* The three-value semantic scale. These are the only accents in the system.
-     They are pigments, not screen colours: verdigris, iron oxide, yellow ochre.
-     Each is paired with a tint for backgrounds at the same hue. */
-  --verified:         #2f5d50;   /* PASS -- checked against a primary source */
-  --verified-tint:    #e4ede9;
-  --disproved:        #9e2b20;   /* FAIL -- refuted, or a null result */
-  --disproved-tint:   #f6e5e2;
-  --inconclusive:     #7a5f14;   /* INCONCLUSIVE -- the tool gave no answer */
-  --inconclusive-tint:#f4ecd8;
+  /* The three-value semantic scale, and still the only accents in the system.
+
+     Two tiers each. The text tier clears 4.5:1 on white and is what a word or a
+     number is set in. The fill tier is high-chroma and is for bars, blocks and
+     areas, where the requirement is 3:1 against the ground rather than against
+     the eye of somebody reading a sentence in it. Gold cannot be both at once,
+     which is the reason the two tiers exist at all rather than a preference. */
+  --verified:         #067647;   /* PASS -- checked against a primary source */
+  --verified-fill:    #12b76a;
+  --verified-tint:    #dcf5e8;
+  --disproved:        #c0261a;   /* FAIL -- refuted, or a null result */
+  --disproved-fill:   #f04438;
+  --disproved-tint:   #ffe5e1;
+  --inconclusive:     #8a6800;   /* INCONCLUSIVE -- the tool gave no answer */
+  --inconclusive-fill:#f0b429;
+  --inconclusive-tint:#fff2d0;
+
+  /* A solid ink block. The Pudding's page works because a graphic sits on
+     something rather than floating in the margin, and this is that surface. */
+  --block:            #121212;
+  --block-ink:        #ffffff;
 
   /* Selection and focus reuse the ink, because neither is a truth-status. */
-  --selection:        #e6dfcb;
-  --focus:            #1b1a17;
+  --selection:        #ffec99;
+  --focus:            #121212;
 
   /* ------------------------------------------------------------------ type */
 
   /* Source Serif 4 for prose: an editorial serif with a genuine text design,
      not a display face pressed into service. EB Garamond for constitutional
      quotation, so that the documents read visually as documents rather than as
-     our own voice in italics. IBM Plex Mono for machine output, identifiers and
-     citations, where a proportional face would misrepresent what it is showing.
-     All three are SIL Open Font Licence and served from this origin. */
+     our own voice in italics. IBM Plex Mono for machine output and identifiers,
+     where a proportional face would misrepresent what it is showing.
+
+     Public Sans for interface: labels, axes, chips, navigation, anything that
+     annotates a graphic rather than being read as prose. This was missing, and
+     its absence is why every label on the site had fallen back to the monospace
+     face and the whole thing read like terminal output. It is deliberately not
+     Inter, which is the sans every generated site reaches for; Public Sans is
+     the US Web Design System's face, which for a project about the American
+     Constitution is the right kind of coincidence.
+
+     All four are SIL Open Font Licence and served from this origin. */
   --font-prose: 'Source Serif 4 Variable', 'Source Serif 4', 'Iowan Old Style',
                 'Palatino Linotype', Palatino, Georgia, serif;
   --font-document: 'EB Garamond', 'Source Serif 4 Variable', Garamond,
                 'Palatino Linotype', Georgia, serif;
   --font-machine: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas,
                 monospace;
+  --font-ui: 'Public Sans Variable', 'Public Sans', system-ui, -apple-system,
+                'Helvetica Neue', Arial, sans-serif;
 
   /* A modular scale at 1.2, which is tight enough that a heading sits in the
      text rather than shouting over it. Sizes are rem so a reader's own setting
@@ -140,32 +170,39 @@
   --duration-slow: 520ms;
 }
 
-/* Dark mode is a warm near-black, not the blue-black every generated site
-   defaults to. The accents lighten because a dark ground needs more luminance
-   from a pigment to reach the same contrast, and the ratios are re-measured
-   rather than assumed. */
+/* Dark mode is a neutral near-black. Not the blue-black every generated site
+   defaults to, and no longer the warm brown-black this file used to carry --
+   that read as sepia in the light theme and as mud in the dark one. The accents
+   lighten because a dark ground needs more luminance from a pigment to reach
+   the same contrast, and the fill tier stays put because a bar is a bar. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper:            #171512;
-    --paper-sunk:       #100f0d;
-    --paper-raised:     #201d19;
-    --ink:              #ece7dd;
-    --ink-muted:        #a8a196;
-    --ink-faint:        #7d766c;
-    --rule:             #363128;
-    --rule-strong:      #4e473b;
-    --graphic:          #8d8574;
-    --graphic-strong:   #b3aa96;
+    --paper:            #0e0e0e;
+    --paper-sunk:       #000000;
+    --paper-raised:     #1b1b1b;
+    --ink:              #f2f2f2;
+    --ink-muted:        #a6a6a6;
+    --ink-faint:        #8a8a8a;
+    --rule:             #2c2c2c;
+    --rule-strong:      #4a4a4a;
+    --graphic:          #8f8f8f;
+    --graphic-strong:   #b8b8b8;
 
-    --verified:         #7fbaa8;
-    --verified-tint:    #1c2e27;
-    --disproved:        #e08a7e;
-    --disproved-tint:   #2a1a17;
-    --inconclusive:     #d9b95e;
-    --inconclusive-tint:#251f10;
+    --verified:         #3ddc97;
+    --verified-fill:    #12b76a;
+    --verified-tint:    #0d2a1e;
+    --disproved:        #ff7a6b;
+    --disproved-fill:   #f04438;
+    --disproved-tint:   #2b100c;
+    --inconclusive:     #f5c451;
+    --inconclusive-fill:#f0b429;
+    --inconclusive-tint:#2a2008;
 
-    --selection:        #3a3428;
-    --focus:            #ece7dd;
+    --block:            #f2f2f2;
+    --block-ink:        #0e0e0e;
+
+    --selection:        #3d3411;
+    --focus:            #f2f2f2;
   }
 }
 
