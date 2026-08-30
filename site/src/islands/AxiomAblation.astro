@@ -253,7 +253,7 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
     border: 1px solid var(--graphic);
     border-radius: var(--radius);
     background: var(--paper);
-    color: var(--ink-dim);
+    color: var(--ink-muted);
     font: inherit;
     text-align: left;
     cursor: pointer;
@@ -266,7 +266,7 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
   }
 
   .state-count {
-    font-family: var(--font-mono);
+    font-family: var(--font-machine);
     font-size: 0.78em;
     color: var(--ink-faint);
     font-variant-numeric: lining-nums tabular-nums;
@@ -287,12 +287,12 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
     padding: 0.15em 0.4em;
     border: 1px solid var(--graphic);
     border-radius: var(--radius);
-    font-family: var(--font-mono);
+    font-family: var(--font-machine);
     font-size: 0.72rem;
     line-height: 1.5;
-    color: var(--ink-dim);
+    color: var(--ink-muted);
     background: var(--paper);
-    transition: opacity var(--dur) var(--ease);
+    transition: opacity var(--duration) var(--ease);
   }
 
   /* A dropped axiom is struck through as well as faded, so the state survives
@@ -314,7 +314,7 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
-    font-size: var(--step--1);
+    font-size: var(--text-sm);
     color: var(--ink-faint);
     margin-bottom: var(--space-md);
   }
@@ -339,7 +339,7 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
   }
 
   .panel-title {
-    font-size: var(--step-0);
+    font-size: var(--text-base);
     margin-bottom: var(--space-sm);
   }
 
@@ -363,8 +363,8 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
     list-style: none;
     margin: 0;
     padding: 0;
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
+    font-family: var(--font-machine);
+    font-size: var(--text-sm);
   }
 
   .mono-list li + li {
@@ -382,20 +382,20 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
   }
 
   .nothing {
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
+    font-family: var(--font-machine);
+    font-size: var(--text-sm);
     color: var(--ink-faint);
   }
 
   .panel-note {
     margin-top: var(--space-sm);
     max-width: var(--measure);
-    color: var(--ink-dim);
+    color: var(--ink-muted);
   }
 
   .rerun {
     margin-top: var(--space-xs);
-    font-size: var(--step--1);
+    font-size: var(--text-sm);
     color: var(--ink-faint);
   }
 
@@ -416,13 +416,13 @@ const FINDINGS: Record<string, { holds: string[]; lost: string[]; note: string }
   }
 
   .payload-numbers {
-    font-size: var(--step--1);
+    font-size: var(--text-sm);
     color: var(--ink-faint);
   }
 
   .src {
     margin-top: var(--space-md);
-    font-size: var(--step--1);
+    font-size: var(--text-sm);
     color: var(--ink-faint);
   }
 
