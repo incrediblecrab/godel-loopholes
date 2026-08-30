@@ -904,6 +904,26 @@ else
   inconc "site/src/styles/tokens.css not present"
 fi
 
+# ---- 6f. The built site, driven in a real browser.
+# Everything above this line checks the research. This checks that the thing a
+# reader actually loads still tells the truth about it: that the numbers on the
+# page come from data/facts.json, that every artifact is readable with
+# scripting off, that the palette and keyboard path hold, and that no page
+# reaches a third-party origin. It needs a Node toolchain and a browser, which
+# a machine with Isabelle on it may well not have, so it is INCONCLUSIVE rather
+# than FAIL when they are missing -- the same treatment Lean and pdftotext get.
+hdr "6f. The published site passes its own browser harness"
+if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>&1; then
+  if out=$(cd "$REPO/site" && npm run --silent build >/dev/null 2>&1 && node scripts/browser-check.mjs 2>&1); then
+    ok "$(echo "$out" | tail -1 | sed 's/^ *//')"
+  else
+    bad "the built site failed its browser harness"
+    echo "$out" | grep -E "FAIL|passed" | sed 's/^/      /'
+  fi
+else
+  inconc "site/node_modules/playwright or npm not present; run npm ci in site/"
+fi
+
 # --------------------------------------------------------------------- what is NOT done
 
 hdr "7. Explicitly NOT verified"
