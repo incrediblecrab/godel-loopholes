@@ -18,7 +18,11 @@ Transcription fidelity was checked in both directions against the thesis. All 11
 
 ## What it actually establishes, which is less than it appears
 
-The amendment of Article V is not performed anywhere in the model. It is implemented by *omitting* the axiom `⌊X omsp⌋t1`. The step from the pre-amendment state to the post-amendment state is therefore assumed rather than derived, and the authors concede this and call it unavoidable in their framework.
+The *effect* of amending Article V is not derived anywhere in the model. It is implemented by *omitting* the axiom `⌊X omsp⌋t1`. The authors concede this and call it unavoidable in their framework.
+
+The event is a separate matter, and the distinction is worth keeping straight. Three things could be represented here, and the model does one and a half of them. The **ratification event** is represented and entailed: `⌊is_rat amd1a⌋t2` is provable in the full model. Its **normative effect** on the entrenchment clause is not causally represented — the post-amendment state is obtained by omission, independently of whether that event occurred. And the **actual constitutional process** by which two thirds of Congress and three quarters of the states would have to act is outside the model entirely. `inert-manoeuvre.md` measures what the first of these is worth, and the answer is that no published theorem uses it.
+
+That is the first assumption. There is a second, and it is larger, and this file did not identify it: the theorem `Dictatorship_t3` rests on an axiom asserting that the amendment installing the dictatorship has the support required for ratification. `ratification-price.md` in this folder isolates that axiom, withdraws it, and reports what is left. That is the one result in this folder that is ours rather than borrowed, so it is kept there and not summarized here.
 
 Read precisely, what the formalization proves is a conditional: *if* Article V can be amended in the way Guerra-Pujol describes, the rest follows by lawful steps. The antecedent is the contested part, and it sits outside the model. Worse for the argument's reach, the quantity that binds it is absent entirely — their model has no representation of ratification by the states, and `threshold-arithmetic.md` in this folder is about exactly that number. At 48 states, the requirement is 36. A model that omits the constraint cannot report that the constraint is what stops you.
 

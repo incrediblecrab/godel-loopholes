@@ -18,7 +18,7 @@ Germany 1933 was carried out through the amendment procedure itself, which carri
 
 Austria 1933 and 1934 ran through an instrument the constitution never mentions: a wartime economic enabling act from 1917 that had never been repealed. It tests whether a method looks outside the constitutional text at the statutes still standing beside it. A method reading only the constitution cannot see this one at all.
 
-Italy 1925 and 1926 happened through ordinary legislation while the Statuto sat untouched, its eighty-four articles never amended. It tests whether a method can register that constitutional text is sometimes simply not where the action is. An 1848 snapshot and a 1925 snapshot are the same file while the state is dismantled between them.
+Italy 1925 and 1926 happened through ordinary legislation while the Statuto sat untouched, its eighty-four articles never amended. It tests whether a method can register that constitutional text is sometimes simply not where the action is. The legal mechanics of all three are set out once, in `attack-surfaces.md`; what matters here is only the role each one plays in validation.
 
 A procedure that cannot recover all three is not ready. Reporting which of the three a procedure catches, and which it misses, is part of proposing it.
 

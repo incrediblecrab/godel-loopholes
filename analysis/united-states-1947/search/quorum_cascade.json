@@ -1,0 +1,159 @@
+{
+  "vantage": "United States, December 5, 1947",
+  "status": "NOT A FINDING -- unverified premise, see module docstring",
+  "unverified_premise": "the quorum base is members chosen and sworn, not the statutory chamber size; if it is the statutory size these numbers collapse",
+  "chambers": [
+    {
+      "chamber": "House",
+      "statutory_size": 435,
+      "naive_two_thirds_of_membership": 290,
+      "threshold_before_cascade": 146,
+      "threshold_after_cascade": 2,
+      "final_sworn": 2,
+      "peak_coalition": 218,
+      "steps": 6,
+      "trace": [
+        {
+          "step": 0,
+          "power": "exclusion, Art. I Sec. 5 cl. 1",
+          "vote_rule": "simple majority of those voting, quorum present",
+          "sworn_before": 435,
+          "quorum_before": 218,
+          "bloc_required": 218,
+          "votes_cast_required": 110,
+          "sworn_after": 218,
+          "article_v_threshold_after": 74
+        },
+        {
+          "step": 1,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 218,
+          "quorum_before": 110,
+          "bloc_required": 74,
+          "votes_cast_required": 74,
+          "sworn_after": 74,
+          "article_v_threshold_after": 26
+        },
+        {
+          "step": 2,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 74,
+          "quorum_before": 38,
+          "bloc_required": 26,
+          "votes_cast_required": 26,
+          "sworn_after": 26,
+          "article_v_threshold_after": 10
+        },
+        {
+          "step": 3,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 26,
+          "quorum_before": 14,
+          "bloc_required": 10,
+          "votes_cast_required": 10,
+          "sworn_after": 10,
+          "article_v_threshold_after": 4
+        },
+        {
+          "step": 4,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 10,
+          "quorum_before": 6,
+          "bloc_required": 4,
+          "votes_cast_required": 4,
+          "sworn_after": 4,
+          "article_v_threshold_after": 2
+        },
+        {
+          "step": 5,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 4,
+          "quorum_before": 3,
+          "bloc_required": 2,
+          "votes_cast_required": 2,
+          "sworn_after": 2,
+          "article_v_threshold_after": 2
+        }
+      ]
+    },
+    {
+      "chamber": "Senate",
+      "statutory_size": 96,
+      "naive_two_thirds_of_membership": 64,
+      "threshold_before_cascade": 33,
+      "threshold_after_cascade": 2,
+      "final_sworn": 2,
+      "peak_coalition": 49,
+      "steps": 5,
+      "trace": [
+        {
+          "step": 0,
+          "power": "exclusion, Art. I Sec. 5 cl. 1",
+          "vote_rule": "simple majority of those voting, quorum present",
+          "sworn_before": 96,
+          "quorum_before": 49,
+          "bloc_required": 49,
+          "votes_cast_required": 25,
+          "sworn_after": 49,
+          "article_v_threshold_after": 17
+        },
+        {
+          "step": 1,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 49,
+          "quorum_before": 25,
+          "bloc_required": 17,
+          "votes_cast_required": 17,
+          "sworn_after": 17,
+          "article_v_threshold_after": 6
+        },
+        {
+          "step": 2,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 17,
+          "quorum_before": 9,
+          "bloc_required": 6,
+          "votes_cast_required": 6,
+          "sworn_after": 6,
+          "article_v_threshold_after": 3
+        },
+        {
+          "step": 3,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 6,
+          "quorum_before": 4,
+          "bloc_required": 3,
+          "votes_cast_required": 3,
+          "sworn_after": 3,
+          "article_v_threshold_after": 2
+        },
+        {
+          "step": 4,
+          "power": "expulsion, Art. I Sec. 5 cl. 2",
+          "vote_rule": "two thirds of those present, quorum present",
+          "sworn_before": 3,
+          "quorum_before": 2,
+          "bloc_required": 2,
+          "votes_cast_required": 2,
+          "sworn_after": 2,
+          "article_v_threshold_after": 2
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "naive_reading_total": 354,
+    "settled_1920_total": 179,
+    "after_cascade_total": 4,
+    "peak_coalition_total": 267,
+    "states_still_required_to_ratify": 36
+  }
+}

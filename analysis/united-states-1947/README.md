@@ -18,6 +18,18 @@ It also records that the minimum-coalition argument this project treats as one o
 
 `silence-inventory.md` runs the silence inventory. It lists twelve fields the constitution leaves to ordinary legislation or to nobody at all, and finds that six of them form a self-referential cluster: Article V's threshold is two thirds of a quorum, the quorum is a majority of the House's membership, and the House determines its own membership under Article I, Section 5. It returns no candidate, and it records that Justice Rutledge grouped three of the same clauses in *Colegrove v. Green* in June 1946.
 
+## The formal model
+
+Three files concern Zahoransky and Benzmüller's Isabelle/HOL formalization of the Gödel argument rather than the 1947 documents. The vantage rule does not apply to them, because they are about a 2019 publication.
+
+`formal-model-replication.md` records the replication: the model reproduces, its axioms are consistent, and its three theorems carry information. It is the borrowed baseline, not a result of this project.
+
+`inert-manoeuvre.md` is the most substantial result in this folder and should be read first. It is a result about the instrument, not about the Constitution, and it advances the search for a candidate path by zero steps. Its finding is that the model represents Gödel's step one properly — the amendment stripping Article V's entrenchment clause is an object, it is proposed, supported, and genuinely ratified — and that deleting all four axioms responsible costs no published result. Five things are machine-checked: `Dictatorship_t3` follows from six consistent axioms, none of them an equal-suffrage, entrenchment, Senate, or step-one axiom; four of those six are necessary to every possible proof; every published theorem *and* every intermediate lemma survives deleting step one, in a theory that is still consistent; the authors' own defence of their omission is sound; and the repealing amendment is extensionally equal to the negation of the entrenchment clause, so its content is already forced by the separate stipulation that the dictatorship amendment was proposed. The deletion is not free — it makes the ratification event `⌊is_rat amd1a⌋t2` independent, where the full theory entails it — but nothing published depends on that event. The limitation is disclosed by the authors in both venues, so what is new is the measurement and the diagnosis rather than the discovery.
+
+`ratification-price.md` is the earlier and weaker version of the same finding, kept because it records four overstatements and how each was caught.
+
+`search/axiom_sweep.py` generates every theory those files rely on from `isabelle/GodelCore.thy` and `isabelle/GodelConstitution.thy`, so the model is never transcribed twice. `search/quorum_cascade.py` is separate and concerns the congressional proposing stage in 1947.
+
 ## What is not here yet
 
 No candidate path. Four enumerations have not been run: the power inventory over the Article I and Article II grants, the reference graph, the undefined-terms pass, and the parse enumeration over the clauses the power inventory marks as consequential.
