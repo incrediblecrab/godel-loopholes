@@ -1,0 +1,421 @@
+---
+/**
+ * The silence inventory.
+ *
+ * Twelve places the Constitution of 1947 does not say what everyone assumes it
+ * says. The table is parsed out of the research note at build time rather than
+ * retyped, so the site cannot drift from the analysis.
+ *
+ * The filter is the argument. Sorted by who holds the pen, the table separates
+ * into a large group Congress controls with the President's signature, a small
+ * group of three that a single chamber controls with no concurrence from
+ * anyone, and exactly one row where nobody controls it because nothing fills
+ * it at all.
+ *
+ * Filtering is progressive enhancement. With scripting off every row is
+ * present and the who-can-change column is readable; the filter only saves
+ * scrolling.
+ */
+import { readSections, pick, firstTable, inline } from '../lib/content';
+import { fact, vantage } from '../lib/facts';
+
+const SRC = 'analysis/united-states-1947/silence-inventory.md';
+const [inventory] = pick(readSections(SRC), 'the-inventory');
+const table = firstTable(inventory.markdown);
+
+/**
+ * Bucket each row by who can change what fills the silence.
+ *
+ * Derived from the fifth column's text rather than assigned by hand, so a row
+ * whose analysis changes moves bucket automatically instead of silently
+ * keeping a stale label.
+ */
+type Holder = 'single-chamber' | 'nobody' | 'congress' | 'states';
+
+function holder(who: string): Holder {
+  const w = who.toLowerCase();
+  if (w.startsWith('nobody')) return 'nobody';
+  if (w.includes('each house alone')) return 'single-chamber';
+  if (w.startsWith('congress')) return 'congress';
+  return 'states';
+}
+
+const HOLDERS: { id: Holder | 'all'; label: string; gloss: string }[] = [
+  { id: 'all', label: 'All twelve', gloss: '' },
+  {
+    id: 'single-chamber',
+    label: 'One chamber alone',
+    gloss: 'No other chamber, no President, and on the 1947 law no court.',
+  },
+  { id: 'nobody', label: 'Nobody', gloss: 'Nothing fills the silence at all.' },
+  { id: 'congress', label: 'Congress', gloss: 'Bare majority plus presentment.' },
+  { id: 'states', label: 'State legislatures', gloss: '' },
+];
+
+const rows = table.rows.map((cells) => {
+  const [n, clause, notFixed, filled, who] = cells;
+  return {
+    n,
+    clause,
+    notFixed,
+    filled,
+    who,
+    holder: holder(who),
+  };
+});
+
+const counts = Object.fromEntries(
+  HOLDERS.map((h) => [
+    h.id,
+    h.id === 'all' ? rows.length : rows.filter((r) => r.holder === h.id).length,
+  ]),
+) as Record<string, number>;
+
+const rowsFact = fact('silence.rows');
+const clusterFact = fact('silence.single_chamber');
+const unfilledFact = fact('silence.unfilled');
+---
+
+<figure class="inventory" data-silence-inventory>
+  <figcaption class="head">
+    <span class="smallcaps">
+      <span class="tabular">{rowsFact.value}</span> constitutional silences
+    </span>
+    <span class="sub">
+      Places the text of 1947 does not fix a thing everyone assumes it fixes.
+      Filter by who holds the pen.
+    </span>
+  </figcaption>
+
+  <div class="needs-js filters">
+    <fieldset>
+      <legend class="visually-hidden">Filter by who can change what fills the silence</legend>
+      {HOLDERS.map((h, i) => (
+        <label class={`chip chip--${h.id}`}>
+          <input type="radio" name="holder" value={h.id} checked={i === 0} />
+          <span class="chip-label">
+            {h.label}
+            <span class="chip-count tabular">{counts[h.id]}</span>
+          </span>
+        </label>
+      ))}
+    </fieldset>
+    <p class="gloss" data-gloss aria-live="polite"></p>
+  </div>
+
+  <table>
+    <caption class="visually-hidden">
+      Constitutional silences at the {vantage} vantage
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="col-n">#</th>
+        <th scope="col" class="col-clause">Clause</th>
+        <th scope="col">What the text does not fix</th>
+        <th scope="col">What filled it in 1947</th>
+        <th scope="col">Who can change it</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr data-holder={r.holder} class={`row--${r.holder}`}>
+          <td class="col-n tabular">{r.n}</td>
+          <th scope="row" class="col-clause" set:html={inline(r.clause)} />
+          <td set:html={inline(r.notFixed)} />
+          <td set:html={inline(r.filled)} />
+          <td class="col-who" set:html={inline(r.who)} />
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <div class="findings">
+    <p>
+      <span class="status status--verified">The cluster</span>
+      {clusterFact.value}
+    </p>
+    <p>
+      <span class="status status--verified">The hole</span>
+      {unfilledFact.value}
+    </p>
+    <p class="caveat">
+      <span class="status status--unverified">Not a finding</span>
+      Every row here is a route to controlling Congress and the federal courts. None of
+      them touches ratification, which is where Article&nbsp;V&#8217;s protection actually
+      sits. The cluster was also named by a sitting justice in a published opinion
+      eighteen months before G&#246;del&#8217;s hearing, so it is not novel either.
+    </p>
+  </div>
+</figure>
+
+<script>
+  /**
+   * Filtering only. The table is complete in the HTML and every row is readable
+   * with scripting off; this saves scrolling and makes the three-row cluster
+   * visible at a glance, which is what the analysis is pointing at.
+   */
+  const root = document.querySelector<HTMLElement>('[data-silence-inventory]');
+
+  if (root) {
+    const GLOSS: Record<string, string> = {
+      all: '',
+      'single-chamber': 'No other chamber, no President, and on the 1947 law no court.',
+      nobody: 'Nothing fills the silence at all. This is unfilled silence, not delegated silence.',
+      congress: 'Bare majority of both chambers plus the President\u2019s signature.',
+      states: 'Held by the states, not by the federal government.',
+    };
+
+    const rows = [...root.querySelectorAll<HTMLTableRowElement>('tbody tr')];
+    const gloss = root.querySelector<HTMLElement>('[data-gloss]');
+
+    function apply(holder: string) {
+      for (const row of rows) {
+        const show = holder === 'all' || row.dataset.holder === holder;
+        row.hidden = !show;
+      }
+      if (gloss) gloss.textContent = GLOSS[holder] ?? '';
+      root!.dataset.filter = holder;
+    }
+
+    for (const input of root.querySelectorAll<HTMLInputElement>('input[name="holder"]')) {
+      input.addEventListener('change', () => {
+        if (input.checked) apply(input.value);
+      });
+    }
+  }
+</script>
+
+<style>
+  .inventory {
+    margin: var(--space-lg) 0;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .head {
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .head .smallcaps {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+  }
+
+  .head .sub {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    margin-top: 0.2em;
+    max-width: var(--measure-narrow);
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  .chip {
+    cursor: pointer;
+    /* The radio is absolutely positioned so the pill can be styled; without a
+       containing block here it would position against the page instead, which
+       puts an invisible hit target somewhere unpredictable. Found by a browser
+       test that could not click it. */
+    position: relative;
+    display: inline-block;
+  }
+
+  .chip input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .chip-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    padding: 0.25em 0.6em;
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius-pill);
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: background var(--duration-fast) var(--ease);
+  }
+
+  .chip:hover .chip-label {
+    background: var(--paper-sunk);
+  }
+
+  .chip input:checked + .chip-label {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .chip input:focus-visible + .chip-label {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .chip-count {
+    opacity: 0.65;
+  }
+
+  .gloss {
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    margin-top: var(--space-2xs);
+    min-height: 1.4em;
+  }
+
+  table {
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+  }
+
+  th[scope='row'] {
+    font-weight: var(--weight-medium);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: inherit;
+    color: var(--ink);
+    border-bottom: var(--border-hair);
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) 0;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .col-n {
+    width: 2ch;
+    color: var(--ink-faint);
+  }
+
+  td {
+    padding-right: var(--space-xs);
+  }
+
+  /* The three single-chamber rows and the one unfilled row are the point of the
+     table, and they are marked in the table itself rather than only in the
+     filter -- a reader who never touches the control still sees them. The mark
+     is a rule in the margin, not a background wash, because a wash would make
+     the other eight look like errors. */
+  .row--single-chamber th[scope='row'],
+  .row--nobody th[scope='row'] {
+    position: relative;
+  }
+
+  .row--single-chamber th[scope='row']::before,
+  .row--nobody th[scope='row']::before {
+    content: '';
+    position: absolute;
+    left: -0.55em;
+    top: var(--space-xs);
+    bottom: var(--space-xs);
+    width: 2px;
+  }
+
+  .row--single-chamber th[scope='row']::before {
+    background: var(--graphic-strong);
+  }
+
+  .row--nobody th[scope='row']::before {
+    background: var(--disproved);
+  }
+
+  .row--nobody .col-who {
+    color: var(--disproved);
+  }
+
+  .findings {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: var(--border-hair);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .findings p + p {
+    margin-top: var(--space-xs);
+  }
+
+  .findings .status {
+    margin-right: 0.5em;
+  }
+
+  .caveat {
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 46rem) {
+    /* A five-column table does not fit a phone and squeezing it makes every
+       column unreadable. Below this width the table becomes a stack of
+       labelled records, which is longer but legible. */
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      border-bottom: 1px solid var(--rule-strong);
+      padding-block: var(--space-xs);
+    }
+
+    td,
+    th[scope='row'] {
+      border: none;
+      padding: 0;
+      white-space: normal;
+    }
+
+    .col-n {
+      display: inline;
+    }
+
+    th[scope='row'] {
+      display: inline;
+      margin-left: 0.5em;
+    }
+
+    td:not(.col-n) {
+      margin-top: 0.35em;
+      color: var(--ink-muted);
+    }
+
+    .row--single-chamber th[scope='row']::before,
+    .row--nobody th[scope='row']::before {
+      display: none;
+    }
+
+    .row--single-chamber,
+    .row--nobody {
+      border-left: 2px solid var(--graphic-strong);
+      padding-left: var(--space-xs);
+    }
+
+    .row--nobody {
+      border-left-color: var(--disproved);
+    }
+  }
+</style>

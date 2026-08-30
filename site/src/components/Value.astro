@@ -1,0 +1,66 @@
+---
+/**
+ * A single load-bearing value, rendered with its apparatus.
+ *
+ * This is the component that makes the two-depth reading pattern real. The
+ * reader sees a number in a sentence. The skeptical reader sees, in the same
+ * glance, what file owns it, what primary source it came from, whether that
+ * source was read from a page image or a transcription, and whether we have
+ * actually checked it.
+ *
+ * No page is allowed to type a value. It comes through here or through
+ * lib/facts.ts, and site/scripts/lint-facts.mjs fails the build if it does not.
+ */
+import { fact, canonicalUrl, analysisUrl, readFromPageImage, type Fact } from '../lib/facts';
+
+interface Props {
+  /** A fact id from data/facts.json. */
+  id: string;
+  /** Show the value only, with no apparatus. For prose where a note would interrupt. */
+  bare?: boolean;
+  /** Override the rendered text. The fact is still looked up and still checked. */
+  as?: string;
+}
+
+const { id, bare = false, as } = Astro.props;
+const f: Fact = fact(id);
+const shown = as ?? String(f.value);
+const statusLabel =
+  f.status === 'verified' ? 'Verified' : f.status === 'disproved' ? 'Disproved' : 'Unverified';
+---
+
+{
+  bare ? (
+    <span class="value tabular" data-fact={f.id}>{shown}</span>
+  ) : (
+    <span class="fact" data-fact={f.id}>
+      <span class={`value tabular ${f.status !== 'verified' ? 'value--flagged' : ''}`}>{shown}</span>
+      {f.status !== 'verified' && (
+        <span class={`status status--${f.status}`}>{statusLabel}</span>
+      )}
+    </span>
+  )
+}
+
+<style>
+  .fact {
+    white-space: nowrap;
+  }
+
+  .value {
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  /* An unverified or disproved value is underlined in its status colour, so a
+     reader skimming the page cannot mistake it for a checked one even if they
+     never read the label beside it. Colour alone is never the signal. */
+  .value--flagged {
+    border-bottom: 2px solid currentColor;
+  }
+
+  .status {
+    margin-left: 0.35em;
+    font-size: 0.72em;
+    vertical-align: 0.1em;
+  }
+</style>

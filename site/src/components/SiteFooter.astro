@@ -1,0 +1,117 @@
+---
+/**
+ * The footer carries the two things a skeptical reader needs and most sites
+ * bury: the vantage date every number on the site is keyed to, and the command
+ * that reproduces the whole thing.
+ */
+import { fact, vantage, vantageNote } from '../lib/facts';
+
+const checks = fact('verify.checks');
+const controls = fact('verify.negative_controls');
+const repo = 'https://github.com/incrediblecrab/godel-loopholes';
+---
+
+<footer class="site-footer">
+  <div class="inner">
+    <section class="block">
+      <h2>The vantage</h2>
+      <p>
+        Every number on this site describes the law as it stood on
+        <strong class="tabular">{vantage}</strong>. {vantageNote}
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Reproduce it</h2>
+      <pre><code>git clone {repo}
+cd godel-loopholes
+./verify.sh</code></pre>
+      <p class="note">
+        <span class="tabular">{checks.value}</span> checks.
+        <span class="tabular">{controls.value}</span> of them are negative controls, designed to fail;
+        if those ever pass, the harness is lying and nothing else it reports is worth anything.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Sources</h2>
+      <p class="note">
+        The primary corpus is public-domain material from the National Archives, the Library of
+        Congress, the Government Publishing Office and the United States Senate, and it is quoted
+        here freely. Copyrighted secondary literature is cited and linked, never redistributed.
+        Quotations are read from page images rather than from an optical character recognition
+        layer, because commas are the first thing OCR loses and this project&#8217;s whole premise is
+        that commas matter.
+      </p>
+    </section>
+
+    <p class="colophon">
+      <a href={repo}>Source and full research record</a> &#183;
+      Set in Source Serif&nbsp;4, EB&nbsp;Garamond and IBM&nbsp;Plex&nbsp;Mono, served from this
+      origin. No analytics, no cookies, no third&#8209;party requests.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: var(--border-hair);
+    margin-top: var(--space-3xl);
+    padding-block: var(--space-xl) var(--space-lg);
+    background: var(--paper-sunk);
+  }
+
+  .inner {
+    max-width: calc(var(--measure) + var(--gutter) + var(--margin-col) + var(--space-lg) * 2);
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 62rem) {
+    .inner {
+      padding-inline: var(--space-lg);
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .colophon {
+      grid-column: 1 / -1;
+    }
+  }
+
+  h2 {
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .block p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .note {
+    color: var(--ink-muted);
+  }
+
+  pre {
+    font-size: var(--text-xs);
+    padding: var(--space-2xs) var(--space-xs);
+    background: var(--paper);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .colophon {
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    line-height: var(--leading-snug);
+    border-top: var(--border-hair);
+    padding-top: var(--space-sm);
+  }
+</style>

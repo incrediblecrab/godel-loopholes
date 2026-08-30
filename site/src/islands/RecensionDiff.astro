@@ -1,0 +1,340 @@
+---
+/**
+ * The recension diff.
+ *
+ * Six independent witnesses to the Bill of Rights. On wording all six agree
+ * completely; every difference found is orthographic or punctuational, which is
+ * exactly the class of difference this project cannot afford to normalise away.
+ *
+ * Nobody planted these for us to find. The collation was run to check that our
+ * copies matched.
+ *
+ * The interaction is a selection, not a reveal: all three divergences and all
+ * their witnesses are in the HTML, and choosing one scrolls the reader's
+ * attention rather than fetching anything.
+ */
+import { DIVERGENCES, frameParts, assertCurrent } from '../lib/recension';
+import { fact } from '../lib/facts';
+
+assertCurrent();
+
+const witnesses = fact('recension.witnesses');
+const agree = fact('recension.wording_agrees');
+---
+
+<figure class="recension" data-recension>
+  <figcaption class="head">
+    <span class="smallcaps">
+      Amendments I&#8211;X across <span class="tabular">{witnesses.value}</span> witnesses
+    </span>
+    <span class="sub">{agree.value} Every difference is a comma or a letter.</span>
+  </figcaption>
+
+  <div class="needs-js tabs" role="tablist" aria-label="Divergences">
+    {DIVERGENCES.map((d, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`tab-${d.id}`}
+        aria-controls={`panel-${d.id}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        tabindex={i === 0 ? 0 : -1}
+        data-tab={d.id}
+      >
+        <span class="tab-amendment">{d.amendment}</span>
+        <span class="tab-question">{d.question}</span>
+      </button>
+    ))}
+  </div>
+
+  {DIVERGENCES.map((d, i) => (
+    <section
+      class="panel"
+      id={`panel-${d.id}`}
+      role="tabpanel"
+      aria-labelledby={`tab-${d.id}`}
+      data-panel={d.id}
+      hidden={i !== 0}
+    >
+      <h3 class="no-js-only panel-head">
+        {d.amendment} &#8212; {d.question}
+      </h3>
+
+      <p class="frame document">
+        {frameParts(d.frame).map((p) =>
+          p.disputed ? <mark>{p.text}</mark> : <span>{p.text}</span>,
+        )}
+      </p>
+
+      <ol class="witnesses">
+        {d.witnesses.map((w) => (
+          <li class={`witness witness--${w.reading.replace(/\s+/g, '-')}`}>
+            <span class="reading">{w.reading}</span>
+            <span class="who">
+              {w.name}
+              <span class="family">
+                {w.family === 'preserves'
+                  ? 'preserves eighteenth-century orthography'
+                  : 'silently modernises'}
+              </span>
+              {w.note && <span class="wnote">{w.note}</span>}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      <p class="stakes">{d.stakes}</p>
+    </section>
+  ))}
+
+  <aside class="maine">
+    <p>
+      <span class="smallcaps">Why a comma is not a triviality</span>
+    </p>
+    <p>
+      In 2017 a Maine dairy lost an overtime case because of a missing comma in a list of
+      activities exempt from overtime, and settled the following year for
+      <span class="tabular">$5&nbsp;million</span> across
+      <span class="tabular">127</span> drivers. The opinion opens:
+      <q class="document">{fact('maine.comma').value}</q>
+    </p>
+  </aside>
+</figure>
+
+<script>
+  /**
+   * A tablist with the keyboard behaviour the pattern requires: arrows move,
+   * Home and End jump, and only the selected tab is in the tab order. Without
+   * this a keyboard reader has to tab through every divergence to reach the
+   * content, which is the usual way an ARIA role is applied and then not
+   * honoured.
+   */
+  const root = document.querySelector<HTMLElement>('[data-recension]');
+
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+
+    function select(id: string, focus: boolean) {
+      for (const t of tabs) {
+        const on = t.dataset.tab === id;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      }
+      for (const p of panels) p.hidden = p.dataset.panel !== id;
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab.dataset.tab!, false));
+      tab.addEventListener('keydown', (e) => {
+        const last = tabs.length - 1;
+        let next = -1;
+        if (e.key === 'ArrowRight') next = i === last ? 0 : i + 1;
+        else if (e.key === 'ArrowLeft') next = i === 0 ? last : i - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = last;
+        if (next >= 0) {
+          e.preventDefault();
+          select(tabs[next].dataset.tab!, true);
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .recension {
+    margin: var(--space-lg) 0;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .head {
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .head .smallcaps {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+  }
+
+  .head .sub {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    margin-top: 0.2em;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: var(--border-hair);
+    margin-bottom: var(--space-md);
+  }
+
+  [role='tab'] {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: var(--space-2xs) var(--space-sm) var(--space-xs) 0;
+    margin-right: var(--space-sm);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  [role='tab']:hover {
+    border-bottom-color: var(--rule-strong);
+  }
+
+  [role='tab'][aria-selected='true'] {
+    border-bottom-color: var(--ink);
+  }
+
+  .tab-amendment {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+  }
+
+  .tab-question {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    line-height: var(--leading-tight);
+  }
+
+  .panel + .panel,
+  .panel:not([hidden]) ~ .panel {
+    margin-top: var(--space-lg);
+  }
+
+  .panel-head {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .frame {
+    background: var(--paper-sunk);
+    border-left: 2px solid var(--rule-strong);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  /* The disputed span. Marked with a rule beneath rather than a highlighter
+     wash, because a wash reads as an annotation someone added and the whole
+     point is that this is what the source prints. */
+  mark {
+    background: none;
+    color: var(--disproved);
+    font-weight: 600;
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* A disputed comma is small enough to be invisible at reading size, so it
+     gets space around it. The reader has to be able to see the thing the
+     argument is about. */
+  mark:not(:has(*)) {
+    padding-inline: 0.1em;
+  }
+
+  .witnesses {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: var(--border-hair);
+  }
+
+  .witness {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: var(--space-sm);
+    padding-block: var(--space-2xs);
+    border-bottom: var(--border-hair);
+    margin-top: 0;
+    align-items: baseline;
+  }
+
+  @media (max-width: 34rem) {
+    .witness {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  .reading {
+    font-family: var(--font-machine);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  /* The odd one out reads in the disproved colour. There is exactly one per
+     divergence and it is the reason the divergence is here. */
+  .witness--of .reading,
+  .witness--deleted .reading,
+  .witness--two-commas .reading {
+    color: var(--disproved);
+  }
+
+  .who {
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .family,
+  .wnote {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    line-height: var(--leading-snug);
+  }
+
+  .wnote {
+    margin-top: 0.2em;
+    color: var(--ink-muted);
+    max-width: 54ch;
+  }
+
+  .stakes {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--ink-muted);
+    max-width: var(--measure-narrow);
+  }
+
+  .maine {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: var(--border-hair);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--ink-muted);
+  }
+
+  .maine .smallcaps {
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+  }
+
+  .maine p + p {
+    margin-top: var(--space-2xs);
+  }
+
+  .maine q {
+    font-style: italic;
+    color: var(--ink);
+  }
+</style>

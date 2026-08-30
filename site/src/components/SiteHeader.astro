@@ -1,0 +1,164 @@
+---
+/**
+ * The site's navigation.
+ *
+ * Five sections, and each answers a question no other section answers. The nav
+ * shows the question, not just the label, because a reader who lands mid-site
+ * needs to know what else is here and a two-word label does not tell them.
+ */
+import { fact } from '../lib/facts';
+
+interface Props {
+  section?: string;
+}
+
+const { section } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+export const NAV = [
+  { id: 'claim', href: '/', label: 'The claim', question: 'What did G\u00f6del say' },
+  { id: 'precedents', href: '/precedents', label: 'The precedents', question: 'Why it is possible' },
+  { id: 'text', href: '/text', label: 'The text', question: 'What the words say' },
+  { id: 'machine', href: '/machine', label: 'The machine', question: 'What formalising it found' },
+  { id: 'method', href: '/method', label: 'The method', question: 'Why believe any of it' },
+];
+
+const vantage = fact('godel.exam.date');
+---
+
+<header class="site-header">
+  <div class="inner">
+    <a class="mark" href={`${base}/`}>
+      <span class="mark-title">G&#246;del&#8217;s Loophole</span>
+      <span class="mark-sub">
+        Does the Constitution of <span class="tabular">{vantage.value}</span> permit its own lawful end?
+      </span>
+    </a>
+
+    <nav aria-label="Sections">
+      <ul>
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={`${base}${item.href === '/' ? '/' : item.href}`}
+              aria-current={section === item.id ? 'page' : undefined}
+            >
+              <span class="nav-label">{item.label}</span>
+              <span class="nav-question">{item.question}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: var(--border-hair);
+    background: var(--paper);
+  }
+
+  .inner {
+    max-width: calc(var(--measure) + var(--gutter) + var(--margin-col) + var(--space-lg) * 2);
+    margin-inline: auto;
+    padding: var(--space-sm) var(--space-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  @media (min-width: 62rem) {
+    .inner {
+      padding-inline: var(--space-lg);
+    }
+  }
+
+  .mark {
+    text-decoration: none;
+    display: block;
+    max-width: var(--measure);
+  }
+
+  .mark-title {
+    display: block;
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.01em;
+    line-height: var(--leading-tight);
+  }
+
+  .mark-sub {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    line-height: var(--leading-snug);
+    margin-top: 0.15em;
+  }
+
+  .mark:hover .mark-title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  nav li + li {
+    margin-top: 0;
+  }
+
+  nav a {
+    display: block;
+    text-decoration: none;
+    padding: var(--space-2xs) var(--space-sm) var(--space-xs) 0;
+    margin-right: var(--space-sm);
+    border-bottom: 2px solid transparent;
+    /* The bottom border is the current-page indicator, so it must not shift the
+       layout when it appears. It is always present and transparent. */
+    margin-bottom: -1px;
+  }
+
+  nav a:hover {
+    border-bottom-color: var(--rule-strong);
+  }
+
+  nav a[aria-current='page'] {
+    border-bottom-color: var(--ink);
+  }
+
+  .nav-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+  }
+
+  .nav-question {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    line-height: var(--leading-tight);
+    margin-top: 0.1em;
+  }
+
+  nav a[aria-current='page'] .nav-question {
+    color: var(--ink-muted);
+  }
+
+  /* Below the fold on a phone the questions are noise; the labels alone fit. */
+  @media (max-width: 30rem) {
+    .nav-question {
+      display: none;
+    }
+  }
+</style>

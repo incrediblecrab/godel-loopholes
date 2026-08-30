@@ -1,0 +1,192 @@
+---
+/**
+ * The scoreboard.
+ *
+ * It goes at the top of the site, above the story, because the honest answer is
+ * that no loophole has been found and burying that under a narrative would be
+ * the exact failure mode this project exists to avoid. A reader who leaves
+ * after four seconds should leave with the true answer rather than an
+ * impression.
+ *
+ * Every number is read from data/facts.json at build time. None is typed here.
+ * Static: no JavaScript, works with scripting disabled, nothing to hydrate.
+ */
+import { fact } from '../lib/facts';
+import Value from './Value.astro';
+
+const loopholes = fact('scoreboard.loopholes');
+const disproved = fact('scoreboard.disproved');
+const checks = fact('verify.checks');
+const controls = fact('verify.negative_controls');
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const cells = [
+  {
+    id: loopholes.id,
+    figure: String(loopholes.value),
+    label: 'lawful paths found',
+    gloss: 'After reading the words and after formalising the machine.',
+    tone: 'disproved' as const,
+    href: `${base}/method`,
+  },
+  {
+    id: disproved.id,
+    figure: String(disproved.value),
+    label: 'of our own claims refuted',
+    gloss: 'We made them, then broke them. The list is public and stays public.',
+    tone: 'disproved' as const,
+    href: `${base}/method#disproved`,
+  },
+  {
+    id: checks.id,
+    figure: String(checks.value),
+    label: 'checks passing, cold',
+    gloss: 'One command re-runs every computational claim from a clean checkout.',
+    tone: 'verified' as const,
+    href: `${base}/method#harness`,
+  },
+  {
+    id: controls.id,
+    figure: String(controls.value),
+    label: 'checks designed to fail',
+    gloss: 'False statements the machine must reject. If they pass, the harness is lying.',
+    tone: 'verified' as const,
+    href: `${base}/method#controls`,
+  },
+];
+---
+
+<section class="scoreboard" aria-labelledby="scoreboard-head">
+  <h2 id="scoreboard-head" class="visually-hidden">Where the project stands</h2>
+  <ol>
+    {cells.map((c) => (
+      <li class={`cell cell--${c.tone}`}>
+        <a href={c.href}>
+          <span class="figure tabular" data-fact={c.id}>{c.figure}</span>
+          <span class="label">{c.label}</span>
+          <span class="gloss">{c.gloss}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .scoreboard ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .scoreboard li + li {
+    margin-top: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .scoreboard ol {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .scoreboard ol {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .cell {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  @media (min-width: 40rem) {
+    .cell:nth-child(odd) {
+      border-right: var(--border-hair);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .cell {
+      border-right: var(--border-hair);
+    }
+
+    .cell:last-child {
+      border-right: none;
+    }
+  }
+
+  .cell a {
+    display: block;
+    padding: var(--space-sm) var(--space-md) var(--space-md) 0;
+    text-decoration: none;
+    height: 100%;
+  }
+
+  @media (min-width: 40rem) {
+    .cell a {
+      padding-right: var(--space-md);
+      padding-left: 0;
+    }
+
+    .cell:nth-child(even) a {
+      padding-left: var(--space-md);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .cell a {
+      padding-inline: var(--space-md);
+    }
+
+    .cell:first-child a {
+      padding-left: 0;
+    }
+  }
+
+  .figure {
+    display: block;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: -0.03em;
+  }
+
+  /* The scoreboard is the one place the epistemic colours carry a whole cell,
+     because the whole cell is a claim about evidence. Zero paths found is a
+     negative result; the harness passing is a positive one. */
+  .cell--disproved .figure {
+    color: var(--disproved);
+  }
+
+  .cell--verified .figure {
+    color: var(--verified);
+  }
+
+  .label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    margin-top: 0.25em;
+  }
+
+  .gloss {
+    display: block;
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    line-height: var(--leading-snug);
+    margin-top: 0.4em;
+    max-width: 32ch;
+  }
+
+  .cell a:hover .label {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+</style>

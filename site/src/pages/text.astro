@@ -1,0 +1,196 @@
+---
+/**
+ * The text.
+ *
+ * Answers one question: what did reading the words actually find?
+ *
+ * Three artifacts, in the order the argument runs. An unstated denominator in
+ * Article V. A corrupted First Amendment nobody planted for us. Twelve places
+ * the document says nothing at all.
+ *
+ * The prose is `eli5.md`, rendered. The findings are the artifacts, and each
+ * reads its data out of the research notes at build time.
+ */
+import Base from '../layouts/Base.astro';
+import MarginNote from '../components/MarginNote.astro';
+import ThresholdMachine from '../islands/ThresholdMachine.astro';
+import RecensionDiff from '../islands/RecensionDiff.astro';
+import SilenceInventory from '../islands/SilenceInventory.astro';
+import { fact } from '../lib/facts';
+import { readSections, pick } from '../lib/content';
+
+const [ways] = pick(readSections('eli5.md'), 'the-two-ways-in');
+const unstated = fact('articlev.base.unstated');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base
+  title="The text"
+  description="What reading the words of the 1947 Constitution actually found: an unstated denominator in Article V, a corrupted First Amendment across six official sources, and twelve constitutional silences."
+  section="text"
+>
+  <div class="page">
+    <header class="wide lede">
+      <p class="kicker smallcaps">Route one</p>
+      <h1>Read the words. Find where the text does not say what everyone assumes.</h1>
+      <p class="standfirst">
+        This sounds like a stretch until it happens. Three things turned up, and only one
+        of them was being looked for.
+      </p>
+    </header>
+
+    <section aria-labelledby="denominator">
+      <h2 id="denominator">The denominator nobody states</h2>
+      <p>
+        Article&nbsp;V says <q>two thirds of both Houses.</q> {unstated.value} Two thirds of
+        the membership and two thirds of those voting are different numbers, and the text
+        does not choose between them.
+      </p>
+      <p>
+        That silence is not universal among constitutions of comparable ambition. The
+        Weimar constitution&#8217;s Article&nbsp;76 states its base explicitly: two thirds of the
+        statutory membership present, and two thirds of those present assenting. The same
+        fraction appears in both documents and only one of them says what it divides.
+      </p>
+    </section>
+
+    <MarginNote
+      head="Article V"
+      facts={['articlev.base.unstated', 'articlev.base.origin', 'threshold.house.propose']}
+    />
+
+    <div class="wide">
+      <ThresholdMachine />
+    </div>
+
+    <p class="aside">
+      The Z3 solver re&#8209;derives these figures independently in section&nbsp;2 of the
+      harness, from the fractions rather than from our arithmetic. It is also where this
+      project made one of its more instructive mistakes, which is
+      <a href={`${base}/method#the-219`}>recorded rather than quietly fixed</a>.
+    </p>
+
+    <section aria-labelledby="recension">
+      <h2 id="recension">A comma is not a triviality</h2>
+      <p>
+        Ten amendments were collated across six independent official sources, expecting
+        them to be identical. Two were not. Nobody planted these; the collation was run to
+        check that our copies matched.
+      </p>
+    </section>
+
+    <MarginNote
+      head="Collation"
+      facts={['recension.witnesses', 'recension.gpo', 'recension.avalon', 'recension.senate_fidelity']}
+    />
+
+    <div class="wide">
+      <RecensionDiff />
+    </div>
+
+    <section aria-labelledby="silence">
+      <h2 id="silence">Twelve places the document says nothing</h2>
+      <p>
+        A silence is not the same as a permission, and it is not the same as a
+        prohibition. It is a field the constitution declines to reserve to itself, where
+        ordinary law governs and no constitutional provision constrains what that law may
+        say. Enumerating them is cheap, and the result is a map of who actually holds each
+        pen.
+      </p>
+    </section>
+
+    <MarginNote head="Silences" facts={['silence.rows', 'silence.priority']} />
+
+    <div class="wide">
+      <SilenceInventory />
+    </div>
+
+    <section aria-labelledby="two-ways">
+      <h2 id="two-ways">{ways.title}</h2>
+      <div class="prose" set:html={ways.html} />
+    </section>
+
+    <nav class="next wide" aria-label="Continue">
+      <a href={`${base}/machine`}>
+        <span class="next-label">Next: the machine</span>
+        <span class="next-gloss">
+          Treat the document as a system with rules for rewriting itself, and ask what
+          states it can reach. Somebody already published that proof.
+        </span>
+      </a>
+    </nav>
+  </div>
+</Base>
+
+<style>
+  .lede {
+    padding-block: var(--space-xl) var(--space-md);
+  }
+
+  .kicker {
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    margin-bottom: var(--space-2xs);
+  }
+
+  h1 {
+    max-width: 22ch;
+    font-size: clamp(var(--text-lg), 4.4vw, var(--text-2xl));
+  }
+
+  .standfirst {
+    margin-top: var(--space-sm);
+    font-size: var(--text-md);
+    line-height: var(--leading-snug);
+    color: var(--ink-muted);
+    max-width: 50ch;
+  }
+
+  section {
+    margin-top: var(--space-xl);
+  }
+
+  section h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .aside {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    line-height: var(--leading-snug);
+  }
+
+  .next {
+    margin-top: var(--space-2xl);
+    border-top: 1px solid var(--rule-strong);
+    padding-top: var(--space-md);
+  }
+
+  .next a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .next-label {
+    display: block;
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+  }
+
+  .next a:hover .next-label {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
+  .next-gloss {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    line-height: var(--leading-snug);
+    margin-top: 0.25em;
+    max-width: var(--measure-narrow);
+  }
+</style>

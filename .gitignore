@@ -64,3 +64,8 @@ node_modules/
 site/dist/
 site/.astro/
 .astro/
+
+# Playwright browser binaries live outside the repo, but its test-results and
+# report directories do not.
+site/test-results/
+site/playwright-report/

@@ -1,0 +1,135 @@
+---
+/**
+ * A margin note: the apparatus half of the two-depth reading pattern.
+ *
+ * Two ways to use it. Pass a fact id and it renders that fact's provenance --
+ * canonical file, primary source, page, and whether the source was read from a
+ * page image. Or pass children and it renders whatever you put in it.
+ *
+ * It is never hidden. Below the margin breakpoint it folds inline beneath the
+ * paragraph it annotates. Putting the citations behind a disclosure would fail
+ * the reader the citations exist for, who will not click to find out whether
+ * this is serious.
+ */
+import { fact, canonicalUrl, analysisUrl, type Fact } from '../lib/facts';
+
+interface Props {
+  /** Render the apparatus for these fact ids, in order. */
+  facts?: string[];
+  /** A short running head, set in small caps. */
+  head?: string;
+}
+
+const { facts = [], head } = Astro.props;
+const entries: Fact[] = facts.map(fact);
+
+function readingLabel(f: Fact): string | undefined {
+  const r = f.source?.read_from;
+  if (!r) return undefined;
+  if (r === 'page image') return 'read from the page image';
+  if (r === 'transcription') return 'read from a transcription';
+  return `read from ${r}`;
+}
+---
+
+<aside class="margin-note">
+  {head && <p class="head smallcaps">{head}</p>}
+
+  {entries.map((f) => (
+    <div class="entry">
+      <p class="label">{f.label}</p>
+
+      {f.source?.title && (
+        <p class="src">
+          {f.source.url ? (
+            <a href={f.source.url}>{f.source.title}</a>
+          ) : (
+            f.source.title
+          )}
+          {f.source.cite && <span class="cite"> {f.source.cite}</span>}
+          {f.source.page && <span class="cite"> at {f.source.page}</span>}
+        </p>
+      )}
+
+      {f.source?.note && <p class="aside-note">{f.source.note}</p>}
+
+      {readingLabel(f) && (
+        <p class={`reading ${f.source?.read_from === 'page image' ? 'reading--strong' : ''}`}>
+          {readingLabel(f)}
+        </p>
+      )}
+
+      {f.checked_by && <p class="aside-note">Checked independently by {f.checked_by}.</p>}
+
+      {f.history && <p class="aside-note history">{f.history}</p>}
+
+      <p class="canon">
+        <a href={canonicalUrl(f)}>{f.canonical}</a>
+        {f.analysis && (
+          <>
+            {' \u00b7 '}
+            <a href={analysisUrl(f)}>{f.analysis.split('/').pop()}</a>
+          </>
+        )}
+      </p>
+    </div>
+  ))}
+
+  <slot />
+</aside>
+
+<style>
+  .head {
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2xs);
+  }
+
+  .entry + .entry {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px dotted var(--rule);
+  }
+
+  .label {
+    color: var(--ink);
+    font-weight: var(--weight-medium);
+  }
+
+  .src {
+    margin-top: 0.2em;
+  }
+
+  .cite {
+    white-space: nowrap;
+  }
+
+  .aside-note {
+    margin-top: 0.2em;
+    color: var(--ink-faint);
+  }
+
+  /* A belief this project held and later abandoned. Kept visible on purpose --
+     the disproved list is the most persuasive thing here. */
+  .history {
+    color: var(--disproved);
+  }
+
+  /* Read from a page image is the strong provenance and reads as such. A
+     transcription is weaker and is not dressed up to look the same. */
+  .reading {
+    margin-top: 0.2em;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  .reading--strong {
+    color: var(--verified);
+    font-style: normal;
+  }
+
+  .canon {
+    margin-top: 0.3em;
+    color: var(--ink-faint);
+    word-break: break-word;
+  }
+</style>

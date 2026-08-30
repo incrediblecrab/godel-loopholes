@@ -1,0 +1,106 @@
+---
+/**
+ * The one layout. Every page is this.
+ *
+ * Security posture, stated plainly rather than advertised. GitHub Pages serves
+ * static files and gives no control over response headers, so the only policy
+ * available is a `<meta http-equiv>` one. That means `frame-ancestors` and
+ * `sandbox` are ignored -- the browser only honours those from a real header --
+ * and this site therefore cannot prevent itself being framed. Saying so is
+ * better than claiming a hardening that is not there.
+ *
+ * What the policy does buy is real. `script-src` is pinned to the SHA-256 of
+ * every inline script that actually shipped, by scripts/seal-csp.mjs after the
+ * build, which is stronger than 'self': it permits those exact bytes and no
+ * other script, inline or external. `default-src 'none'` covers object-src and
+ * the rest by omission. The threat this defends against is a compromised build
+ * dependency trying to exfiltrate or load remote code, which is the only live
+ * threat a static site with no input, no cookies and no auth has.
+ *
+ * `style-src` keeps 'unsafe-inline' because the interactive artifacts set bar
+ * widths through style attributes and the alternative is a per-build hash for
+ * every one of them. The relaxation is understood: with no user input anywhere
+ * on the site there is no path by which an attacker supplies CSS.
+ */
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  /** One sentence. Used for <meta name="description"> and for link previews. */
+  description: string;
+  /** Which nav item is current. */
+  section?: string;
+}
+
+const { title, description, section } = Astro.props;
+
+const CSP = [
+  "default-src 'none'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "form-action 'none'",
+  "base-uri 'none'",
+  // No `frame-ancestors` here. The browser ignores it when it arrives in a
+  // meta element and logs a console warning saying so on every page load, and
+  // a directive that does nothing except generate a warning teaches readers of
+  // the console to ignore warnings. The limitation is documented above rather
+  // than papered over with a directive that cannot work.
+].join('; ');
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const SITE_TITLE = 'G\u00f6del\u2019s Loophole';
+const fullTitle = title === SITE_TITLE ? title : `${title} \u2014 ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={CSP} />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light dark" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- No analytics. No tag manager. No fonts fetched from another origin.
+         A site with zero third-party requests has almost no attack surface and
+         leaks nothing about who read it, which for a document about lawful
+         routes to dictatorship is not a trivial property. -->
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to the text</a>
+    <SiteHeader section={section} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  main {
+    display: block;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

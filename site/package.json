@@ -6,20 +6,26 @@
   "description": "Public presentation of the godel-loopholes research. Renders from data/facts.json and the repository's markdown; holds no copy of any load-bearing value.",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run lint:facts && astro build",
+    "build": "npm run lint:facts && astro build && npm run seal && npm run verify:csp",
     "build:fast": "astro build",
     "check": "astro check",
     "preview": "astro preview",
-    "lint:facts": "node scripts/lint-facts.mjs"
+    "lint:facts": "node scripts/lint-facts.mjs",
+    "seal": "node scripts/seal-csp.mjs",
+    "verify:csp": "node scripts/seal-csp.mjs --check",
+    "verify:browser": "node scripts/browser-check.mjs",
+    "verify": "npm run build && npm run verify:browser"
   },
   "dependencies": {
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@fontsource/eb-garamond": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
-    "astro": "^5.13.0"
+    "astro": "^7.2.9",
+    "marked": "^18.0.11"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "^0.9.10",
+    "playwright": "^1.62.1",
     "typescript": "^5.9.2"
   }
 }

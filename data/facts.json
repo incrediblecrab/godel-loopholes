@@ -49,9 +49,9 @@
     },
     {
       "id": "godel.memo.doubt",
-      "value": "he doubted G\u00f6del was right",
+      "value": "he doubted Gödel was right",
       "label": "The witness doubted the claim",
-      "statement": "The one witness to the claim recorded his own scepticism about it in the same document, and never says which part of the Constitution G\u00f6del meant.",
+      "statement": "The one witness to the claim recorded his own scepticism about it in the same document, and never says which part of the Constitution Gödel meant.",
       "canonical": "README.md",
       "status": "verified"
     },
@@ -92,7 +92,9 @@
       "statement": "A majority of the House, under Article I, Section 5, Clause 1.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["house.size"]
+      "derived_from": [
+        "house.size"
+      ]
     },
     {
       "id": "senate.quorum",
@@ -101,7 +103,9 @@
       "statement": "A majority of the Senate, under Article I, Section 5, Clause 1.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["senate.size"]
+      "derived_from": [
+        "senate.size"
+      ]
     },
     {
       "id": "threshold.house.propose",
@@ -110,13 +114,15 @@
       "statement": "Two thirds of a House quorum, which is 33.6 per cent of the chamber, not the two thirds the text appears to require.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["house.quorum"],
+      "derived_from": [
+        "house.quorum"
+      ],
       "checked_by": "verify.sh section 2, where Z3 re-derives the figure by an independent route",
       "source": {
         "title": "National Prohibition Cases, 253 U.S. 350 (1920)",
         "cite": "253 U.S. 350, conclusion 2",
         "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep253/usrep253350/usrep253350.pdf",
-        "quotation": "The two-thirds vote in each house which is required in proposing an amendment is a vote of two-thirds of the members present\u2014assuming the presence of a quorum\u2014and not a vote of two-thirds of the entire membership, present and absent.",
+        "quotation": "The two-thirds vote in each house which is required in proposing an amendment is a vote of two-thirds of the members present—assuming the presence of a quorum—and not a vote of two-thirds of the entire membership, present and absent.",
         "read_from": "page image",
         "read_from_note": "Read from the page image rather than the OCR layer, which rendered both em dashes as hyphens."
       }
@@ -128,7 +134,9 @@
       "statement": "Two thirds of a Senate quorum, which is 34.4 per cent of the chamber.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["senate.quorum"],
+      "derived_from": [
+        "senate.quorum"
+      ],
       "checked_by": "verify.sh section 2"
     },
     {
@@ -138,7 +146,9 @@
       "statement": "The figure the phrase 'two thirds of both Houses' is ordinarily taken to mean, and which the Supreme Court rejected in 1920.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["house.size"]
+      "derived_from": [
+        "house.size"
+      ]
     },
     {
       "id": "threshold.senate.full",
@@ -147,7 +157,9 @@
       "statement": "The counterfactual Senate figure on the rejected reading.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["senate.size"]
+      "derived_from": [
+        "senate.size"
+      ]
     },
     {
       "id": "threshold.states.ratify",
@@ -156,7 +168,9 @@
       "statement": "Three fourths of forty-eight. This is where Article V's protection actually sits; the congressional gate is far weaker than the text suggests.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["states.count"],
+      "derived_from": [
+        "states.count"
+      ],
       "checked_by": "verify.sh section 2"
     },
     {
@@ -166,7 +180,9 @@
       "statement": "Two thirds of forty-eight.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified",
-      "derived_from": ["states.count"]
+      "derived_from": [
+        "states.count"
+      ]
     },
     {
       "id": "articlev.base.unstated",
@@ -216,7 +232,7 @@
       "id": "silence.priority",
       "value": "328 U.S. 549, decided June 10, 1946, eighteen months",
       "label": "The silence cluster is not ours",
-      "statement": "In Colegrove v. Green, decided eighteen months before the vantage date, Justice Rutledge concurring in the result named Article I sections 4, 2 and 5 as a group. The cluster was in the U.S. Reports before G\u00f6del's hearing.",
+      "statement": "In Colegrove v. Green, decided eighteen months before the vantage date, Justice Rutledge concurring in the result named Article I sections 4, 2 and 5 as a group. The cluster was in the U.S. Reports before Gödel's hearing.",
       "canonical": "analysis/united-states-1947/silence-inventory.md",
       "status": "verified",
       "source": {
@@ -254,7 +270,7 @@
     },
     {
       "id": "model.stepone.cost",
-      "value": "\u230ais_rat amd1a\u230bt2",
+      "value": "⌊is_rat amd1a⌋t2",
       "label": "What deleting Goedel's step one costs",
       "statement": "Delete the four axioms proposing and supporting the amendment that strips Article V's entrenchment clause, and every published theorem and every intermediate lemma still proves, in a theory Nitpick confirms is still consistent. Two proof scripts break; both propositions are re-proved. What is lost is exactly one proposition: the ratification of the repeal itself, which the full theory entails and the reduced theory leaves independent.",
       "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
@@ -263,7 +279,7 @@
     },
     {
       "id": "model.stepone.reason",
-      "value": "amd1a = (\u2759\u00acomsp)",
+      "value": "amd1a = (❙¬omsp)",
       "label": "Why step one costs so little",
       "statement": "The repealing amendment is extensionally equal to the negation of the entrenchment clause, provable without any of the model's non-definitional axioms. Its content is therefore already forced by the separate stipulation that the dictatorship amendment was proposed. The repeal's postcondition is available without the repeal. It is extensional equality, not a term identity: 'by (rule refl)' fails on this goal.",
       "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
@@ -318,6 +334,23 @@
       "status": "verified"
     },
     {
+      "id": "recension.second_amendment",
+      "value": "at least three punctuations of the Second Amendment are in circulation across authoritative printings",
+      "label": "Punctuations of the Second Amendment",
+      "statement": "The Statutes at Large prints the Second Amendment twice and not identically, and both printings give one comma, which is neither the parchment's three nor the two of the widely circulated version.",
+      "canonical": "corpus/README.md",
+      "status": "verified",
+      "source": {
+        "title": "Statutes at Large, volume 1",
+        "cite": "1 Stat. 21 and 1 Stat. 97",
+        "url": "https://tile.loc.gov/storage-services/service/ll/llsl/llsl-c1/llsl-c1.pdf",
+        "note": "1 Stat. 21 is the volume's front matter and reads a free State; 1 Stat. 97 is the Joint Resolution itself and reads a free state, lower case.",
+        "read_from": "page image",
+        "page": "21 and 97"
+      },
+      "history": "An earlier version of corpus/README.md claimed the two-comma version appears in no source. That overreached: it was true of this corpus and false as a statement about the record. Corrected when the Statutes at Large was read directly."
+    },
+    {
       "id": "recension.senate_fidelity",
       "value": "byte for byte in nine of ten amendments",
       "label": "The Senate rendering reproduces the parchment",
@@ -339,7 +372,7 @@
     {
       "id": "collapse.germany",
       "value": "Every box was ticked. The rule was fine on its own terms and still authorized its own destruction.",
-      "label": "Germany, 1933 \u2014 collapse through the amendment clause",
+      "label": "Germany, 1933 — collapse through the amendment clause",
       "statement": "The Weimar constitution allowed amendment by a two-thirds vote. That vote was taken, and it changed the constitution into something that let one man make law.",
       "canonical": "eli5.md",
       "analysis": "analysis/germany-1933/path-enabling-act.md",
@@ -350,8 +383,8 @@
     {
       "id": "collapse.austria",
       "value": "a forgotten emergency economic law from 1917 that nobody had ever bothered to repeal",
-      "label": "Austria, 1933 \u2014 collapse through a statute outside the constitution",
-      "statement": "The government did not use the constitution at all. It reached outside it and governed through the 1917 act. If you were only reading the constitution, you would have seen nothing wrong. This is the case G\u00f6del lived through.",
+      "label": "Austria, 1933 — collapse through a statute outside the constitution",
+      "statement": "The government did not use the constitution at all. It reached outside it and governed through the 1917 act. If you were only reading the constitution, you would have seen nothing wrong. This is the case Gödel lived through.",
       "canonical": "eli5.md",
       "analysis": "analysis/austria-1920/path-kweg-bridge.md",
       "status": "verified",
@@ -361,7 +394,7 @@
     {
       "id": "collapse.italy",
       "value": "Not one of its eighty-four articles was amended.",
-      "label": "Italy, 1925 \u2014 collapse through ordinary law, text untouched",
+      "label": "Italy, 1925 — collapse through ordinary law, text untouched",
       "statement": "The constitution was never touched. Ordinary laws hollowed the state out around it, and a photograph of the document in 1848 and a photograph in 1925 look identical while everything real changed.",
       "canonical": "eli5.md",
       "analysis": "analysis/italy-1848/null-result-formal-route.md",

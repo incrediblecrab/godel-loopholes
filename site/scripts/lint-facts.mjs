@@ -67,7 +67,15 @@ for (const f of facts.facts) {
         needle: String(f.value),
         // Word boundaries alone would match 435 inside 1435. Require the digits
         // not be adjacent to other digits or to a decimal point.
-        re: new RegExp(`(?<![\\d.])${f.value}(?![\\d.])`, 'g'),
+        // Word boundaries alone would match 435 inside 1435. Require the digits
+        // not be adjacent to other digits or to a decimal point, and not be
+        // followed by a CSS unit -- `32ch` is a measure, not the thirty-two
+        // states needed for a convention, and flagging it teaches people to
+        // ignore this script.
+        re: new RegExp(
+          `(?<![\\d.])${f.value}(?![\\d.])(?!\\s*(?:ch|r?em|px|%|vw|vh|vmin|vmax|fr|deg|m?s|pt|cm|mm|in|q|ex|cap|lh|rlh|dvh|svh|lvh)\\b)`,
+          'g',
+        ),
         kind: 'number',
       });
     } else {
@@ -124,6 +132,24 @@ function escapeRe(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * Blank out regions that cannot reach a reader, preserving offsets so line
+ * numbers stay honest.
+ *
+ * A `<style>` block is full of dimensions -- 48rem, 32ch, 12px -- that collide
+ * with real facts and are not claims about anything. Block comments are prose
+ * about the code. Both get replaced with spaces of the same length rather than
+ * removed, so a violation's reported line number still points at the right
+ * line.
+ */
+function blankNonRendering(source) {
+  const blank = (m) => m.replace(/[^\n]/g, ' ');
+  return source
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, blank)
+    .replace(/\/\*[\s\S]*?\*\//g, blank)
+    .replace(/<!--[\s\S]*?-->/g, blank);
+}
+
 function walk(dir) {
   const out = [];
   for (const entry of readdirSync(dir)) {
@@ -149,7 +175,7 @@ const seen = new Set();
 for (const file of files) {
   const rel = relative(siteRoot, file).split('\\').join('/');
   if (EXEMPT.has(rel)) continue;
-  const source = readFileSync(file, 'utf8');
+  const source = blankNonRendering(readFileSync(file, 'utf8'));
   const lines = source.split('\n');
 
   for (const rule of enforced) {
