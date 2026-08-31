@@ -1063,6 +1063,32 @@ else
   inconc "python3 not on PATH" "Cannot run the reference-checker negative control."
 fi
 
+# ---- 6i. The hero interaction, driven with scripting switched off.
+# The four-state ablation figure is built from two checkboxes and `:checked ~`
+# sibling selectors specifically so it needs no JavaScript. That is a claim
+# about the artifact, and an unrun claim is a comment, so it is driven here in
+# a browser with javaScriptEnabled: false. 6f cannot cover it: that harness
+# runs with scripting on, where the figure would appear to work no matter how
+# it was built.
+#
+# Reuses the dist/ that 6f built rather than building again. Same preconditions,
+# so the same INCONCLUSIVE treatment when the toolchain is absent.
+hdr "6i. The ablation hero resolves all four states with JavaScript off"
+if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>&1; then
+  if [[ -d "$REPO/site/dist" ]]; then
+    if out=$(cd "$REPO/site" && node scripts/check-hero.mjs 2>&1); then
+      ok "$(echo "$out" | tail -1 | sed 's/^ *//')"
+    else
+      bad "the ablation hero failed with scripting off"
+      echo "$out" | grep -E "FAIL|passed" | sed 's/^/      /'
+    fi
+  else
+    inconc "site/dist not present; 6f builds it, so this needs 6f to have run"
+  fi
+else
+  inconc "site/node_modules/playwright or npm not present; run npm ci in site/"
+fi
+
 # --------------------------------------------------------------------- what is NOT done
 
 hdr "7. Explicitly NOT verified"

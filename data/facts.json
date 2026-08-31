@@ -519,7 +519,7 @@
     },
     {
       "id": "verify.checks",
-      "value": 102,
+      "value": 103,
       "label": "Checks in the verification harness",
       "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
       "canonical": "README.md",
