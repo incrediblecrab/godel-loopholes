@@ -1,0 +1,52 @@
+#!/bin/sh
+# Refuse to push a package-lock.json that will not install on Linux.
+#
+# This hook exists because the same failure reached CI twice. An incremental
+# `npm install <pkg>` run on macOS records only what macOS resolves, and prunes
+# the Linux-only WASM fallbacks (@emnapi/core, @emnapi/runtime, reached through
+# @img/sharp-wasm32) back out of the lockfile. Everything then builds perfectly
+# on this machine and `npm ci` fails on ubuntu-latest with an EUSAGE dump that
+# never names the real cause.
+#
+# The same check is the first step of `npm run build` and an explicit step in
+# the workflow. This is the layer that stops it leaving the machine at all.
+#
+# Enable once per clone:
+#     git config core.hooksPath .githooks
+#
+# `git push --no-verify` bypasses it. CI runs the identical check, so the only
+# thing bypassing buys is a slower, less legible failure.
+
+set -eu
+
+root=$(git rev-parse --show-toplevel)
+cd "$root/site" 2>/dev/null || exit 0
+[ -f package-lock.json ] || exit 0
+
+# A guard that cannot run must fail, not pass. Silently skipping is how the
+# lockfile got through the first two times.
+command -v npm >/dev/null 2>&1 || {
+  echo "pre-push: npm is not on PATH, so the lockfile cannot be verified." >&2
+  exit 1
+}
+
+if npm ci --dry-run --os=linux --cpu=x64 >/dev/null 2>&1; then
+  exit 0
+fi
+
+cat >&2 <<'MSG'
+
+  PUSH BLOCKED — site/package-lock.json will not install on Linux.
+
+  CI runs `npm ci` on ubuntu-latest. It will fail there, as it has twice.
+
+  Fix, from the repository root:
+
+      cd site && rm -rf node_modules package-lock.json && npm install
+
+  Then re-run this push. What npm objects to:
+
+MSG
+npm ci --dry-run --os=linux --cpu=x64 2>&1 | grep -E 'Missing:|npm error' | head -10 >&2
+echo >&2
+exit 1

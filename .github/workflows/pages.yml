@@ -64,9 +64,9 @@ jobs:
     name: Is it telling the truth?
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
 
@@ -111,13 +111,31 @@ jobs:
       run:
         working-directory: site
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: site/package-lock.json
+
+      # This build has failed twice, both times identically: an incremental
+      # `npm install <pkg>` run on macOS records only what macOS resolves and
+      # prunes the Linux-only WASM fallbacks (@emnapi/*, reached through
+      # @img/sharp-wasm32) back out of the lockfile. `npm ci` then refuses to
+      # run here, and reports it as an EUSAGE wall of text that says nothing
+      # about the actual cause. Checking it first turns that into an
+      # instruction. The same check is the first step of `npm run build`, so it
+      # should never fire — if it does, the local guard was bypassed.
+      - name: The lockfile installs on this platform
+        run: |
+          if npm ci --dry-run >/dev/null 2>&1; then
+            echo "Lockfile resolves cleanly on linux-x64."
+            exit 0
+          fi
+          echo "::error title=Lockfile is not installable on linux-x64::Run: cd site && rm -rf node_modules package-lock.json && npm install"
+          npm ci --dry-run 2>&1 | grep -E 'Missing:|npm error' | head -20
+          exit 1
 
       - run: npm ci
 
@@ -144,9 +162,9 @@ jobs:
           fi
           echo "No third-party origin in dist/."
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
 
