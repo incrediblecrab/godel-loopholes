@@ -1,0 +1,167 @@
+---
+layout: ../layouts/Essay.astro
+title: The method
+description: "Eight claims this project made and later disproved, six checks built to fail on purpose, and one command that re-runs everything. A search that has found nothing and says so."
+section: method
+---
+
+{/*
+  The method.
+
+  Answers one question: why should you believe any of this?
+
+  This is the payload of the whole site. The thesis is not "Gödel was right".
+  It is that a search which has found nothing, and which says so, and which
+  ships the script that would catch it lying, is worth more than a search that
+  announces a discovery.
+
+  The eight disproved claims are parsed out of README.md and the negative
+  controls out of verify.sh. Neither list is retyped here, so neither can
+  quietly shrink.
+*/}
+
+import MarginNote from '../components/MarginNote.astro';
+import Value from '../components/Value.astro';
+import Scoreboard from '../components/Scoreboard.astro';
+import DisprovedClaims from '../components/DisprovedClaims.astro';
+import { fact, vantage, vantageLong, num } from '../lib/facts';
+import { orderedListUnder, negativeControls, inline, blobUrl } from '../lib/content';
+
+export const claims = orderedListUnder('README.md', 'Claims made here and later disproved');
+export const controls = negativeControls();
+
+{/*
+  The headings render counts from facts.json; the lists are parsed out of
+  README.md and verify.sh. Nothing tied them together, so this page would
+  happily print "8 claims" over nine items -- which is precisely what the
+  margin note beside it promises will not happen.
+*/}
+export const claimItems = claims.map(inline);
+export const controlCountChecks = (() => {
+  for (const [id, parsed, where] of [
+    ['scoreboard.disproved', claims.length, 'README.md'],
+    ['verify.negative_controls', controls.length, 'verify.sh'],
+  ]) {
+    if (num(id) !== parsed) {
+      throw new Error(
+        `${id} is ${num(id)} but ${where} yields ${parsed}. One of them is stale.`,
+      );
+    }
+  }
+  return true;
+})();
+export const vacuous = fact('incident.vacuous_ablation');
+export const i219 = fact('incident.219');
+export const timeout = fact('incident.timeout');
+export const cascade = fact('cascade.status');
+
+<header class="wide lede">
+  <p class="kicker smallcaps">Why believe any of this</p>
+  <h1>The most persuasive thing here is the list of times we were wrong.</h1>
+  <p class="standfirst">A repository that records only its wins is not evidence of anything. This page is the part that makes the rest checkable, and it is deliberately the least flattering page on the site.</p>
+</header>
+
+<div class="wide">
+  <Scoreboard />
+</div>
+
+<section aria-labelledby="disproved">
+
+<h2 id="disproved"><Value id="scoreboard.disproved" bare /> claims made here and later disproved</h2>
+
+Every one of these was believed, written down, and then refuted — in most cases by an experiment we had already run, or by a reviewer reading more carefully than the author. They are kept in `README.md` and this page reads them from there, so the list cannot quietly get shorter.
+
+<ol class="claims">
+  <DisprovedClaims claims={claimItems} />
+</ol>
+
+<p class="also">One shipped experiment was also <strong>vacuous</strong> for a period: the ablation {vacuous.value}. Adversarial review caught it, not the harness, which is the wrong way round. Every ablation now carries a mandatory consistency probe and the harness fails if one is missing.</p>
+
+</section>
+
+<MarginNote head="Source">
+
+Parsed from <a href={blobUrl('README.md')}>README.md</a> at build time. If a ninth claim is disproved tomorrow, this page grows a ninth entry with no edit to the site.
+
+</MarginNote>
+
+<section aria-labelledby="harness">
+
+<h2 id="harness">One command re-runs all of it</h2>
+
+Everything on this site is checked by a single script. It takes a few minutes, it needs no credentials, and it will tell you if we are lying.
+
+<pre class="cmd"><code>git clone https://github.com/incrediblecrab/godel-loopholes
+cd godel-loopholes
+./verify.sh</code></pre>
+
+It runs <Value id="verify.checks" bare /> checks. It re-derives the Article&nbsp;V thresholds in Z3 by an independent route, re-compiles the Isabelle model and its ablations, checksums every source scan against the copy it was read from, and asserts that every load-bearing value in `data/facts.json` still appears in the file that owns it.
+
+It also checks its own advertising. The check count quoted in `README.md` is compared against the number of checks that actually ran, so this page cannot claim a number the harness does not produce.
+
+</section>
+
+<MarginNote head="The harness" facts={['verify.checks', 'verify.negative_controls']} />
+
+<section aria-labelledby="controls">
+
+<h2 id="controls"><Value id="verify.negative_controls" bare /> of those checks are built to fail</h2>
+
+A test suite that has never been observed to fail is not evidence that anything passed. So some checks feed the tools something false and fail if the tool accepts it. These are read out of `verify.sh`&#8217;s own section headers rather than counted by hand.
+
+<ul class="negative-controls">
+  {
+    controls.map((c) => (
+      <li>
+        <span class="ctl-id tabular">§{c.id}</span>
+        <span class="ctl-title">{c.title}</span>
+      </li>
+    ))
+  }
+</ul>
+
+The last is the one that matters most for this site: a deliberately corrupted `facts.json` is fed to the checker, and the harness fails if the checker accepts it. Without that, every fact on every page would be resting on a validator nobody had ever seen reject anything.
+
+</section>
+
+<section aria-labelledby="the-219">
+
+<h2 id="the-219">The incident that taught us the most</h2>
+
+While confirming the thresholds, Z3 printed {i219.value}.
+
+The solver was right and the label was wrong. The encoding minimised `yes` rather than `present`, so the larger number was an arbitrary witness among the models achieving the same count of yes votes. Nothing was unsound at any point. The formula answered exactly what had been written, and the English sentence attached to it claimed something the formula did not say.
+
+<p class="lesson">A verified result is only as good as the correspondence between the formula and the sentence in English beside it, and that correspondence is the one link in the chain no prover checks.</p>
+
+A second incident is worth the same attention. A timeout was reported as though it were a refutation, giving {timeout.value} where the harness had been written to expect two. Machine output has three states, and treating the third as the second is how a tool that cannot lie gets used to tell one.
+
+</section>
+
+<MarginNote head="On the record" facts={['incident.219', 'incident.timeout', 'incident.vacuous_ablation']} />
+
+<section aria-labelledby="vantage">
+
+<h2 id="vantage">Everything is fixed to one date</h2>
+
+Every number on this site is the number as it stood on <strong><time datetime={vantage}>{vantageLong}</time></strong>, the day Gödel took his citizenship examination in Trenton. That is not decoration. A reader who does not see the vantage will read every figure as a claim about today, and most of them are not.
+
+So <em>Powell v. McCormack</em> (1969) is out of bounds, and so is the Twenty-fifth Amendment (1967), and so is any state count after 1912. Authority decided after the vantage cannot be used to settle a question asked at it, even when we know how it came out.
+
+</section>
+
+<section aria-labelledby="open" class="caveat">
+
+<h2 id="open">The one live question, and how it came out</h2>
+
+Three rows of the silence inventory, chained together, suggested that the denominator of Article&nbsp;V is set by the body the fraction is meant to constrain. A chamber refuses to seat its own members-elect; the chamber gets smaller; a quorum of a smaller chamber is a smaller number; two thirds of that quorum is smaller still. Run to exhaustion it takes the congressional price of an amendment from <Value id="cascade.propose_price" bare /> people to four.
+
+The premise it rested on — that a quorum counts members actually chosen and sworn, not the statutory size of the chamber — held. Both chambers had said so in terms decades before the vantage, and we read it off the page images rather than take anyone’s word for it.
+
+It fails anyway, and it fails on arithmetic that needed none of that research. Removing members is business of the chamber, so it needs a quorum present, and the bloc driving it has to supply that quorum itself — the members it is removing will not stay to help make one. So the manoeuvre costs <Value id="cascade.entry_price" bare /> people before it has achieved anything. Proposing the amendment outright costs <Value id="cascade.propose_price" bare />. Anyone able to start it could already have finished, <Value id="cascade.extra_cost" bare /> members ago.
+
+It is recorded as <strong>{cascade.value}</strong>: a null result, written up in the same detail our own standard demands of a win, with the theorem proved for every chamber size at once and a negative control that makes the proof capable of failing. The two numbers that killed it had been sitting in our own committed output, unread, the whole time.
+
+</section>
+
+<MarginNote head="The question, resolved" facts={['cascade.status', 'silence.single_chamber']} />

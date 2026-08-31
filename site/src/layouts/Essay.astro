@@ -1,0 +1,45 @@
+---
+/**
+ * The layout every MDX page uses.
+ *
+ * Why this exists at all. Prose used to be typed directly into .astro pages as
+ * HTML, which is how the Article V paragraph came to state its own quotation
+ * twice: once hardcoded in a <p> and once again from data/facts.json. Prose
+ * that lives inside tags is not reviewable as prose. Moving it to MDX makes a
+ * paragraph a paragraph again, and makes the diff of an edit legible.
+ *
+ * The one thing MDX gives up is Astro's scoped <style>. Scoping works by
+ * stamping a data attribute onto elements the compiler can see in a template,
+ * and it cannot see through a rendered MDX body. Rather than pretend, the page
+ * CSS is namespaced instead of scoped: this layout sets `page-<section>` on the
+ * wrapper and src/styles/pages.css keys every page rule under that class. The
+ * isolation is by convention rather than by compiler, so the convention is
+ * stated here and enforced by scripts/lint-pages-css.mjs.
+ */
+import Base from './Base.astro';
+
+interface Frontmatter {
+  title: string;
+  description: string;
+  section: string;
+}
+
+interface Props {
+  frontmatter: Frontmatter;
+}
+
+const { frontmatter } = Astro.props;
+const { title, description, section } = frontmatter;
+
+if (!title || !description || !section) {
+  throw new Error(
+    `Essay layout: frontmatter needs title, description and section. Got ${JSON.stringify(frontmatter)}`,
+  );
+}
+---
+
+<Base title={title} description={description} section={section}>
+  <div class:list={['page', `page-${section}`]}>
+    <slot />
+  </div>
+</Base>

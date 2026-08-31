@@ -1,0 +1,104 @@
+---
+layout: ../layouts/Essay.astro
+title: Gödel’s Loophole
+description: "In 1947 Kurt Gödel said the United States Constitution contained a lawful path to dictatorship. He never wrote it down. This is a machine-checked attempt to find it, and an honest account of not having found it."
+section: claim
+---
+
+{/*
+ * The claim.
+ *
+ * Answers one question and no other: what did Goedel say, and is it true?
+ *
+ * The prose is `eli5.md` from the repository root, rendered. It is not copied
+ * here. If this page needs a new sentence, the sentence goes into `eli5.md`,
+ * because the alternative is two tellings of the same story that drift apart --
+ * which is exactly the failure `data/facts.json` exists to prevent for values.
+ */}
+
+import Scoreboard from '../components/Scoreboard.astro';
+import MarginNote from '../components/MarginNote.astro';
+import Prose from '../components/Prose.astro';
+import Value from '../components/Value.astro';
+import { fact } from '../lib/facts';
+import { readSections, pick, render } from '../lib/content';
+
+export const eli5 = readSections('eli5.md');
+export const [story, meaning] = pick(eli5, 'the-story', 'what-loophole-means-here');
+
+export const memo = fact('godel.memo.quote');
+export const doubt = fact('godel.memo.doubt');
+export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+<div class="wide lede">
+  <p class="kicker smallcaps">Trenton, New Jersey &#183; <Value id="godel.exam.date" bare /></p>
+  <h1>The greatest logician who ever lived said the Constitution could be used, lawfully, to end itself.</h1>
+  <p class="standfirst">He gave no details. He never wrote it down. The only witness typed it up twenty&#8209;four years later from memory and said he did not think G&#246;del was right. This is an attempt to find the hole anyway &#8212; by reading the words, and by treating the document as a machine &#8212; with every step checked by something other than a person who wanted it to be true.</p>
+</div>
+
+<div class="wide">
+  <Scoreboard />
+</div>
+
+<p class="verdict"><strong>No lawful path has been found.</strong> That is the current state of this project and the most useful thing on this page. What follows is what was looked for, how, and what turned up instead &#8212; including <a href={`${base}/method#disproved`}>the claims we made and then broke ourselves</a>.</p>
+
+<MarginNote head="Status" facts={['scoreboard.loopholes', 'cascade.status']} />
+
+<section id="story" aria-labelledby="story-head">
+  <h2 id="story-head">{story.title}</h2>
+  <Prose html={story.html} />
+</section>
+
+<MarginNote head="The only record" facts={['godel.memo.date', 'godel.memo.doubt']}>
+  <p class="pull">The memorandum is the entire evidentiary basis for the claim. It is a recollection, dictated from memory, by a man who opens by admitting he had not checked his diaries and closes by doubting the thing he is reporting.</p>
+</MarginNote>
+
+<figure class="memo">
+  <blockquote class="document" cite="Morgenstern memorandum">
+
+&#8220;{memo.value}&#8221;
+
+  </blockquote>
+  <figcaption>Oskar Morgenstern, <cite>History of the Naturalization of Kurt G&#246;del</cite>, dictated <Value id="godel.memo.date" bare />. Four paragraphs later he adds that{' '}{doubt.value}.</figcaption>
+</figure>
+
+<section id="meaning" aria-labelledby="meaning-head">
+  <h2 id="meaning-head">{meaning.title}</h2>
+  <Prose html={meaning.html} />
+</section>
+
+<MarginNote head="Why this is the hard version">
+
+A coup is not a loophole and is not interesting. The claim only has force if every step is one the rulebook plainly allows, because then enforcing the rules harder is no defence &#8212; enforcing the rules is what the attacker is doing.
+
+</MarginNote>
+
+<nav class="next wide" aria-label="Continue">
+  <h2>Where to go next</h2>
+  <ul>
+    <li>
+      <a href={`${base}/precedents`}>
+        <span class="next-label">The precedents</span>
+        <span class="next-gloss">Three constitutions have actually died this way, and each died through a different layer of law. That is why the question is not silly.</span>
+      </a>
+    </li>
+    <li>
+      <a href={`${base}/text`}>
+        <span class="next-label">The text</span>
+        <span class="next-gloss">An unstated denominator in Article&nbsp;V, a corrupted First Amendment, and twelve places the Constitution says nothing at all.</span>
+      </a>
+    </li>
+    <li>
+      <a href={`${base}/machine`}>
+        <span class="next-label">The machine</span>
+        <span class="next-gloss">Somebody already published a formal proof of G&#246;del&#8217;s claim. It reproduces. It also skips the hard part, and here is exactly which part.</span>
+      </a>
+    </li>
+    <li>
+      <a href={`${base}/method`}>
+        <span class="next-label">The method</span>
+        <span class="next-gloss">The rules that make this different from confident, plausible, generated analysis &#8212; and the list of things we got wrong.</span>
+      </a>
+    </li>
+  </ul>
+</nav>

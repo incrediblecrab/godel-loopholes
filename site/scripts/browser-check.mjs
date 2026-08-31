@@ -280,7 +280,7 @@ for (const path of ['/', '/precedents/', '/text/', '/machine/', '/method/']) {
   const claims = await page.locator('.claims li').count();
   record(claims === 8, 'the method page lists all eight disproved claims', `${claims} claims`);
 
-  const controls = await page.locator('.controls li').count();
+  const controls = await page.locator('.negative-controls li').count();
   record(controls === 8, 'and all eight negative controls', `${controls} controls`);
 
   await context.close();

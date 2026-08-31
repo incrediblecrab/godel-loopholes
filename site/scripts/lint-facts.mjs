@@ -35,7 +35,7 @@ const facts = JSON.parse(readFileSync(join(repoRoot, 'data', 'facts.json'), 'utf
 /** The accessor is allowed to know about facts.json. Nothing else is. */
 const EXEMPT = new Set(['src/lib/facts.ts']);
 
-const EXTENSIONS = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.jsx']);
+const EXTENSIONS = new Set(['.astro', '.mdx', '.ts', '.tsx', '.js', '.mjs', '.jsx']);
 
 /**
  * A numeric value is enforceable when a bare occurrence of it in source is

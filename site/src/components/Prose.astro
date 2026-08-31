@@ -1,0 +1,20 @@
+---
+/**
+ * Renders a block of already-parsed markdown from the research notes.
+ *
+ * Exists because `set:html` is an Astro template directive and MDX bodies are
+ * not Astro templates. Wrapping it in a component keeps the one path from the
+ * repo's markdown to the page, so a page still cannot fork the prose it shows.
+ *
+ * The html here is never user input. It comes from lib/content.ts reading files
+ * that are committed to this repository, so there is no injection surface.
+ */
+interface Props {
+  html: string;
+  class?: string;
+}
+
+const { html, class: className = 'prose' } = Astro.props;
+---
+
+<div class={className} set:html={html} />

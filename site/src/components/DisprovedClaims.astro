@@ -1,0 +1,16 @@
+---
+/**
+ * Renders the disproved-claims items parsed from README.md.
+ *
+ * MDX cannot use Astro's set:html directive in its body, so the page keeps
+ * ownership of the <ol class="claims"> wrapper and delegates only the inline
+ * HTML insertion needed for each list item.
+ */
+interface Props {
+  claims: string[];
+}
+
+const { claims } = Astro.props;
+---
+
+{claims.map((c) => <li set:html={c} />)}
