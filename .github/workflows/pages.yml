@@ -20,6 +20,16 @@
 #   change between commits. The full harness is the reader's to run, and the
 #   README says so. What runs here is the subset that needs no prover, which is
 #   exactly the subset that polices the website.
+#
+# Astro's deployment guide recommends the official `withastro/action`, which
+# installs, builds and uploads in one step. This workflow deliberately does not
+# use it. The truth checks above have to run as a gate BEFORE anything is built,
+# and the browser and third-party-origin checks have to run AFTER the build but
+# BEFORE the artifact is uploaded. A single combined step cannot express either
+# ordering, and a site that publishes a number contradicting data/facts.json is
+# a worse failure than a slightly longer workflow file. Everything else follows
+# the guide: `site` and `base` are set per the Pages recipe, and the Pages
+# source is set to GitHub Actions.
 
 name: Build and publish the site
 
@@ -149,4 +159,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
