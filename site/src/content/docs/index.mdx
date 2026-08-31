@@ -1,8 +1,6 @@
 ---
-layout: ../layouts/Essay.astro
 title: Gödel’s Loophole
 description: "In 1947 Kurt Gödel said the United States Constitution contained a lawful path to dictatorship. He never wrote it down. This is a machine-checked attempt to find it, and an honest account of not having found it."
-section: claim
 ---
 
 {/*
@@ -16,12 +14,13 @@ section: claim
  * which is exactly the failure `data/facts.json` exists to prevent for values.
  */}
 
-import Scoreboard from '../components/Scoreboard.astro';
-import MarginNote from '../components/MarginNote.astro';
-import Prose from '../components/Prose.astro';
-import Value from '../components/Value.astro';
-import { fact } from '../lib/facts';
-import { readSections, pick, render } from '../lib/content';
+import Scoreboard from '../../components/Scoreboard.astro';
+import InertStep from '../../islands/InertStep.astro';
+import MarginNote from '../../components/MarginNote.astro';
+import Prose from '../../components/Prose.astro';
+import Value from '../../components/Value.astro';
+import { fact } from '../../lib/facts';
+import { readSections, pick, render } from '../../lib/content';
 
 export const eli5 = readSections('eli5.md');
 export const [story, meaning] = pick(eli5, 'the-story', 'what-loophole-means-here');
@@ -32,15 +31,19 @@ export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <div class="wide lede">
   <p class="kicker smallcaps">Trenton, New Jersey &#183; <Value id="godel.exam.date" bare /></p>
-  <h1>The greatest logician who ever lived said the Constitution could be used, lawfully, to end itself.</h1>
-  <p class="standfirst">He gave no details. He never wrote it down. The only witness typed it up twenty&#8209;four years later from memory and said he did not think G&#246;del was right. This is an attempt to find the hole anyway &#8212; by reading the words, and by treating the document as a machine &#8212; with every step checked by something other than a person who wanted it to be true.</p>
+  <p class="hero">Delete G&#246;del&#8217;s first move. The proof still reaches dictatorship.</p>
+  <p class="standfirst">Not because the move was wrong &#8212; because the only published formalization of his claim had already assumed the condition that move exists to create. Repair that assumption, delete the move again, and the conclusion becomes independent: neither proved nor refuted. Below, you can run both deletions yourself.</p>
+</div>
+
+<div class="wide">
+  <InertStep />
 </div>
 
 <div class="wide">
   <Scoreboard />
 </div>
 
-<p class="verdict"><strong>No lawful path has been found.</strong> That is the current state of this project and the most useful thing on this page. What follows is what was looked for, how, and what turned up instead &#8212; including <a href={`${base}/method#disproved`}>the claims we made and then broke ourselves</a>.</p>
+<p class="verdict"><strong>No lawful path has been found.</strong> That is the current state of this project and the most useful thing on this page. What follows is what was looked for, how, and what turned up instead &#8212; including <a href={`${base}/method#claims-made-here-and-later-disproved`}>the claims we made and then broke ourselves</a>.</p>
 
 <MarginNote head="Status" facts={['scoreboard.loopholes', 'cascade.status']} />
 

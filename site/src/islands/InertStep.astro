@@ -1,0 +1,319 @@
+---
+/**
+ * The hero experiment: delete Gödel's step one, twice.
+ *
+ * Four states, driven by two native checkboxes and `:checked ~` sibling
+ * selectors. There is no JavaScript here at all, which is why it survives
+ * `scripting: none` and needs no Content-Security-Policy hash. The reader can
+ * reach every state with the keyboard.
+ *
+ * Deleted axioms are struck in graphite rather than red. Deletion is the
+ * experiment, not a verdict: nothing about a removed axiom has been refuted.
+ * The final state is `independent`, which is neither proved nor refuted, and
+ * it is coloured as inconclusive for exactly that reason.
+ */
+import { HERO_STATES, axioms, netadd } from '../lib/ablation';
+
+const publishedCells = axioms.map((a) => ({ label: a.label, stepOne: a.step_one }));
+const repairedCells = [
+  ...netadd.core.map((a) => ({ label: a.label, stepOne: false })),
+  ...netadd.step_one.map((a) => ({ label: a.label, stepOne: true })),
+];
+
+const GLYPH = { provable: '\u25a0', independent: '\u25cb' } as const;
+const WORD = { provable: 'PROVABLE', independent: 'INDEPENDENT' } as const;
+---
+
+<figure class="inert">
+  <input type="checkbox" id="inert-ablate" class="inert__input" />
+  <input type="checkbox" id="inert-repair" class="inert__input" />
+
+  <div class="inert__controls">
+    <span class="inert__legend">The experiment</span>
+    <label class="inert__toggle" for="inert-ablate">
+      <span class="inert__box" aria-hidden="true"></span>
+      <span class="inert__toggleText">Delete step one</span>
+    </label>
+    <label class="inert__toggle" for="inert-repair">
+      <span class="inert__box" aria-hidden="true"></span>
+      <span class="inert__toggleText">Repair the assumption</span>
+    </label>
+  </div>
+
+  <div class="inert__panel">
+    {
+      HERO_STATES.map((s) => {
+        const cells = s.model === 'published' ? publishedCells : repairedCells;
+        const struck = s.stepOne === 'deleted';
+        return (
+          <div class="inert__state" data-state={s.id}>
+            <div class="inert__stateHead">
+              <span class="inert__model">{s.modelLabel}</span>
+              <span class="inert__sep" aria-hidden="true">·</span>
+              <span class="inert__step">{s.stepOneLabel}</span>
+              <span class="inert__count">{s.axiomCount} axioms</span>
+            </div>
+
+            <div class="inert__body">
+              <div class="inert__field" role="img" aria-label={`${s.axiomCount} axioms in ${s.modelLabel.toLowerCase()}, step one ${s.stepOne}`}>
+                {cells.map((c) => (
+                  <span
+                    class:list={[
+                      'inert__cell',
+                      c.stepOne && 'is-stepOne',
+                      c.stepOne && struck && 'is-struck',
+                    ]}
+                    title={c.label}
+                  />
+                ))}
+              </div>
+
+              <ul class="inert__outcomes">
+                {s.outcomes.map((o) => (
+                  <li class="inert__outcome" data-verdict={o.verdict}>
+                    <span class="inert__glyph" aria-hidden="true">{GLYPH[o.verdict]}</span>
+                    <span class="inert__verdict">{WORD[o.verdict]}</span>
+                    <span class="inert__outLabel">{o.label}</span>
+                    <span class="inert__outDetail">{o.detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p class="inert__reading">{s.reading}</p>
+            <p class="inert__checked">Checked by <code>{s.checkedBy}</code></p>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <figcaption class="inert__scope">
+    A result about these formalizations, not a proof that the Constitution
+    contains a lawful path.
+  </figcaption>
+</figure>
+
+<style>
+  .inert {
+    margin: var(--space-xl) 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-top: var(--space-sm);
+  }
+
+  /* The inputs drive everything and are never seen. They stay in the layout
+     and in the tab order; the visible control is the <label>. */
+  .inert__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .inert__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .inert__legend {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-right: auto;
+  }
+
+  .inert__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.4em 0.7em;
+    border: 1px solid var(--rule-strong);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--ink);
+    cursor: pointer;
+    background: var(--paper);
+  }
+
+  .inert__box {
+    width: 0.72em;
+    height: 0.72em;
+    border: 1px solid var(--ink-muted);
+    display: inline-block;
+  }
+
+  /* Focus lives on the hidden input, so the ring has to be drawn on the label. */
+  #inert-ablate:focus-visible ~ .inert__controls label[for='inert-ablate'],
+  #inert-repair:focus-visible ~ .inert__controls label[for='inert-repair'] {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  #inert-ablate:checked ~ .inert__controls label[for='inert-ablate'],
+  #inert-repair:checked ~ .inert__controls label[for='inert-repair'] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  #inert-ablate:checked ~ .inert__controls label[for='inert-ablate'] .inert__box,
+  #inert-repair:checked ~ .inert__controls label[for='inert-repair'] .inert__box {
+    background: var(--paper);
+    border-color: var(--paper);
+  }
+
+  /* Four states, two checkboxes. Nothing is shown until one matches. */
+  .inert__state {
+    display: none;
+  }
+
+  #inert-ablate:not(:checked) ~ #inert-repair:not(:checked) ~ .inert__panel [data-state='published-full'],
+  #inert-ablate:checked ~ #inert-repair:not(:checked) ~ .inert__panel [data-state='published-ablated'],
+  #inert-ablate:not(:checked) ~ #inert-repair:checked ~ .inert__panel [data-state='repaired-full'],
+  #inert-ablate:checked ~ #inert-repair:checked ~ .inert__panel [data-state='repaired-ablated'] {
+    display: block;
+  }
+
+  .inert__stateHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5em;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .inert__model {
+    font-weight: 600;
+  }
+
+  .inert__sep,
+  .inert__step {
+    color: var(--ink-muted);
+  }
+
+  .inert__count {
+    margin-left: auto;
+    font-family: var(--font-machine);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+  }
+
+  .inert__body {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-lg);
+    margin: var(--space-md) 0;
+  }
+
+  @media (max-width: 46rem) {
+    .inert__body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .inert__field {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0.85rem, 1fr));
+    gap: 3px;
+    align-content: start;
+  }
+
+  .inert__cell {
+    aspect-ratio: 1;
+    background: var(--paper-sunk);
+    border: 1px solid var(--rule);
+  }
+
+  .inert__cell.is-stepOne {
+    background: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* Graphite, not red: a deleted axiom has not been refuted. */
+  .inert__cell.is-struck {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--ink-faint) 0 1px,
+      transparent 1px 4px
+    );
+    border-color: var(--ink-faint);
+    opacity: 0.55;
+  }
+
+  .inert__outcomes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .inert__outcome {
+    display: grid;
+    grid-template-columns: 1.1em minmax(6.5em, auto) 1fr;
+    align-items: baseline;
+    gap: 0.5em;
+    padding: 0.55em 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--text-xs);
+  }
+
+  .inert__glyph,
+  .inert__verdict {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    letter-spacing: 0.07em;
+  }
+
+  .inert__outcome[data-verdict='provable'] .inert__glyph,
+  .inert__outcome[data-verdict='provable'] .inert__verdict {
+    color: var(--verified);
+  }
+
+  .inert__outcome[data-verdict='independent'] .inert__glyph,
+  .inert__outcome[data-verdict='independent'] .inert__verdict {
+    color: var(--inconclusive);
+  }
+
+  .inert__outLabel {
+    font-weight: 600;
+  }
+
+  .inert__outDetail {
+    grid-column: 3;
+    color: var(--ink-muted);
+    font-family: var(--font-machine);
+    font-size: var(--text-xs);
+  }
+
+  .inert__reading {
+    margin: var(--space-sm) 0 0;
+    max-width: 54ch;
+    font-size: var(--text-md);
+    line-height: var(--leading-snug);
+  }
+
+  .inert__checked {
+    margin: 0.35em 0 var(--space-md);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+  }
+
+  .inert__scope {
+    padding: 0.6em 0;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    max-width: 60ch;
+  }
+</style>

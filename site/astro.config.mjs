@@ -1,6 +1,26 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
+import starlight from '@astrojs/starlight';
+
+// The site fetches no third-party origin, at build time or in the browser, so
+// the policy can start from `none` and name only what actually ships.
+//
+// No `frame-ancestors`: the browser ignores it when it arrives in a meta
+// element and logs a console warning saying so on every page load, and a
+// directive that does nothing except generate a warning teaches readers of the
+// console to ignore warnings. `wasm-unsafe-eval` is present because Starlight's
+// search is Pagefind, which is WebAssembly -- it is still same-origin and still
+// no weaker than 'self' for script.
+const CSP = [
+  "default-src 'none'",
+  "script-src 'self' 'wasm-unsafe-eval'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "form-action 'none'",
+  "base-uri 'none'",
+].join('; ');
 
 // The site is served from a GitHub Pages project page, so every asset and link
 // sits under /godel-loopholes/. Getting this wrong produces a site that works
@@ -11,16 +31,69 @@ export default defineConfig({
   base: '/godel-loopholes',
   trailingSlash: 'ignore',
   output: 'static',
-  // Prose is authored as MDX, not typed into .astro templates. The rule this
-  // enforces is the project's own: narrative is authored per audience, but it
-  // is authored exactly once. Prose living inside HTML tags is how the Article
-  // V paragraph ended up stating its own quotation twice, and how a number on
-  // the page drifts from data/facts.json without anything failing.
-  integrations: [mdx()],
+
+  integrations: [
+    starlight({
+      title: "Gödel's Loophole",
+      description:
+        'Does the Constitution of December 5, 1947 permit its own lawful end? A machine-checked search, and an honest account of not having found one.',
+
+      // Starlight bundles MDX, so no separate @astrojs/mdx entry is needed or
+      // wanted: registering it twice makes the integration order significant
+      // for no benefit.
+      customCss: [
+        './src/styles/fonts.css',
+        './src/styles/tokens.css',
+        './src/styles/pages.css',
+        './src/styles/starlight.css',
+      ],
+
+      // Starlight owns <head>, so the security headers the old hand-written
+      // layout injected are declared here instead. scripts/seal-csp.mjs then
+      // pins script-src to the SHA-256 of every inline script that actually
+      // shipped, and fails the build if one is not covered.
+      head: [
+        {
+          tag: 'meta',
+          attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP },
+        },
+        { tag: 'meta', attrs: { name: 'referrer', content: 'no-referrer' } },
+        { tag: 'meta', attrs: { name: 'color-scheme', content: 'light dark' } },
+      ],
+
+      social: [
+        {
+          icon: 'github',
+          label: 'GitHub',
+          href: 'https://github.com/incrediblecrab/godel-loopholes',
+        },
+      ],
+
+      // The reading order is the argument: a claim, why it is not absurd, what
+      // reading the words found, what formalising it found, and only then the
+      // reasons to believe any of it. Alphabetical order would destroy that.
+      sidebar: [
+        { label: 'The claim', link: '/' },
+        { label: 'The precedents', link: '/precedents/' },
+        { label: 'The text', link: '/text/' },
+        { label: 'The machine', link: '/machine/' },
+        { label: 'The method', link: '/method/' },
+      ],
+
+      editLink: {
+        baseUrl: 'https://github.com/incrediblecrab/godel-loopholes/edit/main/site/',
+      },
+
+      lastUpdated: true,
+
+      // No third-party origin, at build time or in the browser. Starlight's
+      // default search is Pagefind, which is built locally and served from the
+      // same origin, so it does not break that property.
+      pagefind: true,
+    }),
+  ],
+
   build: {
-    // One stylesheet rather than a per-page cascade of small ones. The whole
-    // design system is about forty custom properties; splitting it costs more
-    // in requests than it saves in bytes.
     inlineStylesheets: 'auto',
     format: 'directory',
   },
@@ -28,8 +101,6 @@ export default defineConfig({
   devToolbar: { enabled: false },
   vite: {
     build: {
-      // No vendor chunk splitting: the islands are small and independent, and a
-      // shared chunk would be downloaded by pages that use none of it.
       cssCodeSplit: false,
     },
   },

@@ -1,0 +1,145 @@
+/* Starlight's chrome, wearing this project's design system.
+ *
+ * This file maps tokens.css onto Starlight's own custom properties. It defines
+ * no colour of its own: every value here is a var() reference, so tokens.css
+ * remains the single place a colour is decided and the WCAG check in
+ * tools/contrast.py still polices the whole palette.
+ */
+
+:root {
+  --sl-font: var(--font-prose);
+  --sl-font-mono: var(--font-machine);
+
+  /* Starlight's ramp runs brightest to darkest. tokens.css already inverts each
+   * of these between the light and dark themes, so one mapping serves both:
+   * --ink is dark ink on paper in light, light ink on near-black in dark, and
+   * Starlight's ramp inherits that inversion for free.
+   */
+  --sl-color-white: var(--ink);
+  --sl-color-gray-1: var(--ink);
+  --sl-color-gray-2: var(--ink-muted);
+  --sl-color-gray-3: var(--ink-faint);
+  --sl-color-gray-4: var(--rule-strong);
+  --sl-color-gray-5: var(--rule);
+  --sl-color-gray-6: var(--paper-sunk);
+  --sl-color-gray-7: var(--paper-raised);
+  --sl-color-black: var(--paper);
+
+  --sl-color-text: var(--ink-muted);
+  --sl-color-text-accent: var(--verified);
+  --sl-color-bg: var(--paper);
+  --sl-color-bg-nav: var(--paper);
+  --sl-color-bg-sidebar: var(--paper);
+  --sl-color-bg-inline-code: var(--paper-sunk);
+  --sl-color-hairline: var(--rule);
+  --sl-color-hairline-light: var(--rule);
+  --sl-color-hairline-shade: var(--rule);
+
+  /* The accent is the verified green from the three-value epistemic scale, not
+   * a brand colour. Starlight's default blue says nothing; this says "checked",
+   * and it is the same green the scoreboard and verify.sh use for a pass.
+   */
+  --sl-color-accent: var(--verified);
+  --sl-color-accent-low: var(--verified-tint);
+  --sl-color-accent-high: var(--verified);
+
+  --sl-content-width: 50rem;
+}
+
+/* The document sets in the editorial serif. The chrome stays in the UI face so
+ * navigation does not compete with prose for the reader's attention. */
+.sl-markdown-content {
+  font-family: var(--font-prose);
+}
+
+.sidebar-content,
+.site-title,
+site-search,
+starlight-theme-select,
+.right-sidebar {
+  font-family: var(--font-ui);
+}
+
+/* Constitutional quotation reads as a document rather than as interface. */
+.sl-markdown-content blockquote,
+.sl-markdown-content .document {
+  font-family: var(--font-document);
+}
+
+/* A margin note has no margin to sit in under Starlight's single column, so it
+ * becomes what it always was underneath: an apparatus set quieter than the
+ * prose and ruled off from it. It is still never hidden behind a disclosure --
+ * the reader these citations exist for will not click to find out whether the
+ * project is serious. This is also what removes the nine note-against-figure
+ * collisions the old two-column layout produced on every page. */
+.sl-markdown-content .margin-note {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-sm);
+  border-left: 2px solid var(--rule);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--ink-muted);
+}
+
+.sl-markdown-content .margin-note p {
+  margin: 0.15em 0;
+}
+
+.sl-markdown-content .margin-note .smallcaps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.06em;
+}
+
+/* The interactive artifacts are the argument, so they get the full measure. */
+.sl-markdown-content .wide {
+  width: 100%;
+}
+
+/* Numerals that have to align in a column. Carried over from base.css, which is
+ * otherwise not loaded: it is a 500-line global reset over html, body, h1-h4, p
+ * and a, and Starlight owns those now. Taking the one rule still needed is the
+ * documented way to customise Starlight -- targeted CSS through customCss,
+ * applied after its own styles -- rather than overriding its layout wholesale. */
+.tabular {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Starlight renders the search button disabled and its client script enables
+   it on mount. With scripting off that script never runs, so the control stays
+   visible, permanently dead and unfocusable -- a control that cannot be used
+   should not be offered. The site is fully usable without it: every page is a
+   complete document and the sidebar is plain links. */
+@media (scripting: none) {
+  site-search {
+    display: none;
+  }
+}
+
+/* Progressive-enhancement pair, carried over from the unloaded base.css. It
+   uses the `scripting` media feature rather than a class set by an inline
+   script, because that script would force 'unsafe-inline' into the CSP for the
+   sake of a hint. Hidden is the default so a browser without the feature fails
+   toward a missing control rather than a dead one.
+
+   Both halves are needed. Dropping them left `.needs-js` controls rendering
+   dead with scripting off, while the matching `.no-js-only` check stayed green
+   purely because an unstyled element is visible anyway -- the mechanism was
+   gone and one of its two tests still passed. */
+.needs-js {
+  display: none;
+}
+
+.no-js-only {
+  display: revert;
+}
+
+@media (scripting: enabled) {
+  .needs-js {
+    display: revert;
+  }
+
+  .no-js-only {
+    display: none;
+  }
+}

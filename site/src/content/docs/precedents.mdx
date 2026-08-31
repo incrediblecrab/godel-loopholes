@@ -1,8 +1,6 @@
 ---
-layout: ../layouts/Essay.astro
 title: The precedents
 description: "Three constitutions died between the wars, each at a different depth: Germany 1933 through the amendment clause, Austria 1933 through a statute outside the constitution, Italy 1925 through ordinary law with the text untouched. They are kept as a filter on this project's own methods."
-section: precedents
 ---
 
 {/*
@@ -18,12 +16,12 @@ section: precedents
  * to anyone reading a constitution.
  */}
 
-import MarginNote from '../components/MarginNote.astro';
-import Prose from '../components/Prose.astro';
-import Value from '../components/Value.astro';
-import CollapseLayers from '../islands/CollapseLayers.astro';
-import { fact } from '../lib/facts';
-import { readSections, pick } from '../lib/content';
+import MarginNote from '../../components/MarginNote.astro';
+import Prose from '../../components/Prose.astro';
+import Value from '../../components/Value.astro';
+import CollapseLayers from '../../islands/CollapseLayers.astro';
+import { fact } from '../../lib/facts';
+import { readSections, pick } from '../../lib/content';
 
 export const [why] = pick(readSections('eli5.md'), 'why-anyone-thinks-this-is-possible');
 export const filter = fact('collapse.filter');
@@ -34,7 +32,7 @@ export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <header class="wide lede">
   <p class="kicker smallcaps">Why this is not a crazy question</p>
-  <h1>Three constitutions died this way, and each died at a different depth.</h1>
+  <p class="hero">Three constitutions died this way, and each died at a different depth.</p>
   <p class="standfirst">Gödel was not speculating about something that had never happened. He had watched it happen to his own country nine years earlier, and he emigrated because of it.</p>
 </header>
 
@@ -49,9 +47,9 @@ The narrative above is rendered from <code>eli5.md</code> at build time rather t
 
 </MarginNote>
 
-<section aria-labelledby="depths">
+<section aria-labelledby="the-three-depths">
 
-<h2 id="depths">The three depths</h2>
+## The three depths
 
 The cases are usually told as one story about the 1930s. They are three different stories, and the difference is the part that matters to a project that proposes to search a constitution for a defect.
 
@@ -63,9 +61,9 @@ Only Germany&#8217;s path went through the constitution. Austria&#8217;s ran thr
   <CollapseLayers />
 </div>
 
-<section aria-labelledby="filter">
+<section aria-labelledby="this-is-a-test-we-set-for-ourselves-not-a-result">
 
-<h2 id="filter">This is a test we set for ourselves, not a result</h2>
+## This is a test we set for ourselves, not a result
 
 {filter.value} That is not a historical observation. It is a standing objection to the method this project is built on, and it is kept in front of us on purpose.
 
@@ -77,9 +75,9 @@ Italy is held out deliberately as the case where the method is <em>predicted to 
 
 <MarginNote head="The three analyses" facts={['collapse.germany', 'collapse.austria', 'collapse.italy']} />
 
-<section aria-labelledby="arithmetic">
+<section aria-labelledby="the-german-case-has-arithmetic-in-it-that-nobody-quotes">
 
-<h2 id="arithmetic">The German case has arithmetic in it that nobody quotes</h2>
+## The German case has arithmetic in it that nobody quotes
 
 Article&nbsp;76 is described everywhere as a two-thirds amendment rule. It was two rules. Two thirds of the statutory membership had to be present, and two thirds of those present had to assent, and those fractions compose.
 
@@ -96,9 +94,9 @@ The actual vote was nowhere near that minimum, and the honest reading of that ma
   facts={['collapse.germany.threshold', 'collapse.germany.votes']}
 />
 
-<section aria-labelledby="not-america" class="caveat">
+<section aria-labelledby="what-this-does-not-show-about-the-united-states" class="caveat">
 
-<h2 id="not-america">What this does <em>not</em> show about the United States</h2>
+## What this does _not_ show about the United States
 
 The comparison is the first thing a reader will reach for and it comes out the other way. {rigidity.statement}
 

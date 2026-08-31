@@ -96,13 +96,15 @@ for (const page of pages) {
     if (/script-src[^;]*'unsafe-inline'/.test(policy)) {
       problems.push(`${rel}: script-src contains 'unsafe-inline'`);
     }
-    // A hash source suppresses 'unsafe-inline' but NOT 'self'. Leaving 'self'
-    // beside the hashes means any same-origin script URL still executes, so
-    // the policy would be exactly as strong as 'self' and no stronger --
-    // which is not what this script or the layout comment claim.
-    if (/script-src[^;]*'self'/.test(policy)) {
+    // 'self' is required now and was not before. The hand-written layout shipped
+    // inline scripts only, so 'self' could be dropped and the hashes were the
+    // whole policy. Starlight ships bundled module scripts as real files, so
+    // dropping 'self' blocks the site's own JavaScript. What the hashes still
+    // buy is inline coverage: 'unsafe-inline' is absent, so an injected inline
+    // script is refused unless its hash was present at build time.
+    if (!/script-src[^;]*'self'/.test(policy)) {
       problems.push(
-        `${rel}: script-src still contains 'self', so the hashes buy nothing`,
+        `${rel}: script-src is missing 'self', so Starlight's bundled scripts cannot load`,
       );
     }
     if (hashes.length === 0 && !/script-src\s+'none'/.test(policy)) {
@@ -117,16 +119,17 @@ for (const page of pages) {
     continue;
   }
 
-  // Replace script-src outright rather than appending to it. 'self' must go:
-  // a hash source suppresses 'unsafe-inline' but not 'self', so appending
-  // leaves a policy exactly as strong as 'self' while reading like a pinned
-  // one. The build emits no external <script src> at all, so nothing is lost.
+  // Rebuild script-src as 'self' plus a hash per inline script. 'self' has to
+  // stay: Starlight emits bundled module scripts as real files, and without it
+  // the site's own JavaScript is refused. The hashes are what keeps inline
+  // script pinned, since 'unsafe-inline' is absent.
   const next = policy.replace(/(script-src)([^;]*)/, (_all, key, rest) => {
     const keep = rest
       .trim()
       .split(/\s+/)
-      .filter((t) => t && t !== "'self'" && !t.startsWith("'sha256-"));
-    const sources = hashes.length > 0 ? [...keep, ...hashes] : [...keep, "'none'"];
+      .filter((t) => t && t !== "'none'" && !t.startsWith("'sha256-"));
+    if (!keep.includes("'self'")) keep.unshift("'self'");
+    const sources = [...keep, ...hashes];
     return `${key} ${sources.join(' ')}`.replace(/\s+/g, ' ');
   });
 

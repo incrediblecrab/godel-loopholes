@@ -13,6 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { REPO_ROOT } from './content';
+import { fact } from './facts';
 
 export interface Axiom {
   label: string;
@@ -35,6 +36,11 @@ export interface Ablation {
   step_one: string[];
   step_one_broken_scripts: string[];
   results: { theorems: string[]; amd1_lemmas: string[] };
+  netadd: {
+    note: string;
+    core: { label: string; formula: string; raw: string }[];
+    step_one: { label: string; formula: string; raw: string }[];
+  };
 }
 
 const file: Ablation = JSON.parse(
@@ -104,3 +110,143 @@ export const STATES: AblationState[] = [
 export function kept(state: AblationState): number {
   return file.axioms.filter(state.keeps).length;
 }
+
+/**
+ * The repaired model, parsed from GodelNetAddCore.thy and GodelNetAddFull.thy.
+ *
+ * The published model asserts that the dictatorship amendment was proposed --
+ * which is the very thing step one exists to bring about, so step one is inert
+ * in it. The repaired model derives the proposal instead. Deleting step one
+ * then leaves the dictatorship theorem independent rather than provable.
+ *
+ * Both inventories come from the theory files for the same reason: a number
+ * typed into a component is a number nobody is checking.
+ */
+export interface NetAddAxiom {
+  label: string;
+  formula: string;
+  raw: string;
+}
+
+export const netadd = file.netadd;
+
+if (!netadd?.core?.length || !netadd?.step_one?.length) {
+  throw new Error(
+    'data/ablation.json carries no repaired model; regenerate with axiom_sweep.py inventory',
+  );
+}
+
+/**
+ * The four states of the hero experiment, which together are the whole
+ * argument: delete step one from the published model and the dictatorship
+ * still follows; repair the assumption, delete it again, and it no longer
+ * does.
+ *
+ * `verdict` is the measured outcome for Dictatorship_t3. It is 'independent'
+ * rather than 'refuted' in the last state, and the distinction is the result:
+ * Nitpick returns countermodels to the theorem AND to its negation. Calling
+ * that a refutation would be a straightforward overclaim.
+ */
+export type Verdict = 'provable' | 'independent';
+
+/** One measured row in the outcome panel. */
+export interface Outcome {
+  label: string;
+  detail: string;
+  verdict: Verdict;
+}
+
+export interface HeroState {
+  id: string;
+  model: 'published' | 'repaired';
+  stepOne: 'present' | 'deleted';
+  modelLabel: string;
+  stepOneLabel: string;
+  axiomCount: number;
+  verdict: Verdict;
+  outcomes: Outcome[];
+  /** What the reader should take from this state, in one sentence. */
+  reading: string;
+  checkedBy: string;
+}
+
+const nThm = file.results.theorems.length;
+const nLem = file.results.amd1_lemmas.length;
+
+/** The repeal proposition, named by the single source of truth. */
+const repealCost = String(fact('model.stepone.cost').value);
+
+const publishedTotal = file.axioms.length;
+const publishedAblated = file.axioms.filter((a) => !a.step_one).length;
+const repairedTotal = netadd.core.length + netadd.step_one.length;
+
+export const HERO_STATES: HeroState[] = [
+  {
+    id: 'published-full',
+    model: 'published',
+    stepOne: 'present',
+    modelLabel: 'The published model',
+    stepOneLabel: "Gödel's step one present",
+    axiomCount: publishedTotal,
+    verdict: 'provable',
+    outcomes: [
+      { label: `${nThm} published theorems`, detail: file.results.theorems.join(', '), verdict: 'provable' },
+      { label: `${nLem} intermediate lemmas`, detail: file.results.amd1_lemmas.join(', '), verdict: 'provable' },
+      { label: 'Ratification of the repeal', detail: repealCost, verdict: 'provable' },
+      { label: 'Dictatorship_t3', detail: 'the dictatorship is reached', verdict: 'provable' },
+    ],
+    reading:
+      'Zahoransky and Benzmüller’s formalization, exactly as published. The dictatorship follows.',
+    checkedBy: 'axiom_sweep.py all',
+  },
+  {
+    id: 'published-ablated',
+    model: 'published',
+    stepOne: 'deleted',
+    modelLabel: 'The published model',
+    stepOneLabel: "Gödel's step one deleted",
+    axiomCount: publishedAblated,
+    verdict: 'provable',
+    outcomes: [
+      { label: `${nThm} published theorems`, detail: 'all still prove', verdict: 'provable' },
+      { label: `${nLem} intermediate lemmas`, detail: 'all still prove; two proof scripts re-proved', verdict: 'provable' },
+      { label: 'Ratification of the repeal', detail: `${repealCost} — the one thing lost`, verdict: 'independent' },
+      { label: 'Dictatorship_t3', detail: 'still reached, without step one', verdict: 'provable' },
+    ],
+    reading:
+      'Every published theorem and every lemma still proves. Only the ratification of the repeal stops following.',
+    checkedBy: 'axiom_sweep.py noamd1, then repeal',
+  },
+  {
+    id: 'repaired-full',
+    model: 'repaired',
+    stepOne: 'present',
+    modelLabel: 'The repaired model',
+    stepOneLabel: "Gödel's step one present",
+    axiomCount: repairedTotal,
+    verdict: 'provable',
+    outcomes: [
+      { label: 'The decisive proposal', detail: 'derived, not asserted', verdict: 'provable' },
+      { label: 'Dictatorship_t3', detail: 'the dictatorship is reached', verdict: 'provable' },
+    ],
+    reading:
+      'The proposal is derived rather than asserted. With step one present the dictatorship still follows.',
+    checkedBy: 'verify.sh section 4h',
+  },
+  {
+    id: 'repaired-ablated',
+    model: 'repaired',
+    stepOne: 'deleted',
+    modelLabel: 'The repaired model',
+    stepOneLabel: "Gödel's step one deleted",
+    axiomCount: netadd.core.length,
+    verdict: 'independent',
+    outcomes: [
+      { label: 'The decisive proposal', detail: 'no longer derivable', verdict: 'independent' },
+      { label: 'Dictatorship_t3', detail: 'countermodels to the theorem and to its negation', verdict: 'independent' },
+    ],
+    reading:
+      'Now it does not. Nitpick returns countermodels to the theorem and to its negation, in a theory it also finds consistent.',
+    checkedBy: 'verify.sh section 4h, the three-probe ablation',
+  },
+];

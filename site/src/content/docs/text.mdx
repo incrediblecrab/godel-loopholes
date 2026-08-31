@@ -1,8 +1,6 @@
 ---
-layout: ../layouts/Essay.astro
 title: The text
 description: "What reading the words of the 1947 Constitution actually found: an unstated denominator in Article V, a corrupted First Amendment across six independent witnesses, and twelve constitutional silences."
-section: text
 ---
 
 {/*
@@ -20,15 +18,15 @@ section: text
   below can drift from the research without the build failing.
 */}
 
-import MarginNote from '../components/MarginNote.astro';
-import Prose from '../components/Prose.astro';
-import Value from '../components/Value.astro';
-import ThresholdMachine from '../islands/ThresholdMachine.astro';
-import RecensionDiff from '../islands/RecensionDiff.astro';
-import SilenceInventory from '../islands/SilenceInventory.astro';
-import { fact } from '../lib/facts';
-import { DIVERGENCES } from '../lib/recension';
-import { readSections, pick } from '../lib/content';
+import MarginNote from '../../components/MarginNote.astro';
+import Prose from '../../components/Prose.astro';
+import Value from '../../components/Value.astro';
+import ThresholdMachine from '../../islands/ThresholdMachine.astro';
+import RecensionDiff from '../../islands/RecensionDiff.astro';
+import SilenceInventory from '../../islands/SilenceInventory.astro';
+import { fact } from '../../lib/facts';
+import { DIVERGENCES } from '../../lib/recension';
+import { readSections, pick } from '../../lib/content';
 
 export const [ways] = pick(readSections('eli5.md'), 'the-two-ways-in');
 export const unstated = fact('articlev.base.unstated');
@@ -45,13 +43,13 @@ export const SPELLED_COUNT = ['zero', 'one', 'two', 'three', 'four', 'five', 'si
 
 <header class="wide lede">
   <p class="kicker smallcaps">Route one</p>
-  <h1>Read the words. Find where the text does not say what everyone assumes.</h1>
+  <p class="hero">Read the words. Find where the text does not say what everyone assumes.</p>
   <p class="standfirst">This sounds like a stretch until it happens. Three things turned up, and only one of them was being looked for.</p>
 </header>
 
-<section aria-labelledby="denominator">
+<section aria-labelledby="the-denominator-nobody-states">
 
-<h2 id="denominator">The denominator nobody states</h2>
+## The denominator nobody states
 
 {unstated.value} Two thirds of the membership and two thirds of those voting are different numbers, and the text does not choose between them.
 
@@ -72,11 +70,11 @@ One number in that machine is worth stopping on. The House's <Value id="house.si
 
 <MarginNote head="The number nobody enacted" facts={['house.size', 'house.size.1911']} />
 
-<p class="aside">The Z3 solver re&#8209;derives these figures independently in section&nbsp;2 of the harness, from the fractions rather than from our arithmetic. It is also where this project made one of its more instructive mistakes, which is <a href={`${base}/method#the-219`}>recorded rather than quietly fixed</a>.</p>
+<p class="aside">The Z3 solver re&#8209;derives these figures independently in section&nbsp;2 of the harness, from the fractions rather than from our arithmetic. It is also where this project made one of its more instructive mistakes, which is <a href={`${base}/method#the-incident-that-taught-us-the-most`}>recorded rather than quietly fixed</a>.</p>
 
-<section aria-labelledby="recension">
+<section aria-labelledby="a-comma-is-not-a-triviality">
 
-<h2 id="recension">A comma is not a triviality</h2>
+## A comma is not a triviality
 
 Ten amendments were collated across <Value id="recension.witnesses" bare words /> independent witnesses, expecting them to be identical. On wording they agree completely, and every one of the {SPELLED_COUNT} differences that turned up is a comma or a letter. Nobody planted these; the collation was run to check that our copies matched.
 
@@ -91,9 +89,9 @@ Ten amendments were collated across <Value id="recension.witnesses" bare words /
   <RecensionDiff />
 </div>
 
-<section aria-labelledby="silence">
+<section aria-labelledby="twelve-places-the-document-says-nothing">
 
-<h2 id="silence">Twelve places the document says nothing</h2>
+## Twelve places the document says nothing
 
 A silence is not the same as a permission, and it is not the same as a prohibition. It is a field the constitution declines to reserve to itself, where ordinary law governs and no constitutional provision constrains what that law may say. Enumerating them is cheap, and the result is a map of who actually holds each pen.
 

@@ -16,24 +16,8 @@
  *   node scripts/browser-check.mjs
  */
 
-import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
-import { join, extname, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-
-const siteRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
-const dist = join(siteRoot, 'dist');
-const BASE = '/godel-loopholes';
-
-const TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.woff2': 'font/woff2',
-  '.svg': 'image/svg+xml',
-  '.json': 'application/json',
-};
+import { serveDist, BASE } from './lib/serve-dist.mjs';
 
 const results = [];
 const record = (ok, name, detail = '') => {
@@ -44,30 +28,8 @@ const record = (ok, name, detail = '') => {
 
 /* --------------------------------------------------------------- the server */
 
-const server = createServer(async (req, res) => {
-  try {
-    let path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-    if (path.startsWith(BASE)) path = path.slice(BASE.length);
-    if (path === '' || path.endsWith('/')) path += 'index.html';
-    let full = join(dist, path);
-    try {
-      if ((await stat(full)).isDirectory()) full = join(full, 'index.html');
-    } catch {
-      /* fall through to the read, which produces the 404 */
-    }
-    const body = await readFile(full);
-    // Deliberately no security headers. The point is to test the policy the
-    // site actually carries in its own markup, not one the test server added.
-    res.writeHead(200, { 'content-type': TYPES[extname(full)] ?? 'application/octet-stream' });
-    res.end(body);
-  } catch {
-    res.writeHead(404, { 'content-type': 'text/plain' });
-    res.end('not found');
-  }
-});
-
-await new Promise((r) => server.listen(0, '127.0.0.1', r));
-const origin = `http://127.0.0.1:${server.address().port}`;
+const server = await serveDist();
+const origin = server.origin;
 
 /* -------------------------------------------------------------- the checks */
 

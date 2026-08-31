@@ -13,8 +13,15 @@
  * and it cannot see through a rendered MDX body. Rather than pretend, the page
  * CSS is namespaced instead of scoped: this layout sets `page-<section>` on the
  * wrapper and src/styles/pages.css keys every page rule under that class. The
- * isolation is by convention rather than by compiler, so the convention is
- * stated here and enforced by scripts/lint-pages-css.mjs.
+ * isolation is by convention rather than by compiler.
+ *
+ * NOTE: this layout is currently orphaned. The Starlight migration emptied
+ * src/pages/, so nothing imports it and nothing it says is in force -- Starlight
+ * supplies `.sl-markdown-content` as the wrapper instead. It is kept, unused,
+ * because the docs chrome is being replaced by an editorial layout and this is
+ * the closest thing to a specification of what that layout has to restore:
+ * the namespace convention, the security headers in Base.astro, and the
+ * progressive-enhancement pair. Delete it once that work lands, not before.
  */
 import Base from './Base.astro';
 

@@ -1,8 +1,6 @@
 ---
-layout: ../layouts/Essay.astro
 title: The machine
 description: "Somebody already published a machine-checked proof that Gödel was right. It reproduces. This is what happens when you ask which of its fifty-one axioms the proof is actually using, what breaks when Gödel's own step one is deleted, and what changes in a repaired model that derives the step the published one assumes."
-section: machine
 ---
 
 {/*
@@ -25,11 +23,11 @@ section: machine
  * cannot deliver what it looks like it delivers, repaired or not.
  */}
 
-import MarginNote from '../components/MarginNote.astro';
-import Value from '../components/Value.astro';
-import AxiomAblation from '../islands/AxiomAblation.astro';
-import { fact } from '../lib/facts';
-import { blobUrl } from '../lib/content';
+import MarginNote from '../../components/MarginNote.astro';
+import Value from '../../components/Value.astro';
+import AxiomAblation from '../../islands/AxiomAblation.astro';
+import { fact } from '../../lib/facts';
+import { blobUrl } from '../../lib/content';
 
 export const cost = fact('model.stepone.cost');
 export const i219 = fact('incident.219');
@@ -40,13 +38,13 @@ export const INERT = 'analysis/united-states-1947/inert-manoeuvre.md';
 
 <header class="wide lede">
   <p class="kicker smallcaps">Route two</p>
-  <h1>Treat the document as a machine, and ask what states it can reach.</h1>
+  <p class="hero">Treat the document as a machine, and ask what states it can reach.</p>
   <p class="standfirst">Somebody has already done this and published a proof. The interesting part is not that it works. It is what the proof turns out to be made of — and what happens when you rebuild it without the shortcut.</p>
 </header>
 
-<section aria-labelledby="reproduces">
+<section aria-labelledby="it-reproduces">
 
-<h2 id="reproduces">It reproduces</h2>
+## It reproduces
 
 Zahoransky and Benzmüller built a model of Gödel&#8217;s argument in Isabelle/HOL, a proof assistant whose kernel checks every step. It compiles clean against Isabelle 2025 and discharges thirty theorems, including the three that carry the argument: no dictatorship under the Constitution as it stood, none after Article&nbsp;V is amended, and dictatorship reached at the third step with no rule broken.
 
@@ -66,9 +64,9 @@ One deviation is deliberate: the bold-face connectives were renamed to avoid col
 
 </MarginNote>
 
-<section aria-labelledby="ablation">
+<section aria-labelledby="now-take-it-apart">
 
-<h2 id="ablation">Now take it apart</h2>
+## Now take it apart
 
 A proof that checks tells you the conclusion follows. It does not tell you what it follows <em>from</em>. The model has <Value id="model.axioms.total" bare /> axioms, and the natural question — which ones is the proof using? — is not one the paper asks.
 
@@ -85,9 +83,9 @@ Ablation answers it by deletion. Remove an axiom, ask the machine whether the th
   facts={['model.axioms.total', 'model.axioms.sufficient', 'model.axioms.necessary', 'model.stepone.cost']}
 />
 
-<section aria-labelledby="what-it-means">
+<section aria-labelledby="what-that-actually-means">
 
-<h2 id="what-it-means">What that actually means</h2>
+## What that actually means
 
 Gödel&#8217;s route has two steps. First amend Article&nbsp;V to remove the clause protecting equal Senate suffrage. Then use the unentrenched procedure to install a dictator. Step one is the idea. It is the part people repeat.
 
@@ -99,9 +97,9 @@ So step one is not free, and it is not load-bearing either. It costs one proposi
 
 </section>
 
-<section aria-labelledby="repair">
+<section aria-labelledby="so-we-built-the-one-they-did-not">
 
-<h2 id="repair">So we built the one they did not</h2>
+## So we built the one they did not
 
 A defect in an encoding is not a fact about the world. If step one does no work here, the question is whether that is Gödel&#8217;s problem or the model&#8217;s, and there is exactly one way to find out: build a model without the defect and run the same ablation against it.
 
@@ -118,9 +116,9 @@ Then run the same ablation on those <Value id="netadd.axioms.total" bare /> axio
   facts={['netadd.axioms.total', 'netadd.step_one_necessary', 'netadd.pvr_forced']}
 />
 
-<section aria-labelledby="rigged">
+<section aria-labelledby="did-we-rig-it">
 
-<h2 id="rigged">Did we rig it</h2>
+## Did we rig it
 
 The obvious objection is that the rule was chosen to produce that answer. A proposal rule written so that step one lies on the only path would be the same defect as the axiom it replaces, pointed the other way. Our assurance that we did not do that is worth nothing.
 
@@ -132,9 +130,9 @@ One rival encoding survives the same test, and it does not rescue the published 
 
 </section>
 
-<section aria-labelledby="cannot" class="caveat">
+<section aria-labelledby="why-this-route-cannot-find-what-we-are-looking-for" class="caveat">
 
-<h2 id="cannot">Why this route cannot find what we are looking for</h2>
+## Why this route cannot find what we are looking for
 
 Neither model finds a hole in the Constitution, and neither could. The limitation is structural rather than a matter of effort: they contain constitutional text and nothing else.
 
@@ -152,9 +150,9 @@ This is not a criticism of the paper, which scopes itself to a case example and 
 
 </MarginNote>
 
-<section aria-labelledby="tools">
+<section aria-labelledby="two-things-the-tools-got-right-and-we-got-wrong">
 
-<h2 id="tools">Two things the tools got right and we got wrong</h2>
+## Two things the tools got right and we got wrong
 
 A verified result is only as good as the correspondence between the formula and the sentence in English attached to it, and that correspondence is the one link in the chain no prover checks.
 

@@ -175,8 +175,12 @@
    that read as sepia in the light theme and as mud in the dark one. The accents
    lighten because a dark ground needs more luminance from a pigment to reach
    the same contrast, and the fill tier stays put because a bar is a bar. */
-@media (prefers-color-scheme: dark) {
-  :root {
+/* Starlight owns the theme switch and sets data-theme on the root element, so
+   the dark values key off that rather than off prefers-color-scheme. Keying off
+   the media query instead would leave the Auto/Light/Dark control changing
+   Starlight's own chrome while every value in this file stayed put. The values
+   are unchanged; only the selector moved. */
+:root[data-theme='dark'] {
     --paper:            #0e0e0e;
     --paper-sunk:       #000000;
     --paper-raised:     #1b1b1b;
@@ -203,7 +207,6 @@
 
     --selection:        #3d3411;
     --focus:            #f2f2f2;
-  }
 }
 
 /* A reader who has asked for less motion gets none. Not reduced -- none. The
