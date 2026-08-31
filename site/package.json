@@ -6,7 +6,7 @@
   "description": "Public presentation of the godel-loopholes research. Renders from data/facts.json and the repository's markdown; holds no copy of any load-bearing value.",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run lint:facts && npm run lint:tokens && npm run lint:pages && npm run check && astro build && npm run seal && npm run verify:csp",
+    "build": "npm run verify:lockfile && npm run lint:facts && npm run lint:tokens && npm run lint:pages && npm run check && astro build && npm run seal && npm run verify:csp",
     "build:fast": "astro build",
     "check": "astro check",
     "preview": "astro preview",
@@ -16,7 +16,8 @@
     "verify:csp": "node scripts/seal-csp.mjs --check",
     "verify:browser": "node scripts/browser-check.mjs",
     "verify": "npm run build && npm run verify:browser",
-    "lint:tokens": "node scripts/lint-tokens.mjs"
+    "lint:tokens": "node scripts/lint-tokens.mjs",
+    "verify:lockfile": "npm ci --dry-run --os=linux --cpu=x64 >/dev/null && echo 'lockfile  resolves clean on linux-x64'"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
