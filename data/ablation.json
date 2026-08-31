@@ -2,7 +2,9 @@
   "generated_by": "analysis/united-states-1947/search/axiom_sweep.py inventory",
   "generated_from": [
     "analysis/united-states-1947/isabelle/GodelCore.thy",
-    "analysis/united-states-1947/isabelle/GodelConstitution.thy"
+    "analysis/united-states-1947/isabelle/GodelConstitution.thy",
+    "analysis/united-states-1947/isabelle/GodelNetAddCore.thy",
+    "analysis/united-states-1947/isabelle/GodelNetAddFull.thy"
   ],
   "note": "Parsed, not transcribed. Verdicts are deliberately absent: verify.sh section 4 re-runs the experiments in Isabelle. Run `python3 axiom_sweep.py inventory` to regenerate.",
   "axioms": [
@@ -451,6 +453,233 @@
       "amd1b_val",
       "amd1a_val_t2",
       "amd1b_val_t2_2"
+    ]
+  },
+  "netadd": {
+    "note": "The repaired model. Its five step-one stipulations are preconditions; none of them asserts that the amendment was proposed. The proposal is derived.",
+    "core": [
+      {
+        "label": "t1_s_t2",
+        "formula": "succ t1 t2",
+        "raw": "succ t1 t2"
+      },
+      {
+        "label": "t2_s_t3",
+        "formula": "succ t2 t3",
+        "raw": "succ t2 t3"
+      },
+      {
+        "label": "t3_s_te",
+        "formula": "succ t3 te",
+        "raw": "succ t3 te"
+      },
+      {
+        "label": "te_s_te",
+        "formula": "succ te te",
+        "raw": "succ te te"
+      },
+      {
+        "label": "Nt1_s_t1",
+        "formula": "¬(succ t1 t1)",
+        "raw": "\\<not>(succ t1 t1)"
+      },
+      {
+        "label": "Nt1_s_t3",
+        "formula": "¬(succ t1 t3)",
+        "raw": "\\<not>(succ t1 t3)"
+      },
+      {
+        "label": "Nt1_s_te",
+        "formula": "¬(succ t1 te)",
+        "raw": "\\<not>(succ t1 te)"
+      },
+      {
+        "label": "Nt2_s_t1",
+        "formula": "¬(succ t2 t1)",
+        "raw": "\\<not>(succ t2 t1)"
+      },
+      {
+        "label": "Nt2_s_t2",
+        "formula": "¬(succ t2 t2)",
+        "raw": "\\<not>(succ t2 t2)"
+      },
+      {
+        "label": "Nt2_s_te",
+        "formula": "¬(succ t2 te)",
+        "raw": "\\<not>(succ t2 te)"
+      },
+      {
+        "label": "Nt3_s_t1",
+        "formula": "¬(succ t3 t1)",
+        "raw": "\\<not>(succ t3 t1)"
+      },
+      {
+        "label": "Nt3_s_t2",
+        "formula": "¬(succ t3 t2)",
+        "raw": "\\<not>(succ t3 t2)"
+      },
+      {
+        "label": "Nt3_s_t3",
+        "formula": "¬(succ t3 t3)",
+        "raw": "\\<not>(succ t3 t3)"
+      },
+      {
+        "label": "Nte_s_t1",
+        "formula": "¬(succ te t1)",
+        "raw": "\\<not>(succ te t1)"
+      },
+      {
+        "label": "Nte_s_t2",
+        "formula": "¬(succ te t2)",
+        "raw": "\\<not>(succ te t2)"
+      },
+      {
+        "label": "Nte_s_t3",
+        "formula": "¬(succ te t3)",
+        "raw": "\\<not>(succ te t3)"
+      },
+      {
+        "label": "unique_is_leg",
+        "formula": "⌊∀g g1. ∀g g2. (((is_leg g1)∧(is_leg g2))⟶(g1 = g2))⌋",
+        "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_leg g1)\\<^bold>\\<and>(is_leg g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>"
+      },
+      {
+        "label": "unique_is_exe",
+        "formula": "⌊∀g g1. ∀g g2. (((is_exe g1)∧(is_exe g2))⟶(g1 = g2))⌋",
+        "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_exe g1)\\<^bold>\\<and>(is_exe g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>"
+      },
+      {
+        "label": "unique_is_jud",
+        "formula": "⌊∀g g1. ∀g g2. (((is_jud g1)∧(is_jud g2))⟶(g1 = g2))⌋",
+        "raw": "\\<lfloor>\\<^bold>\\<forall>\\<^sub>g g1. \\<^bold>\\<forall>\\<^sub>g g2. (((is_jud g1)\\<^bold>\\<and>(is_jud g2))\\<^bold>\\<longrightarrow>(g1 \\<^bold>= g2))\\<rfloor>"
+      },
+      {
+        "label": "Con_Leg_t1",
+        "formula": "⌊is_leg Congress⌋t1",
+        "raw": "\\<lfloor>is_leg Congress\\<rfloor>t1"
+      },
+      {
+        "label": "P_Exe_t1",
+        "formula": "⌊is_exe P⌋t1",
+        "raw": "\\<lfloor>is_exe P\\<rfloor>t1"
+      },
+      {
+        "label": "Cou_Jud_t1",
+        "formula": "⌊is_jud Courts⌋t1",
+        "raw": "\\<lfloor>is_jud Courts\\<rfloor>t1"
+      },
+      {
+        "label": "XCon_Leg_t1",
+        "formula": "⌊X(is_leg Congress)⌋t1",
+        "raw": "\\<lfloor>\\<^bold>X(is_leg Congress)\\<rfloor>t1"
+      },
+      {
+        "label": "XP_Exe_t1",
+        "formula": "⌊X(is_exe P)⌋t1",
+        "raw": "\\<lfloor>\\<^bold>X(is_exe P)\\<rfloor>t1"
+      },
+      {
+        "label": "XCou_Jud_t1",
+        "formula": "⌊X(is_jud Courts)⌋t1",
+        "raw": "\\<lfloor>\\<^bold>X(is_jud Courts)\\<rfloor>t1"
+      },
+      {
+        "label": "oap_global",
+        "formula": "⌊oap⌋",
+        "raw": "\\<lfloor>oap\\<rfloor>"
+      },
+      {
+        "label": "osp_global",
+        "formula": "⌊osp⌋",
+        "raw": "\\<lfloor>osp\\<rfloor>"
+      },
+      {
+        "label": "comsp_global",
+        "formula": "⌊comsp⌋",
+        "raw": "\\<lfloor>comsp\\<rfloor>"
+      },
+      {
+        "label": "opr_global",
+        "formula": "⌊opr⌋",
+        "raw": "\\<lfloor>opr\\<rfloor>"
+      },
+      {
+        "label": "rv_global",
+        "formula": "⌊rv⌋",
+        "raw": "\\<lfloor>rv\\<rfloor>"
+      },
+      {
+        "label": "osr_global",
+        "formula": "⌊osr⌋",
+        "raw": "\\<lfloor>osr\\<rfloor>"
+      },
+      {
+        "label": "psr_global",
+        "formula": "⌊psr⌋",
+        "raw": "\\<lfloor>psr\\<rfloor>"
+      },
+      {
+        "label": "pvr_global",
+        "formula": "⌊pvr⌋",
+        "raw": "\\<lfloor>pvr\\<rfloor>"
+      },
+      {
+        "label": "in_force_omsp_t1",
+        "formula": "⌊in_force_omsp⌋t1",
+        "raw": "\\<lfloor>in_force_omsp\\<rfloor>t1"
+      },
+      {
+        "label": "amd2_attempted_t2",
+        "formula": "⌊attempted amd2⌋t2",
+        "raw": "\\<lfloor>attempted amd2\\<rfloor>t2"
+      },
+      {
+        "label": "is_amd_amd2_t2",
+        "formula": "⌊is_amd amd2⌋t2",
+        "raw": "\\<lfloor>is_amd amd2\\<rfloor>t2"
+      },
+      {
+        "label": "sup_prop_amd2_t2",
+        "formula": "⌊sup_prop Congress amd2⌋t2",
+        "raw": "\\<lfloor>sup_prop Congress amd2\\<rfloor>t2"
+      },
+      {
+        "label": "amd2_not_maint_suf_t2",
+        "formula": "⌊¬(maint_suf amd2)⌋t2",
+        "raw": "\\<lfloor>\\<^bold>\\<not>(maint_suf amd2)\\<rfloor>t2"
+      },
+      {
+        "label": "amd2_sup_rat_t2",
+        "formula": "⌊sup_rat amd2⌋t2",
+        "raw": "\\<lfloor>sup_rat amd2\\<rfloor>t2"
+      }
+    ],
+    "step_one": [
+      {
+        "label": "amd1a_attempted_t1",
+        "formula": "⌊attempted amd1a⌋t1",
+        "raw": "\\<lfloor>attempted amd1a\\<rfloor>t1"
+      },
+      {
+        "label": "is_amd_amd1a_t1",
+        "formula": "⌊is_amd amd1a⌋t1",
+        "raw": "\\<lfloor>is_amd amd1a\\<rfloor>t1"
+      },
+      {
+        "label": "sup_prop_amd1a_t1",
+        "formula": "⌊sup_prop Congress amd1a⌋t1",
+        "raw": "\\<lfloor>sup_prop Congress amd1a\\<rfloor>t1"
+      },
+      {
+        "label": "maint_suf_amd1a_t1",
+        "formula": "⌊maint_suf amd1a⌋t1",
+        "raw": "\\<lfloor>maint_suf amd1a\\<rfloor>t1"
+      },
+      {
+        "label": "amd1a_sup_rat_t1",
+        "formula": "⌊sup_rat amd1a⌋t1",
+        "raw": "\\<lfloor>sup_rat amd1a\\<rfloor>t1"
+      }
     ]
   }
 }

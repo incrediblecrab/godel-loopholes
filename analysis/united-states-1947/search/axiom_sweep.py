@@ -355,6 +355,20 @@ def unescape_isabelle(text):
     return _ESC.sub(sub, text)
 
 
+def axioms_in(*sources):
+    """Parse (label, formula) pairs out of the named theory files.
+
+    Generalises what dissect() does for the published model so the repaired
+    model can be inventoried the same way. Parsed, never transcribed.
+    """
+    found = []
+    for src in sources:
+        for kw, chunk in chunks(os.path.join(THY, src)):
+            if kw == "axiomatization":
+                found += LABEL.findall(chunk)
+    return found
+
+
 def exp_inventory():
     """Emit the model's axiom inventory as JSON. Requires no Isabelle.
 
@@ -364,16 +378,25 @@ def exp_inventory():
     cannot disagree. The VERDICTS are not recorded here on purpose: they are
     measured by verify.sh section 4, which re-runs Isabelle. A verdict cached
     in a file is a verdict nobody is checking.
+
+    The `netadd` block does the same for the repaired model, whose whole point
+    is that the proposal is derived rather than asserted. The site shows the
+    published and repaired models side by side, so both inventories have to
+    come from the theory files rather than from a designer's memory.
     """
     import json
 
     _, axioms = dissect()
     thm = collect_results()
+    netadd_core = axioms_in("GodelNetAddCore.thy")
+    netadd_step_one = axioms_in("GodelNetAddFull.thy")
     out = {
         "generated_by": "analysis/united-states-1947/search/axiom_sweep.py inventory",
         "generated_from": [
             "analysis/united-states-1947/isabelle/GodelCore.thy",
             "analysis/united-states-1947/isabelle/GodelConstitution.thy",
+            "analysis/united-states-1947/isabelle/GodelNetAddCore.thy",
+            "analysis/united-states-1947/isabelle/GodelNetAddFull.thy",
         ],
         "note": ("Parsed, not transcribed. Verdicts are deliberately absent: "
                  "verify.sh section 4 re-runs the experiments in Isabelle. Run "
@@ -394,6 +417,19 @@ def exp_inventory():
         "step_one": list(AMD1),
         "step_one_broken_scripts": list(AMD1_LEMMAS),
         "results": thm,
+        "netadd": {
+            "note": ("The repaired model. Its five step-one stipulations are "
+                     "preconditions; none of them asserts that the amendment "
+                     "was proposed. The proposal is derived."),
+            "core": [
+                {"label": label, "formula": unescape_isabelle(formula), "raw": formula}
+                for label, formula in netadd_core
+            ],
+            "step_one": [
+                {"label": label, "formula": unescape_isabelle(formula), "raw": formula}
+                for label, formula in netadd_step_one
+            ],
+        },
     }
     print(json.dumps(out, indent=2, ensure_ascii=False))
     return True

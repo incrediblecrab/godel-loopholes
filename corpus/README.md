@@ -131,7 +131,7 @@ The February proclama is not an early draft of the Statuto and should not be quo
 
 Amendments I through X were collated across six independent witnesses on August 25, 2026: the National Archives parchment transcription, the Senate rendering and GPO House Document 110-50, all three now held in this corpus; Cornell's Legal Information Institute and Yale's Avalon Project, both fetched and both rejected as base texts on the evidence below; and the Statutes at Large, read from the Library of Congress page scans.
 
-**On wording the six agree completely.** Across all ten amendments there is not one divergence in word choice. Every difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.
+**On wording the six agree but for a single word.** Across all ten amendments the only divergence in word choice is GPO's `of` for `or` in the First, recorded below. Every other difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.
 
 The witnesses fall into two families. The National Archives, the Senate and GPO preserve eighteenth-century orthography, with capitalized substantives, British spellings and hyphenated `re-examined`. Cornell and Avalon silently modernize all three. The Senate reproduces the parchment text verbatim for nine of ten amendments, diverging only by capitalizing `Suits` in the Seventh, which makes it an independent confirmation of the parchment rather than a separate recension, and it supplies the operative numbering the parchment lacks.
 

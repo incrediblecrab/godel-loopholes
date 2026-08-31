@@ -385,9 +385,9 @@
     },
     {
       "id": "recension.wording_agrees",
-      "value": "On wording the six agree completely.",
-      "label": "No divergence in word choice",
-      "statement": "Across all ten amendments there is not one divergence in word choice. Every difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.",
+      "value": "On wording the six agree but for a single word.",
+      "label": "One divergence in word choice",
+      "statement": "Across all ten amendments the only divergence in word choice is GPO's 'of' for 'or' in the First Amendment. Every other difference found is orthographic or punctuational, which is precisely the class of difference this project cannot afford to normalize away.",
       "canonical": "corpus/README.md",
       "status": "verified"
     },
