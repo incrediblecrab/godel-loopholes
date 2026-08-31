@@ -1,12 +1,24 @@
 #!/bin/sh
 # Refuse to push a package-lock.json that will not install on Linux.
 #
-# This hook exists because the same failure reached CI twice. An incremental
-# `npm install <pkg>` run on macOS records only what macOS resolves, and prunes
-# the Linux-only WASM fallbacks (@emnapi/core, @emnapi/runtime, reached through
-# @img/sharp-wasm32) back out of the lockfile. Everything then builds perfectly
-# on this machine and `npm ci` fails on ubuntu-latest with an EUSAGE dump that
-# never names the real cause.
+# This hook exists because the same failure reached CI three times. An
+# incremental `npm install <pkg>` run on macOS records only what macOS
+# resolves, and prunes the Linux-only WASM fallbacks (@emnapi/core,
+# @emnapi/runtime, reached through @img/sharp-wasm32) back out of the lockfile.
+# Everything then builds perfectly on this machine and `npm ci` fails on
+# ubuntu-latest with an EUSAGE dump that never names the real cause.
+#
+# The third breakage got past this hook while it was passing, because it used
+#
+#     npm ci --dry-run --os=linux --cpu=x64
+#
+# which succeeds on macOS against a lockfile real `npm ci` on Linux rejects.
+# Those flags select which optional packages npm would install; they do not
+# make it re-check that the entries exist. It is now scripts/check-lockfile.mjs,
+# which asserts the structural property directly -- every dependency reference
+# in the lockfile resolves to a package entry present in the lockfile -- and so
+# gives the same answer on every platform. It is tested against the exact
+# lockfile that broke CI, and fails on it.
 #
 # The same check is the first step of `npm run build` and an explicit step in
 # the workflow. This is the layer that stops it leaving the machine at all.
@@ -25,28 +37,22 @@ cd "$root/site" 2>/dev/null || exit 0
 
 # A guard that cannot run must fail, not pass. Silently skipping is how the
 # lockfile got through the first two times.
-command -v npm >/dev/null 2>&1 || {
-  echo "pre-push: npm is not on PATH, so the lockfile cannot be verified." >&2
+command -v node >/dev/null 2>&1 || {
+  echo "pre-push: node is not on PATH, so the lockfile cannot be verified." >&2
   exit 1
 }
 
-if npm ci --dry-run --os=linux --cpu=x64 >/dev/null 2>&1; then
+if node scripts/check-lockfile.mjs >/dev/null 2>&1; then
   exit 0
 fi
 
-cat >&2 <<'MSG'
+node scripts/check-lockfile.mjs >&2 || true
 
+cat >&2 <<'MSG'
   PUSH BLOCKED — site/package-lock.json will not install on Linux.
 
-  CI runs `npm ci` on ubuntu-latest. It will fail there, as it has twice.
-
-  Fix, from the repository root:
-
-      cd site && rm -rf node_modules package-lock.json && npm install
-
-  Then re-run this push. What npm objects to:
+  CI runs `npm ci` on ubuntu-latest. It will fail there, as it has three times.
+  The detail above names which dependency references do not resolve.
 
 MSG
-npm ci --dry-run --os=linux --cpu=x64 2>&1 | grep -E 'Missing:|npm error' | head -10 >&2
-echo >&2
 exit 1

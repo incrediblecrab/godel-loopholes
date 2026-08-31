@@ -16,7 +16,7 @@
     "verify:browser": "node scripts/browser-check.mjs",
     "verify": "npm run build && npm run verify:browser && npm run verify:hero",
     "lint:tokens": "node scripts/lint-tokens.mjs",
-    "verify:lockfile": "npm ci --dry-run --os=linux --cpu=x64 >/dev/null && echo 'lockfile  resolves clean on linux-x64'",
+    "verify:lockfile": "node scripts/check-lockfile.mjs && npm ci --dry-run >/dev/null && echo 'lockfile  npm ci resolves it here too'",
     "verify:hero": "node scripts/check-hero.mjs"
   },
   "dependencies": {
