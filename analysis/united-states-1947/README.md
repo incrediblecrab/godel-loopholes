@@ -12,15 +12,24 @@ Case law decided before the vantage date is admissible, and two decisions matter
 
 ## What is here
 
+`ai-science-methods.md` reviews the complete supplied Navier–Stokes paper and
+its official proof interfaces. It separates the published C/D claim from local
+proof execution and prize status, and records the remaining Astra-attribution
+gap. Its transferable practices guide the experiments below; it does not
+claim that mathematical verification settles constitutional interpretation.
+
 `threshold-arithmetic.md` runs the threshold-arithmetic enumeration over Article V. The 1920 holding uses members present, assuming a quorum. Under favorable minimum-quorum attendance and nominal full membership, 146 House and 33 Senate yes votes suffice; these are not attendance-independent thresholds.
 
 It also records that the minimum-coalition argument this project treats as one of its own procedures was made to the Supreme Court by counsel in 1920, and lost. That is a direct hit on the novelty requirement in `method/what-counts-as-a-finding.md`, and it arrived before any candidate had been raised, which is the best possible time for it to arrive.
 
-`silence-inventory.md` runs the silence inventory. It lists twelve fields the constitution leaves to ordinary legislation or to nobody at all, and finds that six of them form a self-referential cluster: Article V's threshold is two thirds of a quorum, the quorum is a majority of the House's membership, and the House determines its own membership under Article I, Section 5. It returns no candidate, and it records that Justice Rutledge grouped three of the same clauses in *Colegrove v. Green* in June 1946.
+`silence-inventory.md` runs the silence inventory. It lists twelve fields the constitution leaves to ordinary legislation or to nobody at all, and identifies six in a connected group: the proposal threshold depends on attendance and quorum, quorum depends on membership, and each House judges its members' elections, returns, and qualifications under Article I, Section 5. The scope of those powers still requires legal interpretation. The inventory returns no candidate and records that Justice Rutledge grouped three of the same clauses in *Colegrove v. Green* in June 1946.
 
 ## The formal model
 
-Three files concern Zahoransky and Benzmüller's Isabelle/HOL formalization of the Gödel argument rather than the 1947 documents. The vantage rule does not apply to them, because they are about a 2019 publication.
+The three starting replication reports concern Zahoransky and Benzmüller's
+Isabelle/HOL reconstruction, documented in the 2019 thesis and 2020 workshop
+paper. Modern scholarship may be replicated, but any asserted correspondence
+to the 1947 constitutional order must still respect the vantage rule.
 
 `formal-model-replication.md` records the replication: the model reproduces, its axioms are consistent, and its three theorems carry information. It is the borrowed baseline, not a result of this project.
 
