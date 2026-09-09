@@ -30,6 +30,16 @@ Three files concern Zahoransky and Benzmüller's Isabelle/HOL formalization of t
 
 `search/axiom_sweep.py` generates every theory those files rely on from `isabelle/GodelCore.thy` and `isabelle/GodelConstitution.thy`, so the model is never transcribed twice. `search/quorum_cascade.py` is separate and concerns the congressional proposing stage in 1947; it is closed as a null result in `quorum-cascade-null.md`, with the refutation machine-checked in `search/cascade_domination.py` and the premise it rested on verified in `quorum-base.md`.
 
+## Executable interpretation search
+
+`bounded-article-v-search.md` extends the replication with a consent-aware finite
+transition model, exhaustive graph search, an independently encoded bounded SMT
+cross-check, and behavioral mutation controls. It makes the interpretation matrix
+in `ratification-price.md` executable and distinguishes a satisfying endpoint
+from a path reached by authorized changes. The exact scope and measured results
+are in `search/article_v_results.json`. Its conditional model witnesses are not
+new constitutional loopholes or evidence of what Gödel privately intended.
+
 ## What is not here yet
 
 No candidate path. Four enumerations have not been run: the power inventory over the Article I and Article II grants, the reference graph, the undefined-terms pass, and the parse enumeration over the clauses the power inventory marks as consequential.

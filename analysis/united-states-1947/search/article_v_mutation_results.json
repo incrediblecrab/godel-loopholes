@@ -1,0 +1,28 @@
+{
+  "mutation_controls": [
+    {
+      "defect": "ratification-threshold-bypass",
+      "unmutated_exit": 0,
+      "mutated_exit": 1,
+      "behavioral_assertion_caught_defect": true
+    },
+    {
+      "defect": "consent-count-instead-of-identity",
+      "unmutated_exit": 0,
+      "mutated_exit": 1,
+      "behavioral_assertion_caught_defect": true
+    },
+    {
+      "defect": "same-instrument-self-authorization",
+      "unmutated_exit": 0,
+      "mutated_exit": 1,
+      "behavioral_assertion_caught_defect": true
+    },
+    {
+      "defect": "proposal-changes-law-without-ratification",
+      "unmutated_exit": 0,
+      "mutated_exit": 1,
+      "behavioral_assertion_caught_defect": true
+    }
+  ]
+}
