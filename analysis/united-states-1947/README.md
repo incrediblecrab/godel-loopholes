@@ -2,6 +2,11 @@
 
 This folder investigates what Gödel could have found in the United States constitutional order of 1947. No verified loophole or identification of his actual argument has been established. The comparative collapse folders supply historical control material, not certified examples of wholly lawful collapse; their evidentiary and legal limitations must be retained when using them.
 
+Start with [the consolidated research report](research-report.md) for the
+completed logical and quantitative results, corrections, reproduction commands,
+and outstanding evidence gaps. The detailed reports below preserve the
+individual experiments and their assumptions.
+
 ## Vantage
 
 The snapshot is the United States as of December 5, 1947, the date of the hearing, and it holds five files in `corpus/united-states-1947/`.
@@ -33,7 +38,7 @@ to the 1947 constitutional order must still respect the vantage rule.
 
 `formal-model-replication.md` records the replication: the model reproduces, its axioms are consistent, and its three theorems carry information. It is the borrowed baseline, not a result of this project.
 
-`inert-manoeuvre.md` is the most substantial result in this folder and should be read first. It is a result about the instrument, not about the Constitution, and it advances the search for a candidate path by zero steps. Its finding is that the model represents Gödel's step one properly — the amendment stripping Article V's entrenchment clause is an object, it is proposed, supported, and genuinely ratified — and that deleting all four axioms responsible costs no published result. Five things are machine-checked: `Dictatorship_t3` follows from six consistent axioms, none of them an equal-suffrage, entrenchment, Senate, or step-one axiom; four of those six are necessary to every possible proof; every published theorem *and* every intermediate lemma survives deleting step one, in a theory that is still consistent; the authors' own defence of their omission is sound; and the repealing amendment is extensionally equal to the negation of the entrenchment clause, so its content is already forced by the separate stipulation that the dictatorship amendment was proposed. The deletion is not free — it makes the ratification event `⌊is_rat amd1a⌋t2` independent, where the full theory entails it — but nothing published depends on that event. The limitation is disclosed by the authors in both venues, so what is new is the measurement and the diagnosis rather than the discovery.
+`inert-manoeuvre.md` records a central instrument finding. It is a result about the instrument, not about the Constitution, and it advances the search for a candidate path by zero steps. Its finding is that the model represents Gödel's step one properly — the amendment stripping Article V's entrenchment clause is an object, it is proposed, supported, and genuinely ratified — and that deleting all four axioms responsible costs no published result. Five things are machine-checked: `Dictatorship_t3` follows from six consistent axioms, none of them an equal-suffrage, entrenchment, Senate, or step-one axiom; four of those six are necessary to every possible proof; every published theorem *and* every intermediate lemma survives deleting step one, in a theory that is still consistent; the authors' own defence of their omission is sound; and the repealing amendment is extensionally equal to the negation of the entrenchment clause, so its content is already forced by the separate stipulation that the dictatorship amendment was proposed. The deletion is not free — it makes the ratification event `⌊is_rat amd1a⌋t2` independent, where the full theory entails it — but nothing published depends on that event. The limitation is disclosed by the authors in both venues, so what is new is the measurement and the diagnosis rather than the discovery.
 
 `ratification-price.md` is the earlier and weaker version of the same finding, kept because it records four overstatements and how each was caught.
 
