@@ -1,0 +1,502 @@
+{
+  "controls": {
+    "below_threshold_old_states_succeed_without_any_new_support": "UNSAT",
+    "boundary_cases_checked": 20300,
+    "closed_form_equivalence_counterexample_search": "UNSAT",
+    "fixed_denominator_negative_control": {
+      "added_states": 36,
+      "correct_expanded_denominator_says_pass": false,
+      "incorrect_old_denominator_says_pass": true,
+      "initial_states": 48,
+      "old_ratifiers": 0
+    },
+    "initial_states_exhaustively_checked": [
+      1,
+      200
+    ]
+  },
+  "historical_denominator_control": {
+    "all_ratifications_acknowledged_on_page": 38,
+    "case": "Sixteenth Amendment certification denominator",
+    "evidence_kind": "One historical arithmetic control, not a constitutional-collapse backtest",
+    "initial_states": 46,
+    "initial_threshold": 35,
+    "one_fewer_than_threshold": {
+      "current_denominator_accepts": false,
+      "frozen_original_denominator_would_accept": true,
+      "ratifications": 35,
+      "status": "SYNTHETIC negative control, not an assertion about a specific historical date"
+    },
+    "principal_list_satisfies_current_threshold": true,
+    "principal_ratification_list_count": 36,
+    "states_at_certification": 48,
+    "threshold_at_certification": 36
+  },
+  "joint_scenarios": {
+    "111th_initial_house_257_with_other_inputs_held_fixed": {
+      "enumeration": {
+        "admission_needed": true,
+        "expanded_states": 149,
+        "house_seats": 534,
+        "house_yes": 356,
+        "new_states": 99,
+        "one_fewer_gates": {
+          "house_proposal": false,
+          "senate_proposal": true,
+          "state_ratification": true
+        },
+        "ratification_threshold": 112,
+        "ratifying_states": 113,
+        "senate_seats": 298,
+        "senate_yes": 258,
+        "status": "FEASIBLE"
+      },
+      "inputs": {
+        "attendance": "full_membership",
+        "house_seats": 435,
+        "house_support": 257,
+        "old_ratifiers": 14,
+        "president_cooperates": true,
+        "senate_support": 60,
+        "states": 50
+      },
+      "smt": {
+        "new_states": 99,
+        "smaller_solution": "UNSAT",
+        "status": "FEASIBLE"
+      }
+    },
+    "1947_bare_full_majorities_one_old_ratifier": {
+      "enumeration": {
+        "admission_needed": true,
+        "expanded_states": 264,
+        "house_seats": 651,
+        "house_yes": 434,
+        "new_states": 216,
+        "one_fewer_gates": {
+          "house_proposal": false,
+          "senate_proposal": true,
+          "state_ratification": true
+        },
+        "ratification_threshold": 198,
+        "ratifying_states": 217,
+        "senate_seats": 528,
+        "senate_yes": 481,
+        "status": "FEASIBLE"
+      },
+      "inputs": {
+        "attendance": "full_membership",
+        "house_seats": 435,
+        "house_support": 218,
+        "old_ratifiers": 1,
+        "president_cooperates": true,
+        "senate_support": 49,
+        "states": 48
+      },
+      "smt": {
+        "new_states": 216,
+        "smaller_solution": "UNSAT",
+        "status": "FEASIBLE"
+      }
+    },
+    "1947_favorable_quorum_one_old_ratifier": {
+      "enumeration": {
+        "admission_needed": true,
+        "expanded_states": 188,
+        "house_seats": 575,
+        "house_yes": 250,
+        "new_states": 140,
+        "one_fewer_gates": {
+          "house_proposal": true,
+          "senate_proposal": true,
+          "state_ratification": false
+        },
+        "ratification_threshold": 141,
+        "ratifying_states": 141,
+        "senate_seats": 376,
+        "senate_yes": 305,
+        "status": "FEASIBLE"
+      },
+      "inputs": {
+        "attendance": "favorable_minimum_quorum",
+        "house_seats": 435,
+        "house_support": 110,
+        "old_ratifiers": 1,
+        "president_cooperates": true,
+        "senate_support": 25,
+        "states": 48
+      },
+      "smt": {
+        "new_states": 140,
+        "smaller_solution": "UNSAT",
+        "status": "FEASIBLE"
+      }
+    },
+    "1947_same_small_bloc_must_supply_quorum": {
+      "enumeration": {
+        "new_states": null,
+        "reason": "The original Congress cannot authorize admission under the stated attendance/veto inputs",
+        "status": "BLOCKED"
+      },
+      "inputs": {
+        "attendance": "supporters_supply_quorum",
+        "house_seats": 435,
+        "house_support": 110,
+        "old_ratifiers": 1,
+        "president_cooperates": true,
+        "senate_support": 25,
+        "states": 48
+      },
+      "smt": {
+        "new_states": null,
+        "status": "BLOCKED"
+      }
+    },
+    "1947_same_small_bloc_without_president": {
+      "enumeration": {
+        "new_states": null,
+        "reason": "The original Congress cannot authorize admission under the stated attendance/veto inputs",
+        "status": "BLOCKED"
+      },
+      "inputs": {
+        "attendance": "favorable_minimum_quorum",
+        "house_seats": 435,
+        "house_support": 110,
+        "old_ratifiers": 1,
+        "president_cooperates": false,
+        "senate_support": 25,
+        "states": 48
+      },
+      "smt": {
+        "new_states": null,
+        "status": "BLOCKED"
+      }
+    },
+    "paper_96_compatible_hypothetical_inputs": {
+      "enumeration": {
+        "admission_needed": true,
+        "expanded_states": 146,
+        "house_seats": 531,
+        "house_yes": 354,
+        "new_states": 96,
+        "one_fewer_gates": {
+          "house_proposal": false,
+          "senate_proposal": true,
+          "state_ratification": true
+        },
+        "ratification_threshold": 110,
+        "ratifying_states": 110,
+        "senate_seats": 292,
+        "senate_yes": 252,
+        "status": "FEASIBLE"
+      },
+      "inputs": {
+        "attendance": "full_membership",
+        "house_seats": 435,
+        "house_support": 258,
+        "old_ratifiers": 14,
+        "president_cooperates": true,
+        "senate_support": 60,
+        "states": 50
+      },
+      "smt": {
+        "new_states": 96,
+        "smaller_solution": "UNSAT",
+        "status": "FEASIBLE"
+      }
+    }
+  },
+  "official_house_roster_comparison": {
+    "congress": 111,
+    "democrats": 257,
+    "house_seats": 435,
+    "html_sha256": "f8d496451af0cfc0544be4b80da2de950701ad72cddc455b8aaf674721e5c83d",
+    "other_scenario_inputs": "Hypothetical and held fixed, not taken from this roster",
+    "republicans": 178,
+    "scope": "Initial election results only; not every date during the 111th Congress",
+    "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+  },
+  "paper": {
+    "citation": "133 Harvard Law Review 1049 (2020), Part II.A, page 1060 footnote 94",
+    "conditional_reconstructions": [
+      {
+        "house_expansion_assumption": "One new seat per new state, old seats retained",
+        "new_states": 96,
+        "old_house_yes_required_full_attendance": 258,
+        "old_ratifiers_still_required": 14,
+        "ratification_required": 110,
+        "total_states": 146
+      },
+      {
+        "house_expansion_assumption": "One new seat per new state, old seats retained",
+        "new_states": 127,
+        "old_house_yes_required_full_attendance": 248,
+        "old_ratifiers_still_required": 6,
+        "ratification_required": 133,
+        "total_states": 177
+      }
+    ],
+    "pdf_sha256": "049574ce9eddc77c29facb9cc72c9fa66226700b7737b112dc8b94a37c979c90",
+    "printed_claim": 96,
+    "printed_claim_replication_status": "UNDERDETERMINED: no exact roster date, attendance, or state-support inputs published",
+    "publication_date": "January 10, 2020",
+    "title": "Pack the Union",
+    "url": "https://harvardlawreview.org/print/vol-133/pack-the-union-a-proposal-to-admit-new-states-for-the-purpose-of-amending-the-constitution-to-ensure-equal-representation/"
+  },
+  "post_admission_target_matrix": [
+    {
+      "democracy_floor": false,
+      "post_admission_witness": [
+        "propose:concentrate_powers",
+        "ratify:concentrate_powers"
+      ],
+      "reachable": true,
+      "self_entrenched": false,
+      "suffrage": "formal"
+    },
+    {
+      "democracy_floor": false,
+      "post_admission_witness": [
+        "propose:concentrate_powers",
+        "ratify:concentrate_powers"
+      ],
+      "reachable": true,
+      "self_entrenched": true,
+      "suffrage": "formal"
+    },
+    {
+      "democracy_floor": false,
+      "post_admission_witness": [
+        "propose:repeal_proviso",
+        "ratify:repeal_proviso",
+        "propose:concentrate_powers",
+        "ratify:concentrate_powers"
+      ],
+      "reachable": true,
+      "self_entrenched": false,
+      "suffrage": "functional"
+    },
+    {
+      "democracy_floor": false,
+      "post_admission_witness": null,
+      "reachable": false,
+      "self_entrenched": true,
+      "suffrage": "functional"
+    }
+  ],
+  "ratification_frontier_1947": [
+    {
+      "minimum_all_supporting_new_states": 144,
+      "old_ratifiers": 0
+    },
+    {
+      "minimum_all_supporting_new_states": 140,
+      "old_ratifiers": 1
+    },
+    {
+      "minimum_all_supporting_new_states": 136,
+      "old_ratifiers": 2
+    },
+    {
+      "minimum_all_supporting_new_states": 132,
+      "old_ratifiers": 3
+    },
+    {
+      "minimum_all_supporting_new_states": 128,
+      "old_ratifiers": 4
+    },
+    {
+      "minimum_all_supporting_new_states": 124,
+      "old_ratifiers": 5
+    },
+    {
+      "minimum_all_supporting_new_states": 120,
+      "old_ratifiers": 6
+    },
+    {
+      "minimum_all_supporting_new_states": 116,
+      "old_ratifiers": 7
+    },
+    {
+      "minimum_all_supporting_new_states": 112,
+      "old_ratifiers": 8
+    },
+    {
+      "minimum_all_supporting_new_states": 108,
+      "old_ratifiers": 9
+    },
+    {
+      "minimum_all_supporting_new_states": 104,
+      "old_ratifiers": 10
+    },
+    {
+      "minimum_all_supporting_new_states": 100,
+      "old_ratifiers": 11
+    },
+    {
+      "minimum_all_supporting_new_states": 96,
+      "old_ratifiers": 12
+    },
+    {
+      "minimum_all_supporting_new_states": 92,
+      "old_ratifiers": 13
+    },
+    {
+      "minimum_all_supporting_new_states": 88,
+      "old_ratifiers": 14
+    },
+    {
+      "minimum_all_supporting_new_states": 84,
+      "old_ratifiers": 15
+    },
+    {
+      "minimum_all_supporting_new_states": 80,
+      "old_ratifiers": 16
+    },
+    {
+      "minimum_all_supporting_new_states": 76,
+      "old_ratifiers": 17
+    },
+    {
+      "minimum_all_supporting_new_states": 72,
+      "old_ratifiers": 18
+    },
+    {
+      "minimum_all_supporting_new_states": 68,
+      "old_ratifiers": 19
+    },
+    {
+      "minimum_all_supporting_new_states": 64,
+      "old_ratifiers": 20
+    },
+    {
+      "minimum_all_supporting_new_states": 60,
+      "old_ratifiers": 21
+    },
+    {
+      "minimum_all_supporting_new_states": 56,
+      "old_ratifiers": 22
+    },
+    {
+      "minimum_all_supporting_new_states": 52,
+      "old_ratifiers": 23
+    },
+    {
+      "minimum_all_supporting_new_states": 48,
+      "old_ratifiers": 24
+    },
+    {
+      "minimum_all_supporting_new_states": 44,
+      "old_ratifiers": 25
+    },
+    {
+      "minimum_all_supporting_new_states": 40,
+      "old_ratifiers": 26
+    },
+    {
+      "minimum_all_supporting_new_states": 36,
+      "old_ratifiers": 27
+    },
+    {
+      "minimum_all_supporting_new_states": 32,
+      "old_ratifiers": 28
+    },
+    {
+      "minimum_all_supporting_new_states": 28,
+      "old_ratifiers": 29
+    },
+    {
+      "minimum_all_supporting_new_states": 24,
+      "old_ratifiers": 30
+    },
+    {
+      "minimum_all_supporting_new_states": 20,
+      "old_ratifiers": 31
+    },
+    {
+      "minimum_all_supporting_new_states": 16,
+      "old_ratifiers": 32
+    },
+    {
+      "minimum_all_supporting_new_states": 12,
+      "old_ratifiers": 33
+    },
+    {
+      "minimum_all_supporting_new_states": 8,
+      "old_ratifiers": 34
+    },
+    {
+      "minimum_all_supporting_new_states": 4,
+      "old_ratifiers": 35
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 36
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 37
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 38
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 39
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 40
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 41
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 42
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 43
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 44
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 45
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 46
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 47
+    },
+    {
+      "minimum_all_supporting_new_states": 0,
+      "old_ratifiers": 48
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "all_new_delegations_support": "ASSUMED, not derived from state admission",
+    "all_new_states_ratify": "ASSUMED, not an admission condition validated as lawful",
+    "historical_attribution_to_godel": false,
+    "numbers_are_counts_of": "Additional states, not people or political probabilities",
+    "one_extra_house_seat_per_new_state": "ASSUMED; old House seats retained",
+    "state_creation_and_geographic_partition": "NOT VERIFIED",
+    "vantage": "December 5, 1947",
+    "vice_presidential_tie_breaking": "NOT MODELED"
+  },
+  "source_sha256": {
+    "article_v_model.py": "826d0b35531ff62e5a0ce14ede18f8c7b5d6e0fd863b8136980f6b4bdd264aa9",
+    "sixteenth-denominator-case.json": "5b0d903047952dfcbdcdf3811d406fd47fecdf23dcbd46a47c45ec0b0281a429",
+    "state_admission.py": "33a26869f4f94fe185ca317091a83b2484382e89d866a1663f6b64d3a0fd1d6d",
+    "test_state_admission.py": "00562d2d4af8a1c10d847634c6f06be45046c0bcc9d8b574e0259a60b493fedd"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "case": "Sixteenth Amendment certification denominator",
+  "evidence_kind": "One historical arithmetic control, not a constitutional-collapse backtest",
+  "proposal_year": 1909,
+  "states_before_1912_admissions": 46,
+  "admitted_while_amendment_pending": [
+    {"state": "New Mexico", "date": "January 6, 1912", "ordinal": 47},
+    {"state": "Arizona", "date": "February 14, 1912", "ordinal": 48}
+  ],
+  "certification_date": "February 25, 1913",
+  "principal_list": [
+    "Alabama", "Kentucky", "South Carolina", "Illinois", "Mississippi",
+    "Oklahoma", "Maryland", "Georgia", "Texas", "Ohio", "Idaho", "Oregon",
+    "Washington", "California", "Montana", "Indiana", "Nevada",
+    "North Carolina", "Nebraska", "Kansas", "Colorado", "North Dakota",
+    "Michigan", "Iowa", "Missouri", "Maine", "Tennessee", "Arkansas",
+    "Wisconsin", "New York", "South Dakota", "Arizona", "Minnesota",
+    "Louisiana", "Delaware", "Wyoming"
+  ],
+  "additional_ratifications_acknowledged": ["New Jersey", "New Mexico"],
+  "declared_principal_list_count": 36,
+  "sources": [
+    {
+      "url": "https://www.govinfo.gov/content/pkg/STATUTE-37/pdf/STATUTE-37-Pg1785.pdf",
+      "citation": "37 Stat. 1785",
+      "sha256": "31bfd8181f12b355ce591fdfb977d091295944a9de4b9138bf1b0f797ebe6af7",
+      "verification": "Rendered and read the complete page image on September 8, 2026"
+    },
+    {
+      "url": "https://www.senate.gov/states/NM/intro.htm",
+      "verification": "Official Senate historical account read on September 8, 2026; retrospective source"
+    },
+    {
+      "url": "https://www.senate.gov/states/AZ/intro.htm",
+      "verification": "Official Senate historical account read on September 8, 2026; retrospective source"
+    }
+  ]
+}

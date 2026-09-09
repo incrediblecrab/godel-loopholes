@@ -40,6 +40,14 @@ from a path reached by authorized changes. The exact scope and measured results
 are in `search/article_v_results.json`. Its conditional model witnesses are not
 new constitutional loopholes or evidence of what Gödel privately intended.
 
+`state-admission-replication.md` tests a boundary the fixed-state model excludes:
+Article IV can change the membership set counted by Article V. It reproduces
+the conditional arithmetic of the Harvard Law Review's *Pack the Union* Note,
+keeps the congressional gates in the calculation, and checks the changing
+denominator against the Sixteenth Amendment's primary certification. The
+paper's precise historical minimum remains underdetermined, and its
+new-state voting assumptions are not converted into legal guarantees.
+
 ## What is not here yet
 
 No candidate path. Four enumerations have not been run: the power inventory over the Article I and Article II grants, the reference graph, the undefined-terms pass, and the parse enumeration over the clauses the power inventory marks as consequential.
