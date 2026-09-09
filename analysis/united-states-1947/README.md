@@ -17,6 +17,10 @@ Case law decided before the vantage date is admissible, and two decisions matter
 
 ## What is here
 
+`literature-replication-map.md` connects the academic sources to the actual
+experiments, distinguishes verified reading from metadata or secondary accounts,
+and separates contemporary authorization from retrospective acceptance.
+
 `ai-science-methods.md` reviews the complete supplied Navier–Stokes paper and
 its official proof interfaces. It separates the published C/D claim from local
 proof execution and prize status, and records the remaining Astra-attribution

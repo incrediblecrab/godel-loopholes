@@ -1,6 +1,6 @@
 # Research report: the search for Gödel's constitutional loophole
 
-**Research date: September 8, 2026. Constitutional vantage: December 5, 1947.**
+**Updated September 9, 2026. Constitutional vantage: December 5, 1947.**
 
 **No verified constitutional loophole, complete lawful-collapse path, or
 identification of Gödel's actual argument has been established.** The work does
@@ -8,9 +8,11 @@ establish reproducible conditional results, corrects important overclaims in
 the existing analysis, and identifies which unresolved premises actually change
 the answer. Logical and quantitative methods were both implemented.
 
-This report consolidates the completed work. A separate replication of an
-AAMAS self-amendment protocol and a corrected literature map are still in
-progress; neither is included in the completed-result counts below.
+This report consolidates the completed work. The
+[literature map](literature-replication-map.md) records primary-source
+correspondence and reading gaps. A separate replication of an AAMAS
+self-amendment protocol is still in progress and is not included in the
+completed-result counts below.
 
 The repository's [finding standard](../../method/what-counts-as-a-finding.md)
 requires authorized operations, an explicit legal status for each step, a
@@ -72,6 +74,10 @@ The published reconstruction genuinely represents and ratifies a first
 amendment, yet its published targets remain provable when the step-one axioms
 are removed. Reproducing that fact diagnoses the instrument; it does not show
 that actual repeal is legally unnecessary.
+
+Its workshop peer review is confirmed by the proceedings preface, not inferred
+from the venue's name. Peer review and kernel checking do not, by themselves,
+establish the legal adequacy of the chosen representation.
 
 The separate repaired model makes a five-fact step-one package load-bearing
 for entailment. The new audit shows why that still falls short of causal
@@ -239,6 +245,14 @@ verified transitional-law bridge and unlawful prevention of reconvening.
 The scoped [Italian corpus](../italy-1848/null-result-formal-route.md) lacks
 relevant operative statutes. These cases help test representations; they do not
 justify a measured success rate for the proposed search.
+
+Guerra-Pujol's 2024 *Prequel* studies a different trio: Yugoslavia, Austria,
+and Romania. The repository's comparative review is not a completed backtest
+of that set. The Prequel and Suber's acceptance theory also raise a distinct
+possibility: later validation of an initially unauthorized act. That cannot be
+counted as a path with every step lawful when performed without changing the
+research criterion. The [literature map](literature-replication-map.md) records
+the relevant passages and this boundary.
 
 [Morgenstern's account](../../academia/naturalization-1947.md) records Gödel's
 reported belief. It does not supply the missing argument or independently prove
