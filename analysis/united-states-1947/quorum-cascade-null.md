@@ -1,8 +1,8 @@
-# The quorum cascade is strictly dominated — a null result
+# Quorum cascade: no verified path; the cost comparison is corrected
 
-`silence-inventory.md` rows 4, 5 and 6 are the only entries in that table a single chamber can alter with no concurrence from anyone: no other chamber, no President, and on the 1947 law no court. Chained, they appear to say that the denominator of Article V's fraction is set by the body the fraction is meant to constrain. `search/quorum_cascade.py` turned that into numbers and got the congressional stage down from 179 individuals to 4.
+`silence-inventory.md` rows 4, 5 and 6 identify internal chamber powers that can affect membership, quorum, and proceedings. Their legal limits require separate examination. `search/quorum_cascade.py` generated an arithmetic relaxation whose congressional threshold falls from 179 to 4; it did not establish a lawfully reachable endpoint.
 
-It has been carried to a verdict. **The cascade fails.** It fails on arithmetic, not on law, and the arithmetic was in the script's own committed output from the first day, unremarked.
+**The cascade remains unverified as a constitutional path. The earlier claim that it is strictly dominated on coalition cost is withdrawn.** The [consistent-attendance audit](attendance-consistency.md) identifies a mismatch in the comparison, while preserving the true scalar inequality. An invalid refutation is not a verified solution.
 
 This file is written to `method/what-counts-as-a-finding.md`, which requires a closed path be recorded in the same detail as an open one.
 
@@ -12,7 +12,7 @@ Article I, Section 5 and Article V, from `corpus/united-states-1947/09-17-1787-c
 
 ## The path, as numbered steps
 
-**Step 0. Exclude, at the organisation of a new Congress, by simple majority.** Authorized by Article I, Section 5, clause 1: each House "shall be the Judge of the Elections, Returns and Qualifications of its own Members." A member-elect who is not seated is never sworn.
+**Step 0. Exclude, at the organisation of a new Congress, by simple majority.** The proposed authority is Article I, Section 5, clause 1: each House "shall be the Judge of the Elections, Returns and Qualifications of its own Members." Whether this authorizes the contemplated exclusions is contested below.
 
 **Step 1 and after. Expel sitting members, at two thirds of those present.** Authorized by Article I, Section 5, clause 2: "with the Concurrence of two thirds, expel a Member."
 
@@ -26,53 +26,48 @@ Article I, Section 5 and Article V, from `corpus/united-states-1947/09-17-1787-c
 
 Sourcing note, and it matters: the Langer account above is the Senate Historical Office's, from *United States Senate Election, Expulsion and Censure Cases: 1793-1990* (GPO, 1995), pages 368 to 370, read through senate.gov. It is a secondary source and it has **not** been checked against the Congressional Record for March 27, 1942. The same is true of the vote counts for Roberts, Smith and Vare. *Powell v. McCormack*, 395 U.S. 486 (1969), which would settle the question, is twenty-two years past the vantage and may not be used.
 
-**Steps 1 and after are SETTLED as to authority and fatal as to price.** Expulsion at two thirds is on the face of clause 2 and nobody disputes it. The difficulty is that it is expensive, and see below.
+**Steps 1 and after have an express two-thirds requirement.** The existence of the expulsion power is not in doubt. Its initial voting threshold is the same as a direct proposal under the two-thirds-of-present convention used here, not automatically a higher price.
 
 **A step the script does not model at all: the seats refill, and the chamber cannot stop it.** Article I, Section 2, clause 4 puts House vacancies in the hands of state executives by writ of election, and the Seventeenth Amendment does the same for the Senate including temporary appointment where the legislature has authorized it. In 1947 a Senate seat could be refilled by gubernatorial appointment in a matter of days — Milton Young of North Dakota was appointed nine days after John Moses died — in what appears to be forty-five of the forty-eight states. House seats took longer, six to twenty-two weeks in 80th Congress practice. In neither case does the emptying chamber have any say in the refilling; it can only refuse to seat the replacement, which costs another vote, against a governor who can simply appoint again. The House did exactly this to Victor Berger twice, in November 1919 and January 1920, and the seat stayed empty — so the manoeuvre is possible, but it is a standing expense, not a one-time one.
 
 Sourcing note again: the count of forty-five of forty-eight states is **reconstructed backwards from modern data** and is not primary-source verified. It is reported here because it is the honest state of the evidence, not because it is load-bearing — nothing below depends on it.
 
-## Why it closes: the minimum coalition is larger than the thing it buys
+## The arithmetic theorem survives; its former cost interpretation does not
 
-The disqualifier in `method/what-counts-as-a-finding.md` is that a candidate needing an enormous coalition is Article V working as designed. This one is worse than enormous. It is self-defeating, and provably so.
-
-Let `n` be the members a chamber has as it stands. A quorum is a majority of them. The Article V proposing threshold, under the 1920 reading and with a coalition sensibly arranging for exactly a quorum to be present, is two thirds of that quorum.
-
-Any manoeuvre that changes who is a member is business of the chamber. It needs a quorum present, and the bloc driving it has to supply that quorum out of its own ranks, because the members it is removing will not stay to help make one. **So the entry price of the cascade is a quorum.**
-
-And two thirds of a quorum is less than a quorum.
+Let `n` be a chamber's chosen-and-sworn membership and `q = floor(n/2) + 1` its minimum quorum. With exactly that quorum present, the two-thirds threshold is `ceil(2q/3)`. The following statement is true:
 
     for all n >= 4:   ceil(2 * (floor(n/2) + 1) / 3)  <  floor(n/2) + 1
 
-`search/cascade_domination.py` proves this with Z3 for all `n` at once, checks it exhaustively for every chamber size to 200,000, and carries a negative control: dropping the `n >= 4` guard, the solver must and does return a counterexample, because 1, 2 and 3 genuinely are exceptions. A proof whose check cannot fail is not a check.
+`search/cascade_domination.py` verifies it with Z3, checks chamber sizes through 200,000, and finds a counterexample when the `n >= 4` guard is removed. Its exceptions are exactly 1, 2, and 3.
 
-At the 1947 vantage, with the thresholds as `threshold-arithmetic.md` derives them:
+The former comparison treated the first expression as the direct-proposal coalition, with nonsupporters helping constitute a quorum, and the second as the cascade coalition, whose supporters must supply the quorum alone. Those are different attendance assumptions. Applying the same convention to both gives:
 
-| | House | Senate | total |
-|---|---|---|---|
-| carry an Article V proposal outright | 146 | 33 | **179** |
-| merely begin the cascade | 218 | 49 | **267** |
+| Attendance | Initial majority exclusion | Direct proposal |
+|---|---:|---:|
+| Full membership | **267** | **354** |
+| Favorable minimum quorum | **135** | **179** |
+| Supporters alone supply quorum | **267** | **267** |
 
-**The cascade costs 88 members more than not running it.** Anybody who can assemble 267 members willing to purge Congress already had, among them, the 179 needed to propose the amendment on the first morning without touching anyone's seat. Every later step is cheaper than the one before, which is what made the trace look like a discovery, but the coalition has already been paid by then. The manoeuvre is strictly dominated at step zero, and no downstream saving can refund it.
+Thus a self-quorate bloc sufficient for an initial majority exclusion is also large enough for a direct proposal under that convention: there is no initial numerical saving. But the claim of an **88-member extra cost** does not follow. Under favorable quorum or full attendance, the initial majority threshold is lower. These comparisons assume the same willing bloc is assessed for the two actions; they do not establish political willingness or lawful exclusion grounds.
 
-This holds regardless of how Langer comes out, regardless of how fast seats refill, and regardless of the quorum base — it is arithmetic about the 1920 reading and nothing else. Three parallel research threads ran for over two hours each to settle questions the verdict did not need.
+The correction concerns initial voting only. Subsequent removals, attendance, the continued existence of vacancies, and ratification are still unverified. The historical and legal questions cannot be dismissed by the old arithmetic argument.
 
 ## The disqualifiers, applied
 
-**Name the edit that closes it.** There is none to name, because there is nothing open to close. That is normally the fatal filter; here it is moot.
+**Name the edit that closes it.** No complete lawful path has been established to which a closing edit can yet be applied.
 
-**Does it require only bad faith?** Substantially, yes. A chamber that excludes forty-seven senators-elect to lower its own quorum is not exploiting a defect in the text; it is doing something the text plainly contemplates being done for cause, without cause. `method/what-counts-as-a-finding.md` calls that a fact about power rather than about the document.
+**Does it require only bad faith?** A proposed path must identify lawful grounds and authority for its exclusions, rather than assume a power to remove qualified opponents. The statutory text, contested precedents, and actual process must be checked separately.
 
-**Does it reach amendment?** No, and this was recorded before any of the above. Article V requires ratification by three fourths of the state legislatures, 36 of 48 in 1947. Nothing in the cascade approaches that number. It was confined to the proposing stage from the beginning.
+**Does it reach amendment?** No. Ratification in 36 of the fixed 48 states remains necessary, by legislatures or conventions as Congress directs. This cascade calculation supplies neither mode's support.
 
 ## The falsifier
 
-The theorem is arithmetic and falsifiable only by finding the encoding wrong; `cascade_domination.py` is the place to attack it, and its negative control is the place to start.
+The scalar theorem is checked by `cascade_domination.py`. The cost interpretation is separately tested by `attendance_audit.py`, including an actual artifact-mutation control that rejects substitution of the favorable-attendance proposal price for the self-quorate price.
 
-The premise beneath the theorem is the one to attack instead: that a bloc must supply a quorum from its own ranks. A manoeuvre that changed the membership **without** a vote of the chamber would escape it entirely. Nothing in Article I, Section 5 supplies one — that is the whole content of "each House shall be the Judge" — but a route through Article I, Section 4, where Congress may "make or alter" state regulations for congressional elections, would not be answered by this file. That is a different candidate and it has not been examined.
+A completed cascade would need an explicit sequence satisfying the same attendance assumptions at every stage, lawful membership changes, and a defensible treatment of seat refilling. It would still not supply state ratification. The separate [Article I, Section 4 investigation](article-i-4-route.md) considers election legislation rather than shrinking membership.
 
-## What this cost, and the lesson
+## The methodological lesson
 
-The refutation required no research at all. `quorum_cascade.json` has printed `"peak_coalition_total": 267` next to `"settled_1920_total": 179` since the day it was committed, and 267 is visibly larger than 179. The file was labelled `NOT A FINDING` for the right reason — an unverified premise — and that label did its job of keeping the numbers out of the analysis. But it also became a place to stop looking. The premise was interesting, so the premise got the attention, and the two numbers that killed the thing sat unread in the output of the script that produced them.
+Comparing two printed numbers is not enough. Their units, attendance assumptions, decision stages, and quantified claims must also match. Here the numerical inequality was correct and the claimed interpretation was not.
 
-The general form is worth keeping: **when a result is quarantined pending one open question, check whether it is already dead for a reason that needs no question answered.** Quarantine is not the same as refutation and should not be allowed to feel like it.
+**An unverified candidate is not a finding, and an invalid refutation does not turn it into one.**

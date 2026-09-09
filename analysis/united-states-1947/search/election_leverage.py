@@ -1,7 +1,7 @@
 """Why the Article I §4 route gains cost advantage only with presidential cooperation.
 
-STATUS: PARTIAL RESULT. The congressional stage of this route is not strictly
-    dominated the way the cascade was, but it gains leverage only when the
+STATUS: PARTIAL RESULT. Under favorable minimum-quorum attendance, the
+    initial statutory vote has a lower threshold only when the
     President cooperates. Without the President the route costs exactly the same
     as proposing the amendment directly, because the veto-override threshold and
     the Article V proposing threshold are identical. The write-up is
@@ -27,19 +27,20 @@ THE ARITHMETIC
     the same function of the same chamber sizes, because the same 1919-1920 case
     law governs both. Therefore the two thresholds are always identical.
 
-    THEOREM. For every quorum q >= 5, a bare majority of q is strictly less
+    THEOREM. For every quorum q >= 7, a bare majority of q is strictly less
     than two thirds of q. Equivalently, with presidential cooperation, the
     statutory price is strictly below the Article V proposing price.
 
     CONSEQUENCE. Without presidential cooperation, an Art. I §4 statute costs
     exactly the same as an Art. V proposal (179 members in 1947). With
     presidential cooperation, the statute costs only 135 members — 44 fewer.
-    The route is not strictly dominated (135 < 179), unlike the quorum cascade
-    (267 > 179). The entire cost advantage is the President's signature.
+    The initial comparison is 135 < 179 under the same attendance convention.
+    The old contrast with a 267-member cascade entry mixed conventions and is
+    withdrawn. See attendance_audit.py; its scalar controls also catch q = 6
+    as an exception to the formerly misstated q >= 5 claim.
 """
 
 import json
-import math
 from pathlib import Path
 
 HOUSE_1947 = 435
@@ -55,7 +56,7 @@ def quorum(n: int) -> int:
 
 def two_thirds(q: int) -> int:
     """Two thirds of those present (ceiling), the 1919-1920 reading."""
-    return math.ceil(2 * q / 3)
+    return (2 * q + 2) // 3
 
 
 def bare_majority(q: int) -> int:
@@ -163,9 +164,10 @@ def main():
 
     print()
     print("=== COMPARISON WITH THE CASCADE ===")
-    print(f"  Cascade entry price  : {cascade_entry} members")
-    print(f"  Art. V proposing     : {art_v_total} members")
-    print(f"  Cascade dominated    : {cascade_entry} > {art_v_total} = {cascade_entry > art_v_total}")
+    print(f"  Favorable-quorum majority exclusion : {statute_total}")
+    print(f"  Favorable-quorum Art. V proposal    : {art_v_total}")
+    print(f"  Self-quorate exclusion / proposal  : {cascade_entry} / {cascade_entry}")
+    print("  Comparing self-quorate entry to favorable proposal does not establish domination.")
     print(f"  This route (w/ Pres) : {statute_total} < {art_v_total} = {statute_total < art_v_total}")
     print(f"  This route (no Pres) : {veto_total} == {art_v_total} = {veto_total == art_v_total}")
 
@@ -174,10 +176,9 @@ def main():
     identity_ok = len(identity_failures) == 0
     leverage_ok = statute_total < art_v_total
     no_pres_identity = veto_total == art_v_total
-    cascade_dominated = cascade_entry > art_v_total
-    control_ok = control is not None
+    control_ok = control == [1, 2, 3, 4, 6]
 
-    ok = identity_ok and leverage_ok and no_pres_identity and cascade_dominated and control_ok
+    ok = identity_ok and leverage_ok and no_pres_identity and control_ok
 
     if ok:
         print("  THE ROUTE IS NOT STRICTLY DOMINATED (with presidential cooperation).")
@@ -185,8 +186,8 @@ def main():
         print(f"  Without the President, entry price {veto_total} == Art. V threshold {art_v_total}.")
         print("  The entire cost advantage is the President's signature.")
         print()
-        print("  Compare the cascade: entry price", cascade_entry, "> Art. V threshold", art_v_total)
-        print("  The cascade was dominated at step zero. This route is not.")
+        print("  This is an initial-vote comparison, not a complete-path cost calculation.")
+        print("  The old cascade contrast used different attendance assumptions.")
         print()
         print("  HOWEVER: this route still requires Art. V ratification by 36 of 48")
         print("  state legislatures, which no federal election law reaches.")
@@ -215,7 +216,9 @@ def main():
         "negative_control_count": len(control) if control else 0,
         "route_dominated_with_president": not leverage_ok,
         "route_dominated_without_president": no_pres_identity,
-        "cascade_dominated": cascade_dominated,
+        "cascade_strict_cost_domination_established": False,
+        "attendance_convention": "favorable minimum quorum; every present member votes",
+        "legacy_cascade_entry_uses_different_attendance": True,
         "all_checks_passed": ok,
     }
     p = Path(__file__).with_name("election_leverage.json")

@@ -23,6 +23,8 @@
   "negative_control_count": 5,
   "route_dominated_with_president": false,
   "route_dominated_without_president": true,
-  "cascade_dominated": true,
+  "cascade_strict_cost_domination_established": false,
+  "attendance_convention": "favorable minimum quorum; every present member votes",
+  "legacy_cascade_entry_uses_different_attendance": true,
   "all_checks_passed": true
 }

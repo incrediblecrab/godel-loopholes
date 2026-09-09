@@ -34,7 +34,7 @@ This is admissible at the 1947 vantage, and so is *Schneiderman v. United States
 
 ## The arithmetic
 
-Combining the holding with the quorum clause: the base is a quorum, a quorum is a majority of the chamber, and the requirement is two thirds of that.
+The holding uses members **present**, provided a quorum exists. Minimizing over attendance gives exactly a minimum quorum, a majority of the chamber, and two thirds of that. This is a favorable-attendance lower bound, not a requirement that every vote use the minimum quorum.
 
 At the 1947 vantage there were forty-eight states, ninety-six senators, and four hundred thirty-five representatives. That last number is worth a sentence, because no statute states it. The Act of August 8, 1911 fixed the House at four hundred thirty-three and gave Arizona and New Mexico one Representative each on admission "in addition to" that number; both were admitted in 1912. The apportionment legislation of 1929 and 1941 then carried the figure forward by referring to "the then existing number of Representatives" without ever naming it. The arithmetic below is unaffected — 435 was the correct figure on December 5, 1947 — but the provenance is a chain rather than a citation, and it is set out in `silence-inventory.md`.
 
@@ -45,7 +45,7 @@ At the 1947 vantage there were forty-eight states, ninety-six senators, and four
 
 Had the base been the entire membership, the figures would have been 290 and 64.
 
-So at the congressional stage of Article V, an amendment could be proposed in 1947 by one hundred forty-six of four hundred thirty-five representatives and thirty-three of ninety-six senators. Slightly over a third of each chamber, and fewer than half the members that the phrase "two thirds of both Houses" is ordinarily taken to mean.
+With exactly a quorum present and all present members voting, 146 representatives and 33 senators suffice under the nominal 435/96 membership assumptions. With full attendance the figures are 290 and 64. If supporters must supply quorum without opponents' attendance, the corresponding support counts are 218 and 49. The [consistent-attendance audit](attendance-consistency.md) makes these different assumptions explicit.
 
 For completeness at the same vantage: three fourths of the states for ratification is thirty-six of forty-eight, and two thirds of the state legislatures to compel a convention is thirty-two.
 
@@ -55,7 +55,7 @@ It does not show that the United States Constitution was easier to amend than th
 
 Weimar Article 76 was single-stage. Four ninths of the Reichstag's statutory membership, about forty-four percent, together with the Reichsrat, amended the constitution outright. Article V's congressional stage is lower, at about a third of each chamber, but it only proposes. Ratification by thirty-six of the forty-eight state legislatures then had to follow, and there is no analogue to that in Article 76. Taken end to end the American procedure is markedly more rigid, and the honest statement of this finding is narrow.
 
-The narrow statement is this. The congressional gate of Article V is roughly a third of each chamber rather than two thirds of it, that number is lower than the phrase suggests and lower than the corresponding single-stage German figure, and it was fixed by the Supreme Court in 1920 in the direction of the smaller number. Whatever protection Article V affords is carried almost entirely by the ratification stage, not by the supermajority in Congress.
+The narrow statement is conditional: the minimum congressional yes-vote threshold under favorable quorum attendance is roughly a third of each fully seated chamber. It is not the cost under full attendance or an adversarial-attendance guarantee. The separate state-ratification requirement remains substantial; these numbers do not by themselves measure how constitutional protection is distributed between the stages.
 
 That last sentence is the load-bearing one for later work, because it says where to look. A path that neutralises or bypasses state ratification faces a far weaker congressional threshold than the text implies.
 
@@ -65,7 +65,7 @@ Counsel in *National Prohibition Cases* had already run this enumeration, and fu
 
 > The census discloses, that there are three-fourths of the States of the Union whose total population amounts to less than forty-five per cent. of the people of the United States, and two-thirds of a quorum of both houses of Congress may, therefore, likewise represent only a minority of the population.
 
-This is argument of counsel as reported, not a holding, and it rests on census figures contemporaneous with 1920 rather than 1947. This project has not recomputed it for the 1940 census and does not assert the 1947 figure.
+This is argument of counsel as reported, not a holding. The [Census replication](quantitative-ratification.md) now computes the 1940 result: the smallest 36-state group contains **54,982,723 of 131,006,184 residents in the 48-state universe, or 41.9696%**. These are 1940 census residents, not a December 1947 estimate or a count of supporters. A separate 1910 calculation is below 45%, but counsel's exact census inputs and denominator have not been verified, so it is not a claimed replication of counsel's particular calculation.
 
 It is recorded here for two reasons. It establishes that the minimum-coalition calculation this project treats as one of its own procedures was performed and presented to the Supreme Court in 1920, which is directly relevant to whether any later version of it is novel. And the argument lost.
 
@@ -83,7 +83,7 @@ A rule that a constitution does not state, which is then filled in by the practi
 
 ## Falsifier
 
-The claim is that Article V does not state the base of its fraction, that the Supreme Court fixed the base as a quorum in 1920, and that the resulting 1947 congressional threshold is 146 representatives and 33 senators.
+The claim is that Article V does not state the base of its fraction, that the Supreme Court specified members present with a quorum in 1920, and that favorable minimum-quorum attendance under the nominal 1947 membership yields 146 representatives and 33 senators. The latter numbers are not attendance-independent thresholds.
 
 It would be wrong if a quorum for the purpose of a constitutional amendment vote were something other than the Article I, Section 5 majority, which is the first thing an opponent should attack; *Missouri Pacific* expressly equates the two, so this now requires displacing a 1919 holding as well as a 1920 one. It would be wrong if the House was not 435 members in 1947, which is checkable and which this project has taken from the apportionment legislation rather than from a count. That legislation has now been read from the page images, and it reaches 435 by addition rather than by stating it, which `silence-inventory.md` sets out; the figure survives the check, but anyone attacking it should attack the 1911 act and the two 1912 admissions, not the 1929 one.
 

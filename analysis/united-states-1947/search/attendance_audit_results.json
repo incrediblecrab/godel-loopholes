@@ -1,0 +1,173 @@
+{
+  "general_counterexample_searches": {
+    "favorable_majority_not_costlier_than_two_thirds": "UNSAT",
+    "full_majority_not_costlier_than_two_thirds": "UNSAT",
+    "legacy_inequality_without_n_ge_4_at_n_1": "SAT",
+    "legacy_scalar_inequality": "UNSAT",
+    "majority_strictly_cheaper_with_at_least_seven_voters": "UNSAT",
+    "self_quorate_majority_cannot_use_fewer_than_quorum": "UNSAT",
+    "self_quorate_majority_quorum_witness_always_works": "UNSAT",
+    "self_quorate_two_thirds_cannot_use_fewer_than_quorum": "UNSAT",
+    "self_quorate_two_thirds_quorum_witness_always_works": "UNSAT",
+    "strict_majority_advantage_does_not_hold_at_six_voters": "SAT"
+  },
+  "legacy_mixed_comparison": {
+    "cascade_entry_self_quorate": 267,
+    "direct_proposal_favorable": 179,
+    "same_attendance_assumption": false,
+    "strict_cost_domination_established": false
+  },
+  "rows": {
+    "favorable_minimum_quorum": {
+      "chambers": {
+        "House": {
+          "article_v_proposal": 146,
+          "majority_exclusion": 110,
+          "members": 435,
+          "smt_majority": {
+            "present": 218,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 110
+          },
+          "smt_two_thirds": {
+            "present": 218,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 146
+          },
+          "two_thirds_expulsion": 146
+        },
+        "Senate": {
+          "article_v_proposal": 33,
+          "majority_exclusion": 25,
+          "members": 96,
+          "smt_majority": {
+            "present": 49,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 25
+          },
+          "smt_two_thirds": {
+            "present": 49,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 33
+          },
+          "two_thirds_expulsion": 33
+        }
+      },
+      "totals": {
+        "article_v_proposal": 179,
+        "majority_exclusion": 135,
+        "two_thirds_expulsion": 179
+      }
+    },
+    "full_membership": {
+      "chambers": {
+        "House": {
+          "article_v_proposal": 290,
+          "majority_exclusion": 218,
+          "members": 435,
+          "smt_majority": {
+            "present": 435,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 218
+          },
+          "smt_two_thirds": {
+            "present": 435,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 290
+          },
+          "two_thirds_expulsion": 290
+        },
+        "Senate": {
+          "article_v_proposal": 64,
+          "majority_exclusion": 49,
+          "members": 96,
+          "smt_majority": {
+            "present": 96,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 49
+          },
+          "smt_two_thirds": {
+            "present": 96,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 64
+          },
+          "two_thirds_expulsion": 64
+        }
+      },
+      "totals": {
+        "article_v_proposal": 354,
+        "majority_exclusion": 267,
+        "two_thirds_expulsion": 354
+      }
+    },
+    "supporters_supply_quorum": {
+      "chambers": {
+        "House": {
+          "article_v_proposal": 218,
+          "majority_exclusion": 218,
+          "members": 435,
+          "smt_majority": {
+            "present": 218,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 218
+          },
+          "smt_two_thirds": {
+            "present": 218,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 218
+          },
+          "two_thirds_expulsion": 218
+        },
+        "Senate": {
+          "article_v_proposal": 49,
+          "majority_exclusion": 49,
+          "members": 96,
+          "smt_majority": {
+            "present": 49,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 49
+          },
+          "smt_two_thirds": {
+            "present": 49,
+            "smaller_coalition": "UNSAT",
+            "status": "OPTIMAL",
+            "yes": 49
+          },
+          "two_thirds_expulsion": 49
+        }
+      },
+      "totals": {
+        "article_v_proposal": 267,
+        "majority_exclusion": 267,
+        "two_thirds_expulsion": 267
+      }
+    }
+  },
+  "schema_version": 1,
+  "scope": {
+    "attendance": "Same convention on each side of each comparison",
+    "ballots": "Every present member votes yes or no; no abstentions or VP tie-break",
+    "chamber_membership": "Assume all 435 House and 96 Senate seats chosen and sworn",
+    "later_cascade_steps_and_seat_refilling": "NOT MODELED",
+    "majority_exclusion_authority": "CONTESTED; not established by these inequalities",
+    "measurement": "Initial yes-vote/supporter counts, not complete constitutional paths",
+    "state_ratification": "36 of 48 remains a separate gate",
+    "vantage": "December 5, 1947"
+  },
+  "source_sha256": {
+    "attendance_audit.py": "700002495e8cc747278c5bd4258eba68b4227807cf49a0b9f5ed017df72776a3",
+    "state_admission.py": "01c77bae2f1cc25c8c6cab9cbc5046f41d89b5cc673f787c1bd2ee8238203a8e",
+    "test_attendance_audit.py": "8d7698e9c36c0a52b217c24993d8eda10119e4462de0d4be6c2a0fde48221205"
+  }
+}

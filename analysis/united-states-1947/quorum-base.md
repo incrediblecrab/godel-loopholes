@@ -98,7 +98,7 @@ The lesson is not the one the second pass drew. A section that begins on the pag
 
 Established: the denominator of "a Majority of each" tracks the membership as it actually stands rather than the statutory size of the chamber. The premise under `search/quorum_cascade.py` step one holds. Both limbs are ruled, not merely digested. Vacancies lower the base on Reed in 1896 and on Cannon in 1906, and the Senate had its own quorum reduced to 38 on the death of Senator Miller of California, March 24, 1886. The never-sworn lower it on Cannon in 1906, in a ruling that determined whether the House had a quorum that afternoon, and in the Senate on a standing rule.
 
-It did not save the cascade. `quorum-cascade-null.md` closes that as a null result on arithmetic the premise has no bearing on: beginning the manoeuvre costs a quorum, and two thirds of a quorum is fewer people than a quorum. This file remains worth having — the holding is a real feature of the 1947 Congress, and it is the thing anyone re-examining the silence inventory will need — but it did not turn out to be load-bearing.
+This does not establish a lawful cascade. The former cost refutation in `quorum-cascade-null.md` has been corrected: it compared different attendance assumptions. The membership holding remains relevant, while [attendance-consistency.md](attendance-consistency.md) separates the true scalar inequality from the initial-coalition comparison.
 
 Not established, and the cascade is not a finding without them:
 

@@ -22,7 +22,7 @@ Vantage December 5, 1947. Nothing in this analysis turns on punctuation, so the 
 
 ## The path, as numbered steps
 
-This route does not shrink the chamber the way the quorum cascade attempted. It changes who arrives in it. The arithmetic that killed the cascade (`search/cascade_domination.py`) says nothing about this route, because this route never reduces the denominator — it aims to change the composition of the numerator through ordinary legislation.
+This route does not shrink the chamber the way the quorum cascade attempted. It changes who arrives in it. The cascade's former arithmetic refutation has been corrected in `attendance-consistency.md`. This route instead aims to change the composition of the numerator through ordinary legislation, without reducing the denominator.
 
 **Step 1. Enact an election-regulation statute under Article I §4.** Authorized by Article I, Section 4, Clause 1: "the Congress may at any time by Law make or alter such Regulations." The words "by Law" invoke the full legislative process of Article I, Section 7: passage by both chambers and presentment to the President. With presidential cooperation the statute needs a bare majority of those present, assuming a quorum, in each chamber. Without cooperation it needs a two-thirds override of the veto in each chamber.
 
@@ -76,18 +76,17 @@ The cost comparison is the load-bearing number, and `search/election_leverage.py
 
 The critical identity: the Article I §7 veto-override threshold ("two thirds of that House") and the Article V proposing threshold ("two thirds of both Houses") are the same formula applied to the same chamber sizes. Both were settled as two thirds of those present assuming a quorum — the veto override by *Missouri Pacific Ry. Co. v. Kansas*, 248 U.S. 276 (1919), and the Article V threshold by *National Prohibition Cases*, 253 U.S. 350 (1920), which cited *Missouri Pacific*. The order of authority is set out in `threshold-arithmetic.md`.
 
-The consequence is stark. **Without presidential cooperation, an Article I §4 statute costs exactly the same as proposing the amendment directly: 179 members.** The entire cost advantage of the route is the President's signature.
+Under favorable minimum-quorum attendance, the initial veto-override threshold equals the direct-proposal threshold: **179 yes votes**. Presidential cooperation lowers the initial statutory voting threshold under that attendance convention; it does not guarantee the statute's legality, an election outcome, or a completed amendment.
 
-With presidential cooperation, the costs at the 1947 vantage:
+With the same favorable minimum-quorum attendance in each comparison:
 
 | | House | Senate | total |
 |---|---|---|---|
 | Art. I §4 statute (with President) | 110 | 25 | **135** + 1 President |
 | Art. I §4 statute (veto override) | 146 | 33 | **179** |
 | Art. V proposal (direct) | 146 | 33 | **179** |
-| Quorum cascade entry | 218 | 49 | **267** |
 
-The route is not strictly dominated: 135 < 179, so a bloc that can pass the statute with presidential cooperation does not yet have the numbers to propose the amendment directly. The cascade was strictly dominated: 267 > 179. That is the difference, and it is the reason this route was flagged as an unexamined escape hatch in `quorum-cascade-null.md`. The cascade costs 88 members more than not running it; this route costs 44 members *fewer* than not running it, when the President cooperates. The 44-member advantage evaporates completely if the President vetoes.
+The initial statutory threshold is 44 yes votes lower with presidential cooperation under this convention. The former comparison with a 267-member cascade entry was invalid: that entry required supporters to supply quorum alone. [attendance-consistency.md](attendance-consistency.md) gives the corrected comparison. A favorable-quorum majority exclusion also has a 135-vote initial threshold, while self-quorate exclusion and direct proposal both require 267 supporters. None of these numbers establishes a complete path.
 
 ## The nonjusticiability cluster, December 5, 1947
 
@@ -129,13 +128,13 @@ The parallel breaks at ratification. Italy's Statuto was flexible — it could b
 
 ## The minimum coalition
 
-With presidential cooperation: **135 congressional members** (110 in the House, 25 in the Senate) plus 1 President — a total of **136 individuals**. This is 31 percent of the combined chambers plus one executive.
+With presidential cooperation and favorable minimum-quorum attendance: **135 congressional yes votes** (110 in the House, 25 in the Senate) plus the President's cooperation. The congressional count is about **25.4%** of the nominal 531-member Congress, not the previously reported 31%.
 
 Without presidential cooperation: **179 congressional members** (veto override) — identical to proposing the amendment directly under Article V. The route provides zero cost advantage without the President.
 
 In both cases, the route reaches only the congressional proposing stage. Ratification by thirty-six state legislatures is a separate and higher price, unaffected by anything in the route.
 
-Compare: the quorum cascade cost 267 members to *begin*, versus 179 to propose directly. This route costs 135 + 1 President to begin (with cooperation) or 179 (without). It is the first candidate in this folder whose entry price is below its target.
+The 135/179 comparison concerns initial voting thresholds under favorable attendance. It is not unique to this route and cannot be contrasted with the cascade's self-quorate entry without changing assumptions. The willingness of absent or opposing members to provide the assumed attendance is not established.
 
 ## The disqualifiers, applied
 
@@ -145,7 +144,7 @@ Compare: the quorum cascade cost 267 members to *begin*, versus 179 to propose d
 
 **It requires only bad faith and not the text.** Arguable, but it clears the filter. The combination of features this route depends on is specific to this document: (a) Congress can override state election regulations by ordinary law, (b) no constitutional standard constrains the content of those regulations, (c) the courts will not intervene on the 1947 vantage, and (d) the result feeds directly into the Article V proposing threshold. A constitution that fixed districting standards constitutionally, or that provided explicit judicial review of election regulations, or that did not grant Congress an override power, would close the route. These are textual features, not merely bad faith.
 
-**The minimum coalition is enormous.** 136 individuals is not enormous. It is 31 percent of the two chambers plus one executive.
+**The minimum coalition is enormous.** The initial favorable-attendance count alone does not decide political feasibility or the total number of participants required for the proposed sequence. It omits state ratification and assumes the President's cooperation.
 
 **It is unfalsifiable.** It is falsifiable. A pre-1947 case or constitutional provision establishing judicial review of congressional election regulations, or a pre-1947 holding limiting the scope of "Manner" in a way that excludes the manipulations described, would kill Step 2. The ratification barrier is already a partially falsifying condition for the full route.
 

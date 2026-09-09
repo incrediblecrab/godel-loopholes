@@ -72,16 +72,22 @@ def proposal_required(seats: int, attendance: Attendance) -> int:
     raise ValueError(f"Unknown attendance convention: {attendance!r}")
 
 
+def majority_required(seats: int, attendance: Attendance) -> int:
+    if type(seats) is not int or seats < 1:
+        raise ValueError("The chamber must have a positive integer number of members")
+    if attendance == Attendance.FULL:
+        return seats // 2 + 1
+    if attendance == Attendance.FAVORABLE:
+        return quorum_votes(seats).present // 2 + 1
+    if attendance == Attendance.SELF_QUORATE:
+        return quorum_votes(seats).present
+    raise ValueError(f"Unknown attendance convention: {attendance!r}")
+
+
 def admission_required(seats: int, scenario: Scenario) -> int:
     if not scenario.president_cooperates:
         return proposal_required(seats, scenario.attendance)
-    if scenario.attendance == Attendance.FULL:
-        return seats // 2 + 1
-    if scenario.attendance == Attendance.FAVORABLE:
-        return quorum_votes(seats).present // 2 + 1
-    if scenario.attendance == Attendance.SELF_QUORATE:
-        return quorum_votes(seats).present
-    raise ValueError(f"Unknown attendance convention: {scenario.attendance!r}")
+    return majority_required(seats, scenario.attendance)
 
 
 def admission_can_begin(scenario: Scenario) -> bool:

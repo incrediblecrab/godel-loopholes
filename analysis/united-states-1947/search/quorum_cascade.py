@@ -1,29 +1,18 @@
-"""Exhaustive search over the Article I Section 5 quorum cascade, 1947 vantage.
+"""Greedy arithmetic relaxation of the Article I Section 5 quorum cascade.
 
-STATUS: RESOLVED, and the answer is a null result. The write-up is
-    ../quorum-cascade-null.md and the refutation is ../search/cascade_domination.py.
-    The numbers below are correct and may be cited as what a cascade would do.
-    They may NOT be cited as a threshold anyone can reach, for the reason below.
+STATUS: NOT A VERIFIED PATH. The write-up is ../quorum-cascade-null.md.
+    The trace does not validate attendance at every step, qualification grounds,
+    or seat refilling. Its endpoint may not be cited as lawfully reachable.
 
     The premise this file waited on turned out to be TRUE. The quorum base
     really is members chosen and sworn, not the statutory size of the chamber:
     Hinds' Precedents vol. 4 sections 2889 and 2891, verified from the page
     images in ../quorum-base.md. So a vacancy really does lower the denominator.
 
-    The cascade fails anyway, on arithmetic that needed none of that research
-    and that was sitting in this script's own output the whole time. Compare
-    the two numbers main() already prints:
-
-        two thirds of a quorum, settled 1920            : 179
-        peak coalition required to get there            : 267
-
-    Beginning the cascade costs a quorum of the undiminished chamber, because
-    the bloc must supply that quorum itself; the members it is removing will not
-    stay to help make one. And two thirds of a quorum is strictly fewer people
-    than a quorum, for every chamber of four or more. So any bloc able to start
-    this could already have proposed the amendment outright, 88 members ago.
-    Strictly dominated at step 0. cascade_domination.py proves the general
-    statement with Z3 and carries a negative control.
+    The former 267-versus-179 cost refutation mixed self-supplied quorum with
+    favorable minimum-quorum attendance. attendance_audit.py corrects it.
+    cascade_domination.py still verifies its true scalar inequality, not that
+    former interpretation. No complete cascade is established by this correction.
 
     One thing that bears on it and helps rather than hurts, kept for the record:
     Barry v. United States ex rel. Cunningham, 279 U.S. 597, 615-616 (1929),
@@ -59,14 +48,14 @@ VANTAGE DISCIPLINE
     December 5, 1947. Powell v. McCormack, 395 U.S. 486 (1969), which confines
     the Sec. 5 cl. 1 power to the standing qualifications of Art. I Sec. 2, is
     twenty-two years in the future and may not be used. At the vantage the
-    governing practice is the other way: the House excluded Victor Berger in
-    1919 and again in 1920 on grounds found nowhere in Art. I Sec. 2.
+    practice was mixed: the House excluded Victor Berger in 1919 and 1920,
+    but the Senate rejected the majority-exclusion premise in Langer's 1942
+    case. See the source qualifications in quorum-cascade-null.md.
 
 NOTHING HERE REACHES RATIFICATION. See the verdict printed at the end.
 """
 
 import json
-import math
 from pathlib import Path
 
 HOUSE_1947 = 435
@@ -86,7 +75,7 @@ def majority_of(present: int) -> int:
 
 def two_thirds_of(present: int) -> int:
     """Two thirds of those present. Expulsion, and the Article V proposal."""
-    return math.ceil(2 * present / 3)
+    return (2 * present + 2) // 3
 
 
 def article_v_threshold(sworn: int) -> int:
@@ -100,15 +89,15 @@ def article_v_threshold(sworn: int) -> int:
 
 
 def cascade(start: int, label: str):
-    """Exhaustively drive the chamber down and record every reachable state.
+    """Record a greedy sequence admitted by this arithmetic relaxation.
 
     Step 0 is exclusion at organisation of a new Congress, by simple majority.
     Every later step is expulsion of sitting members, at two thirds.
 
     At each step the acting bloc must (a) be large enough to supply the
     required vote with exactly a quorum present, and (b) still be seated
-    afterwards. The search takes the largest legal cut at each stage and then
-    verifies by exhaustion that no larger cut was available.
+    afterwards. The search takes the largest arithmetically admitted cut.
+    Its local enumeration does not establish legally reachable states.
     """
     trace = []
 
@@ -148,7 +137,7 @@ def cascade(start: int, label: str):
         survivors = need
         if survivors >= sworn:
             break                         # cannot cut further
-        # Exhaustive check: is a deeper cut legal at this stage?
+        # Check whether the relaxation permits a deeper cut.
         best = None
         for target in range(1, sworn):
             if target < need:
@@ -189,12 +178,13 @@ def cascade(start: int, label: str):
 
 def main():
     out = {"vantage": "United States, December 5, 1947",
-           "status": "NULL RESULT -- strictly dominated, see quorum-cascade-null.md",
+           "status": "ARITHMETIC RELAXATION -- no verified constitutional path",
            "premise_now_verified": ("the quorum base IS members chosen and sworn, per Hinds' "
                                     "Precedents vol. 4 ss. 2889 and 2891; see quorum-base.md"),
-           "why_it_fails": ("beginning the cascade costs a quorum of the undiminished "
-                            "chamber, and two thirds of a quorum is fewer people than a "
-                            "quorum, so the manoeuvre is dominated at step 0"),
+           "why_it_fails": ("no complete lawful path is verified: attendance, qualification "
+                            "grounds, and seat refilling are not established; ratification "
+                            "is untouched. The former mixed-attendance cost refutation "
+                            "is withdrawn; see attendance_audit.py"),
            "chambers": []}
 
     for start, label in ((HOUSE_1947, "House"), (SENATE_1947, "Senate")):
@@ -222,7 +212,7 @@ def main():
         "settled_1920_total": (article_v_threshold(HOUSE_1947) + article_v_threshold(SENATE_1947)),
         "after_cascade_total": (house["threshold_after_cascade"] + senate["threshold_after_cascade"]),
         "peak_coalition_total": house["peak_coalition"] + senate["peak_coalition"],
-        "states_still_required_to_ratify": math.ceil(STATES_1947 * 3 / 4),
+        "states_still_required_to_ratify": (3 * STATES_1947 + 3) // 4,
     }
 
     print("\n=== CONGRESSIONAL STAGE, BOTH CHAMBERS ===")
@@ -238,8 +228,9 @@ def main():
     print("  NOTHING IN THIS CASCADE TOUCHES THAT NUMBER.")
     print("  The cascade is confined to the proposing stage. It is not a path to")
     print("  amendment and therefore not a candidate. Recorded as a bounded result.")
-    print(f"  AND IT IS DOMINATED: beginning it costs {s['peak_coalition_total']}, while proposing")
-    print(f"  outright costs {s['settled_1920_total']}. See search/cascade_domination.py.")
+    print(f"  The legacy {s['peak_coalition_total']}/{s['settled_1920_total']} comparison mixes")
+    print("  attendance assumptions. It does not establish strict cost domination.")
+    print("  See search/attendance_audit.py for the corrected initial-vote comparison.")
 
     p = Path(__file__).with_name("quorum_cascade.json")
     p.write_text(json.dumps(out, indent=2))

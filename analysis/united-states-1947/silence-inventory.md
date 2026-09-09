@@ -2,7 +2,7 @@
 
 The procedure is in `method/enumerations.md`. It lists the fields the constitution does not reserve to itself, where ordinary legislation governs and no constitutional provision constrains what that legislation may say. It terminates in fields where a bare legislative majority can alter the conditions of its own re-election or tenure.
 
-Statute citations below are given as they are ordinarily reported and have **not** been verified against Statutes at Large. The `llsl` retrieval problem recorded in `corpus/README.md` is unsolved, so no volume after 1 is currently reachable. The two judicial decisions carrying weight here were read from Library of Congress page images and are marked accordingly.
+The statutory citations were initially unverified; the later “statutes, read” section below records the subsequent page-image checks and the correction to the House-size provenance. The earlier blanket retrieval blockage no longer applies. This remains a targeted inventory, not a comprehensive search of all statutes. The two judicial decisions carrying weight here were read from Library of Congress page images and are marked accordingly.
 
 ## The inventory
 

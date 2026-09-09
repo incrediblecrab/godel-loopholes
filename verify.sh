@@ -107,7 +107,7 @@ grep -q 'two thirds of a quorum, settled 1920            : 179' <<<"$CASC" \
   && ok "agrees with threshold-arithmetic.md at the settled reading (146+33=179)" \
   || bad "cascade disagrees with threshold-arithmetic.md on the 1920 baseline"
 grep -q 'after the Sec. 5 cascade                        : 4' <<<"$CASC" \
-  && ok "cascade drives the congressional stage to 4 individuals" \
+  && ok "legacy arithmetic relaxation reproduces 4; not a lawful-reachability claim" \
   || bad "cascade did not reproduce its recorded figure"
 grep -q 'NOTHING IN THIS CASCADE TOUCHES THAT NUMBER' <<<"$CASC" \
   && ok "cascade reports its own disqualification (does not reach ratification)" \
@@ -121,29 +121,31 @@ else
   bad "CONTROL BROKEN: the 36-state requirement is no longer being reported"
 fi
 
-hdr "2e. The cascade is strictly dominated -- the null result, machine-checked"
+hdr "2e. Cascade scalar arithmetic and consistent-attendance comparison"
 note "Claim: for every chamber of 4 or more, two thirds of a quorum is strictly fewer"
-note "people than a quorum, so any manoeuvre that must begin by carrying a vote in the"
-note "undiminished chamber costs more than proposing the amendment outright."
-note "Source of truth: analysis/united-states-1947/quorum-cascade-null.md"
+note "people than a quorum. The old cost interpretation mixed attendance conventions;"
+note "the scalar theorem alone does not establish strict coalition-cost domination."
+note "Sources: quorum-cascade-null.md and attendance-consistency.md in the US analysis."
 DOM=$("$REPO/.venv/bin/python" "$REPO/analysis/united-states-1947/search/cascade_domination.py" 2>&1)
 grep -q 'Z3, for all n >= 4              : PROVED' <<<"$DOM" \
-  && ok "Z3 proves the domination theorem for all chamber sizes at once" \
-  || bad "Z3 did not prove the domination theorem"
+  && ok "Z3 proves the scalar inequality for all chamber sizes in its domain" \
+  || bad "Z3 did not prove the scalar inequality"
 grep -q 'sizes where the theorem fails : \[1, 2, 3\]' <<<"$DOM" \
   && ok "exhaustive check to 200,000 finds only n = 1, 2, 3 as exceptions" \
   || bad "exhaustive check disagrees with the recorded exceptions"
-grep -q 'cheapest bloc that can carry an Article V proposal outright : 179' <<<"$DOM" \
-  && ok "agrees with threshold-arithmetic.md on the price of proposing (179)" \
-  || bad "domination proof disagrees with threshold-arithmetic.md"
-grep -q 'cheapest bloc that can even BEGIN the cascade               : 267' <<<"$DOM" \
-  && ok "entry price of the cascade is a quorum of each chamber (267)" \
-  || bad "domination proof no longer reports the 267 entry price"
-grep -q 'THE CASCADE IS STRICTLY DOMINATED AT STEP ZERO' <<<"$DOM" \
-  && ok "reports the null result in its own output" \
-  || bad "the null result is no longer being reported"
+grep -q 'favorable-quorum direct proposal : 179' <<<"$DOM" \
+  && ok "reports 179 under favorable-quorum attendance" \
+  || bad "scalar report disagrees with the favorable-quorum baseline"
+grep -q 'self-quorate cascade entry       : 267' <<<"$DOM" \
+  && ok "reports 267 under the distinct self-quorate convention" \
+  || bad "scalar report lost its self-quorate baseline"
+if ATT=$("$REPO/.venv/bin/python" "$REPO/analysis/united-states-1947/search/attendance_audit.py" --check 2>&1); then
+  ok "fresh SMT-backed attendance comparison matches the corrected artifact"
+else
+  bad "consistent-attendance audit failed: $ATT"
+fi
 
-hdr "2f. NEGATIVE CONTROL: the domination proof must find the real exceptions"
+hdr "2f. NEGATIVE CONTROL: the scalar proof must find the real exceptions"
 note "n = 1, 2 and 3 genuinely violate the theorem. If dropping the n >= 4 guard still"
 note "returns unsat, the encoding is vacuous and the PROVED above means nothing."
 grep -qE 'Z3 negative control, n >= 1     : counterexample n=[123]$' <<<"$DOM" \
