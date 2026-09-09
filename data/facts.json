@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "Single source of truth for every load-bearing number, date and quotation in this project. Prose is authored per audience and may legitimately differ between a research note and a general-audience page. Values may not. Anything that renders a value reads it from here, and verify.sh section 6 asserts that each value still appears in the file named as its owner. If this file and the canonical file disagree, the harness fails and nothing ships.",
+  "purpose": "Single-source registry for the facts listed here, not a complete inventory of the expanded research. Newer experiments also maintain source-pinned data and result artifacts with their own checks. Prose may differ by audience; quantities and assumptions may not. tools/facts.py checks each registered value against its named owner and checks the listed arithmetic relations. These consistency checks do not certify legal interpretation or the truth of every statement.",
   "vantage": "1947-12-05",
   "vantage_note": "Unless a fact says otherwise, it is asserted as of December 5, 1947, the date of Gödel's citizenship hearing. Powell v. McCormack (1969), the Twenty-fifth Amendment (1967) and modern state counts are out of bounds and must not be used to support any fact here.",
   "status_values": {
@@ -34,7 +34,7 @@
       "id": "godel.memo.date",
       "value": "September 13, 1971",
       "label": "Date of the Morgenstern memo",
-      "statement": "The only surviving account of Goedel's claim is a memorandum Morgenstern dictated on September 13, 1971, opening with the admission that he was working from memory and had not checked his diaries.",
+      "statement": "The principal eyewitness account used here is a memorandum Morgenstern dictated on September 13, 1971, opening with the admission that he was working from memory and had not checked his diaries. No source reviewed here establishes Goedel's actual argument.",
       "canonical": "README.md",
       "status": "verified"
     },
@@ -42,7 +42,7 @@
       "id": "godel.memo.quote",
       "value": "He rather excitedly told me that in looking at the Constitution, to his distress he had found some inner contradictions and that he could show how in a perfectly legal manner it would be possible for somebody to become a dictator and set up a Fascist regime, never intended by those who drew up the Constitution.",
       "label": "The Morgenstern memo, on the claim",
-      "statement": "The sole first-hand description of what Goedel said he had found.",
+      "statement": "Morgenstern's first-hand description of what Goedel reportedly said he had found.",
       "canonical": "README.md",
       "status": "verified",
       "kind": "quotation"
@@ -51,7 +51,7 @@
       "id": "godel.memo.doubt",
       "value": "he doubted Gödel was right",
       "label": "The witness doubted the claim",
-      "statement": "The one witness to the claim recorded his own scepticism about it in the same document, and never says which part of the Constitution Gödel meant.",
+      "statement": "Morgenstern recorded his own scepticism in the memorandum and did not specify which part of the Constitution Goedel meant.",
       "canonical": "README.md",
       "status": "verified"
     },
@@ -245,9 +245,9 @@
     },
     {
       "id": "articlev.protection",
-      "value": "Whatever protection Article V affords is carried almost entirely by the ratification stage, not by the supermajority in Congress.",
-      "label": "Where Article V's protection actually sits",
-      "statement": "This is the load-bearing sentence for later work, because it says where to look. A path that neutralises or bypasses state ratification faces a far weaker congressional threshold than the text implies.",
+      "value": "The separate state-ratification requirement remains substantial; these numbers do not by themselves measure how constitutional protection is distributed between the stages.",
+      "label": "Limits of the favorable-attendance threshold comparison",
+      "statement": "The minimum congressional yes-vote threshold assumes favorable quorum attendance. It is not the full-attendance cost or an adversarial-attendance guarantee. State ratification remains an independent gate; these numbers do not locate almost all constitutional protection at that stage.",
       "canonical": "analysis/united-states-1947/threshold-arithmetic.md",
       "status": "verified"
     },
@@ -318,8 +318,8 @@
     {
       "id": "model.stepone.cost",
       "value": "⌊is_rat amd1a⌋t2",
-      "label": "What deleting Goedel's step one costs",
-      "statement": "Delete the four axioms proposing and supporting the amendment that strips Article V's entrenchment clause, and every published theorem and every intermediate lemma still proves, in a theory Nitpick confirms is still consistent. Two proof scripts break; both propositions are re-proved. What is lost is exactly one proposition: the ratification of the repeal itself, which the full theory entails and the reduced theory leaves independent.",
+      "label": "What deleting the reconstruction's step one costs",
+      "statement": "Delete the four axioms proposing and supporting the amendment that strips Article V's entrenchment clause, and every published theorem and every intermediate lemma still proves, in a theory Nitpick confirms is still consistent. Two proof scripts break; both propositions are re-proved. An additional probe identifies a lost entailment: the ratification of the repeal itself, which the full theory entails and the reduced theory leaves independent.",
       "canonical": "analysis/united-states-1947/inert-manoeuvre.md",
       "status": "verified",
       "checked_by": "verify.sh section 4f, experiment 'repeal'"
@@ -360,20 +360,20 @@
     {
       "id": "netadd.step_one_necessary",
       "value": "independent without the five step-one axioms",
-      "label": "What Goedel's step one does once the proposal is derived",
-      "statement": "The published model asserts that the dictatorship amendment was proposed, which is the thing step one exists to bring about; with it assumed, step one is inert. Derive it instead and the behaviour reverses. Deleting the five step-one axioms leaves Dictatorship_t3 independent: Nitpick returns countermodels to the theorem and to its negation, in a theory it also finds consistent, with the entrenchment clause still in force at t2 so the amendment cannot be validly proposed. The independence is a model-finder diagnostic, not a proof, and it is a claim about this formalization rather than about Article V.",
+      "label": "Step-one package affects entailment, not established causality",
+      "statement": "Deleting the five step-one facts from the separate repaired model leaves dictatorship independent, as diagnosed by countermodels in a consistent theory. This removes an entailment guarantee, not the possibility of dictatorship. Further countermodels allow the clause to switch off without the scheduled repeal and allow dictatorship with the clause always on and no ratifications. Causal necessity over lawful constitutional histories has not been established.",
       "canonical": "analysis/united-states-1947/step-one-repair.md",
       "status": "verified",
       "checked_by": "verify.sh section 4h, the three-probe ablation (Nitpick, diagnostic)"
     },
     {
       "id": "netadd.pvr_forced",
-      "value": "dropping the entrenchment check contradicts the entrenchment clause",
-      "label": "Why the repaired proposal rule is not reverse-engineered",
-      "statement": "The strongest objection to the repair is that the proposal rule was written so that step one would have to matter. It was not. A rule making attempt, amendment status and legislative support sufficient for a valid proposal contradicts the conditional entrenchment clause whenever that clause is in force and the amendment does not maintain equal suffrage, so any sufficient condition consistent with that necessary condition must carry the entrenchment check. The check is forced by Article V's proviso rather than chosen. Kernel-proved in GodelNetAddRivalRule.thy; the proof is short, and its weight is in what it rules out.",
-      "canonical": "analysis/united-states-1947/step-one-repair.md",
+      "value": "In the rival theorem's imported context, in_force_omsp t2 alone entails False.",
+      "label": "Rival-rule contradiction is not a uniqueness proof",
+      "statement": "The earlier claim that Article V uniquely forced the complete proposal rule is withdrawn. Full already entails that the clause is off, so the contrary clause-on hypothesis alone creates the rival test's contradiction. The abstract compatibility argument between a sufficient rule and a necessary constraint remains sound; it establishes neither the unique sufficient rule nor its legal interpretation.",
+      "canonical": "analysis/united-states-1947/repair-causality-audit.md",
       "status": "verified",
-      "checked_by": "verify.sh section 4h, theorem rival_pvr_inconsistency"
+      "checked_by": "GodelNetAddCausalityAuditFull.thy and GodelNetAddCausalityAudit.thy; reproduction commands in repair-causality-audit.md"
     },
     {
       "id": "recension.witnesses",
@@ -511,17 +511,17 @@
     },
     {
       "id": "cascade.status",
-      "value": "strictly dominated",
-      "label": "The quorum cascade, resolved",
-      "statement": "The cascade's premise held: the quorum base really is members chosen and sworn, verified in quorum-base.md. It fails anyway, on arithmetic. Beginning it costs a quorum of the undiminished chamber, and two thirds of a quorum is fewer people than a quorum, so any bloc able to start it could already have proposed the amendment outright. Machine-checked in search/cascade_domination.py.",
+      "value": "The cascade remains unverified as a constitutional path.",
+      "label": "Quorum cascade: unverified path; cost refutation withdrawn",
+      "statement": "The old strict coalition-cost refutation mixed attendance assumptions. The scalar inequality survives, but it does not prove the claimed extra coalition cost. Under matched self-quorate assumptions the initial exclusion and direct-proposal thresholds are equal; under full or favorable quorum attendance the initial majority threshold is lower. None of these comparisons establishes lawful exclusions, a completed cascade, or state ratification.",
       "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
       "status": "verified"
     },
     {
       "id": "verify.checks",
       "value": 103,
-      "label": "Checks in the verification harness",
-      "statement": "verify.sh re-runs every computational claim in the repository from scratch on a clean checkout. The number moves whenever a check is added, which is why it is asserted in exactly one place and the harness compares it against its own run.",
+      "label": "Recorded legacy verification checkpoint",
+      "statement": "The earlier README recorded 103 checks, all passing, for verify.sh. This is a historical checkpoint, not fresh validation of the expanded repository. The full legacy harness was not rerun for the latest bounded research pass and does not cover every newer module. Current scoped commands are in the research report; verify.sh still compares the README's checkpoint count against its own run.",
       "canonical": "README.md",
       "status": "verified",
       "checked_by": "verify.sh's own summary block, which fails if README.md advertises a different number"
@@ -540,15 +540,15 @@
       "id": "scoreboard.loopholes",
       "value": 0,
       "label": "Loopholes found",
-      "statement": "No loophole has been found. The hypothesis is unproved and the search has not produced a candidate path through the Constitution. Everything in this repository that reads like progress is progress on the instruments.",
+      "statement": "No verified constitutional loophole, complete lawful-collapse path, or identification of Goedel's actual argument has been established. The work produced conditional model witnesses, numerical measurements, and corrections, not a verified constitutional solution or an exhaustive impossibility proof.",
       "canonical": "README.md",
       "status": "verified"
     },
     {
       "id": "scoreboard.disproved",
       "value": 8,
-      "label": "Claims made here and later disproved",
-      "statement": "Kept visible on purpose, because a repository that only records its wins is not evidence of anything.",
+      "label": "Earlier correction examples listed in the README",
+      "statement": "Eight early examples are retained in the README. Later corrections are documented in the individual research reports; this is not a total count of every correction in the project.",
       "canonical": "README.md",
       "status": "verified"
     },
