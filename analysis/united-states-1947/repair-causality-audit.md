@@ -1,6 +1,6 @@
 # Causality and rival-rule audit of the repaired Isabelle model
 
-**Run:** 2026-09-08, Isabelle2025-2. **Scope:** logical entailment, missing causal constraints, and the rival-rule experiment—not legal validity or Gödel's historical reasoning.
+**Run:** September 8, 2026, Isabelle2025-2. **Scope:** logical entailment, missing causal constraints, and the rival-rule experiment—not legal validity or Gödel's historical reasoning.
 
 ## Findings
 
@@ -9,7 +9,7 @@
 3. In the rival theorem's imported context, `in_force_omsp t2` **alone** entails `False`. Neither the rival rule nor an additional `comsp` hypothesis is needed for that contradiction.
 4. The rival proof's abstract reasoning remains sound: a sufficient rule and a necessary constraint conflict when their forbidden trigger is present. That does **not** establish that the particular sufficient rule `pvr`, its syntax, or its legal interpretation is uniquely forced.
 
-The existing theories and `step-one-repair.md` were left unchanged. The two new theories add **no axioms**. The core audit imports only `GodelNetAddCore`; the second theory deliberately isolates the `Full`/`RivalRule` context.
+The two new theories add **no axioms**. The core audit imports only `GodelNetAddCore`; the second theory deliberately isolates the `Full`/`RivalRule` context. After an independent rerun reproduced all reported outcomes, `step-one-repair.md` and the misleading comments in the older theories were corrected. Their axioms, theorem statements, and proofs remain unchanged.
 
 ## 1. What the ablation does—and does not—establish
 
@@ -20,7 +20,7 @@ Let:
 - `F2` mean `in_force_omsp t2`;
 - `D3` mean `Dictatorship t3`.
 
-`GodelNetAddNoStep1` [imports only Core and adds no axioms](isabelle/GodelNetAddNoStep1.thy#L28). Deleting `S1` is not asserting that its events did not happen, still less supplying a persistence rule. In classical logic, unasserted facts need not be false.
+`GodelNetAddNoStep1` [imports only Core and adds no axioms](isabelle/GodelNetAddNoStep1.thy). Deleting `S1` is not asserting that its events did not happen, still less supplying a persistence rule. In classical logic, unasserted facts need not be false.
 
 ### Kernel results in Core alone
 
@@ -80,7 +80,7 @@ The new witnesses go beyond lack of a proof: they refute unrestricted claims tha
 
 ## 2. The rival theorem's ambient context
 
-[`GodelNetAddRivalRule`](isabelle/GodelNetAddRivalRule.thy#L25) imports `GodelNetAddFull`. The latter already proves [`in_force_omsp_false_t2`](isabelle/GodelNetAddFull.thy#L82). The rival theorem then [assumes `in_force_omsp t2`](isabelle/GodelNetAddRivalRule.thy#L59).
+[`GodelNetAddRivalRule`](isabelle/GodelNetAddRivalRule.thy) imports `GodelNetAddFull`. The latter already proves [`in_force_omsp_false_t2`](isabelle/GodelNetAddFull.thy#L82). The rival theorem then assumes `in_force_omsp t2`.
 
 The isolated [Full-context audit](isabelle/GodelNetAddCausalityAuditFull.thy#L10) kernel-proves:
 
@@ -138,17 +138,17 @@ These Booleans are fresh variables, **not aliases for the Core constants**. The 
 
 Compatible alternatives therefore include stricter sufficient conditions. The argument establishes neither that all guarded attempts must succeed nor that this proposal-stage interpretation is the uniquely correct legal one.
 
-## 4. Corrections warranted in `step-one-repair.md`
+## 4. Corrections applied to `step-one-repair.md`
 
-The following are proposed corrections, not edits already applied:
+The [earlier note](https://github.com/incrediblecrab/godel-loopholes/blob/0b66df5/analysis/united-states-1947/step-one-repair.md) has been corrected as follows:
 
 | Existing assertion | Strongest warranted replacement |
 |---|---|
-| Step one is “necessary” ([opening](step-one-repair.md#L9), [answer](step-one-repair.md#L83)) | The five-fact package is load-bearing for entailment in this encoding. Its absence does not prohibit dictatorship, and causal necessity over lawful executions has not been established. |
-| The objection “fails mechanically” ([objection section](step-one-repair.md#L91)) | One unguarded sufficient rule conflicts with the assumed necessary condition when a forbidden attempt occurs. This does not dispose of encoding-choice objections. The published test also assumes a case already excluded by its Full import. |
-| “The disjunction is forced by Article V's proviso” ([same section](step-one-repair.md#L93)) | Given the encoded `comsp`, valid proposals must imply `¬in_force_omsp ∨ maint_suf`. The particular sufficient rule is a further modeling choice; the legal adequacy of `comsp` is not proved by this entailment. |
-| The check is “forced rather than chosen,” classified as kernel-certified ([status table](step-one-repair.md#L96)) | Kernel-certified: the conditional logical compatibility requirement. Not established: uniqueness of the complete proposal rule, its constitutional interpretation, or repeal's causal necessity. |
-| Moving the check to ratification leaves step one necessary ([same paragraph](step-one-repair.md#L93)) | This needs its own isolated encoding and reachability/necessity tests. It does not follow from the rival theorem examined here. |
+| Step one is “necessary” | The five-fact package is load-bearing for entailment in this encoding. Its absence does not prohibit dictatorship, and causal necessity over lawful executions has not been established. |
+| The objection “fails mechanically” | One unguarded sufficient rule conflicts with the assumed necessary condition when a forbidden attempt occurs. This does not dispose of encoding-choice objections. The published test also assumes a case already excluded by its Full import. |
+| “The disjunction is forced by Article V's proviso” | Given the encoded `comsp`, valid proposals must imply `¬in_force_omsp ∨ maint_suf`. The particular sufficient rule is a further modeling choice; the legal adequacy of `comsp` is not proved by this entailment. |
+| The check is “forced rather than chosen,” classified as kernel-certified | Kernel-certified: the conditional logical compatibility requirement. Not established: uniqueness of the complete proposal rule, its constitutional interpretation, or repeal's causal necessity. |
+| Moving the check to ratification leaves step one necessary | This needs its own isolated encoding and reachability/necessity tests. It does not follow from the rival theorem examined here. |
 
 The source also has [only three government actors and four times](isabelle/GodelNetAddCore.thy#L38). [`maint_suf` and `sup_rat`](isabelle/GodelNetAddCore.thy#L132) are uninterpreted amendment/time predicates. There is no individual-state domain, per-state deprivation predicate, or separate state-consent exception. An external interpretation could try to place additional meaning inside those predicates, but no such correspondence is formalized here. This audit does not settle the relevant legal scholarship.
 
@@ -156,20 +156,16 @@ The source also has [only three government actors and four times](isabelle/Godel
 
 All commands ran from the repository root. **Every imported local theory was supplied with its own `-f`; both final invocations used `process_theories -O -U`.**
 
-Persistent raw logs:
+The original raw records, `core-complete.log` and `full-verified.log`, are retained outside the checkout in the research session's `files/repair-causality-audit/` directory. Independent reruns in `files/parent-causality/` reproduced the same 16 new kernel lemmas and seven new ordinary counterexamples. These machine-local logs are not checked-in proof certificates; the source theories and commands below permit fresh reproduction.
 
-```text
-/Users/maxmarquardt/.copilot/session-state/98f0ccb7-70d1-4b1f-b0ca-f25abab63cb9/files/repair-causality-audit/
-```
-
-The final records are `core-complete.log` and `full-verified.log`. A session-local runtime prefix was necessary because this Isabelle installation's default settings overwrite ordinary incoming `ISABELLE_TMP_PREFIX` values. The commands therefore override it inside `isabelle env`, after settings initialization, and also set Java's runtime directory. Generated solver scratch was removed after the runs; raw logs were retained.
+A session-local runtime prefix was used because this Isabelle installation's settings overwrite ordinary incoming `ISABELLE_TMP_PREFIX` values. The commands override it inside `isabelle env`, after settings initialization, and also set Java's runtime directory. A fresh temporary directory avoids depending on the original machine's session path.
 
 Setup and the final commands, including the display-only filters:
 
 ```bash
-ARTIFACTS=$(cd ../../../../.copilot/session-state/98f0ccb7-70d1-4b1f-b0ca-f25abab63cb9/files/repair-causality-audit && pwd)
+set -euo pipefail
+ARTIFACTS=$(mktemp -d "${TMPDIR:-/tmp}/godel-causality.XXXXXX")
 mkdir -p "$ARTIFACTS/runtime"
-set -o pipefail
 
 isabelle env bash -c \
   'export ISABELLE_TMP_PREFIX="$1/runtime/isabelle" TMPDIR="$1/runtime"; export ISABELLE_JAVA_SYSTEM_OPTIONS="$ISABELLE_JAVA_SYSTEM_OPTIONS -Djava.io.tmpdir=$1/runtime"; shift; exec isabelle "$@"' \
@@ -208,4 +204,4 @@ f4d6d537b0e7bb95f9f8f9d9da09e8e67ed60302d1a3f9d1cda0aa5aa1bcce39  GodelNetAddCau
 ccd819f8c5bd65a098e8743f4a9fc482b69e8d086eed25381f8ce19ce20f38df  GodelNetAddCausalityAuditFull.thy
 ```
 
-No `sorry`, added constitutional axioms, dependency installations, commits, or changes to the parent's separate transition model were used. These experiments identify limits of the existing encoding; they do not identify Gödel's historical thought or establish a lawful constitutional loophole.
+No `sorry`, added constitutional axioms, or additional dependencies were used. These experiments identify limits of the existing encoding; they do not identify Gödel's historical thought or establish a lawful constitutional loophole.

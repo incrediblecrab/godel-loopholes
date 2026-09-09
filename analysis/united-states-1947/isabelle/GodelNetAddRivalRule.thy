@@ -1,9 +1,9 @@
 (* Adversarial evidence for `step-one-repair.md`.
 
-   This file answers the strongest objection to the repaired formalization:
-   that the proposal-validity rule was written so that Goedel's step one would
-   come out load-bearing, which would make the result an artifact of the
-   encoding rather than a fact about the argument.
+   This is the original rival-rule experiment, not a proof that the repaired
+   proposal rule is uniquely forced. Its proofs are preserved. See
+   GodelNetAddCausalityAudit and GodelNetAddCausalityAuditFull for the isolated
+   compatibility argument and the ambient-context audit.
 
    PROBE 1 (Nitpick, diagnostic). Runs the full theory with show_consts so the
    model can be inspected rather than merely counted. A theory satisfied only
@@ -13,14 +13,10 @@
    dropping the entrenchment check -- attempted AND is_amd AND sup_prop implies
    is_prop -- contradicts `comsp`, the conditional entrenchment clause, whenever
    the clause is in force and the amendment does not maintain equal suffrage.
-   Any sufficient condition for proposal that is consistent with that necessary
-   condition must therefore carry the entrenchment check. The disjunction in
-   `pvr` is forced by Article V's proviso, not chosen to need step one.
-
-   The proof is short, and its weight comes from what it rules out rather than
-   from its depth. It does not show that step one is necessary; that claim rests
-   on the independence probes in `GodelNetAddNoStep1.thy` and is a Nitpick
-   diagnostic, not a proof. *)
+   The displayed reasoning is sound, but Full already entails that the clause
+   is off at t2. The contrary clause-on hypothesis alone is inconsistent with
+   this import; the rival rule is not needed for that ambient contradiction.
+   Neither this theorem nor the ablation proves causal necessity. *)
 
 theory GodelNetAddRivalRule
   imports GodelNetAddFull
@@ -35,19 +31,10 @@ lemma full_model_shape: "True"
 (* ===== PROBE 2: Rival pvr without entrenchment check =====
    pvr_strong: attempted AND is_amd AND sup_prop -> is_prop
    No disjunction with in_force_omsp / maint_suf.
-   If this + comsp + the step-two stipulations are consistent, then
-   the disjunction in pvr is NOT forced. If they are INconsistent,
-   then any sufficient condition for proposal MUST include the
-   entrenchment check.
-
-   We test this by asserting pvr_strong as an additional axiom and
-   checking consistency. Actually -- the cleanest test is to check
-   whether pvr_strong, comsp, and the step-two stipulations entail False.
-   We only need the step-two facts that fire pvr_strong at t2:
-   attempted amd2, is_amd amd2, sup_prop Congress amd2.
-   Plus: in_force_omsp t1 (it starts in force) and amd2_not_maint_suf_t2.
-   If in_force_omsp remains true at t2, pvr_strong gives is_prop amd2 t2,
-   but comsp gives NOT is_prop amd2 t2. Contradiction. *)
+   The strong rule is a local hypothesis, not an added theory axiom.
+   The forbidden trigger makes it conflict with comsp. The imported Full
+   theory also independently excludes that trigger, so this is not an
+   isolated consistency comparison or a uniqueness theorem for pvr. *)
 
 lemma rival_pvr_inconsistency:
   assumes pvr_strong: "\<forall>\<phi> t. attempted \<phi> t \<and> is_amd \<phi> t \<and>

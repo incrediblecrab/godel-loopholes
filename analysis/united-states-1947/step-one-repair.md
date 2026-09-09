@@ -1,4 +1,4 @@
-# A formalization where Gödel's step one does work
+# A formalization where the conjectured first step affects entailment
 
 This file records the construction and results of a new Isabelle/HOL formalization that repairs three structural defects in the Zahoransky & Benzmüller (Z&B) model, the model whose replication and analysis are documented in `inert-manoeuvre.md` and `formal-model-replication.md`.
 
@@ -6,7 +6,7 @@ The finding in `inert-manoeuvre.md` is that the published model's step one is in
 
 This file asks: **can that defect be repaired?** Can a formalization be built in which `amd2_prop_t2` is derived from satisfied preconditions, and if so, does step one then become load-bearing?
 
-The short answer. **Yes and yes.** In the repaired model (44 axioms), `Dictatorship_t3` is a machine-checked theorem. Deleting the five step-one axioms yields a 39-axiom theory where Nitpick finds countermodels to both `Dictatorship_t3` and `¬Dictatorship_t3` — the theorem is independent without step one. The full theory and the reduced theory are both consistent by Nitpick. In this model, Gödel's step one does real logical work: it is necessary for the derivation chain that makes `Dictatorship_t3` provable.
+The short answer. **Yes, as an entailment dependency, not a causal necessity.** In the repaired model (44 axioms), `Dictatorship_t3` is a machine-checked theorem. Deleting the five step-one axioms yields a 39-axiom theory where Nitpick finds countermodels to both `Dictatorship_t3` and `¬Dictatorship_t3` — the theorem is independent without that package. The full theory and the reduced theory are both consistent by Nitpick. The package is therefore load-bearing for entailment. The [subsequent causality audit](repair-causality-audit.md) also finds dictatorship with the clause always in force and **no amendments ratified at all**: this encoding does not define lawful execution histories or supply the persistence constraints needed to establish causal necessity. The two-step argument is a scholarly reconstruction, not a preserved account of Gödel's actual mechanism.
 
 ## Three defects repaired
 
@@ -16,7 +16,7 @@ The Z&B model conflates three things that ought to be distinct. The repair separ
 
 **2. Attempted proposals distinguished from valid ones.** Z&B treat `is_prop` as directly stipulated. The repair introduces `attempted :: σ → σ` (put forward for proposal) and derives `is_prop` via a proposal validity rule (`pvr`): an attempted amendment that is an amendment, has legislative support, and passes the entrenchment check (either the clause is not in force or the amendment maintains suffrage) is validly proposed. This is how `amd2_prop_t2` becomes derivable rather than asserted.
 
-**3. `amd2_prop_t2` is derived, not asserted.** This is the crux. In Z&B, the dictatorship amendment being proposed at `t2` is an axiom. Here, the step-two stipulations assert only the *preconditions* for the dictatorship amendment: it is attempted, it is an amendment, Congress supports it, it does not maintain suffrage, and the states support ratification. Whether it is *validly proposed* depends on whether the entrenchment clause is in force at `t2`, which depends on whether step one repealed it.
+**3. `amd2_prop_t2` is derived, not asserted.** This is the crux. In Z&B, the dictatorship amendment being proposed at `t2` is an axiom. Here, the step-two stipulations assert only the *preconditions* for the dictatorship amendment: it is attempted, it is an amendment, Congress supports it, it does not maintain suffrage, and the states support ratification. Whether it is *validly proposed* depends on whether the entrenchment clause is in force at `t2`. Full derives the clause's absence from the step-one facts; Core does not require a repeal event to explain its absence.
 
 ### The derivation chain
 
@@ -29,7 +29,7 @@ The Z&B model conflates three things that ought to be distinct. The repair separ
 
 ### Design choices
 
-**Rules are global, not time-indexed.** Z&B assert each constitutional rule at `t1` and propagate it forward via `X`-axioms. In the repair, rules are asserted globally (`⌊rule⌋` rather than `⌊rule⌋t1`). This is equivalent — the rules do not change across time. What changes is the fact `in_force_omsp`, which is tracked by a separate predicate rather than by omitting an axiom.
+**Rules are global, not time-indexed.** Z&B assert each constitutional rule at `t1` and propagate it forward via `X`-axioms. In the repair, rules are asserted globally (`⌊rule⌋` rather than `⌊rule⌋t1`). This is an encoding assumption, not a proved equivalence between the two theories. The rules hold at every modeled time; the separate fact `in_force_omsp` can vary.
 
 **`amd1a ≡ ¬ in_force_omsp`.** The content of the repeal amendment is simply that the entrenchment clause is not in force. When ratified and `rv` applies, this directly yields `¬in_force_omsp`. This is a cleaner representation than Z&B's `amd1a ≡ ∃φ. ¬(maint_suf φ) ∧ (is_prop φ)`, which defines the repeal as a violation of the constraint rather than a repeal of it.
 
@@ -65,7 +65,7 @@ No step-one axioms. All three are Nitpick probes (diagnostic, not proof):
 | `dictatorship_without_step1` | `⌊Dictatorship⌋t3` | **counterexample found** — NOT entailed |
 | `no_dictatorship_without_step1` | `⌊¬ Dictatorship⌋t3` | **counterexample found** — NOT entailed |
 
-The theorem is **independent** without step one: neither provable nor refutable. This is the expected result. Without step one, `in_force_omsp` at `t2` is unconstrained. In models where it remains true, `comsp` blocks `amd2` from being proposed; in models where it is false, the derivation goes through.
+The two countermodels diagnose **independence** without the step-one package. Core does not fix `in_force_omsp` at `t2`, although it constrains its relationship to other predicates. An operative clause blocks `amd2` from being proposed and ratified; an inoperative clause entails `Dictatorship_t3` given the other stipulations. Blocking that amendment does **not** block the dictatorship predicate itself: offices can change without ratification because their persistence into `t3` is not encoded.
 
 ### Core model (GodelNetAddCore.thy, 39 axioms)
 
@@ -82,15 +82,17 @@ All proved (kernel-certified):
 
 **Step one now does work.** In the Z&B model, `Dictatorship_t3` survives deletion of step one because the fact it would derive (`amd2_prop_t2`) is asserted as an axiom. In the repaired model, `amd2_proposed_t2` is derived via the six-step chain above, and deleting the five step-one axioms makes the theorem independent.
 
-This does not establish that the Z&B model is wrong — their model is a consistent formalization that proves the theorem it claims. It establishes that the Z&B model does not test Gödel's claim at the point Gödel said matters: whether the Article V entrenchment clause can be lawfully repealed. A model that tests that point must derive `amd2_prop_t2` from the repeal, and when it does, step one becomes necessary.
+This does not establish that the Z&B proofs are wrong. Their consistent formalization proves its stated theorems, but those theorems do not test whether the repeal matters to the reconstructed argument. The repair makes the repeal facts matter to entailment; it does not settle the lawfulness of repeal or show that every path to dictatorship needs one. Gödel's own mechanism has not been established by the historical sources.
 
-## The objection, and the answer to it
+## The encoding-choice objection remains
 
 The obvious objection is that the repair was built to reach this conclusion. A proposal-validity rule is a design choice, and a rule chosen so that step one lies on the only path to a valid proposal would leave `Dictatorship_t3` independent without the five step-one axioms for reasons that say nothing about Gödel and everything about the encoding. That would be the same defect as the asserted axiom it replaces, pointed the other way.
 
-The objection fails, and it fails mechanically rather than by assurance. `pvr` makes a proposal valid when the amendment is attempted, is an amendment, is supported by the legislature, and either the entrenchment clause is not in force or the amendment maintains equal suffrage. Drop that last disjunction and the rule becomes: attempt, amendment status and legislative support suffice. `GodelNetAddRivalRule.thy` proves that dropping the entrenchment check contradicts the entrenchment clause whenever that clause is in force and the amendment does not maintain equal suffrage. A sufficient condition for proposal and a necessary condition for proposal cannot disagree about the same case.
+The original response overstated what its rival-rule experiment established. Its displayed propositional reasoning is sound: a sufficient rule authorizing a proposal and a necessary condition forbidding that same proposal contradict each other when both triggers hold. But `GodelNetAddRivalRule.thy` imports Full, which already proves the clause is off at `t2`, and then assumes it is on. The [isolated audit](repair-causality-audit.md#2-the-rival-theorems-ambient-context) proves that this contrary assumption **alone** entails `False`, without the rival rule. The original experiment therefore does not discriminate between otherwise admissible encodings.
 
-So any proposal rule consistent with the entrenchment clause must carry the check, and the check is what puts step one on the path. The disjunction is forced by Article V's proviso rather than selected to produce a result. The proof is two lines long, and its weight is in what it rules out rather than in its depth. One alternative encoding survives the same test: placing the entrenchment check at ratification rather than at proposal leaves step one necessary at a different point in the chain, with the dictatorship amendment proposed but blocked from taking effect until the clause is repealed.
+A Core-only proof over fresh Boolean variables establishes the narrower compatibility requirement: given the encoded necessary condition `comsp`, a sufficient antecedent must imply `¬in_force_omsp ∨ maint_suf`. This does not uniquely determine a sufficient rule. Stricter rules can satisfy that requirement without accepting every proposal that passes the guard. Neither the legal interpretation of `comsp` nor the completeness of `pvr` follows from this logical constraint.
+
+Moving the check from proposal to ratification requires a separate model and tests; the rival theorem does not establish the result of that change. The [finite Article V search](bounded-article-v-search.md) supplies such a separate experiment with explicit frames, identified state consent, and both screening stages. It is a new conditional model, not a proof that the repaired Isabelle encoding faithfully represents constitutional law.
 
 ## Epistemic status
 
@@ -100,10 +102,13 @@ So any proposal rule consistent with the entrenchment clause must carry the chec
 | The 44-axiom model is consistent | **diagnostic** (Nitpick countermodel to `False`) |
 | `Dictatorship_t3` is independent of the 39-axiom model | **diagnostic** (Nitpick countermodels to `⌊Dictatorship⌋t3` and `⌊¬Dictatorship⌋t3`) |
 | The 39-axiom model is consistent | **diagnostic** (Nitpick countermodel to `False`) |
-| The proposal rule's entrenchment check is forced rather than chosen | **machine-checked** (Isabelle kernel, `GodelNetAddRivalRule.thy`) |
-| The derivation chain is faithful to Gödel's argument | **editorial judgment**, not machine-checkable |
+| Given `comsp`, a sufficient antecedent must imply its necessary guard | **machine-checked conditional logic** (Core-only causality audit) |
+| The full sufficient rule or its legal interpretation is uniquely forced | **not established**; stricter compatible rules exist |
+| Repeal is necessary for dictatorship in every Core model | **refuted diagnostically**; dictatorship without any ratifications has a countermodel |
+| Repeal is causally necessary over lawful constitutional histories | **not tested by this encoding**; event-complete histories and persistence are missing |
+| The derivation chain is faithful to Gödel's actual argument | **historically unverified**, not established by a formal proof |
 
-The distinction matters. Nitpick is a bounded model finder. A countermodel is a genuine negative (the formula is not a tautology of the axioms), but failure to find one is a timeout, not a proof. The consistency claims rest on Nitpick diagnostics, not on Isabelle's kernel.
+The distinction matters. Nitpick is a bounded model finder. An ordinary genuine countermodel refutes entailment in the encoding, but failure to find one — whether from exhausted finite bounds, timeout, or another inconclusive outcome — is not a proof. The consistency claims rest on Nitpick diagnostics, not on Isabelle's kernel.
 
 ## Files
 
@@ -112,7 +117,9 @@ The distinction matters. Nitpick is a bounded model finder. A countermodel is a 
 | `isabelle/GodelNetAddCore.thy` | Infrastructure, rules, government, step-two stipulations (39 axioms) |
 | `isabelle/GodelNetAddFull.thy` | Step-one axioms + derivation chain + `Dictatorship_t3` (5 additional axioms) |
 | `isabelle/GodelNetAddNoStep1.thy` | Ablation: no step one, Nitpick probes |
-| `isabelle/GodelNetAddRivalRule.thy` | Adversarial probe: model shape, and the proof that the entrenchment check is forced |
+| `isabelle/GodelNetAddRivalRule.thy` | Original model-shape probe and conditional incompatibility proof; its ambient-context limitation is audited below |
+| `isabelle/GodelNetAddCausalityAudit.thy` | Core-only entailment lemmas, missing-frame countermodels, and abstract compatibility controls |
+| `isabelle/GodelNetAddCausalityAuditFull.thy` | Isolated audit of the rival theorem's Full context |
 
 The baseline replication (`GodelCore.thy`, `GodelConstitution.thy`) is untouched.
 

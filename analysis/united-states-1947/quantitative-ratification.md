@@ -30,7 +30,7 @@ This is an official retrospective historical compilation, not a document
 published in 1940 or a source of post-1947 constitutional doctrine.
 
 Both downloadable versions were actually obtained and compared on
-**2026-09-09 UTC**:
+**September 9, 2026 (UTC)**:
 
 | File | Location of the data | Bytes | SHA256 |
 |---|---|---:|---|
@@ -210,15 +210,14 @@ The second command computes offline from the fingerprinted CSV and prints JSON.
 It explicitly marks optional binary-source audits `NOT_RUN`; it does not
 pretend that reading the CSV fetched or rechecked the remote files.
 
-For the full source-verified regeneration, the following uses the session cache
-from this run. On another machine, point `source_dir` at that session's `files/`
-directory outside the checkout. `pdftotext`, already present for this run, is
-needed only for the optional PDF comparison; XLSX extraction uses Python's
-standard library.
+For full source-verified regeneration, download both pinned source formats to a
+fresh temporary directory outside the checkout. `pdftotext`, already present for
+this run, is needed only for the optional PDF comparison; XLSX extraction uses
+Python's standard library.
 
 ```sh
-source_dir='../../../../.copilot/session-state/98f0ccb7-70d1-4b1f-b0ca-f25abab63cb9/files'
-mkdir -p "$source_dir"
+set -euo pipefail
+source_dir=$(mktemp -d "${TMPDIR:-/tmp}/godel-census.XXXXXX")
 curl --fail --location --silent --show-error --max-time 90 \
   'https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/population-change-data-table.xlsx' \
   -o "$source_dir/census-population-change-data-table.xlsx"
