@@ -87,20 +87,36 @@ state-consent questions remain assumptions or separate legal inquiries.
 The [Census bounds](quantitative-ratification.md) are a further computation
 with primary population data, not an experiment attributed to this Note.
 
-## 3. Abramowitz, Shapiro, and Talmon: replication pending
+## 3. Abramowitz, Shapiro, and Talmon: a version-pinned protocol replication
 
-**Source.** Ben Abramowitz, Ehud Shapiro, and Nimrod Talmon, *How to Amend a
-Constitution? Model, Axioms, and Supermajority Rules*, AAMAS 2021;
-[preprint 2011.03111][aamas].
+**Sources and reading.** Ben Abramowitz, Ehud Shapiro, and Nimrod Talmon,
+*How to Amend a Constitution? Model, Axioms, and Supermajority Rules*,
+[AAMAS 2021 extended abstract, pp. 1443-1445][aamas-proceedings], with
+[arXiv v2][aamas] as the full proof reference. All three proceedings pages and
+all twelve v2 pages were read by both the implementation worker and the parent.
+The parent independently retrieved matching PDFs and inspected the pivotal
+page images.
 
-A separate worker is implementing a precisely specified protocol and numbered
-result. Its deliverable has not yet completed parent verification and is not
-counted as a successful replication here.
+The unversioned preprint is not interchangeable with this target: the observed
+v4 is retitled *In the Beginning there were n Agents*, and its Theorem 1 is
+different. V1 also uses an offset threshold parameterization.
 
-The required correspondence check includes electorate, preferences, threshold
-inequalities, ties, old-rule authorization, and proposed-rule approval.
-A single-electorate theorem must not silently become a theorem about bicameral,
-multistage Article V.
+[self-amendment-replication.md](self-amendment-replication.md) reproduces
+Algorithm 1 and the proceedings' Theorem 1 for n = 2-8: **10,017 strict
+single-peaked profiles**, or **107,752** including the explicitly declared
+weak-order extension. Enumeration, an independent SMT encoding, and the
+parent's separately implemented expanded-voter audit agree on the bounded
+results. The current rule authorizes each successive vote; equality rejects.
+
+A six-voter example falsifies the proceedings' unnumbered assertion that
+non-evolutionary revolutions are never complaint-free. It does **not** falsify
+Theorem 1 or Algorithm 1. The corresponding v2 sentence only denies a
+guarantee of complaint-freeness and is consistent with the example.
+
+Complaint-freeness is not unanimous support or Article V consent. An inclusive
+36-of-48 gate corresponds to a strict threshold of 35/48, not 3/4. No
+48-voter preference simulation, bicameral implementation, or legal authority
+to replace Article V with the algorithm's initial majority rule is established.
 
 ## 4. Guerra-Pujol: conjecture, worked examples, and historical scope
 
@@ -272,16 +288,16 @@ proviso must not disappear from an international comparison.
 
 ## What follows from this map
 
-The directly reproduced instruments are the original Isabelle experiment and
-the parameterized state-admission calculation; the AAMAS protocol remains
-under verification. The framed search, Census bounds, repaired-model audit,
-and attendance correction are separate extensions or diagnostics.
+The directly reproduced instruments are the original Isabelle experiment,
+the parameterized state-admission calculation, and the specified AAMAS
+protocol and theorem on bounded domains. The framed search, Census bounds,
+repaired-model audit, and attendance correction are separate extensions or
+diagnostics.
 
 The unresolved tasks are specific: obtain and read the primary Ross/Raz/
-Hoerster and Lee texts; finish the assigned protocol replication; and acquire
-the operative 1947 parliamentary evidence needed for stronger procedural
-claims. Additional source reading may change legal assumptions. Re-running a
-conditional graph cannot settle them.
+Hoerster and Lee texts, and acquire the operative 1947 parliamentary evidence
+needed for stronger procedural claims. Additional source reading may change
+legal assumptions. Re-running a conditional graph cannot settle them.
 
 ### Source fingerprints
 
@@ -305,7 +321,8 @@ identify the files used for the primary checks, not the extent of reading.
 [mirel]: https://ceur-ws.org/Vol-2632/
 [mirel-preface]: https://ceur-ws.org/Vol-2632/mirel_2019_preface.pdf
 [pack]: https://harvardlawreview.org/print/vol-133/pack-the-union-a-proposal-to-admit-new-states-for-the-purpose-of-amending-the-constitution-to-ensure-equal-representation/
-[aamas]: https://arxiv.org/abs/2011.03111
+[aamas]: https://arxiv.org/abs/2011.03111v2
+[aamas-proceedings]: https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1443.pdf
 [guerra2013]: https://i2i.org/wp-content/uploads/Guerra-Pujol-Godel.pdf
 [prequel]: https://www.swlaw.edu/sites/default/files/2025-01/13%20-%20Guerra.pdf
 [suber-book]: https://legacy.earlham.edu/~peters/writing/psa/index.htm

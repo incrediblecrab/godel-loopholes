@@ -10,9 +10,9 @@ the answer. Logical and quantitative methods were both implemented.
 
 This report consolidates the completed work. The
 [literature map](literature-replication-map.md) records primary-source
-correspondence and reading gaps. A separate replication of an AAMAS
-self-amendment protocol is still in progress and is not included in the
-completed-result counts below.
+correspondence and reading gaps. The version-pinned AAMAS self-amendment
+replication is included below, with its finite-domain limits and a narrowly
+identified counterexample to an ancillary sentence.
 
 The repository's [finding standard](../../method/what-counts-as-a-finding.md)
 requires authorized operations, an explicit legal status for each step, a
@@ -27,13 +27,14 @@ interpreting the one- and two-amendment witnesses below.
 | Published Isabelle reconstruction | The original `minimal` and `noamd1` experiments reproduce in consistent theories. The three target theorems and five intermediate lemmas survive deletion of the original step-one axioms. | That an actual constitution can be changed without an authorized first step. |
 | Separate repaired-model audit | 16 new kernel lemmas and seven new ordinary Nitpick counterexamples distinguish entailment dependency from causal necessity and expose a contradictory rival-test hypothesis. | That the repaired model describes event-complete lawful histories. |
 | Framed Article V search | 48 configurations, 144 target queries: 54 reachable and 90 unreachable in their declared finite graphs. All 144 agree with a separate bounded SMT encoding. | A probability of legal validity, an exhaustive search of constitutional law, or historical attribution. |
+| AAMAS self-amendment protocol | Algorithm 1 and Theorem 1 hold on 10,017 strict profiles for n = 2-8; a declared weak-order extension brings the total to 107,752. An ancillary sentence has a six-voter counterexample. | A proof for unbounded electorates, a failure of the numbered theorem, or an Article V implementation. |
 | State-admission arithmetic | The changing-denominator formula and joint congressional gates reproduce conditionally. The Note's precise historical minimum of 96 remains underdetermined. | That new states can be manufactured on the assumed terms or will support the later amendment. |
 | Census-weighted state thresholds | The smallest 36-state group contains 54,982,723 of 131,006,184 residents in the 1940, 48-state universe: 41.9696%. | A minimum number or percentage of voters, supporters, legislators, or delegates. |
 | Attendance audit | Under consistent assumptions, initial majority/proposal totals are 267/354, 135/179, or 267/267. The old 267-versus-179 strict cost refutation mixed assumptions. | That exclusion is lawful, that later attendance is controllable, or that a complete cascade succeeds. |
 | Historical control | The Sixteenth Amendment's primary certification corroborates a changing state denominator and a 36-state threshold. It acknowledges 38 ratifications overall. | A successful backtest of engineered state creation or wholly lawful constitutional collapse. |
 
-The computational results are not seven independent confirmations of one
-conclusion. They answer different questions, sometimes share specification
+These investigations are not independent confirmations of one conclusion.
+They answer different questions, sometimes share specification
 data, and include corrections and negative results.
 
 ## 1. What transferred from the Navier-Stokes work
@@ -120,6 +121,52 @@ amendment drafts.
 Details: [Original instrument finding](inert-manoeuvre.md),
 [causality audit](repair-causality-audit.md), and
 [framed search](bounded-article-v-search.md).
+
+### An actual self-amending voting protocol
+
+Abramowitz, Shapiro, and Talmon's AAMAS 2021 extended abstract supplies a
+precise Algorithm 1 and a numbered stability theorem. Its matching full
+proofs are in arXiv **v2**, not the retitled v4. The implementation starts
+with majority rule, considers successively higher thresholds, and lets the
+**current** rule decide each proposed change.
+
+For fixed electorates of 2-8 voters, all 10,017 anonymous strict single-peaked
+profiles satisfy the selected claims. Allowing the separately declared
+cross-side indifference extension produces 107,752 profiles and 430,651 vote
+steps. The theorem and path checks hold throughout. Fourteen bounded SMT
+counterexample searches are UNSAT, with seven SAT nonvacuity controls.
+An independent expanded-voter implementation matched the complete numerical
+record; these are not empirical population observations.
+
+The paper's formal complaint criterion is weaker than unanimous preference:
+a voter accepts an outcome either because they prefer it or because their
+own preferred voting rule would produce it. This permits a precise
+counterexample to the unnumbered assertion that non-evolutionary revolutions
+are **never complaint-free**.
+
+With six voters, take a current strict threshold of 5/6 and a proposed one
+of 1/2. Five voters rank 1/2 above 2/3 above 5/6. The sixth prefers a 2/3
+rule, then 5/6, then 1/2. Five votes fail the old threshold but pass the proposed one;
+they also pass the dissenter's own 2/3 threshold. Nobody complains under
+the stated definition. A paired example with a unanimity-preferring
+dissenter produces one complaint.
+
+This falsifies that literal sentence, **not Algorithm 1 or Theorem 1**.
+V2 says such revolutions are not *guaranteed* to be complaint-free, which is
+consistent with both examples. The counterexample is not an
+Algorithm 1 execution or a lawful path around Article V. Its starting rule
+is not self-stable: all six voters would approve a move to 2/3 under the
+old rule.
+
+The protocol also cannot simply be assigned to 48 states. Article V is
+bicameral and multistage, its preferences are not supplied, and its inclusive
+36-of-48 requirement differs from the paper's strict threshold convention.
+The equivalent isolated strict-count threshold is **35/48**, not 3/4.
+Initializing the paper's algorithm at majority rule does not authorize
+lowering an existing constitutional threshold.
+
+Details, full rankings, controls, and source versions:
+[self-amendment-replication.md](self-amendment-replication.md).
 
 ## 3. Quantitative results: keep the units and denominators straight
 
@@ -266,11 +313,16 @@ reconvening mechanism in the target system.
 
 ## 6. Reproduction and evidence boundaries
 
-The completed Python modules have 76 targeted unit tests. The Article V checks
+The completed Python modules have 105 targeted unit tests: the earlier 76
+plus 29 for the new AAMAS replication. The Article V checks
 also plant four actual behavioral defects in disposable copies. The attendance
 checker has a separate planted-artifact control: the clean copy exits zero,
 and replacing the self-quorate proposal total with 179 exits one. An import
 failure is not counted as successful defect detection.
+
+The AAMAS artifact gate was also tested through actual subprocesses: the
+unmodified copied artifact passes with exit zero; increasing its stored
+profile count by one fails with exit two and a stale-artifact diagnostic.
 
 From the repository root:
 
@@ -278,10 +330,12 @@ From the repository root:
 (
   cd analysis/united-states-1947/search &&
   ../../../.venv/bin/python -B -m unittest \
-    test_article_v test_state_admission test_state_population test_attendance_audit &&
+    test_article_v test_state_admission test_state_population \
+    test_attendance_audit test_self_amendment &&
   ../../../.venv/bin/python -B article_v_search.py --check &&
   ../../../.venv/bin/python -B state_admission.py --check &&
   ../../../.venv/bin/python -B attendance_audit.py --check &&
+  ../../../.venv/bin/python -B self_amendment.py --check &&
   ../../../.venv/bin/python -B -m article_v_mutations
 )
 ```

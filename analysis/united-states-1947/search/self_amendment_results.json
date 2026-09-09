@@ -1,0 +1,934 @@
+{
+  "enumeration": {
+    "by_n": [
+      {
+        "algorithm_1_vote_steps": 1,
+        "alternatives": [
+          1
+        ],
+        "anonymous_profiles": 1,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "1": 1
+        },
+        "first_counterexample": null,
+        "n": 2,
+        "nontrivial_votes_rejected_at_exact_threshold": 0,
+        "preference_types_with_cross_side_ties": 1,
+        "represented_labeled_profiles": 1,
+        "represented_strict_labeled_profiles": 1,
+        "strict_anonymous_profiles": 1,
+        "strict_preference_types": 1,
+        "theorem_1_candidate_checks": 1
+      },
+      {
+        "algorithm_1_vote_steps": 8,
+        "alternatives": [
+          1,
+          2
+        ],
+        "anonymous_profiles": 4,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "1": 2,
+          "2": 2
+        },
+        "first_counterexample": null,
+        "n": 3,
+        "nontrivial_votes_rejected_at_exact_threshold": 1,
+        "preference_types_with_cross_side_ties": 2,
+        "represented_labeled_profiles": 8,
+        "represented_strict_labeled_profiles": 8,
+        "strict_anonymous_profiles": 4,
+        "strict_preference_types": 2,
+        "theorem_1_candidate_checks": 8
+      },
+      {
+        "algorithm_1_vote_steps": 10,
+        "alternatives": [
+          2,
+          3
+        ],
+        "anonymous_profiles": 5,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "2": 3,
+          "3": 2
+        },
+        "first_counterexample": null,
+        "n": 4,
+        "nontrivial_votes_rejected_at_exact_threshold": 1,
+        "preference_types_with_cross_side_ties": 2,
+        "represented_labeled_profiles": 16,
+        "represented_strict_labeled_profiles": 16,
+        "strict_anonymous_profiles": 5,
+        "strict_preference_types": 2,
+        "theorem_1_candidate_checks": 10
+      },
+      {
+        "algorithm_1_vote_steps": 378,
+        "alternatives": [
+          2,
+          3,
+          4
+        ],
+        "anonymous_profiles": 126,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "2": 15,
+          "3": 106,
+          "4": 5
+        },
+        "first_counterexample": null,
+        "n": 5,
+        "nontrivial_votes_rejected_at_exact_threshold": 23,
+        "preference_types_with_cross_side_ties": 5,
+        "represented_labeled_profiles": 3125,
+        "represented_strict_labeled_profiles": 1024,
+        "strict_anonymous_profiles": 56,
+        "strict_preference_types": 4,
+        "theorem_1_candidate_checks": 378
+      },
+      {
+        "algorithm_1_vote_steps": 630,
+        "alternatives": [
+          3,
+          4,
+          5
+        ],
+        "anonymous_profiles": 210,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "3": 35,
+          "4": 170,
+          "5": 5
+        },
+        "first_counterexample": null,
+        "n": 6,
+        "nontrivial_votes_rejected_at_exact_threshold": 34,
+        "preference_types_with_cross_side_ties": 5,
+        "represented_labeled_profiles": 15625,
+        "represented_strict_labeled_profiles": 4096,
+        "strict_anonymous_profiles": 84,
+        "strict_preference_types": 4,
+        "theorem_1_candidate_checks": 630
+      },
+      {
+        "algorithm_1_vote_steps": 127296,
+        "alternatives": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "anonymous_profiles": 31824,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "3": 364,
+          "4": 22604,
+          "5": 8844,
+          "6": 12
+        },
+        "first_counterexample": null,
+        "n": 7,
+        "nontrivial_votes_rejected_at_exact_threshold": 7888,
+        "preference_types_with_cross_side_ties": 12,
+        "represented_labeled_profiles": 35831808,
+        "represented_strict_labeled_profiles": 2097152,
+        "strict_anonymous_profiles": 3432,
+        "strict_preference_types": 8,
+        "theorem_1_candidate_checks": 127296
+      },
+      {
+        "algorithm_1_vote_steps": 302328,
+        "alternatives": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "anonymous_profiles": 75582,
+        "counterexample_profiles": {
+          "algorithm_1_complaint_freeness": 0,
+          "algorithm_1_elects_h": 0,
+          "endpoint_other_stability": 0,
+          "endpoint_self_stability": 0,
+          "theorem_1": 0
+        },
+        "endpoint_histogram": {
+          "4": 1365,
+          "5": 58476,
+          "6": 15729,
+          "7": 12
+        },
+        "first_counterexample": null,
+        "n": 8,
+        "nontrivial_votes_rejected_at_exact_threshold": 16080,
+        "preference_types_with_cross_side_ties": 12,
+        "represented_labeled_profiles": 429981696,
+        "represented_strict_labeled_profiles": 16777216,
+        "strict_anonymous_profiles": 6435,
+        "strict_preference_types": 8,
+        "theorem_1_candidate_checks": 302328
+      }
+    ],
+    "totals": {
+      "algorithm_1_vote_steps": 430651,
+      "anonymous_profiles": 107752,
+      "nontrivial_votes_rejected_at_exact_threshold": 24027,
+      "represented_labeled_profiles": 465832279,
+      "represented_strict_labeled_profiles": 18879513,
+      "strict_anonymous_profiles": 10017,
+      "theorem_1_candidate_checks": 430651
+    }
+  },
+  "h_boundary_control": {
+    "bliss_point_numerators": [
+      2,
+      3,
+      3,
+      3
+    ],
+    "incorrect_strict_h": 2,
+    "n": 4,
+    "published_weak_h": 3
+  },
+  "negative_controls": [
+    {
+      "analysis": {
+        "failures": [
+          "algorithm_1_elects_h",
+          "endpoint_other_stability",
+          "algorithm_1_complaint_freeness"
+        ],
+        "h": 1,
+        "other_stable": [
+          1
+        ],
+        "protocol": {
+          "trace": [
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 1,
+              "proposal": 1,
+              "threshold": 1,
+              "winner": 1,
+              "yes_votes": 0
+            },
+            {
+              "accepted": true,
+              "complaining_groups": [
+                0
+              ],
+              "complaining_voters": 2,
+              "old": 1,
+              "proposal": 2,
+              "threshold": 1,
+              "winner": 2,
+              "yes_votes": 1
+            }
+          ],
+          "winner": 2
+        },
+        "self_stable": [
+          1,
+          2
+        ],
+        "theorem_1_violating_rules": [],
+        "upper_median": 1
+      },
+      "name": "weak_approval",
+      "pinned_counterexample_z3": {
+        "status": "SAT"
+      },
+      "profile": {
+        "admissible_threshold_numerators": [
+          1,
+          2
+        ],
+        "groups": [
+          {
+            "count": 2,
+            "id": 0,
+            "ranking_best_to_worst": [
+              [
+                1
+              ],
+              [
+                2
+              ]
+            ]
+          },
+          {
+            "count": 1,
+            "id": 1,
+            "ranking_best_to_worst": [
+              [
+                2
+              ],
+              [
+                1
+              ]
+            ]
+          }
+        ],
+        "n": 3,
+        "single_peaked": true,
+        "strict_preferences": true,
+        "threshold_denominator": 3
+      },
+      "profiles_examined_until_first_counterexample": 4
+    },
+    {
+      "analysis": {
+        "failures": [
+          "algorithm_1_elects_h",
+          "endpoint_self_stability"
+        ],
+        "h": 2,
+        "other_stable": [
+          1,
+          2
+        ],
+        "protocol": {
+          "trace": [
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 1,
+              "proposal": 1,
+              "threshold": 1,
+              "winner": 1,
+              "yes_votes": 0
+            },
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 1,
+              "proposal": 2,
+              "threshold": 2,
+              "winner": 1,
+              "yes_votes": 2
+            }
+          ],
+          "winner": 1
+        },
+        "self_stable": [
+          2
+        ],
+        "theorem_1_violating_rules": [],
+        "upper_median": 2
+      },
+      "name": "proposed_threshold",
+      "pinned_counterexample_z3": {
+        "status": "SAT"
+      },
+      "profile": {
+        "admissible_threshold_numerators": [
+          1,
+          2
+        ],
+        "groups": [
+          {
+            "count": 1,
+            "id": 0,
+            "ranking_best_to_worst": [
+              [
+                1
+              ],
+              [
+                2
+              ]
+            ]
+          },
+          {
+            "count": 2,
+            "id": 1,
+            "ranking_best_to_worst": [
+              [
+                2
+              ],
+              [
+                1
+              ]
+            ]
+          }
+        ],
+        "n": 3,
+        "single_peaked": true,
+        "strict_preferences": true,
+        "threshold_denominator": 3
+      },
+      "profiles_examined_until_first_counterexample": 3
+    },
+    {
+      "analysis": {
+        "failures": [
+          "algorithm_1_elects_h"
+        ],
+        "h": 3,
+        "other_stable": [
+          3,
+          4
+        ],
+        "protocol": {
+          "trace": [
+            {
+              "accepted": true,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 2,
+              "proposal": 4,
+              "threshold": 2,
+              "winner": 4,
+              "yes_votes": 5
+            },
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 4,
+              "proposal": 3,
+              "threshold": 4,
+              "winner": 4,
+              "yes_votes": 2
+            },
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 4,
+              "proposal": 2,
+              "threshold": 4,
+              "winner": 4,
+              "yes_votes": 0
+            }
+          ],
+          "winner": 4
+        },
+        "self_stable": [
+          3,
+          4
+        ],
+        "theorem_1_violating_rules": [],
+        "upper_median": 4
+      },
+      "name": "reverse_agenda",
+      "pinned_counterexample_z3": {
+        "status": "SAT"
+      },
+      "profile": {
+        "admissible_threshold_numerators": [
+          2,
+          3,
+          4
+        ],
+        "groups": [
+          {
+            "count": 2,
+            "id": 3,
+            "ranking_best_to_worst": [
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                2
+              ]
+            ]
+          },
+          {
+            "count": 3,
+            "id": 4,
+            "ranking_best_to_worst": [
+              [
+                4
+              ],
+              [
+                3
+              ],
+              [
+                2
+              ]
+            ]
+          }
+        ],
+        "n": 5,
+        "single_peaked": true,
+        "strict_preferences": true,
+        "threshold_denominator": 5
+      },
+      "profiles_examined_until_first_counterexample": 13
+    },
+    {
+      "analysis": {
+        "failures": [
+          "algorithm_1_complaint_freeness"
+        ],
+        "h": 4,
+        "other_stable": [
+          4
+        ],
+        "protocol": {
+          "trace": [
+            {
+              "accepted": false,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 2,
+              "proposal": 2,
+              "threshold": 2,
+              "winner": 2,
+              "yes_votes": 0
+            },
+            {
+              "accepted": true,
+              "complaining_groups": [
+                3
+              ],
+              "complaining_voters": 1,
+              "old": 2,
+              "proposal": 3,
+              "threshold": 2,
+              "winner": 3,
+              "yes_votes": 4
+            },
+            {
+              "accepted": true,
+              "complaining_groups": [],
+              "complaining_voters": 0,
+              "old": 3,
+              "proposal": 4,
+              "threshold": 3,
+              "winner": 4,
+              "yes_votes": 5
+            }
+          ],
+          "winner": 4
+        },
+        "self_stable": [
+          4
+        ],
+        "theorem_1_violating_rules": [],
+        "upper_median": 4
+      },
+      "name": "drop_single_peakedness",
+      "pinned_counterexample_z3": {
+        "status": "SAT"
+      },
+      "profile": {
+        "admissible_threshold_numerators": [
+          2,
+          3,
+          4
+        ],
+        "groups": [
+          {
+            "count": 1,
+            "id": 3,
+            "ranking_best_to_worst": [
+              [
+                4
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ]
+            ]
+          },
+          {
+            "count": 4,
+            "id": 5,
+            "ranking_best_to_worst": [
+              [
+                4
+              ],
+              [
+                3
+              ],
+              [
+                2
+              ]
+            ]
+          }
+        ],
+        "n": 5,
+        "single_peaked": false,
+        "strict_preferences": true,
+        "threshold_denominator": 5
+      },
+      "profiles_examined_until_first_counterexample": 17
+    }
+  ],
+  "not_established": [
+    "A proof for unbounded electorates",
+    "The v2 strategyproofness or social-cost theorems, or the v4 axiomatic results",
+    "A legal or political implementation of Article V, or Godel's historical argument"
+  ],
+  "paper_figure_control": {
+    "bliss_point_numerators": [
+      6,
+      6,
+      6,
+      6,
+      8,
+      8,
+      9,
+      9,
+      9,
+      10,
+      10
+    ],
+    "h_numerator": 7,
+    "median_numerator": 8,
+    "n": 11,
+    "scope": "Only h and median; the figure does not specify all cross-peak comparisons",
+    "source": "arXiv v2 Figure 1 and section 4, pp. 3\u20134"
+  },
+  "runtime": {
+    "python": "3.13.3",
+    "z3": "5.1.0"
+  },
+  "schema_version": 1,
+  "scope": {
+    "alternatives": "k/n with floor(n/2) <= k < n; integers k are canonical rule labels",
+    "bounds_n_inclusive": [
+      2,
+      8
+    ],
+    "complaint_references": "complaining_groups lists ids in the accompanying profile.groups, not compact array positions",
+    "coverage": "Anonymous count vectors; anonymity plus multinomial counts accounts for every labeled profile",
+    "equality": "Equal vote count retains the status quo; h instead uses a weak >= count condition",
+    "fixed_electorate": true,
+    "fixed_preferences_during_protocol": true,
+    "majority_alias": "For odd n, floor(n/2)/n and the paper's 1/2 label induce the same strict majority rule",
+    "median": "Upper median for even n; its interval contains the intervals for either median bliss point",
+    "not_assumed": "No Euclidean distance, changing membership, separate legal consent, or unconditional acceptance by every voter",
+    "preferences": "All strict complete single-peaked rankings; also all complete weak extensions with a unique peak and only cross-side indifference",
+    "protocol": "Algorithm 1: initialize majority, visit every alternative in increasing order, update by R^r",
+    "votes": "A proposal wins exactly when its strictly preferring voters exceed the OLD integer threshold k"
+  },
+  "smt": {
+    "by_n": [
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 2,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 1,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 3,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 2,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 4,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 2,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 5,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 5,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 6,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 5,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 7,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 12,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      },
+      {
+        "algorithm_1_counterexample": {
+          "status": "UNSAT"
+        },
+        "n": 8,
+        "nonempty_domain": {
+          "status": "SAT"
+        },
+        "preference_types": 12,
+        "theorem_1_counterexample": {
+          "status": "UNSAT"
+        }
+      }
+    ],
+    "encoding": "Integer counts for all ranking types; largest weak h condition, unrolled votes and complaint formulas",
+    "solver": "Tactic('smt').solver()",
+    "timeout_ms_per_query": 60000
+  },
+  "source": {
+    "audit_note": "Hashes pin inspected sources; --verify-sources checks cache bytes, not mathematical interpretation",
+    "authors": [
+      "Ben Abramowitz",
+      "Ehud Shapiro",
+      "Nimrod Talmon"
+    ],
+    "files": {
+      "aamas2021-authors.htm": {
+        "bytes": 191198,
+        "role": "Official index linking the extended abstract at p1443.pdf",
+        "sha256": "1beaa3784732912da741ff5ff91116ad300544d1ffefb98c9c30f91c22d0ee01",
+        "url": "https://www.ifaamas.org/Proceedings/aamas2021/forms/authors.htm"
+      },
+      "aamas2021-p1443.pdf": {
+        "bytes": 1013526,
+        "pages": 3,
+        "role": "Primary target; all pages 1443\u20131445 read; Algorithm 1 and Theorem 1 on 1444",
+        "sha256": "4ee8691ce53916b95349ab3b5fc457a32f670c9e27f6a863bd96ae40aee4bb70",
+        "url": "https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p1443.pdf"
+      },
+      "arxiv-2011.03111-abs.html": {
+        "bytes": 43299,
+        "role": "Observed version history and latest-version title",
+        "sha256": "e92c1547b96be21a39bb2cbb6d42853c489ab87a4e8df4895a577395f492364c",
+        "url": "https://arxiv.org/abs/2011.03111"
+      },
+      "arxiv-2011.03111v1-abs.html": {
+        "bytes": 42322,
+        "role": "Verified original title, three authors, and identifier",
+        "sha256": "27026240b4d9dffedbfd844dd3ff5334bebda7d50156920e879d202a3e38e499",
+        "url": "https://arxiv.org/abs/2011.03111v1"
+      },
+      "arxiv-2011.03111v1.pdf": {
+        "bytes": 489276,
+        "pages": 18,
+        "revision_date": "2020-11-05",
+        "role": "Version comparison only; uses offset threshold 1/2 + delta",
+        "sha256": "9e45fcf00fc95cb46bafec0e0eb2985943b55790f7aa4ab549c05b7370cdef1e",
+        "url": "https://arxiv.org/pdf/2011.03111v1"
+      },
+      "arxiv-2011.03111v2.pdf": {
+        "bytes": 423975,
+        "pages": 12,
+        "revision_date": "2021-03-05",
+        "role": "Matching full paper; all 12 pages read; proofs inline, no separate appendix",
+        "sha256": "a25450ce60f3a5dd336757d890b484041ad1a071081937d70adaec251a96ac59",
+        "url": "https://arxiv.org/pdf/2011.03111v2"
+      },
+      "arxiv-2011.03111v4.pdf": {
+        "bytes": 227997,
+        "pages": 14,
+        "revision_date": "2021-11-09",
+        "role": "Version comparison only; retitled In the Beginning there were n Agents",
+        "sha256": "91021a0a2f0387d7d4828dd6d4ca9500b62ed9117fb88e9642d9c78fcf516b16",
+        "url": "https://arxiv.org/pdf/2011.03111v4"
+      }
+    },
+    "full_version_mapping": "AAMAS Theorem 1: v2 Lemmas 4\u20136 (pp. 4\u20135); CF: v2 Theorem 3 (pp. 6\u20137)",
+    "retrieved_utc_date": "2026-09-09",
+    "title": "How to Amend a Constitution? Model, Axioms, and Supermajority Rules",
+    "venue": "AAMAS 2021, extended abstract, pp. 1443\u20131445",
+    "version_warning": "v1 uses 1/2 + delta; v4 is retitled and its numbered theorems are different"
+  },
+  "source_statement_control": {
+    "claim": "AAMAS p. 1444 says non-evolutionary revolutions are never complaint-free",
+    "complaint_free_revolution": {
+      "complaining_groups": [],
+      "complaining_voters": 0,
+      "old": 5,
+      "old_rule_approves": false,
+      "profile": {
+        "admissible_threshold_numerators": [
+          3,
+          4,
+          5
+        ],
+        "groups": [
+          {
+            "count": 5,
+            "id": 0,
+            "ranking_best_to_worst": [
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          {
+            "count": 1,
+            "id": 3,
+            "ranking_best_to_worst": [
+              [
+                4
+              ],
+              [
+                5
+              ],
+              [
+                3
+              ]
+            ]
+          }
+        ],
+        "n": 6,
+        "single_peaked": true,
+        "strict_preferences": true,
+        "threshold_denominator": 6
+      },
+      "proposal": 3,
+      "proposed_rule_approves": true,
+      "yes_votes": 5,
+      "z3": {
+        "status": "SAT"
+      }
+    },
+    "result": "COUNTEREXAMPLE_TO_THIS_UNNUMBERED_SENTENCE_NOT_TO_THEOREM_1",
+    "revolution_with_complaint": {
+      "complaining_groups": [
+        4
+      ],
+      "complaining_voters": 1,
+      "old": 5,
+      "old_rule_approves": false,
+      "profile": {
+        "admissible_threshold_numerators": [
+          3,
+          4,
+          5
+        ],
+        "groups": [
+          {
+            "count": 5,
+            "id": 0,
+            "ranking_best_to_worst": [
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          {
+            "count": 1,
+            "id": 4,
+            "ranking_best_to_worst": [
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                3
+              ]
+            ]
+          }
+        ],
+        "n": 6,
+        "single_peaked": true,
+        "strict_preferences": true,
+        "threshold_denominator": 6
+      },
+      "proposal": 3,
+      "proposed_rule_approves": true,
+      "yes_votes": 5,
+      "z3": {
+        "status": "SAT"
+      }
+    },
+    "version_difference": "v2 p. 7 says never guaranteed to be complaint-free; these examples agree with that weaker statement"
+  }
+}

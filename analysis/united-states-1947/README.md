@@ -86,6 +86,12 @@ the smallest 36-state group contains 54,982,723 of 131,006,184 residents in the
 agree. These are residents of selected states, not voters, supporters, or the
 number of ratifying legislators or delegates.
 
+`self-amendment-replication.md` reproduces AAMAS 2021 Algorithm 1 and its
+Theorem 1 on explicitly bounded, fixed-electorate preference domains. It pins
+the proceedings and arXiv v2 rather than silently using the retitled v4.
+A six-voter example refutes an unnumbered complaint-freeness sentence, not
+the numbered theorem or a constitutional rule.
+
 ## What is not here yet
 
 No verified candidate path. `power-inventory.md` has been run and identifies six
