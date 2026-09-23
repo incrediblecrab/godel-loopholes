@@ -2,10 +2,7 @@
 
 This folder investigates what Gödel could have found in the United States constitutional order of 1947. No verified loophole or identification of his actual argument has been established. The comparative collapse folders supply historical control material, not certified examples of wholly lawful collapse; their evidentiary and legal limitations must be retained when using them.
 
-Start with [the consolidated research report](research-report.md) for the
-completed logical and quantitative results, corrections, reproduction commands,
-and outstanding evidence gaps. The detailed reports below preserve the
-individual experiments and their assumptions.
+Start with [the consolidated research report](research-report.md) for the completed logical and quantitative results, corrections, reproduction commands, and outstanding evidence gaps. The detailed reports below preserve the individual experiments and their assumptions.
 
 ## Vantage
 
@@ -17,15 +14,9 @@ Case law decided before the vantage date is admissible, and two decisions matter
 
 ## What is here
 
-`literature-replication-map.md` connects the academic sources to the actual
-experiments, distinguishes verified reading from metadata or secondary accounts,
-and separates contemporary authorization from retrospective acceptance.
+`literature-replication-map.md` connects the academic sources to the actual experiments, distinguishes verified reading from metadata or secondary accounts, and separates contemporary authorization from retrospective acceptance.
 
-`ai-science-methods.md` reviews the complete supplied Navier–Stokes paper and
-its official proof interfaces. It separates the published C/D claim from local
-proof execution and prize status, and records the remaining Astra-attribution
-gap. Its transferable practices guide the experiments below; it does not
-claim that mathematical verification settles constitutional interpretation.
+`ai-science-methods.md` reviews the complete supplied Navier–Stokes paper and its official proof interfaces. It separates the published C/D claim from local proof execution and prize status, and records the remaining Astra-attribution gap. Its transferable practices guide the experiments below; it does not claim that mathematical verification settles constitutional interpretation.
 
 `threshold-arithmetic.md` runs the threshold-arithmetic enumeration over Article V. The 1920 holding uses members present, assuming a quorum. Under favorable minimum-quorum attendance and nominal full membership, 146 House and 33 Senate yes votes suffice; these are not attendance-independent thresholds.
 
@@ -35,10 +26,7 @@ It also records that the minimum-coalition argument this project treats as one o
 
 ## The formal model
 
-The three starting replication reports concern Zahoransky and Benzmüller's
-Isabelle/HOL reconstruction, documented in the 2019 thesis and 2020 workshop
-paper. Modern scholarship may be replicated, but any asserted correspondence
-to the 1947 constitutional order must still respect the vantage rule.
+The three starting replication reports concern Zahoransky and Benzmüller's Isabelle/HOL reconstruction, documented in the 2019 thesis and 2020 workshop paper. Modern scholarship may be replicated, but any asserted correspondence to the 1947 constitutional order must still respect the vantage rule.
 
 `formal-model-replication.md` records the replication: the model reproduces, its axioms are consistent, and its three theorems carry information. It is the borrowed baseline, not a result of this project.
 
@@ -48,67 +36,26 @@ to the 1947 constitutional order must still respect the vantage rule.
 
 `search/axiom_sweep.py` generates the ablation theories from `isabelle/GodelCore.thy` and `isabelle/GodelConstitution.thy`, so the model is not transcribed twice for each experiment.
 
-`step-one-repair.md` describes this project's separate repaired encoding.
-`repair-causality-audit.md` corrects its interpretation: the first-step facts are
-load-bearing for entailment, not proof of causal necessity. Sixteen new kernel
-lemmas and seven new ordinary Nitpick counterexamples expose missing persistence
-constraints and an already-contradictory hypothesis in the original rival-rule test.
-These outcomes were independently rerun before publication.
+`step-one-repair.md` describes this project's separate repaired encoding. `repair-causality-audit.md` corrects its interpretation: the first-step facts are load-bearing for entailment, not proof of causal necessity. Sixteen new kernel lemmas and seven new ordinary Nitpick counterexamples expose missing persistence constraints and an already-contradictory hypothesis in the original rival-rule test. These outcomes were independently rerun before publication.
 
-`search/quorum_cascade.py` retains a separate arithmetic relaxation, not a
-verified constitutional path. `attendance-consistency.md` corrects the old
-267-versus-179 cost refutation in `quorum-cascade-null.md`: its two sides used
-different attendance assumptions. The scalar inequality checked by
-`search/cascade_domination.py` survives; the claimed strict cost domination does
-not follow.
+`search/quorum_cascade.py` retains a separate arithmetic relaxation, not a verified constitutional path. `attendance-consistency.md` corrects the old 267-versus-179 cost refutation in `quorum-cascade-null.md`: its two sides used different attendance assumptions. The scalar inequality checked by `search/cascade_domination.py` survives; the claimed strict cost domination does not follow.
 
 ## Executable interpretation search
 
-`bounded-article-v-search.md` extends the replication with a consent-aware finite
-transition model, exhaustive graph search, an independently encoded bounded SMT
-cross-check, and behavioral mutation controls. It makes the interpretation matrix
-in `ratification-price.md` executable and distinguishes a satisfying endpoint
-from a path reached by authorized changes. The exact scope and measured results
-are in `search/article_v_results.json`. Its conditional model witnesses are not
-new constitutional loopholes or evidence of what Gödel privately intended.
+`bounded-article-v-search.md` extends the replication with a consent-aware finite transition model, exhaustive graph search, an independently encoded bounded SMT cross-check, and behavioral mutation controls. It makes the interpretation matrix in `ratification-price.md` executable and distinguishes a satisfying endpoint from a path reached by authorized changes. The exact scope and measured results are in `search/article_v_results.json`. Its conditional model witnesses are not new constitutional loopholes or evidence of what Gödel privately intended.
 
-`state-admission-replication.md` tests a boundary the fixed-state model excludes:
-Article IV can change the membership set counted by Article V. It reproduces
-the conditional arithmetic of the Harvard Law Review's *Pack the Union* Note,
-keeps the congressional gates in the calculation, and checks the changing
-denominator against the Sixteenth Amendment's primary certification. The
-paper's precise historical minimum remains underdetermined, and its
-new-state voting assumptions are not converted into legal guarantees.
+`state-admission-replication.md` tests a boundary the fixed-state model excludes: Article IV can change the membership set counted by Article V. It reproduces the conditional arithmetic of the Harvard Law Review's *Pack the Union* Note, keeps the congressional gates in the calculation, and checks the changing denominator against the Sixteenth Amendment's primary certification. The paper's precise historical minimum remains underdetermined, and its new-state voting assumptions are not converted into legal guarantees.
 
-`quantitative-ratification.md` supplies source-verified 1940 Census bounds:
-the smallest 36-state group contains 54,982,723 of 131,006,184 residents in the
-48-state universe, or 41.9696%. Sorting and independent integer optimization
-agree. These are residents of selected states, not voters, supporters, or the
-number of ratifying legislators or delegates.
+`quantitative-ratification.md` supplies source-verified 1940 Census bounds: the smallest 36-state group contains 54,982,723 of 131,006,184 residents in the 48-state universe, or 41.9696%. Sorting and independent integer optimization agree. These are residents of selected states, not voters, supporters, or the number of ratifying legislators or delegates.
 
-`self-amendment-replication.md` reproduces AAMAS 2021 Algorithm 1 and its
-Theorem 1 on explicitly bounded, fixed-electorate preference domains. It pins
-the proceedings and arXiv v2 rather than silently using the retitled v4.
-A six-voter example refutes an unnumbered complaint-freeness sentence, not
-the numbered theorem or a constitutional rule.
+`self-amendment-replication.md` reproduces AAMAS 2021 Algorithm 1 and its Theorem 1 on explicitly bounded, fixed-electorate preference domains. It pins the proceedings and arXiv v2 rather than silently using the retitled v4. A six-voter example refutes an unnumbered complaint-freeness sentence, not the numbered theorem or a constitutional rule.
 
 ## What is not here yet
 
-No verified candidate path. `power-inventory.md` has been run and identifies six
-selected rows; its reported clause walk is not a complete persisted row-by-row
-dataset. The reference graph, undefined-terms pass, and systematic parse
-enumeration have not been completed as reproducible exhaustive searches.
+No verified candidate path. `power-inventory.md` has been run and identifies six selected rows; its reported clause walk is not a complete persisted row-by-row dataset. The reference graph, undefined-terms pass, and systematic parse enumeration have not been completed as reproducible exhaustive searches.
 
 The silence inventory was expected to be the most productive and was the enumeration the Italian control case was worked to make unavoidable. It was productive in the sense that it found the cluster, and unproductive in the sense that the cluster reaches only Congress and the federal courts and leaves state ratification entirely untouched. That is the same conclusion `threshold-arithmetic.md` reached from the opposite direction, which is mild evidence that the conclusion is right.
 
-The later “statutes, read” section of `silence-inventory.md` records verification
-of its identified statutory sources; the earlier blanket retrieval blockage is
-outdated. This does not constitute a comprehensive search of all operative
-statutes. The actual 1947 standing-rule texts remain incompletely verified, and
-catalog leads are not a substitute for the operative rules.
+The later “statutes, read” section of `silence-inventory.md` records verification of its identified statutory sources; the earlier blanket retrieval blockage is outdated. This does not constitute a comprehensive search of all operative statutes. The actual 1947 standing-rule texts remain incompletely verified, and catalog leads are not a substitute for the operative rules.
 
-No source reviewed here establishes Gödel's actual mechanism. The notebooks and
-naturalization records discussed in `academia/naturalization-1947.md` are
-archival leads, not proof that no relevant record exists or that nobody has
-requested one. Reconstructing a possible vulnerability is a different question
-from identifying what Gödel privately meant.
+No source reviewed here establishes Gödel's actual mechanism. The notebooks and naturalization records discussed in `academia/naturalization-1947.md` are archival leads, not proof that no relevant record exists or that nobody has requested one. Reconstructing a possible vulnerability is a different question from identifying what Gödel privately meant.
