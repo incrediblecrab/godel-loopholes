@@ -8,14 +8,9 @@ description: "What reading the words of the 1947 Constitution actually found: an
 
   Answers one question: what did reading the words actually find?
 
-  Three artifacts, in the order the argument runs. An unstated denominator in
-  Article V. A corrupted First Amendment nobody planted for us. Twelve places
-  the document says nothing at all.
+  Three artifacts, in the order the argument runs. An unstated denominator in Article V. A corrupted First Amendment nobody planted for us. Twelve places the document says nothing at all.
 
-  The prose is authored here. The findings are the artifacts, and each reads its
-  data out of the research notes at build time. Every number on this page comes
-  from data/facts.json through <Value> or through a fact() lookup, so nothing
-  below can drift from the research without the build failing.
+  The prose is authored here. The findings are the artifacts, and each reads its data out of the research notes at build time. Every number on this page comes from data/facts.json through <Value> or through a fact() lookup, so nothing below can drift from the research without the build failing.
 */}
 
 import MarginNote from '../../components/MarginNote.astro';
@@ -33,9 +28,7 @@ export const unstated = fact('articlev.base.unstated');
 export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 {/*
-  The prose count and the artifact's panel count are the same number by
-  construction, so they cannot drift the way "two" did while three panels were
-  on screen.
+  The prose count and the artifact's panel count are the same number by construction, so they cannot drift the way "two" did while three panels were on screen.
 */}
 export const SPELLED_COUNT = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'][
   DIVERGENCES.length

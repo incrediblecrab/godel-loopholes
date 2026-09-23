@@ -8,14 +8,9 @@ description: "Eight claims this project made and later disproved, six checks bui
 
   Answers one question: why should you believe any of this?
 
-  This is the payload of the whole site. The thesis is not "Gödel was right".
-  It is that a search which has found nothing, and which says so, and which
-  ships the script that would catch it lying, is worth more than a search that
-  announces a discovery.
+  This is the payload of the whole site. The thesis is not "Gödel was right". It is that a search which has found nothing, and which says so, and which ships the script that would catch it lying, is worth more than a search that announces a discovery.
 
-  The eight disproved claims are parsed out of README.md and the negative
-  controls out of verify.sh. Neither list is retyped here, so neither can
-  quietly shrink.
+  The eight disproved claims are parsed out of README.md and the negative controls out of verify.sh. Neither list is retyped here, so neither can quietly shrink.
 */}
 
 import MarginNote from '../../components/MarginNote.astro';
@@ -29,10 +24,7 @@ export const claims = orderedListUnder('README.md', 'Claims made here and later 
 export const controls = negativeControls();
 
 {/*
-  The headings render counts from facts.json; the lists are parsed out of
-  README.md and verify.sh. Nothing tied them together, so this page would
-  happily print "8 claims" over nine items -- which is precisely what the
-  margin note beside it promises will not happen.
+  The headings render counts from facts.json; the lists are parsed out of README.md and verify.sh. Nothing tied them together, so this page would happily print "8 claims" over nine items -- which is precisely what the margin note beside it promises will not happen.
 */}
 export const claimItems = claims.map(inline);
 export const controlCountChecks = (() => {
