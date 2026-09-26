@@ -1,4 +1,27 @@
-# Gödel loopholes
+# godel-loopholes
+
+This repository is a paused public research program on whether the constitutional order in force for the United States in 1947 permitted a lawful sequence that destroyed democratic government, and whether that might illuminate Kurt Gödel's reported citizenship-exam concern. It has not found a verified constitutional loophole or identified Gödel's actual argument.
+
+**Objective:** keep the historical sources, formal models, quantitative checks and correction history together so a future candidate loophole can be tested against explicit standards.
+
+**Inputs:** legal and historical sources cited in the analysis, primary constitutional texts in `corpus/`, registered facts in `data/`, Python search scripts, Isabelle theories, and the local site tooling under `site/`.
+
+**Files:**
+
+- [`analysis/`](analysis/README.md): country-specific research reports, formal models, searches and results
+- [`academia/`](academia/README.md): literature notes and source context
+- [`corpus/`](corpus/README.md): primary constitutional and legal texts used by the analyses
+- [`method/`](method/README.md): finding standards, audit methods and instrument-result rules
+- [`data/`](data/): registered facts and ablation data
+- [`eli5.md`](eli5.md): a nontechnical introduction to the question
+- [`site/`](site/): Astro site source for publishing the material
+- [`tools/`](tools/): fact checks, audits and supporting scripts
+- [`TOOLING.md`](TOOLING.md): local tooling notes
+- [`verify.sh`](verify.sh): legacy verification entry point
+
+**Try it:** start with [`analysis/united-states-1947/research-report.md`](analysis/united-states-1947/research-report.md); `./verify.sh` is the legacy checkpoint, while newer reports link their scoped reproduction commands.
+
+## Background
 
 **Research status: paused after a bounded research program. No verified constitutional loophole or identification of Gödel's actual argument.** Start with the [consolidated research report](analysis/united-states-1947/research-report.md) for the findings, assumptions, and reproduction commands.
 
@@ -83,3 +106,8 @@ Eight earlier examples, kept visible on purpose. Later corrections are linked ab
 One shipped experiment was also **vacuous** for a period: the ablation emitted axioms before the definition they mentioned, Isabelle generalized the free variable, and the reduced theory silently became inconsistent while still printing every theorem as proved. Adversarial review caught it, not the harness. Every ablation now carries a mandatory consistency probe.
 
 Corrections at the level of a citation or a quotation are recorded in the file that owns the claim rather than repeated here. An example is [quorum-base.md](analysis/united-states-1947/quorum-base.md), which got the same ruling wrong twice in opposite directions before a photographic scan of the printing settled it.
+
+
+## License
+
+MIT. See [`LICENSE`](LICENSE).
