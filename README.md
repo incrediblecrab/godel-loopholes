@@ -66,6 +66,8 @@ The [literature and replication map](analysis/united-states-1947/literature-repl
 
 The [AI-science and Navier-Stokes review](analysis/united-states-1947/ai-science-methods.md) informed the verification discipline, not a constitutional solution. It was not a replication of the PDE proof technique; full proof execution and Astra-specific producing-model attribution were not independently verified here.
 
+Its October 7, 2026 follow-up examines the larger OpenAI mathematics release for representation changes, policy-conditional results, and composition checks. Those are methodological comparisons, not new constitutional evidence or a reason to reopen the paused search. The existing Isabelle and SMT work is retained rather than ported to another proof assistant.
+
 ### Original formal-model replication
 
 The earlier result remains useful: Zahoransky and Benzmüller's published Isabelle/HOL reconstruction reproduces, and its ablations show exactly which assumptions support the selected conclusions:
