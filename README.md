@@ -1,6 +1,6 @@
 # godel-loopholes
 
-This repository is a paused public research program on whether the constitutional order in force for the United States in 1947 permitted a lawful sequence that destroyed democratic government, and whether that might illuminate Kurt Gödel's reported citizenship-exam concern. It has not found a verified constitutional loophole or identified Gödel's actual argument.
+This repository studies whether the constitutional order in force for the United States in 1947 permitted a lawful sequence that destroyed democratic government, and whether that might illuminate Kurt Gödel's reported citizenship-exam concern. It has not found a verified constitutional loophole or identified Gödel's actual argument. The search for a new source-backed legal mechanism remains paused; instrument-level work continues.
 
 **Objective:** keep the historical sources, formal models, quantitative checks and correction history together so a future candidate loophole can be tested against explicit standards.
 
@@ -23,7 +23,7 @@ This repository is a paused public research program on whether the constitutiona
 
 ## Background
 
-**Research status: paused after a bounded research program. No verified constitutional loophole or identification of Gödel's actual argument.** Start with the [consolidated research report](analysis/united-states-1947/research-report.md) for the findings, assumptions, and reproduction commands.
+**Research status: substantive constitutional search paused; instrument work continues. No verified constitutional loophole or identification of Gödel's actual argument.** Start with the [consolidated research report](analysis/united-states-1947/research-report.md) for the findings, assumptions, and reproduction commands.
 
 Kurt Gödel proved that any consistent, effectively axiomatized formal system strong enough to do arithmetic contains true statements it cannot prove. In 1947 he studied the Constitution for his citizenship exam and, according to Morgenstern's later account, thought it permitted a path to dictatorship without anyone breaking a rule.
 
@@ -68,6 +68,8 @@ The [AI-science and Navier-Stokes review](analysis/united-states-1947/ai-science
 
 Its October 7, 2026 follow-up examines the larger OpenAI mathematics release for representation changes, policy-conditional results, and composition checks. Those are methodological comparisons, not new constitutional evidence or a reason to reopen the paused search. The existing Isabelle and SMT work is retained rather than ported to another proof assistant.
 
+A subsequent [fixed-coalition quotient](analysis/united-states-1947/coalition-quotient.md) turns that methodological question into an instrument result: arbitrary independent ratifier and consenter subsets reduce to a finite set of transition-equivalent representatives. The existing model now has an explicit reachability and shortest-path classification for all such fixed supports under its original policies, rather than only selected prefix profiles. This expands model coverage without changing the legal assumptions, establishing a real-world loophole, or assigning probabilities to the model's outcomes.
+
 ### Original formal-model replication
 
 The earlier result remains useful: Zahoransky and Benzmüller's published Isabelle/HOL reconstruction reproduces, and its ablations show exactly which assumptions support the selected conclusions:
@@ -88,7 +90,7 @@ Current scoped reproduction commands and numerical artifacts are linked from the
 
 ### When to reopen
 
-The project is parked, not settled. Reopen it for **new archival or operative 1947 procedural evidence**, a **genuinely distinct legal mechanism**, or a **source-backed interpretation with a falsifiable test**. A new candidate should specify its starting coalition, current-rule authorization at every step, changes to membership and thresholds, and an independently checked witness or counterexample.
+The historical and legal search is parked, not settled. Reopen it for **new archival or operative 1947 procedural evidence**, a **genuinely distinct legal mechanism**, or a **source-backed interpretation with a falsifiable test**. A new candidate should specify its starting coalition, current-rule authorization at every step, changes to membership and thresholds, and an independently checked witness or counterexample.
 
 The [unfinished searches](analysis/united-states-1947/README.md#what-is-not-here-yet) include the reference graph, undefined-terms pass, and systematic parse enumeration. Their incompleteness prevents a claim of exhaustive coverage; it is not a reason to repeat an indefinite search over unchanged assumptions.
 

@@ -32,6 +32,8 @@ The primary text is [Article V](https://constitution.congress.gov/browse/article
 
 The grid's ratifying and consenting sets are the same prefix of state identifiers, at three sizes: just below the initial threshold, exactly at it, and all states. This is a declared scenario choice, not a derived identity between ratification and consent. Separate controls change the two sets independently and hold their cardinalities equal while changing the affected state's identity.
 
+The October 7, 2026 [coalition-quotient extension](coalition-quotient.md) removes that scenario restriction for arbitrary fixed support sets by proving and checking a sufficient observation quotient. The original grid and its artifact remain unchanged; the extension has its own result record and does not cover coalitions changing during a path.
+
 The action alphabet is explicit in the artifact: repeal/restore the proviso, concentrate/restore separated powers, remove/restore executive elections, change/restore equal Senate suffrage, lower/restore the ratification threshold, and two combined instruments used to test self-authorization. These abstract effects are stipulations about hypothetical amendments, **not drafted amendments whose legal sufficiency has been verified**.
 
 ## Interpretations that change the answer

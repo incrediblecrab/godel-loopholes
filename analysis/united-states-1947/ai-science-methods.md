@@ -78,7 +78,9 @@ Three comparisons are useful for the existing constitutional models.
 
 The release also gives a concrete warning about formal coverage. Its [family 159 scope document](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/159.md) explicitly selects a reciprocal-sum consequence rather than the paper's quantitative bound. Likewise, a theorem named for dictatorship in a constitutional model must be read at the declaration and definition level; a project title cannot supply the missing correspondence. The existing [instrument-result standard](../../method/what-counts-as-an-instrument-result.md) already owns that requirement.
 
-These comparisons do not meet this project's conditions for reopening the historical search: they add no archival evidence, operative legal rule, or distinct source-backed legal mechanism. The project remains paused. Existing Isabelle, finite-search, and SMT checks remain the tools; a new Lean port would duplicate work without resolving the legal interpretation.
+These comparisons do not meet this project's conditions for reopening the historical search: they add no archival evidence, operative legal rule, or distinct source-backed legal mechanism. The historical and legal search remains paused. Existing Isabelle, finite-search, and SMT checks remain the tools; a new Lean port would duplicate work without resolving the legal interpretation.
+
+A subsequent [coalition-input quotient](coalition-quotient.md) applies the representation question to the existing finite model. It classifies arbitrary fixed ratifier and consenter sets through the observations the guards actually use, without altering legal policies or amendment effects. This is new instrument coverage; it does not reopen the historical or legal search.
 
 ## Reading and provenance record
 
