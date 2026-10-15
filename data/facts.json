@@ -633,17 +633,17 @@
       "id": "cascade.entry_price",
       "value": 267,
       "label": "Members needed merely to begin the cascade, 1947",
-      "statement": "A quorum of each undiminished chamber: 218 in the House and 49 in the Senate. The bloc must supply that quorum itself, because the members it is removing will not stay to help make one.",
+      "statement": "A quorum of each undiminished chamber: 218 in the House and 49 in the Senate, on the assumption that the bloc supplies that quorum itself because the members it is removing will not stay to help make one. With a favorable minimum quorum present, an initial majority exclusion needs 135.",
       "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
       "status": "verified"
     },
     {
       "id": "cascade.extra_cost",
       "value": 88,
-      "label": "What the cascade costs over not running it",
-      "statement": "267 minus 179. The manoeuvre is strictly dominated at step zero, and no later saving refunds it, because the coalition has already been paid.",
+      "label": "Withdrawn: the cascade's claimed 88-member extra cost",
+      "statement": "267 minus 179. This project claimed the cascade was strictly dominated at step zero by this margin, and withdrew the claim on September 8, 2026: 267 assumes the excluding bloc supplies its own quorum, while 179 assumes a favorable minimum quorum is present. Under one attendance assumption applied to both actions the initial costs are 267 and 354, 135 and 179, or 267 and 267, so no 88-member extra cost follows. The arithmetic difference is correct; its reading as a coalition price is not. See attendance-consistency.md.",
       "canonical": "analysis/united-states-1947/quorum-cascade-null.md",
-      "status": "verified"
+      "status": "disproved"
     },
     {
       "id": "cascade.langer",

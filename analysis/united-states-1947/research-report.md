@@ -1,12 +1,12 @@
 # Research report: the search for Gödel's constitutional loophole
 
-**Updated September 9, 2026. Constitutional vantage: December 5, 1947.**
+**Updated October 15, 2026. Constitutional vantage: December 5, 1947.**
 
 **No verified constitutional loophole, complete lawful-collapse path, or identification of Gödel's actual argument has been established.** The work does establish reproducible conditional results, corrects important overclaims in the existing analysis, and identifies which unresolved premises actually change the answer. Logical and quantitative methods were both implemented.
 
 This report consolidates the completed work. The [literature map](literature-replication-map.md) records primary-source correspondence and reading gaps. The version-pinned AAMAS self-amendment replication is included below, with its finite-domain limits and a narrowly identified counterexample to an ancillary sentence.
 
-The repository's [finding standard](../../method/what-counts-as-a-finding.md) requires authorized operations, an explicit legal status for each step, a coalition, and a concrete falsifier. A route that merely uses the ordinary amending coalition does not meet its loophole criterion. This matters when interpreting the one- and two-amendment witnesses below.
+The repository's [finding standard](../../method/what-counts-as-a-finding.md) requires authorized operations, an explicit legal status for each step, a coalition, and a concrete falsifier. A route that merely uses the ordinary amending coalition does not meet its loophole criterion, so the one- and two-amendment witnesses below, which use that coalition, are not loopholes under it.
 
 ## What was established
 
@@ -15,6 +15,7 @@ The repository's [finding standard](../../method/what-counts-as-a-finding.md) re
 | Published Isabelle reconstruction | The original `minimal` and `noamd1` experiments reproduce in consistent theories. The three target theorems and five intermediate lemmas survive deletion of the original step-one axioms. | That an actual constitution can be changed without an authorized first step. |
 | Separate repaired-model audit | 16 new kernel lemmas and seven new ordinary Nitpick counterexamples distinguish entailment dependency from causal necessity and expose a contradictory rival-test hypothesis. | That the repaired model describes event-complete lawful histories. |
 | Framed Article V search | 48 configurations, 144 target queries: 54 reachable and 90 unreachable in their declared finite graphs. All 144 agree with a separate bounded SMT encoding. | A probability of legal validity, an exhaustive search of constitutional law, or historical attribution. |
+| Fixed-coalition quotient (October 7, 2026) | Arbitrary fixed ratifier and consenter subsets reduce to nine transition-equivalent classes per policy. 144 configurations, 432 target queries: 84 reachable and 348 unreachable, all matching the bounded SMT encoding and a closed-form classification. | Coalitions that change between operations, admitted states, raw coalition size or political cost, or any legal judgment beyond the declared model. |
 | AAMAS self-amendment protocol | Algorithm 1 and Theorem 1 hold on 10,017 strict profiles for n = 2-8; a declared weak-order extension brings the total to 107,752. An ancillary sentence has a six-voter counterexample. | A proof for unbounded electorates, a failure of the numbered theorem, or an Article V implementation. |
 | State-admission arithmetic | The changing-denominator formula and joint congressional gates reproduce conditionally. The Note's precise historical minimum of 96 remains underdetermined. | That new states can be manufactured on the assumed terms or will support the later amendment. |
 | Census-weighted state thresholds | The smallest 36-state group contains 54,982,723 of 131,006,184 residents in the 1940, 48-state universe: 41.9696%. | A minimum number or percentage of voters, supporters, legislators, or delegates. |
@@ -62,15 +63,17 @@ At 36 supporting ratifiers and consenters, with no modeled implicit democracy fl
 
 Consent from every affected state supplies a separate positive control. An implicit democracy floor changes the result again. Removal of executive elections is a different target from concentration of all three powers.
 
-Breadth-first search saturates each finite graph. The independent SMT check only searches up to four operations; it does not supply the graph's all-path-length conclusion. Neither implementation decides which interpretation was legally correct in 1947. Both use the same declared amendment-effect catalogue, which contains hypothetical effects rather than legally verified amendment drafts.
+Breadth-first search saturates each finite graph. The independent SMT check only searches up to four operations; it does not supply the graph's all-path-length conclusion. Neither implementation decides which interpretation was legally correct in 1947. Both use the same declared amendment-effect catalog, which contains hypothetical effects rather than legally verified amendment drafts.
 
 Details: [Original instrument finding](inert-manoeuvre.md), [causality audit](repair-causality-audit.md), and [framed search](bounded-article-v-search.md).
+
+A later [fixed-coalition quotient](coalition-quotient.md) removes the framed search's restriction to three prefix profiles in which the same states ratify and consent. Under the same policies, every fixed pair of ratifier and consenter sets falls into one of nine classes with identical transition behavior, and the reachable targets follow a closed form: nothing is reachable with fewer than 36 ratifiers, and with 36 or more, concentration of powers is reachable under exactly the conditions the sensitivity table above shows. The quotient report gives the matching conditions for the other two targets. The two solver checks behind the reduction are solver-reported UNSAT, not kernel-checked proofs. The result widens coverage of the existing model; it does not change its legal assumptions or let coalitions vary over time.
 
 ### An actual self-amending voting protocol
 
 Abramowitz, Shapiro, and Talmon's AAMAS 2021 extended abstract supplies a precise Algorithm 1 and a numbered stability theorem. Its matching full proofs are in arXiv **v2**, not the retitled v4. The implementation starts with majority rule, considers successively higher thresholds, and lets the **current** rule decide each proposed change.
 
-For fixed electorates of 2-8 voters, all 10,017 anonymous strict single-peaked profiles satisfy the selected claims. Allowing the separately declared cross-side indifference extension produces 107,752 profiles and 430,651 vote steps. The theorem and path checks hold throughout. Fourteen bounded SMT counterexample searches are UNSAT, with seven SAT nonvacuity controls. An independent expanded-voter implementation matched the complete numerical record; these are not empirical population observations.
+For fixed electorates of 2-8 voters, all 10,017 anonymous strict single-peaked profiles satisfy the selected claims. Allowing the separately declared cross-side indifference extension produces 107,752 profiles and 430,651 vote steps. The theorem and path checks hold throughout. Fourteen bounded SMT counterexample searches return solver-reported UNSAT, with seven SAT nonvacuity controls. An independent expanded-voter implementation matched the complete numerical record; these are not empirical population observations.
 
 The paper's formal complaint criterion is weaker than unanimous preference: a voter accepts an outcome either because they prefer it or because their own preferred voting rule would produce it. This permits a precise counterexample to the unnumbered assertion that non-evolutionary revolutions are **never complaint-free**.
 
@@ -114,7 +117,7 @@ For 1940, the minimum populations of exactly 36 and exactly 32 states are:
 | 36 ratifying states | 54,982,723 | 41.9696% |
 | 32 convention-application states | 42,959,945 | 32.7923% |
 
-Sorting and separately formulated integer optimization agree; exact-total queries are SAT and strictly-better queries UNSAT. These are resident totals, not support measurements or December 1947 population estimates. A convention- application threshold does not specify how the convention itself votes.
+Sorting and separately formulated integer optimization agree; exact-total queries are SAT and strictly-better queries UNSAT. These are resident totals, not support measurements or December 1947 population estimates. A convention-application threshold does not specify how the convention itself votes.
 
 Two amendments can reuse the same 36 states. Seventy-two state-amendment ratification actions do not mean 72 distinct states or twice as many people.
 
@@ -150,7 +153,7 @@ More search inside the same interpretation cannot settle the disagreement betwee
 
 The Sixteenth Amendment provides a limited positive historical control: membership changed from 46 to 48 states, so the quota changed from 35 to 36. The February 25, 1913 certification names a principal 36-state list and acknowledges two additional ratifications, for 38 in total. The one-short negative example is synthetic, not a reconstructed historical daily vote count.
 
-The repository's comparative collapses do not supply a clean, fully verified positive backtest of wholly lawful collapse. [Germany's](../germany-1933/path-enabling-act.md) constitutional- amendment procedure cannot be erased from the account, but coercion and contested adoption prevent treating it as an uncomplicated legal witness. The [Austrian account](../austria-1920/path-kweg-bridge.md) has an incompletely verified transitional-law bridge and unlawful prevention of reconvening. The scoped [Italian corpus](../italy-1848/null-result-formal-route.md) lacks relevant operative statutes. These cases help test representations; they do not justify a measured success rate for the proposed search.
+The repository's comparative collapses do not supply a clean, fully verified positive backtest of wholly lawful collapse. [Germany's](../germany-1933/path-enabling-act.md) constitutional-amendment procedure cannot be erased from the account, but coercion and contested adoption prevent treating it as an uncomplicated legal witness. The [Austrian account](../austria-1920/path-kweg-bridge.md) has an incompletely verified transitional-law bridge and unlawful prevention of reconvening. The scoped [Italian corpus](../italy-1848/null-result-formal-route.md) lacks relevant operative statutes. These cases help test representations; they do not justify a measured success rate for the proposed search.
 
 Guerra-Pujol's 2024 *Prequel* studies a different trio: Yugoslavia, Austria, and Romania. The repository's comparative review is not a completed backtest of that set. The Prequel and Suber's acceptance theory also raise a distinct possibility: later validation of an initially unauthorized act. That cannot be counted as a path with every step lawful when performed without changing the research criterion. The [literature map](literature-replication-map.md) records the relevant passages and this boundary.
 
@@ -160,9 +163,9 @@ The exact 1947 congressional standing-rule texts remain incompletely verified. C
 
 ## 6. Reproduction and evidence boundaries
 
-The completed Python modules have 105 targeted unit tests: the earlier 76 plus 29 for the new AAMAS replication. The Article V checks also plant four actual behavioral defects in disposable copies. The attendance checker has a separate planted-artifact control: the clean copy exits zero, and replacing the self-quorate proposal total with 179 exits one. An import failure is not counted as successful defect detection.
+The completed Python modules have 116 targeted unit tests across six modules, including 31 for the AAMAS replication and 9 for the coalition quotient. The Article V checks also plant four actual behavioral defects in disposable copies. The attendance checker has a separate planted-artifact control: the clean copy exits zero, and replacing the self-quorate proposal total with 179 exits one. An import failure is not counted as successful defect detection.
 
-The AAMAS artifact gate was also tested through actual subprocesses: the unmodified copied artifact passes with exit zero; increasing its stored profile count by one fails with exit two and a stale-artifact diagnostic.
+The AAMAS artifact gate was also tested through actual subprocesses: the unmodified copied artifact passes with exit zero; increasing its stored profile count by one fails with exit two and a stale-artifact diagnostic. Until October 15, 2026 that gate also failed whenever the interpreter differed from the recorded Python 3.13.3, because it compared runtime metadata byte-for-byte; it now compares results only and reports a runtime difference separately. A rerun under Python 3.14.7 reproduced every result, and the planted profile-count change still exits two.
 
 From the repository root:
 
@@ -171,18 +174,19 @@ From the repository root:
   cd analysis/united-states-1947/search &&
   ../../../.venv/bin/python -B -m unittest \
     test_article_v test_state_admission test_state_population \
-    test_attendance_audit test_self_amendment &&
+    test_attendance_audit test_self_amendment test_coalition_quotient &&
   ../../../.venv/bin/python -B article_v_search.py --check &&
   ../../../.venv/bin/python -B state_admission.py --check &&
   ../../../.venv/bin/python -B attendance_audit.py --check &&
   ../../../.venv/bin/python -B self_amendment.py --check &&
+  ../../../.venv/bin/python -B coalition_quotient.py --check &&
   ../../../.venv/bin/python -B -m article_v_mutations
 )
 ```
 
 The Census report supplies separate commands to re-download the pinned primary files and audit the extraction. Its offline calculation explicitly labels unperformed binary-source audits `NOT_RUN`. The Isabelle audit supplies its actual independent process commands and distinguishes kernel lemmas from model-finder diagnostics. A successful theory build alone does not certify a Nitpick probe's result.
 
-SAT means a witness to the stated constraints, not legality. UNSAT excludes the stated search domain, not every constitutional path. UNKNOWN is not converted into impossibility or an optimum. Source hashes and deterministic artifacts permit reruns, but do not make source interpretation infallible.
+SAT means a witness to the stated constraints, not legality. UNSAT excludes the stated search domain, not every constitutional path, and every UNSAT here is Z3's verdict without a separately checked proof certificate. UNKNOWN is not converted into impossibility or an optimum. Source hashes and deterministic artifacts permit reruns, but do not make source interpretation infallible.
 
 The complete legacy repository verifier and the OpenAI Lean project were not run locally in this program. The completed checks do not cover the whole statute book, every historical rule, or every conceivable route to constitutional collapse.
 

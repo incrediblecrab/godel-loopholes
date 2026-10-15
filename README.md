@@ -76,8 +76,8 @@ The earlier result remains useful: Zahoransky and Benzmüller's published Isabel
 
 - `Dictatorship_t3` follows from **6 of the model's 51 axioms**, and those six are consistent. Two are generic amendment-procedure rules, two are bare temporal-successor facts, and two stipulate that the dictatorship amendment is proposed and supported. None is an equal-suffrage, entrenchment, Senate, or step-one axiom.
 - **4 of the 6** are necessary to every proof from this model's axiom pool, established by countermodels to the full theory minus each one. Six is irredundant but not proved minimum; the honest bound within that pool is 4 ≤ minimum ≤ 6.
-- The four axioms encoding **the reconstruction's step one** — proposing and supporting the amendment that strips Article V's entrenchment clause — can be deleted and **every theorem and lemma published in the original still proves**, in a theory Nitpick confirms is still consistent. Two proof scripts break; none of those five propositions does.
-- What the deletion demonstrably costs is entailment of `⌊is_rat amd1a⌋t2`, the ratification of the repeal itself, which the full theory entails and the reduced theory leaves **independent**. So step one is not free — it is just that no published result uses it.
+- The four axioms encoding **the reconstruction's step one** (proposing and supporting the amendment that strips Article V's entrenchment clause) can be deleted and **every theorem and lemma published in the original still proves**, in a theory Nitpick confirms is still consistent. Two proof scripts break; none of those five propositions does.
+- What the deletion demonstrably costs is entailment of `⌊is_rat amd1a⌋t2`, the ratification of the repeal itself, which the full theory entails and the reduced theory leaves **independent**. So step one is not free; it is just that no published result uses it.
 - The reason: `amd1a` is extensionally equal to the negation of the entrenchment clause, provably without any of the model's non-definitional axioms. Its content is therefore already forced by the separate stipulation that the dictatorship amendment was proposed. The repeal event is represented and entailed; its normative effect is not what does the work.
 
 The authors disclose the underlying design choice in both the thesis and the peer-reviewed paper. The contribution here is measuring which entailments depend on it and diagnosing why. It is not discovery of an undisclosed omission or proof that actual repeal is legally unnecessary. The full write-up is [inert-manoeuvre.md](analysis/united-states-1947/inert-manoeuvre.md); it concerns the original model, not the separate repaired model audited above.
@@ -98,14 +98,14 @@ The [unfinished searches](analysis/united-states-1947/README.md#what-is-not-here
 
 Eight earlier examples, kept visible on purpose. Later corrections are linked above and documented in their individual reports; this is not a count of every correction in the project.
 
-1. That `sup_rat` could be attacked by contraposition — refuted by a countermodel.
-2. That the formalism *cannot represent a constraint blocking an amendment* — refuted by building the blocked state (`axiom_sweep.py blocking`).
-3. That the six axioms are *minimal* — they are irredundant, which is weaker.
-4. That the model *cannot tell repeal from violation* — refuted by proving `amd1a = ❙¬omsp` and the event `⌊is_rat amd1a⌋t2`.
-5. That deleting the reconstruction's step one *loses five lemmas* — it loses two proof scripts and none of those five propositions.
-6. That deleting the reconstruction's step one therefore costs **nothing** — false, and refuted by an experiment I had already run. It costs `⌊is_rat amd1a⌋t2`, which becomes independent.
-7. That `amd1a = ❙¬omsp` is a *term identity* — it is extensional equality; `by (rule refl)` fails on that goal.
-8. That *none of the six axioms is an Article V axiom* — two of them are the generic amendment procedure. That was classification by symbol name.
+1. That `sup_rat` could be attacked by contraposition: refuted by a countermodel.
+2. That the formalism *cannot represent a constraint blocking an amendment*: refuted by building the blocked state (`axiom_sweep.py blocking`).
+3. That the six axioms are *minimal*: they are irredundant, which is weaker.
+4. That the model *cannot tell repeal from violation*: refuted by proving `amd1a = ❙¬omsp` and the event `⌊is_rat amd1a⌋t2`.
+5. That deleting the reconstruction's step one *loses five lemmas*: it loses two proof scripts and none of those five propositions.
+6. That deleting the reconstruction's step one therefore costs **nothing**: false, and refuted by an experiment I had already run. It costs `⌊is_rat amd1a⌋t2`, which becomes independent.
+7. That `amd1a = ❙¬omsp` is a *term identity*: it is extensional equality; `by (rule refl)` fails on that goal.
+8. That *none of the six axioms is an Article V axiom*: two of them are the generic amendment procedure. That was classification by symbol name.
 
 One shipped experiment was also **vacuous** for a period: the ablation emitted axioms before the definition they mentioned, Isabelle generalized the free variable, and the reduced theory silently became inconsistent while still printing every theorem as proved. Adversarial review caught it, not the harness. Every ablation now carries a mandatory consistency probe.
 

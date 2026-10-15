@@ -1,6 +1,6 @@
 ---
 title: The method
-description: "Eight claims this project made and later disproved, six checks built to fail on purpose, and one command that re-runs everything. A search that has found nothing and says so."
+description: "Eight claims this project made and later disproved, checks built to fail on purpose, and one command that re-runs the original checks. A search that has found nothing and says so."
 ---
 
 {/*
@@ -59,7 +59,7 @@ export const cascade = fact('cascade.status');
 
 ## Claims made here and later disproved
 
-There are <Value id="scoreboard.disproved" bare /> of them. Every one was believed, written down, and then refuted — in most cases by an experiment we had already run, or by a reviewer reading more carefully than the author. They are kept in `README.md` and this page reads them from there, so the list cannot quietly get shorter.
+The README keeps <Value id="scoreboard.disproved" bare /> of them; later corrections, such as the withdrawn cascade cost at the foot of this page, sit in the reports that own them. Every one was believed, written down, and then refuted, in most cases by an experiment we had already run, or by a reviewer reading more carefully than the author. They are kept in `README.md` and this page reads them from there, so the list cannot quietly get shorter.
 
 <ol class="claims">
   <DisprovedClaims claims={claimItems} />
@@ -75,17 +75,17 @@ Parsed from <a href={blobUrl('README.md')}>README.md</a> at build time. If a nin
 
 </MarginNote>
 
-<section aria-labelledby="one-command-re-runs-all-of-it">
+<section aria-labelledby="one-command-re-runs-the-original-checks">
 
-## One command re-runs all of it
+## One command re-runs the original checks
 
-Everything on this site is checked by a single script. It takes a few minutes, it needs no credentials, and it will tell you if we are lying.
+The original results on this site are checked by a single script. The newer experiments in the research report each carry their own check command, and this script does not run them. It takes a few minutes, it needs no credentials, and it will tell you if we are lying.
 
 <pre class="cmd"><code>git clone https://github.com/incrediblecrab/godel-loopholes
 cd godel-loopholes
 ./verify.sh</code></pre>
 
-It runs <Value id="verify.checks" bare /> checks. It re-derives the Article&nbsp;V thresholds in Z3 by an independent route, re-compiles the Isabelle model and its ablations, checksums every source scan against the copy it was read from, and asserts that every load-bearing value in `data/facts.json` still appears in the file that owns it.
+At its last full run it executed <Value id="verify.checks" bare /> checks, all passing; that count is a recorded checkpoint, not a fresh run. It re-derives the Article&nbsp;V thresholds in Z3 by an independent route, re-compiles the Isabelle model and its ablations, checksums every source scan against the copy it was read from, and asserts that every load-bearing value in `data/facts.json` still appears in the file that owns it.
 
 It also checks its own advertising. The check count quoted in `README.md` is compared against the number of checks that actually ran, so this page cannot claim a number the harness does not produce.
 
@@ -142,16 +142,16 @@ So <em>Powell v. McCormack</em> (1969) is out of bounds, and so is the Twenty-fi
 
 <section aria-labelledby="the-one-live-question-and-how-it-came-out" class="caveat">
 
-## The one live question, and how it came out
+## The one live question, and where it stands
 
 Three rows of the silence inventory, chained together, suggested that the denominator of Article&nbsp;V is set by the body the fraction is meant to constrain. A chamber refuses to seat its own members-elect; the chamber gets smaller; a quorum of a smaller chamber is a smaller number; two thirds of that quorum is smaller still. Run to exhaustion it takes the congressional price of an amendment from <Value id="cascade.propose_price" bare /> people to four.
 
-The premise it rested on — that a quorum counts members actually chosen and sworn, not the statutory size of the chamber — held. Both chambers had said so in terms decades before the vantage, and we read it off the page images rather than take anyone’s word for it.
+The premise it rested on, that a quorum counts members actually chosen and sworn rather than the statutory size of the chamber, held. Both chambers had said so in terms decades before the vantage, and we read it off the page images rather than take anyone’s word for it.
 
-It fails anyway, and it fails on arithmetic that needed none of that research. Removing members is business of the chamber, so it needs a quorum present, and the bloc driving it has to supply that quorum itself — the members it is removing will not stay to help make one. So the manoeuvre costs <Value id="cascade.entry_price" bare /> people before it has achieved anything. Proposing the amendment outright costs <Value id="cascade.propose_price" bare />. Anyone able to start it could already have finished, <Value id="cascade.extra_cost" bare /> members ago.
+An earlier version of this page said the cascade fails anyway, on arithmetic alone: the bloc must supply its own quorum to remove members, so the cascade costs <Value id="cascade.entry_price" bare /> people before it achieves anything, against <Value id="cascade.propose_price" bare /> to propose the amendment outright, a premium of <Value id="cascade.extra_cost" bare /> members. That argument is withdrawn. It priced the exclusion with the bloc supplying its own quorum and the proposal with a favorable minimum quorum present, which are two different attendance assumptions. Held to one assumption, the two actions cost the same when the bloc supplies its own quorum, and the exclusion is cheaper when the full chamber or a minimum quorum is present. The arithmetic neither kills the cascade nor shows that it works.
 
-It is recorded as <strong>{cascade.value}</strong>: a null result, written up in the same detail our own standard demands of a win, with the theorem proved for every chamber size at once and a negative control that makes the proof capable of failing. The two numbers that killed it had been sitting in our own committed output, unread, the whole time.
+It is recorded as <strong>{cascade.value}</strong> Whether a chamber could lawfully exclude members on these grounds, who would attend the later votes, whether the vacated seats would be refilled, and whether the states would ratify are all still open. The inequality behind the old argument still holds, checked by Z3 for every chamber of four or more members with a negative control that makes the check capable of failing; the error was reading its two sides as prices under the same attendance.
 
 </section>
 
-<MarginNote head="The question, resolved" facts={['cascade.status', 'silence.single_chamber']} />
+<MarginNote head="The question, still open" facts={['cascade.status', 'silence.single_chamber']} />

@@ -42,7 +42,7 @@ Cost: linear, but the judgment about what counts as operative is real and should
 
 ## Parse enumeration
 
-For every operative clause containing a structural ambiguity — a comma that could bound one clause or another, a coordination with more than two members, a modifier that could attach at more than one level — enumerate the readings and state what each would permit.
+For every operative clause containing a structural ambiguity (a comma that could bound one clause or another, a coordination with more than two members, a modifier that could attach at more than one level), enumerate the readings and state what each would permit.
 
 This is the only enumeration here that explodes. A clause with several independent ambiguities has a number of parses exponential in that count, and almost all of them are absurd. The discipline is that a parse is not a candidate until someone competent has argued for it or a recension supports it, and the corpus already supplies both kinds of evidence: the Seventh Amendment exists in three punctuations across authoritative printings, and the paired commas at 1 Stat. 98 make a different grammatical claim about what the re-examination clause restricts than the parchment does.
 

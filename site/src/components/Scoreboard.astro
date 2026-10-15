@@ -26,7 +26,7 @@ const cells = [
     id: loopholes.id,
     figure: String(loopholes.value),
     label: 'lawful paths found',
-    gloss: 'After reading the words and after formalising the machine.',
+    gloss: 'After reading the words and after formalizing the machine.',
     tone: 'disproved' as const,
     href: `${base}/method`,
   },
@@ -41,10 +41,10 @@ const cells = [
   {
     id: checks.id,
     figure: String(checks.value),
-    label: 'checks passing, cold',
-    gloss: 'One command re-runs every computational claim from a clean checkout.',
+    label: 'checks passing at the last full harness run',
+    gloss: 'A recorded checkpoint. Newer experiments carry their own checks and are not in this count.',
     tone: 'verified' as const,
-    href: `${base}/method#one-command-re-runs-all-of-it`,
+    href: `${base}/method#one-command-re-runs-the-original-checks`,
   },
   {
     id: controls.id,

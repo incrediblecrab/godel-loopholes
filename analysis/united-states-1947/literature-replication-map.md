@@ -20,7 +20,7 @@ The paper has three substantive time stages **plus** the technical endpoint `te`
 
 **Keep the models separate.** This project's `GodelNetAddCore/Full` repair is not the published encoding. Its five added facts are load-bearing for entailment, while its missing frames and contradictory clause-on hypothesis in the Full-importing rival test are documented in [repair-causality-audit.md](repair-causality-audit.md). The affected rival test is not a meaningful comparison of alternative legal rules; this does not make every theorem in the file vacuous or Full itself inconsistent. Neither audit proves that classical HOL cannot encode self-amendment.
 
-Use the actual reproduction commands in those reports, including the required imported theories. A generic invocation with one arbitrary `X.thy` is not a verified recipe for the whole dependency graph.
+Use the actual reproduction commands in those reports, including the required imported theories. A generic invocation with one arbitrary theory file is not a verified recipe for the whole dependency graph.
 
 ## 2. Pack the Union: the reproduced changing-membership calculation
 

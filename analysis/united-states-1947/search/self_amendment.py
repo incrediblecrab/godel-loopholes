@@ -625,9 +625,18 @@ def main():
         if args.write:
             RESULTS.write_text(encoded, encoding="utf-8")
         if args.check:
-            if not RESULTS.is_file() or RESULTS.read_text(encoding="utf-8") != encoded:
+            # Runtime versions are recorded but not compared: a different
+            # interpreter that reproduces every result is not a stale artifact.
+            if not RESULTS.is_file():
                 raise ValueError("Missing or stale self-amendment result artifact")
-            print("Self-amendment artifact matches byte-for-byte.")
+            stored = json.loads(RESULTS.read_text(encoding="utf-8"))
+            recorded_runtime = stored.pop("runtime", None)
+            fresh = {key: value for key, value in document.items() if key != "runtime"}
+            if stored != fresh:
+                raise ValueError("Missing or stale self-amendment result artifact")
+            print("Self-amendment results match the artifact.")
+            if recorded_runtime != document["runtime"]:
+                print(f"Runtime differs from the recorded run: recorded {recorded_runtime}, current {document['runtime']}.")
         print(json.dumps({
             "enumeration_totals": document["enumeration"]["totals"],
             "smt_query_status_counts": dict(Counter(

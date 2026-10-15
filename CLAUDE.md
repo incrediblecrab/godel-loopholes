@@ -9,7 +9,7 @@ This repository studies whether the US constitutional order in force in 1947 per
 ```bash
 python3 tools/facts.py --check      # every value in data/facts.json is present in the file it names as owner
 python3 tools/contrast.py --check
-python3 tools/links.py              # every path a file points at exists
+python3 tools/links.py --check      # every path a file points at exists; without --check it exits 0 on a dangle
 python3 tools/ssot_audit.py         # lists every file a load-bearing value appears in
 ./verify.sh                         # toolchain and replication harness (Z3, SWI-Prolog, Isabelle), with negative controls
 cd site && npm run build            # lockfile, fact and token lints, astro check, build, CSP seal and check

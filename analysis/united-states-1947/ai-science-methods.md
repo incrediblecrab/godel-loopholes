@@ -46,7 +46,7 @@ The repository also advertises a separate unforced Euler result. Its paper and p
 
 The paper has the corporate author **OPENAI** and does not describe the generating model, agent architecture, or compute budget. Its existence cannot by itself establish which particular model produced it.
 
-The [Navier–Stokes announcement][announcement] was reachable as a titled page, but its body was not obtained by direct retrieval. The [Astra launch page][astra] yielded a partial body concerning cyber evaluations rather than the mathematical results sought here; a separate direct fetch returned HTTP 403. Targeted searches for the reported earlier Astra mathematics results did not recover a primary paper or proof repository with an exact producing- system attribution that could be confirmed in this review.
+The [Navier–Stokes announcement][announcement] was reachable as a titled page, but its body was not obtained by direct retrieval. The [Astra launch page][astra] yielded a partial body concerning cyber evaluations rather than the mathematical results sought here; a separate direct fetch returned HTTP 403. Targeted searches for the reported earlier Astra mathematics results did not recover a primary paper or proof repository with an exact producing-system attribution that could be confirmed in this review.
 
 Consequently, benchmark percentages, counts of purported open-problem solutions, agent counts, runtime figures, and assertions about an internal model's relationship to public Astra are not repeated as findings. None is needed for the constitutional experiments below.
 
@@ -56,7 +56,7 @@ Consequently, benchmark percentages, counts of purported open-problem solutions,
 
 **Preserve invariants by construction.** Taking curls of potentials preserves incompressibility even when cutoffs are introduced. In the constitutional model, a proposal does not change the constitution, unchanged fields persist, and ratification is judged under the current rule rather than the rule the amendment wishes to create. These are concrete transition invariants in [the framed search](bounded-article-v-search.md).
 
-**Recompute after every change.** Section 8.7 requires the full updated velocity, including correction terms, in the next residual. The state- admission experiment likewise recomputes both the supporting-state count and the total-state denominator. The attendance audit compares vote costs under one attendance convention, rather than mixing two favorable numbers.
+**Recompute after every change.** Section 8.7 requires the full updated velocity, including correction terms, in the next residual. The state-admission experiment likewise recomputes both the supporting-state count and the total-state denominator. The attendance audit compares vote costs under one attendance convention, rather than mixing two favorable numbers.
 
 **Keep dependency claims precise.** A proof that uses a component is not a proof that no other construction can work without it. The [causality audit](repair-causality-audit.md) distinguishes an entailment dependency from causal necessity and tests contradictory hypotheses and missing persistence constraints explicitly.
 

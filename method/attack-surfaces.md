@@ -16,7 +16,7 @@ The classes are not equally visible. A method that reads only constitutional tex
 
 ## How a check fails
 
-Given that a safeguard exists, the second partition asks which part of it gave way. A check has four components — a trigger, an operator who fires it, a scope, and a duration — so with the case where no check exists at all there are five ways to fail, and they are exhaustive over the anatomy.
+Given that a safeguard exists, the second partition asks which part of it gave way. A check has four components (a trigger, an operator who fires it, a scope, and a duration), so with the case where no check exists at all there are five ways to fail, and they are exhaustive over the anatomy.
 
 **No check.** Weimar Article 76 carried no substantive limit whatever. Nothing was placed beyond amendment, there was no unamendable clause, and the entrenchment was purely procedural.
 
@@ -24,9 +24,9 @@ Given that a safeguard exists, the second partition asks which part of it gave w
 
 **The operator can be disabled.** This is the failure that matters most and the one a naive method scores as safe. Both checks were textually sound, neither was ever amended or repealed, and both failed because the body that operates them can be stopped from sitting. The German instance is Step 3 of `analysis/germany-1933/path-enabling-act.md`; the Austrian instance, including the parliamentary resignation gap, is Step 5 of `analysis/austria-1920/path-kweg-bridge.md`.
 
-**The scope is obeyed and evaded.** The limit is respected on the dimension it names while the effect is achieved on a dimension it does not. The Reichstag Fire Decree suspended exactly the seven rights articles Article 48(2) enumerated, scrupulously — but substituted *bis auf weiteres* for the constitution's *vorübergehend*, and that substitution is demonstrably deliberate. The full textual evidence is Step 1 of `analysis/germany-1933/path-enabling-act.md`.
+**The scope is obeyed and evaded.** The limit is respected on the dimension it names while the effect is achieved on a dimension it does not. The Reichstag Fire Decree suspended exactly the seven rights articles Article 48(2) enumerated, scrupulously, but substituted *bis auf weiteres* for the constitution's *vorübergehend*, and that substitution is demonstrably deliberate. The full textual evidence is Step 1 of `analysis/germany-1933/path-enabling-act.md`.
 
-**The duration is limited but renewable, or self-sealing.** A sunset restrains only an actor who will not hold the power at sunset. The sharper failure is a termination condition triggered by an event the power itself exists to prevent — such a condition is not a limit on the holder but a statement of what the holder must avoid. The Enabling Act's two sunset clauses are the textbook instance, analysed in `analysis/germany-1933/path-enabling-act.md` under "The limits that held and did not matter."
+**The duration is limited but renewable, or self-sealing.** A sunset restrains only an actor who will not hold the power at sunset. The sharper failure is a termination condition triggered by an event the power itself exists to prevent. Such a condition is not a limit on the holder but a statement of what the holder must avoid. The Enabling Act's two sunset clauses are the textbook instance, analyzed in `analysis/germany-1933/path-enabling-act.md` under "The limits that held and did not matter."
 
 The consequence for method is a change of question. Asking whether a document contains checks is close to useless, because all three of these documents did. The question that separates them is who must be functioning for a given check to fire, and whether that person or body can be stopped by someone the check is aimed at.
 

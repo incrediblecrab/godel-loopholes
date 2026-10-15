@@ -1,4 +1,4 @@
-from contextlib import redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 import io
 from itertools import product
 import json
@@ -402,6 +402,39 @@ class ReproductionTests(unittest.TestCase):
                 replication.main()
             self.assertEqual(error.exception.code, 2)
             output.write_text.assert_not_called()
+
+    def test_check_accepts_matching_results_under_a_different_runtime(self):
+        results = {
+            "enumeration": {"totals": {}}, "smt": {"by_n": []},
+            "negative_controls": [], "source_statement_control": {"result": "ok"},
+        }
+        fresh = {**results, "runtime": {"python": "9.9.9", "z3": "9.9.9"}}
+        stored = {**results, "runtime": {"python": "3.13.3", "z3": "5.1.0"}}
+        with (
+            patch("self_amendment.run", return_value=fresh),
+            patch("self_amendment.RESULTS") as output,
+            patch("sys.argv", ["self_amendment.py", "--check"]),
+            redirect_stdout(io.StringIO()) as stdout,
+        ):
+            output.is_file.return_value = True
+            output.read_text.return_value = json.dumps(stored)
+            self.assertEqual(replication.main(), 0)
+            output.write_text.assert_not_called()
+        self.assertIn("Runtime differs", stdout.getvalue())
+
+    def test_check_rejects_changed_results_under_the_recorded_runtime(self):
+        runtime = {"python": "3.13.3", "z3": "5.1.0"}
+        with (
+            patch("self_amendment.run", return_value={"result": 2, "runtime": runtime}),
+            patch("self_amendment.RESULTS") as output,
+            patch("sys.argv", ["self_amendment.py", "--check"]),
+            redirect_stderr(io.StringIO()),
+        ):
+            output.is_file.return_value = True
+            output.read_text.return_value = json.dumps({"result": 1, "runtime": runtime})
+            with self.assertRaises(SystemExit) as error:
+                replication.main()
+            self.assertEqual(error.exception.code, 2)
 
 
 HERE_FOR_TESTS = RESULTS.parent
