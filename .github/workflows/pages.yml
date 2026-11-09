@@ -113,31 +113,42 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # pnpm has to be on PATH before setup-node, whose `cache: pnpm` asks pnpm
+      # where its store is. The version matches the one the lockfile was
+      # written with.
+      - uses: pnpm/action-setup@v6.1.1
+        with:
+          version: 12.18.0
+
       - uses: actions/setup-node@v7
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: site/package-lock.json
+          cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
 
-      # This build has failed twice, both times identically: an incremental
-      # `npm install <pkg>` run on macOS records only what macOS resolves and
-      # prunes the Linux-only WASM fallbacks (@emnapi/*, reached through
-      # @img/sharp-wasm32) back out of the lockfile. `npm ci` then refuses to
-      # run here, and reports it as an EUSAGE wall of text that says nothing
-      # about the actual cause. Checking it first turns that into an
-      # instruction. The same check is the first step of `npm run build`, so it
-      # should never fire — if it does, the local guard was bypassed.
-      - name: The lockfile installs on this platform
+      # While the site used npm, this build failed twice, both times
+      # identically: an incremental `npm install <pkg>` on macOS recorded only
+      # what macOS resolved and pruned the Linux-only WASM fallbacks (@emnapi/*,
+      # reached through @img/sharp-wasm32) out of package-lock.json, and `npm
+      # ci` then refused to run here with an EUSAGE wall of text. pnpm records
+      # every platform's optional packages in pnpm-lock.yaml, so that mechanism
+      # is gone. What can still fail here is a lockfile out of step with
+      # package.json, or one missing an entry, and `--frozen-lockfile` rejects
+      # both. Checking it first, without installing, turns that into an
+      # instruction. The same check is the first step of `npm run build` and
+      # the pre-push hook, so it should never fire — if it does, the local
+      # guard was bypassed.
+      - name: The lockfile matches package.json and is complete
         run: |
-          if npm ci --dry-run >/dev/null 2>&1; then
-            echo "Lockfile resolves cleanly on linux-x64."
+          if pnpm install --frozen-lockfile --lockfile-only --prefer-offline >/dev/null 2>&1; then
+            echo "pnpm-lock.yaml matches package.json and is complete."
             exit 0
           fi
-          echo "::error title=Lockfile is not installable on linux-x64::Run: cd site && rm -rf node_modules package-lock.json && npm install"
-          npm ci --dry-run 2>&1 | grep -E 'Missing:|npm error' | head -20
+          echo "::error title=pnpm-lock.yaml is out of date or incomplete::Run: cd site && pnpm install, then commit pnpm-lock.yaml"
+          pnpm install --frozen-lockfile --lockfile-only --prefer-offline 2>&1 | head -20
           exit 1
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       # Fails on a hardcoded load-bearing value, then builds, then pins the CSP
       # to the SHA-256 of every inline script that actually shipped, then
@@ -146,7 +157,7 @@ jobs:
         run: npm run build
 
       - name: Install Chromium for the browser checks
-        run: npx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       # Serves dist/ over HTTP and drives it. This is the only check that sees
       # what a reader sees: CSP enforcement, third-party requests, the keyboard

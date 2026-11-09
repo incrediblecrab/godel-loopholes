@@ -1,0 +1,3 @@
+# esbuild's postinstall only re-checks the platform binary that pnpm already installs from @esbuild/<platform>; the build works without it. Denying it explicitly keeps CI's install from failing on an unapproved build script, since the runner has no global `strictDepBuilds: false`.
+allowBuilds:
+  esbuild: false

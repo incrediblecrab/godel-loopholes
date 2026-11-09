@@ -1018,7 +1018,7 @@ fi
 # a machine with Isabelle on it may well not have, so it is INCONCLUSIVE rather
 # than FAIL when they are missing -- the same treatment Lean and pdftotext get.
 hdr "6f. The published site passes its own browser harness"
-if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>&1; then
+if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>&1 && command -v pnpm >/dev/null 2>&1; then
   if out=$(cd "$REPO/site" && npm run --silent build >/dev/null 2>&1 && node scripts/browser-check.mjs 2>&1); then
     ok "$(echo "$out" | tail -1 | sed 's/^ *//')"
   else
@@ -1026,7 +1026,7 @@ if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>
     echo "$out" | grep -E "FAIL|passed" | sed 's/^/      /'
   fi
 else
-  inconc "site/node_modules/playwright or npm not present; run npm ci in site/"
+  inconc "site/node_modules/playwright, npm or pnpm not present; run pnpm install in site/"
 fi
 
 # ---- 6g. Pointers are now structure, not courtesy.
@@ -1088,7 +1088,7 @@ if [[ -d "$REPO/site/node_modules/playwright" ]] && command -v npm >/dev/null 2>
     inconc "site/dist not present; 6f builds it, so this needs 6f to have run"
   fi
 else
-  inconc "site/node_modules/playwright or npm not present; run npm ci in site/"
+  inconc "site/node_modules/playwright or npm not present; run pnpm install in site/"
 fi
 
 # --------------------------------------------------------------------- what is NOT done

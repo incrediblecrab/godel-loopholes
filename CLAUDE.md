@@ -12,6 +12,7 @@ python3 tools/contrast.py --check
 python3 tools/links.py --check      # every path a file points at exists; without --check it exits 0 on a dangle
 python3 tools/ssot_audit.py         # lists every file a load-bearing value appears in
 ./verify.sh                         # toolchain and replication harness (Z3, SWI-Prolog, Isabelle), with negative controls
+cd site && pnpm install             # dependencies, from pnpm-lock.yaml; never npm install or npm ci here
 cd site && npm run build            # lockfile, fact and token lints, astro check, build, CSP seal and check
 ```
 
@@ -21,4 +22,4 @@ cd site && npm run build            # lockfile, fact and token lints, astro chec
 
 Facts are single-sourced: every number in `data/facts.json` names one owning file, and narrative in other files may reword but not restate a different value; change the owner and the JSON together, then run `tools/facts.py --check`. A file that moves prose elsewhere leaves a pointer, which `tools/links.py` checks. A proposed loophole counts only if it meets `method/what-counts-as-a-finding.md` (authorized steps, an explicit coalition, a concrete falsifier), and instrument results follow `method/what-counts-as-an-instrument-result.md`; keep negative and corrected results in the record. A tool is usable here only after it has re-derived a published result (`method/README.md`). Primary legal texts live in `corpus/`; downloaded papers and cloned repositories stay untracked.
 
-`.githooks/pre-push` refuses a `site/package-lock.json` that would not install on Linux CI; this clone sets `core.hooksPath` to `.githooks`, so it runs on every push here; a fresh clone needs `git config core.hooksPath .githooks`.
+The site installs with pnpm. `.githooks/pre-push` refuses a `site/pnpm-lock.yaml` that is out of step with `site/package.json` or missing an entry, which CI's `pnpm install --frozen-lockfile` would reject; this clone sets `core.hooksPath` to `.githooks`, so it runs on every push here; a fresh clone needs `git config core.hooksPath .githooks`.
